@@ -1,0 +1,163 @@
+{
+	"https://www.indianbank.in/departments/savings-bank/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ib-corp-sb-payroll-package-scheme-for-salaried-class/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/vikas-savings-khata-a-no-frills-savings-bank-account/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ib-smart-kid/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/important-terms-and-conditions/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/sb-platinum/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ib-surabhi/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "saving"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+
+}

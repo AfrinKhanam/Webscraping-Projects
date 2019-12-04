@@ -1,0 +1,49 @@
+i{
+    "took": 6,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 536,
+            "relation": "eq"
+        },
+        "max_score": 0.62483317,
+        "hits": [
+            {
+                "_index": "indian-bank-auto-suggestion",
+                "_type": "_doc",
+                "_id": "12943428-0d0a-11ea-98f2-f82819d00eeb",
+                "_score": 0.62483317,
+                "_source": {
+                    "Questions": "What is POS?",
+                    "primary_context_and_keyword": "POS, Point of sale"
+                }
+            },
+            {
+                "_index": "indian-bank-auto-suggestion",
+                "_type": "_doc",
+                "_id": "13bf94b2-0d0a-11ea-98f2-f82819d00eeb",
+                "_score": 0.62483317,
+                "_source": {
+                    "Questions": "What is IndPay?",
+                    "primary_context_and_keyword": "IndPay,Pay"
+                }
+            },
+            {
+                "_index": "indian-bank-auto-suggestion",
+                "_type": "_doc",
+                "_id": "07d078a8-0d0a-11ea-98f2-f82819d00eeb",
+                "_score": 0.59177214,
+                "_source": {
+                    "Questions": "What is Savings Bank?",
+                    "primary_context_and_keyword": "Savings bank"
+                }
+            }
+        ]
+    }
+}

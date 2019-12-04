@@ -1,0 +1,9 @@
+pika
+nltk
+autocorrect
+elasticsearch
+numpy
+sumy
+gensim
+bert-extractive-summarizer
+redis

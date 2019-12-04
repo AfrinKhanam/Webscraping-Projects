@@ -1,0 +1,46 @@
+{
+	"https://www.indianbank.in/departments/shg-bank-linkage-programme-direct-linkage-to-shgs/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "group"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+	"https://www.indianbank.in/departments/agricultural-godowns-cold-storage/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "group"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+}
