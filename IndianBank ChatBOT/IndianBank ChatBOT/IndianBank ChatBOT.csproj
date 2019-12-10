@@ -106,5 +106,8 @@
     <Folder Include="Dialogs\Contacts\Resources\" />
     <Folder Include="Dialogs\Greeting\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\ChatBOT\.picasa.ini" />
+  </ItemGroup>
 
 </Project>

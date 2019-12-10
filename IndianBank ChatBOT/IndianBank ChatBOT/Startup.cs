@@ -26,7 +26,6 @@ namespace IndianBank_ChatBOT
     public class Startup
     {
         #region properties
-
         private ILoggerFactory _loggerFactory;
         private bool _isProduction = false;
         public IConfiguration Configuration { get; }
