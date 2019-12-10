@@ -1,0 +1,12 @@
+{
+  "missing": "lost",
+  "forgotten": "lost",
+  "scheme": "schemes",
+  "atm": "atm_entity",
+  "atm branch": "atm_entity",
+  "atm point": "atm_entity",
+  "branch": "atm_entity",
+  "bank branch": "atm_entity",
+  "branch locator": "atm_entity",
+  "atm locator": "atm_entity"
+}

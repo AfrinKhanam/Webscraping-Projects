@@ -1,0 +1,87 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "EMI Calculator",
+          "weight": "bolder",
+          "size": "medium"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "",
+                  "weight": "bolder",
+                  "wrap": true
+                }
+
+              ]
+            }
+          ]
+        },
+        {
+          "type": "TextBlock",
+          "text": "Principal :",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Principal :",
+          "id": "principal",
+          "placeholder": "Principal"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Rate:",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Rate :",
+          "id": "rate",
+          "placeholder": "Rate"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Time :",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Time :",
+          "id": "time",
+          "placeholder": "Time"
+        }
+
+      ]
+    }
+
+
+
+
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "EMI",
+      "data": {
+        "action": "emi_cal"
+      }
+    }
+  ]
+}
+
+
+

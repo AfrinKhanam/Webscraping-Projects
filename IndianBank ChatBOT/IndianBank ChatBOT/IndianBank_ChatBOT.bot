@@ -1,0 +1,39 @@
+﻿{
+  "name": "IndianBank_ChatBOT",
+  "description": "",
+  "services": [
+    {
+      "type": "endpoint",
+      //"appId": "7fa94633-edef-4619-9314-d1875adbbdd2",
+      //"appPassword": "uiqoaKNS2(=(umFBMT9327?",
+      "endpoint": "http://localhost:7512/api/messages",
+      "id": "1",
+      "name": "development"
+    },
+    //{
+    //  "type": "endpoint",
+    //  "appId": "7fa94633-edef-4619-9314-d1875adbbdd2",
+    //  "appPassword": "uiqoaKNS2(=(umFBMT9327?",
+    //  //"endpoint": "https://indianbank.azurewebsites.net/api/messages",
+    //  "endpoint": "https://465f3eeb.ngrok.io/api/messages",
+    //  "id": "2",
+    //  "name": "production"
+    //},
+    {
+      "type": "luis",
+      "appid": "",
+      "RasaEndPoint": "http://localhost:5000/",
+      "RasaProjectName": "IndianBankProject",
+      "authoringkey": "",
+      "id": "general",
+      "name": "general",
+      "region": "",
+      "subscriptionkey": "",
+      "version": "0.1"
+    }
+  ],
+  "padlock": "",
+  "version": "2.0",
+  "path": "D:\\Indian Bank Workspace\\IndianBank ChatBOT\\IndianBank ChatBOT\\IndianBank_ChatBOT.bot",
+  "overrides": null
+}

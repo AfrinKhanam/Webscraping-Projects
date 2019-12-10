@@ -1,0 +1,87 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Help us to know you better",
+          "weight": "bolder",
+          "size": "medium"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "",
+                  "weight": "bolder",
+                  "wrap": true
+                }
+
+              ]
+            }
+          ]
+        },
+        {
+          "type": "TextBlock",
+          "text": "Name :",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Name :",
+          "id": "name",
+          "placeholder": "Name"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Phone Number:",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Phone :",
+          "id": "phone",
+          "placeholder": "Phone Number"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Email Id :",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "text": "Email :",
+          "id": "email",
+          "placeholder": "Email Id"
+        }
+
+      ]
+    }
+
+
+
+
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Submit",
+      "data": {
+        "action": "submit"
+      }
+    }
+  ]
+}
+
+
+
