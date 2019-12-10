@@ -1,6 +1,6 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
-from MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
-from InMemory.redis import RedisClient
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
+from building_blocks.InMemory.redis import RedisClient
 import json
 
 

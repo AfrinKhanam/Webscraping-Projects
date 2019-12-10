@@ -1,6 +1,6 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
-from MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
-from Utils.es_post_processing import ESPostProcessing
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
+from building_blocks.es_post_processing import ESPostProcessing
 import json                                                                                  
 
 

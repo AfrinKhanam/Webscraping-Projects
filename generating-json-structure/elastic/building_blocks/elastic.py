@@ -3,7 +3,7 @@ from uuid import uuid1
 import json
 
 class Elastic():
-    def __init__(self, host='localhost', port='9200', index='indian-bank-index-modified', doc_type='_doc'):
+    def __init__(self, host='localhost', port='9200', index='indian-bank-index', doc_type='_doc'):
         self.es = Elasticsearch([{'host':'localhost','port':9200}])
         self.index = index
         self.doc_type = doc_type

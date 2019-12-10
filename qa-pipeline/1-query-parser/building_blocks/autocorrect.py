@@ -247,7 +247,7 @@ def autocorrect_module(word_list,setofwords,soundex_dict,query_string):
     #start of the code
 
 setofwords = set(words.words()) 
-soundex_dict = soundex_dict("./data/scraped_text_from_bank_website1.txt")
+soundex_dict = soundex_dict("./config_files/scraped_text_from_bank_website1.txt")
 
 def w_autocorrect(query_string):
 
