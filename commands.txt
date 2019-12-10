@@ -1,0 +1,32 @@
+#activating conda enviorment
+conda activate <enviorment_name>
+
+systemctl status rabbitmq-server.service
+
+# Creating rabbitmq user and password
+sudo rabbitmqctl add_user webscrape webscrape
+
+#list user 
+sudo rabbitmqctl list_users
+
+#Virtual Host
+sudo rabbitmqctl add_vhost webscrape
+
+#List Virtual Host
+sudo rabbitmqctl list_vhosts
+
+#Set permissions
+sudo rabbitmqctl set_permissions -p webscrape webscrape ".*" ".*" ".*"
+
+
+# Linking RabbitMq client code to individual module
+cd <module>/building_blocks/
+ln -s ../../Utils/MessageQueue/ MessageQueue
+
+
+#elastic search check status
+systemctl status elasticsearch.service 
+
+#elastic search start
+systemctl start elasticsearch.service
+
