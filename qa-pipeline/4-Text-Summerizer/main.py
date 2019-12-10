@@ -1,5 +1,5 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
-from MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
 import json                                                                                  
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer

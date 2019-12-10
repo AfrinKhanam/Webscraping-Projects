@@ -1,6 +1,6 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
-from MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
-from Utils.elastic_search import Elastic
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
+from building_blocks.elastic_search import Elastic
 import json                                                                                  
 
 

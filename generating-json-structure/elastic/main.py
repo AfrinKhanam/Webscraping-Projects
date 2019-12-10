@@ -1,4 +1,4 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
 from building_blocks.elastic import Elastic
 import json
 

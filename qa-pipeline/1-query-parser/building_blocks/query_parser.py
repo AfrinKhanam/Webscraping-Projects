@@ -3,7 +3,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from autocorrect import spell
 from nltk.corpus import stopwords
 from gingerit.gingerit import GingerIt
-from Utils.autocorrect import w_autocorrect
+from building_blocks.autocorrect import w_autocorrect
 
 import re
 
@@ -13,7 +13,7 @@ class QueryParser:
         #-------------- Initialise all custom stop words ---------------------#
         self.ps = PorterStemmer()
         self.bag_of_words = []
-        f = open('./Utils/custom-stop-words.txt', 'r')
+        f = open('./config_files/custom-stop-words.txt', 'r')
         for word in f:
             self.bag_of_words.append(self.ps.stem(word.split("\n")[0].lower()))
         f.close()
@@ -23,7 +23,7 @@ class QueryParser:
         
         # Reading Stemmed file
         self.synonyms_repo = []
-        f = open('./Utils/synonyms.txt', 'r')
+        f = open('./config_files/synonyms.txt', 'r')
         content = f.read()
         self.synonyms_repo = content.split('\n')
         f.close()
@@ -64,7 +64,7 @@ class QueryParser:
 
         #--------------------------------------------------------------------#
         self.parser = GingerIt()
-        f = open("./corrections_text.txt", 'r')
+        f = open("./config_files/corrections_text.txt", 'r')
         correct_word = {}
 
         for line in f:

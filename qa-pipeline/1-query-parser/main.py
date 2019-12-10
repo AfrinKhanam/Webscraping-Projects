@@ -1,6 +1,6 @@
-from MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
-from MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
-from Utils.query_parser import  QueryParser 
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
+from building_blocks.query_parser import  QueryParser 
 import json                                                                                  
 
 def callback(ch, method, properties, body):                                                  

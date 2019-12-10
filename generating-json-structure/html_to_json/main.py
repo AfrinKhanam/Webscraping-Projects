@@ -301,7 +301,7 @@ cash_pos_config_file = digital_product + "cash@pos.json"
 # ----------------------------------------------------------- #
 
 # ----------------------------------------------------------- #
-with open(cash_pos_config_file, "r") as file:
+with open(education_config_file, "r") as file:
     url_list = json.loads(file.read())
 # ----------------------------------------------------------- #
 
