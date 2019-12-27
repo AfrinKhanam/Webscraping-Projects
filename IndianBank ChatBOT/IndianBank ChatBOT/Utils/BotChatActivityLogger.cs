@@ -13,57 +13,63 @@ namespace IndianBank_ChatBOT.Utils
     public class BotChatActivityLogger : ITranscriptLogger
     {
         private string value;
-         static string IntentName=string.Empty;
-         static double IntentScore=0.0;
+        static string IntentName = string.Empty;
+        static double IntentScore = 0.0;
         static string Entities = String.Empty;
         public BotChatActivityLogger(string value)
         {
             this.value = value;
         }
 
-        
+
         public async Task LogActivityAsync(IActivity activity)
         {
-            System.Diagnostics.Debug.Write("[INFO] Message: " + JsonConvert.SerializeObject(activity) + "SSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-            using (var dbContext = new LogDataContext())
+            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+
+            using (var dbContext = new AppDbContext(cs))
             {
                 var msg = activity.AsMessageActivity();
-                var logData = new LogData
-                {
-                    ActivityId = msg.Id,
-                    ActivityType = msg.Type,
-                    ReplyToActivityId = msg.ReplyToId,
-                    ConversationId = msg.Conversation.Id,
-                    ConversationType = msg.Conversation.ConversationType,
-                    ConversationName = msg.Conversation.Name,
-                    //FromId = msg.From.Id,
-                    //FromName = msg.From.Name,
-                    RecipientId = msg.Recipient.Id,
-                    //RasaEntities = msg.Entities != null && msg.Entities.Any() ? JsonConvert.SerializeObject(msg.Entities) : null,
-                    RasaEntities = Entities,
-                    RasaIntent = IntentName,
-                    RasaScore =IntentScore,
-                    RecipientName = msg.Recipient.Name,
-                    Text = msg.Text,
-                    TimestampUtc = msg.Timestamp?.DateTime,
-                    Timestamp = msg.Timestamp?.LocalDateTime
-                };
-
                 try
                 {
-                    var data = await dbContext.ChatLog.AddAsync(logData);
+                    if (msg != null)
+                    {
+                        var logData = new ChatLog
+                        {
+                            ActivityId = msg.Id,
+                            ActivityType = msg.Type,
+                            ReplyToActivityId = msg.ReplyToId,
+                            ConversationId = msg.Conversation.Id,
+                            ConversationType = msg.Conversation.ConversationType,
+                            ConversationName = msg.Conversation.Name,
+                            RecipientId = msg.Recipient?.Id,
+                            RecipientName = msg.Recipient?.Name,
+                            //TODO
+                            //RasaEntities = Entities,
+                            //RasaIntent = IntentName,
+                            //RasaScore = IntentScore,
+                            FromId = msg.From?.Id,
+                            FromName = msg.From?.Name,
+                            Text = msg.Text,
+                            //TODO
+                            ResponseJsonText = "",
+                            ResonseFeedback = null,
+                            TimeStamp = msg.Timestamp?.LocalDateTime,
+                            Id = 0,
+                            ResponseSource = ResponseSource.ElasticSearch
+                        };
 
-                    var result = await dbContext.SaveChangesAsync();
+                        var data = await dbContext.ChatLogs.AddAsync(logData);
+
+                        var result = await dbContext.SaveChangesAsync();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw;
                 }
-
             }
-
         }
-        public static void GetRasaResult(string intentName,double intentScore,string  entity)
+        public static void GetRasaResult(string intentName, double intentScore, string entity)
         {
             IntentName = intentName;
             IntentScore = intentScore;

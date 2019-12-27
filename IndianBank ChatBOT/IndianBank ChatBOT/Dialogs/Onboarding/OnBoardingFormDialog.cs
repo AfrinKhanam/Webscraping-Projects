@@ -1,6 +1,7 @@
 ﻿using IndianBank_ChatBOT.Dialogs.Main;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Middleware;
+using IndianBank_ChatBOT.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
@@ -50,7 +51,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new TextPrompt(DialogIds.AskforName, ValidateNameAsync));
-           // AddDialog(new TextPrompt(DialogIds.AskEmailId, ValidateEmailAsync));
+            // AddDialog(new TextPrompt(DialogIds.AskEmailId, ValidateEmailAsync));
             AddDialog(new TextPrompt(DialogIds.AskPhoneNo, ValidateMobileNumberAsync));
 
 
@@ -60,7 +61,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         {
             string name = pc.Recognized.Value;
 
-            if (name == "about us" || name == "product"|| name == "services"|| name == "rates"|| name == "contacts"|| name == "links")
+            if (name == "about us" || name == "product" || name == "services" || name == "rates" || name == "contacts" || name == "links")
             {
                 await pc.Context.SendActivityAsync("Please enter your name first to proceed further");
                 return false;
@@ -144,13 +145,42 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             await stepContext.Context.SendActivityAsync($"Thanks {OnBoardingFormDialog.ApplicantName} for providing all the information.\n  Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
             //await stepContext.Context.SendActivityAsync("Please find the menu.");
             //await _responder.ReplyWith(stepContext.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
+
+            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+
+            using (var dbContext = new AppDbContext(cs))
+            {
+
+                try
+                {
+                    var userName = stepContext.Values["UserName"].ToString();
+                    var userInfo = new UserInfo
+                    {
+                        Id = 0,
+                        Name = userName,
+                        PhoneNumber = userPhoneNumber,
+                        ConversationId = stepContext.Context.Activity.Conversation.Id,
+                        CreatedOn = DateTime.Now,
+                    };
+
+                    var data = await dbContext.UserInfos.AddAsync(userInfo);
+
+                    var result = await dbContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+
+
             return await stepContext.EndDialogAsync();
         }
 
         public class DialogIds
         {
             public const string AskforName = "AskforName";
-           // public const string AskEmailId = "AskEmailId";
+            // public const string AskEmailId = "AskEmailId";
             public const string AskPhoneNo = "AskPhoneNo";
             public const string EndOnboardingDialog = "EndOnboardingDialog";
         }

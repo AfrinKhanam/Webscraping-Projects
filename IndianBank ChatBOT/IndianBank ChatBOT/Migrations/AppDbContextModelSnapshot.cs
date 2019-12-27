@@ -3,17 +3,15 @@ using System;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBankChatBOT.Migrations
 {
-    [DbContext(typeof(LogDataContext))]
-    [Migration("20191014071804_init123")]
-    partial class init123
+    [DbContext(typeof(AppDbContext))]
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +19,7 @@ namespace IndianBankChatBOT.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.Faq", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Answer");
-
-                    b.Property<string>("Question");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Faq");
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.LogData", b =>
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.ChatLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -58,7 +42,7 @@ namespace IndianBankChatBOT.Migrations
 
                     b.Property<string>("RasaIntent");
 
-                    b.Property<double>("RasaScore");
+                    b.Property<double?>("RasaScore");
 
                     b.Property<string>("RecipientId");
 
@@ -66,15 +50,37 @@ namespace IndianBankChatBOT.Migrations
 
                     b.Property<string>("ReplyToActivityId");
 
+                    b.Property<int?>("ResonseFeedback");
+
+                    b.Property<string>("ResponseJsonText");
+
+                    b.Property<int>("ResponseSource");
+
                     b.Property<string>("Text");
 
-                    b.Property<DateTime?>("Timestamp");
-
-                    b.Property<DateTime?>("TimestampUtc");
+                    b.Property<DateTime?>("TimeStamp");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChatLog");
+                    b.ToTable("ChatLogs");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.UserInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConversationId");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInfos");
                 });
 #pragma warning restore 612, 618
         }

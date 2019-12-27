@@ -80,8 +80,12 @@ namespace IndianBank_ChatBOT
             services.AddSingleton(conversationState);
             services.AddSingleton(new BotStateSet(userState, conversationState));
             services.AddMvc();
-            services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
-            services.AddTransient<LogDataContext, LogDataContext>();
+            //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
+            //services.AddTransient<LogDataContext, LogDataContext>();
+
+            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
+            services.AddTransient<AppDbContext, AppDbContext>();
+
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             connectedServices.ServiceProvider = services.BuildServiceProvider();
             
