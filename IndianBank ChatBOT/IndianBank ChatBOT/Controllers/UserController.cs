@@ -1,4 +1,5 @@
 ﻿using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,19 @@ using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    [Route("[controller]")]
+    //[Route("[controller]")]
     public class UserController : Controller
     {
         public UserController()
         {
         }
 
-        public IActionResult UpdateFeedback(string activityId, string conversationId, ResonseFeedback resonseFeedback)
+        public string Index()
+        {
+            return "";
+        }
+
+        public IActionResult UpdateFeedback(FeedBackInfo feedBackInfo)
         {
             return null;
         }

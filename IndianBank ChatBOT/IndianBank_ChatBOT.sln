@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.138
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndianBank ChatBOT", "IndianBank ChatBOT\IndianBank ChatBOT.csproj", "{038B4AA5-37DF-42C5-90F1-E68E8558C535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndianBank_ChatBOT", "IndianBank ChatBOT\IndianBank_ChatBOT.csproj", "{038B4AA5-37DF-42C5-90F1-E68E8558C535}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

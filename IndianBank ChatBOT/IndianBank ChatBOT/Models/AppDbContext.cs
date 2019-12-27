@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IndianBank_ChatBOT.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,6 @@ namespace IndianBank_ChatBOT.Models
 
         public DbSet<ChatLog> ChatLogs { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
+        public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
     }
 }

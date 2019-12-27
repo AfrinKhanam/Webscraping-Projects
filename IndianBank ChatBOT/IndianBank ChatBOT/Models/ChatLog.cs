@@ -11,7 +11,7 @@ namespace IndianBank_ChatBOT.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public ResponseSource ResponseSource { get; set; }
+        public ResponseSource? ResponseSource { get; set; }
         public string ActivityId { get; set; }
         public string ActivityType { get; set; }
         public string ConversationId { get; set; }

@@ -12,21 +12,23 @@ namespace IndianBank_ChatBOT.Utils
 {
     public class BotChatActivityLogger : ITranscriptLogger
     {
-        private string value;
-        static string IntentName = string.Empty;
-        static double IntentScore = 0.0;
-        static string Entities = String.Empty;
+        private string _connectionString;
+        static string _intentName = string.Empty;
+        static double _intentScore = 0.0;
+        static string _entities = string.Empty;
+        static string _responseJsonText = string.Empty;
+        static ResponseSource? _responseSource = null;
+
         public BotChatActivityLogger(string value)
         {
-            this.value = value;
+            this._connectionString = value;
         }
-
 
         public async Task LogActivityAsync(IActivity activity)
         {
-            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
 
-            using (var dbContext = new AppDbContext(cs))
+            using (var dbContext = new AppDbContext(_connectionString))
             {
                 var msg = activity.AsMessageActivity();
                 try
@@ -43,19 +45,17 @@ namespace IndianBank_ChatBOT.Utils
                             ConversationName = msg.Conversation.Name,
                             RecipientId = msg.Recipient?.Id,
                             RecipientName = msg.Recipient?.Name,
-                            //TODO
-                            //RasaEntities = Entities,
-                            //RasaIntent = IntentName,
-                            //RasaScore = IntentScore,
+                            RasaEntities = _entities,
+                            RasaIntent = _intentName,
+                            RasaScore = _intentScore,
                             FromId = msg.From?.Id,
                             FromName = msg.From?.Name,
                             Text = msg.Text,
-                            //TODO
-                            ResponseJsonText = "",
+                            ResponseJsonText = _responseJsonText,
                             ResonseFeedback = null,
                             TimeStamp = msg.Timestamp?.LocalDateTime,
                             Id = 0,
-                            ResponseSource = ResponseSource.ElasticSearch
+                            ResponseSource = _responseSource
                         };
 
                         var data = await dbContext.ChatLogs.AddAsync(logData);
@@ -69,16 +69,24 @@ namespace IndianBank_ChatBOT.Utils
                 }
             }
         }
-        public static void GetRasaResult(string intentName, double intentScore, string entity)
+        public static void UpdateRaSaData(string intentName, double intentScore, string entity)
         {
-            IntentName = intentName;
-            IntentScore = intentScore;
-            Entities = entity;
+            _intentName = intentName;
+            _intentScore = intentScore;
+            _entities = entity;
+        }
+        public static void UpdateResponseJsonText(string responseJsonText)
+        {
+            _responseJsonText = responseJsonText;
+        }
+        public static void UpdateSource(ResponseSource responseSource)
+        {
+            _responseSource = responseSource;
         }
         public static void GetDepavlovResult(string confidence)
         {
-            IntentName = "Faq";
-            IntentScore = Convert.ToDouble(confidence);
+            _intentName = "Faq";
+            _intentScore = Convert.ToDouble(confidence);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace IndianBankChatBOT.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    ResponseSource = table.Column<int>(nullable: false),
+                    ResponseSource = table.Column<int>(nullable: true),
                     ActivityId = table.Column<string>(nullable: true),
                     ActivityType = table.Column<string>(nullable: true),
                     ConversationId = table.Column<string>(nullable: true),

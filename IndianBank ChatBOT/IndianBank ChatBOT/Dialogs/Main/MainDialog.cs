@@ -289,8 +289,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 var result = await luisService.RecognizeAsync(dc.Context, CancellationToken.None);
 
-
-
                 List<string> entityTypes = new List<string>
                 {
                     "what_entity",
@@ -326,6 +324,10 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 var generalIntentScore = result.GetTopScoringIntent().score;
 
                 Console.WriteLine(generalIntent, generalIntentScore);
+
+                BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
+                BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
+                BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
 
                 if (generalIntentScore > 0.32)
                 {
@@ -426,7 +428,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             // }
 
             //await dc.Context.SendActivityAsync("Send to Backend for answer!!");
-           
+
             var data = rabbitMq(rabbitMqQuery, context);
 
             await DisplayBackendResult(dc, context, data);
@@ -610,8 +612,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         }
 
         //rabbitmq method
-
-
         public static string GenerateCoupon(int length, Random random)
         {
             string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -622,7 +622,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             }
             return result.ToString();
         }
-
 
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {

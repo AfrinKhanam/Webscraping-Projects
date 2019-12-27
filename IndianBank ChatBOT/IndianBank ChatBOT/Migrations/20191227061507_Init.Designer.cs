@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IndianBankChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191226184532_Init")]
+    [Migration("20191227061507_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace IndianBankChatBOT.Migrations
 
                     b.Property<string>("ResponseJsonText");
 
-                    b.Property<int>("ResponseSource");
+                    b.Property<int?>("ResponseSource");
 
                     b.Property<string>("Text");
 

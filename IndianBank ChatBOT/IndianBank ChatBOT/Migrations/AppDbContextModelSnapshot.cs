@@ -54,7 +54,7 @@ namespace IndianBankChatBOT.Migrations
 
                     b.Property<string>("ResponseJsonText");
 
-                    b.Property<int>("ResponseSource");
+                    b.Property<int?>("ResponseSource");
 
                     b.Property<string>("Text");
 

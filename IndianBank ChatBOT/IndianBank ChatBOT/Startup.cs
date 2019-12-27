@@ -106,8 +106,9 @@ namespace IndianBank_ChatBOT
                     await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
                    // await context.SendActivityAsync(exception.GetBaseException().ToString());
                 };
- 
-                var myLogger = new BotChatActivityLogger(Configuration.GetSection("connString").Value);
+                var connectionString = Configuration.GetConnectionString("connString");
+                var myLogger = new BotChatActivityLogger(connectionString);
+
                 var transcriptMiddleware = new TranscriptLoggerMiddleware(myLogger);
                 options.Middleware.Add(transcriptMiddleware);
                 //Transcript store to log incoming and outgoing msg
