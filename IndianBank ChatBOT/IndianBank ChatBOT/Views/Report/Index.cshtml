@@ -3,5 +3,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Available Reports</h2>
+<br />
+
+<button type="button" onclick="location.href='@Url.Action("FrequentlyAskedQueries", "Report")'" class="btn btn-outline-primary">View Frequently Asked Queries</button>
+<button type="button" onclick="location.href='@Url.Action("AppUsers", "Report")'" class="btn btn-outline-primary">Application Users</button>
+<button type="button" onclick="location.href='@Url.Action("UnAnsweredQueries", "Report")'" class="btn btn-outline-primary">View UnAnswered Queries</button>
 
