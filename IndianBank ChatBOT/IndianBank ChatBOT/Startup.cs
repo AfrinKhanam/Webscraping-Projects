@@ -73,7 +73,7 @@ namespace IndianBank_ChatBOT
             var dataStore = new MemoryStorage();
             var userState = new UserState(dataStore);
             var conversationState = new ConversationState(dataStore);
-          
+
 
             services.AddSingleton(dataStore);
             services.AddSingleton(userState);
@@ -88,7 +88,7 @@ namespace IndianBank_ChatBOT
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             connectedServices.ServiceProvider = services.BuildServiceProvider();
-            
+
             services.AddBot<IndianBank_ChatBOT>(options =>
             {
                 // Load the connected services from .bot file.
@@ -100,14 +100,21 @@ namespace IndianBank_ChatBOT
                     throw new InvalidOperationException($"The .bot file does not contain an endpoint with name '{environment}'.");
                 }
 
+                var connectionString = Configuration.GetConnectionString("connString");
+                var myLogger = new BotChatActivityLogger(connectionString);
+
                 options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
                 options.OnTurnError = async (context, exception) =>
                 {
+                    var activity = context.Activity;
+                    BotChatActivityLogger.UpdateRaSaData("bye_intent", 0, "");
+                    BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
+                    BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
+                    await BotChatActivityLogger.LogActivityCustom(activity);
                     await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
-                   // await context.SendActivityAsync(exception.GetBaseException().ToString());
+                    // await context.SendActivityAsync(exception.GetBaseException().ToString());
                 };
-                var connectionString = Configuration.GetConnectionString("connString");
-                var myLogger = new BotChatActivityLogger(connectionString);
+                
 
                 var transcriptMiddleware = new TranscriptLoggerMiddleware(myLogger);
                 options.Middleware.Add(transcriptMiddleware);
@@ -145,7 +152,7 @@ namespace IndianBank_ChatBOT
                     template: "{controller=Faq}/{action=Display}");
             });
         }
-        
+
 
         #endregion
     }

@@ -69,6 +69,53 @@ namespace IndianBank_ChatBOT.Utils
                 }
             }
         }
+
+
+        public static async Task LogActivityCustom(IActivity activity)
+        {
+            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+
+            using (var dbContext = new AppDbContext(cs))
+            {
+                var msg = activity.AsMessageActivity();
+                try
+                {
+                    if (msg != null)
+                    {
+                        var logData = new ChatLog
+                        {
+                            ActivityId = msg.Id,
+                            ActivityType = msg.Type,
+                            ReplyToActivityId = msg.ReplyToId,
+                            ConversationId = msg.Conversation.Id,
+                            ConversationType = msg.Conversation.ConversationType,
+                            ConversationName = msg.Conversation.Name,
+                            RecipientId = msg.Recipient?.Id,
+                            RecipientName = msg.Recipient?.Name,
+                            RasaEntities = _entities,
+                            RasaIntent = _intentName,
+                            RasaScore = _intentScore,
+                            FromId = msg.From?.Id,
+                            FromName = msg.From?.Name,
+                            Text = msg.Text,
+                            ResponseJsonText = _responseJsonText,
+                            ResonseFeedback = null,
+                            TimeStamp = msg.Timestamp?.LocalDateTime,
+                            Id = 0,
+                            ResponseSource = _responseSource
+                        };
+
+                        var data = await dbContext.ChatLogs.AddAsync(logData);
+
+                        var result = await dbContext.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+        }
         public static void UpdateRaSaData(string intentName, double intentScore, string entity)
         {
             _intentName = intentName;

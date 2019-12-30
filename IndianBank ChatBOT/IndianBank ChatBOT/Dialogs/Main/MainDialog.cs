@@ -625,6 +625,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {
+            //TODO
+            BotChatActivityLogger.UpdateRaSaData("TODO", 0, "");
+            BotChatActivityLogger.UpdateResponseJsonText(backendResult);
+            BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
+
             JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
 
             if (!String.IsNullOrEmpty(jsonObject.FILENAME))
