@@ -83,7 +83,6 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult UnSatisfiedVisitors()
         {
-            //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
             var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = '-1'";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
@@ -106,11 +105,9 @@ namespace IndianBank_ChatBOT.Controllers
                 };
                 unAnsweredQueries.Add(unAnsweredQuery);
             }
-
             return View(unAnsweredQueries);
-
-
         }
+
         public ActionResult LeadGenerationReport()
         {
             var query = $"select * from \"ChatLogs\" where coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet') and \"Text\" is not null order by \"TimeStamp\"";
