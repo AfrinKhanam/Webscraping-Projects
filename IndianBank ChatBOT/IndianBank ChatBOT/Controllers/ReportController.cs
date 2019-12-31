@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,11 +44,63 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult UnAnsweredQueries()
         {
-            var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
-            var data = _dbContext.UnAnsweredQueries.FromSql(query).ToList();
-            return View(data);
+            //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
+            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
+
+            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+
+            var conversationIds = chatLogs.Select(c => c.ConversationId).Distinct().ToList();
+
+            var userInfo = _dbContext.UserInfos.Where(u => conversationIds.Contains(u.ConversationId)).ToList();
+
+            List<UnAnsweredQueries> unAnsweredQueries = new List<UnAnsweredQueries>();
+            foreach (var log in chatLogs)
+            {
+                var data = _dbContext.ChatLogs.Where(c => c.ReplyToActivityId == log.ActivityId).FirstOrDefault();
+                UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                {
+                    Query = log.Text,
+                    BotResponse = (data == null) ? string.Empty : data.Text,
+                    Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
+                    PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
+                    TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
+                };
+                unAnsweredQueries.Add(unAnsweredQuery);
+            }
+
+            return View(unAnsweredQueries);
         }
 
+        public ActionResult UnSatisfiedVisitors()
+        {
+            //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
+            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
+
+            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+
+            var conversationIds = chatLogs.Select(c => c.ConversationId).Distinct().ToList();
+
+            var userInfo = _dbContext.UserInfos.Where(u => conversationIds.Contains(u.ConversationId)).ToList();
+
+            List<UnAnsweredQueries> unAnsweredQueries = new List<UnAnsweredQueries>();
+            foreach (var log in chatLogs)
+            {
+                var data = _dbContext.ChatLogs.Where(c => c.ReplyToActivityId == log.ActivityId).FirstOrDefault();
+                UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                {
+                    Query = log.Text,
+                    BotResponse = (data == null) ? string.Empty : data.Text,
+                    Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
+                    PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
+                    TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
+                };
+                unAnsweredQueries.Add(unAnsweredQuery);
+            }
+
+            return View(unAnsweredQueries);
+
+
+        }
         public ActionResult LeadGenerationReport()
         {
             var query = $"select * from \"ChatLogs\" where coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet') and \"Text\" is not null order by \"TimeStamp\"";
@@ -89,6 +142,29 @@ namespace IndianBank_ChatBOT.Controllers
             }
 
             return View(conversationByIntent);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateFeedback([FromBody] ActivityFeedback activityFeedback)
+        {
+            try
+            {
+                var activity = _dbContext.ChatLogs.Where(l => l.ReplyToActivityId == activityFeedback.ActivityId).FirstOrDefault();
+                if (activity != null)
+                {
+                    activity.ResonseFeedback = activityFeedback.ResonseFeedback;
+                    _dbContext.ChatLogs.Update(activity);
+                    _dbContext.SaveChanges();
+                }
+                else
+                    return NotFound($"Activity with the Id {activityFeedback.ActivityId} not found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+            return Ok();
         }
     }
 }

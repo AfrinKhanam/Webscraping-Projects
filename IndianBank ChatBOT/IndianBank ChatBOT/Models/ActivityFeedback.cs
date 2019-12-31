@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Models
 {
-    public enum ResonseFeedback
+    public class ActivityFeedback
     {
-        ThumbsUp = 1,
-        ThumbsDown = -1
+        public string ActivityId { get; set; }
+        public ResonseFeedback ResonseFeedback { get; set; }
     }
 }

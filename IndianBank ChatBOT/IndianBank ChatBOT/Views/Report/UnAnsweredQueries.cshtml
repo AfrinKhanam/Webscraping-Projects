@@ -6,45 +6,51 @@
 
 <h2>UnAnswered Queries</h2>
 
-@*<button class="btn btn-outline-success" data-toggle="modal" data-target="#trainModal">Train</button>
-    <button class="btn btn-outline-success" data-toggle="modal" onclick="clearTestInputs()" data-target="#testModal">Test</button>
-    <button class="btn btn-outline-success" data-toggle="modal" data-target="#deployModal">Deploy</button>*@
-@*<p>
-        <button type="button" style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Create", "Faq")'">Add New</button>
-    </p>*@
 <br />
 <br />
-<table class="table css-serial">
+<table class="table">
     <thead>
         <tr>
             <th>
                 #
             </th>
             <th>
-                User Query
+                Query
             </th>
-        </tr>
+            <th>
+                Bot Response
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Phone Number
+            </th>
     </thead>
     <tbody>
+        @{
+            var index = 0;
+        }
         @foreach (var item in Model)
         {
+            {
+                index = index + 1;
+            }
             <tr>
-                <td></td>
+                <td>@index</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Query)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BotResponse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<style>
-
-    .css-serial {
-        counter-reset: serial-number; /* Set the serial number counter to 0 */
-    }
-
-        .css-serial td:first-child:before {
-            counter-increment: serial-number; /* Increment the serial number counter */
-            content: counter(serial-number); /* Display the counter */
-        }
-</style>
