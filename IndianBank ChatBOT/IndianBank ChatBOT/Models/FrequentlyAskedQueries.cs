@@ -9,5 +9,7 @@ namespace IndianBank_ChatBOT.Models
     {
         public int Count { get; set; }
         public string Query { get; set; }
+        public int PositiveFeedback { get; set; }
+        public int NegetiveFeedback { get; set; }
     }
 }

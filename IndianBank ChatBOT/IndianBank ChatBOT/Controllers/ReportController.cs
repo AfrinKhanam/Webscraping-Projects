@@ -31,9 +31,19 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult FrequentlyAskedQueries()
         {
-            var query = $"select count(\"ActivityId\") as Count , \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet') group by \"Text\" order by count desc";
-            var data = _dbContext.FrequentlyAskedQueries.FromSql(query).ToList();
-            return View(data);
+            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
+            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            var frequentlyAskedQueries = chatLogs.GroupBy(item => item.Text)
+                                             .Select(c => new FrequentlyAskedQueries
+                                             {
+                                                 Count = c.ToList().Count(),
+                                                 NegetiveFeedback = c.ToList().Where(j => j.ResonseFeedback == ResonseFeedback.ThumbsDown).Count(),
+                                                 PositiveFeedback = c.ToList().Where(j => j.ResonseFeedback == ResonseFeedback.ThumbsUp).Count(),
+                                                 Query = c.Key
+                                             }).OrderByDescending(c => c.Count)
+                                             .ToList();
+
+            return View(frequentlyAskedQueries);
         }
 
         public ActionResult AppUsers()

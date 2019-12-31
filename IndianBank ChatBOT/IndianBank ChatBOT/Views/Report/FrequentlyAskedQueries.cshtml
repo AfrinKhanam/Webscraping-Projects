@@ -5,52 +5,52 @@
 }
 
 <h2>Frequently Asked Queries</h2>
-
-@*<button class="btn btn-outline-success" data-toggle="modal" data-target="#trainModal">Train</button>
-    <button class="btn btn-outline-success" data-toggle="modal" onclick="clearTestInputs()" data-target="#testModal">Test</button>
-    <button class="btn btn-outline-success" data-toggle="modal" data-target="#deployModal">Deploy</button>*@
-@*<p>
-        <button type="button" style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Create", "Faq")'">Add New</button>
-    </p>*@
 <br />
 <br />
-<table class="table css-serial">
+<table class="table">
     <thead>
         <tr>
             <th>
                 #
             </th>
             <th>
-                Intent
+                Visitor Query
             </th>
             <th>
-                Count
+                Hits
+            </th>
+            <th>
+                Positive Feedback
+            </th>
+            <th>
+                Negetive Feedback
             </th>
         </tr>
     </thead>
     <tbody>
+        @{
+            var index = 0;
+        }
         @foreach (var item in Model)
         {
-            <tr>
-                <td></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Query)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-            </tr>
+            {
+                index += 1;
+            }
+        <tr>
+            <td>@index</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Query)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositiveFeedback)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NegetiveFeedback)
+            </td>
+        </tr>
         }
     </tbody>
 </table>
-<style>
-
-    .css-serial {
-        counter-reset: serial-number; /* Set the serial number counter to 0 */
-    }
-
-        .css-serial td:first-child:before {
-            counter-increment: serial-number; /* Increment the serial number counter */
-            content: counter(serial-number); /* Display the counter */
-        }
-</style>
