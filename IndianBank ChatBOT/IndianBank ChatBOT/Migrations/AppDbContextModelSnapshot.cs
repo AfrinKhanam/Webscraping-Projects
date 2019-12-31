@@ -38,6 +38,8 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.Property<string>("FromName");
 
+                    b.Property<string>("MainTitle");
+
                     b.Property<string>("RasaEntities");
 
                     b.Property<string>("RasaIntent");
@@ -55,6 +57,8 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<string>("ResponseJsonText");
 
                     b.Property<int?>("ResponseSource");
+
+                    b.Property<string>("SubTitle");
 
                     b.Property<string>("Text");
 

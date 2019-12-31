@@ -25,6 +25,8 @@ namespace IndianBank_ChatBOT.Migrations
                     FromName = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     RecipientId = table.Column<string>(nullable: true),
+                    MainTitle = table.Column<string>(nullable: true),
+                    SubTitle = table.Column<string>(nullable: true),
                     RecipientName = table.Column<string>(nullable: true),
                     ResponseJsonText = table.Column<string>(nullable: true),
                     RasaIntent = table.Column<string>(nullable: true),
