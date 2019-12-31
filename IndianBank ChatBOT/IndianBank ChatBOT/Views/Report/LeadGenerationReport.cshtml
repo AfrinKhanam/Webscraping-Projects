@@ -1,0 +1,128 @@
+﻿@model List<ConversationByIntent>
+
+@{
+    ViewData["Title"] = "Lead Generation Report";
+}
+
+<h2>Lead Generation Report</h2>
+<br />
+<br />
+
+<div id="accordion">
+    @{
+        var headerIndex = 0;
+        var headerText = "";
+        var data_target = "";
+        var id = "";
+    }
+    @foreach (var item in Model)
+    {
+        {
+            headerIndex = headerIndex + 1;
+            headerText = "heading" + headerIndex.ToString();
+            data_target = "#collapse" + headerIndex;
+            id = "collapse" + headerIndex;
+        }
+        <div class="card">
+            <div class="card-header" id="@headerText">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="@data_target" aria-expanded="true" aria-controls="@id">
+                        @item.Intent
+                    </button>
+                </h5>
+            </div>
+
+            <div id="@id" class="collapse show" aria-labelledby="@headerText" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Visitor Name
+                                </th>
+                                <th>
+                                    Visitor Phone Number
+                                </th>
+                                <th>
+                                    Number of queries
+                                </th>
+                                <th>
+                                    Visited On
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        @{
+                            int index = 0;
+                            int ChatLogs = 0;
+                            var groupdata_target = "";
+                            var groupId = "";
+                            var visitedOn = "";
+                        }
+                        @foreach (var user in item.ConversationByUsers)
+                        {
+                            {
+                                index = index + 1;
+                                visitedOn = user.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
+                                ChatLogs = user.ChatLogs.Count();
+                                groupdata_target = "#group-of-rows-" + index;
+                                groupId = "group-of-rows-" + index;
+                            }
+                            <tbody>
+                                <tr class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
+                                    <td>@index</td>
+                                    <td>@Html.DisplayFor(modelItem => user.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
+                                    <td>@ChatLogs</td>
+                                    <td>@visitedOn</td>
+                                    <td><i class="fa fa-plus" aria-hidden="true"></i>View</td>
+                                </tr>
+                            </tbody>
+                            <thead id="@groupId" class="collapse">
+                                <tr><th>#</th><th>Visitor Query</th><th>Bot Response</th></tr>
+                            </thead>
+
+                            <tbody id="@groupId" class="collapse">
+                                @{
+                                    var childRowIndex = 0;
+                                    var TurnConversations = new List<TurnConversation>();
+
+                                    List<string> Activities = user.ChatLogs.Select(c => c.ActivityId).Distinct().ToList();
+                                    Activities = Activities.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+                                    foreach (var act in Activities)
+                                    {
+                                        TurnConversation tc = new TurnConversation();
+                                        tc.ActivityId = act;
+                                        var br = user.ChatLogs.Where(c => c.ReplyToActivityId == act).FirstOrDefault();
+                                        tc.BotResponse = br != null ? br.Text : string.Empty;
+                                        var ur = user.ChatLogs.Where(c => c.ActivityId == act).FirstOrDefault();
+                                        tc.UserQuery = ur != null ? ur.Text : string.Empty;
+                                        TurnConversations.Add(tc);
+                                    }
+                                }
+
+                                @foreach (var data in TurnConversations)
+                                {
+                                    {
+                                        childRowIndex = childRowIndex + 1;
+                                    }
+                                    <tr>
+                                        <td>@childRowIndex</td>
+                                        <td>@data.UserQuery</td>
+                                        <td>@data.BotResponse</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
