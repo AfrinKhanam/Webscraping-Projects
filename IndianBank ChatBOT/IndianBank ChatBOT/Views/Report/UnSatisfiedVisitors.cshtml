@@ -1,0 +1,64 @@
+﻿@model List<UnAnsweredQueries>
+
+@{
+    ViewData["Title"] = "UnAnswered Queries";
+}
+
+<h2>UnSatisfied Visitors</h2>
+
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Query
+            </th>
+            <th>
+                Bot Response
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Date
+            </th>
+    </thead>
+    <tbody>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            {
+                index = index + 1;
+                var timeStamp = item.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
+
+                <tr>
+                    <td>@index</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Query)
+                    </td>
+                    <td width="40%">
+                        @Html.DisplayFor(modelItem => item.BotResponse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @timeStamp
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

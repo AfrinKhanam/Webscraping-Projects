@@ -84,7 +84,7 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult UnSatisfiedVisitors()
         {
             //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
-            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = '-1'";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
 
@@ -95,11 +95,11 @@ namespace IndianBank_ChatBOT.Controllers
             List<UnAnsweredQueries> unAnsweredQueries = new List<UnAnsweredQueries>();
             foreach (var log in chatLogs)
             {
-                var data = _dbContext.ChatLogs.Where(c => c.ReplyToActivityId == log.ActivityId).FirstOrDefault();
+                var data = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
                 UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
                 {
-                    Query = log.Text,
-                    BotResponse = (data == null) ? string.Empty : data.Text,
+                    Query = (data == null) ? string.Empty : data.Text,
+                    BotResponse = log.Text,
                     Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
                     PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
                     TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),

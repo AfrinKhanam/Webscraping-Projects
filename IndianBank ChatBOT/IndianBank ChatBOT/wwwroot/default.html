@@ -517,7 +517,7 @@
         'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        ActivityId: this.props.activityID,
+        ActivityId: this.props.replyId,
         ResonseFeedback: feedBack,
         })
         })
@@ -565,7 +565,7 @@
         const activityMiddleware = () => next => card => {
         if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text)) {
         return children => (
-        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id}>
+        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
             {next(card)(children)}
         </ConnectedActivityWithFeedback>
         );
