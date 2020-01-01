@@ -27,9 +27,9 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         private ConversationState _conversationState;
         private MainResponses _responder = new MainResponses();
 
-        public static string ApplicantName = string.Empty;
-        public static string ApplicantEmailID = string.Empty;
-        public static string ApplicantPhoneNumber = string.Empty;
+        // public static string ApplicantName = string.Empty;
+        // public static string ApplicantEmailID = string.Empty;
+        // public static string ApplicantPhoneNumber = string.Empty;
 
         public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState) : base(services, nameof(OnBoardingFormDialog))
         {
@@ -100,7 +100,6 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         //    return true;
         //}
 
-
         public async Task<DialogTurnResult> AskforName(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var prompt = MessageFactory.Text("Please enter your name to get me started");
@@ -128,9 +127,9 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         {
             string userName = stepContext.Result as string;
             stepContext.Values["UserName"] = stepContext.Result;
-            OnBoardingFormDialog.ApplicantName = userName.First().ToString().ToUpper() + userName.Substring(1);
+            string ApplicantName = userName.First().ToString().ToUpper() + userName.Substring(1);
 
-            var prompt = MessageFactory.Text($"Thank you! {OnBoardingFormDialog.ApplicantName}, Could you please enter your phone number now?");
+            var prompt = MessageFactory.Text($"Thank you! {ApplicantName}, Could you please enter your phone number now?");
             return await stepContext.PromptAsync(DialogIds.AskPhoneNo, new PromptOptions
             {
                 Prompt = prompt,
@@ -141,8 +140,8 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         {
             string userPhoneNumber = stepContext.Result as string;
             stepContext.Values["UserPhoneNumber"] = stepContext.Result;
-            OnBoardingFormDialog.ApplicantPhoneNumber = userPhoneNumber;
-            await stepContext.Context.SendActivityAsync($"Thanks {OnBoardingFormDialog.ApplicantName} for providing all the information.\n  Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
+            string ApplicantPhoneNumber = userPhoneNumber;
+            await stepContext.Context.SendActivityAsync($"Thanks {stepContext.Values["UserName"]} for providing all the information.\n  Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
             //await stepContext.Context.SendActivityAsync("Please find the menu.");
             //await _responder.ReplyWith(stepContext.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
 
@@ -169,7 +168,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    Console.WriteLine(ex);
                 }
             }
 
@@ -184,7 +183,5 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             public const string AskPhoneNo = "AskPhoneNo";
             public const string EndOnboardingDialog = "EndOnboardingDialog";
         }
-
-
     }
 }

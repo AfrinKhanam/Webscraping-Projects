@@ -12,6 +12,7 @@ namespace IndianBank_ChatBOT.Utils
 {
     public class BotChatActivityLogger : ITranscriptLogger
     {
+        static AppDbContext _dbContext = null;
         private string _connectionString;
         static string _intentName = string.Empty;
         static double _intentScore = 0.0;
@@ -19,9 +20,19 @@ namespace IndianBank_ChatBOT.Utils
         static string _responseJsonText = string.Empty;
         static ResponseSource? _responseSource = null;
 
-        public BotChatActivityLogger(string value)
+        static string _mainTitle = string.Empty;
+        static string _subTitle = string.Empty;
+
+        public BotChatActivityLogger(string connectionString)
         {
-            this._connectionString = value;
+            this._connectionString = connectionString;
+            _dbContext = new AppDbContext(this._connectionString);
+        }
+
+        public static UserInfo GetUserDetails(string conversationId)
+        {
+            UserInfo userInfo = _dbContext.UserInfos.FirstOrDefault(e => e.ConversationId.Equals(conversationId));
+            return userInfo;
         }
 
         private static void ReSetValues()
@@ -31,8 +42,9 @@ namespace IndianBank_ChatBOT.Utils
             _entities = string.Empty;
             _responseJsonText = string.Empty;
             _responseSource = null;
+            _mainTitle = string.Empty;
+            _subTitle = string.Empty;
         }
-
         public async Task LogActivityAsync(IActivity activity)
         {
             using (var dbContext = new AppDbContext(_connectionString))
@@ -62,7 +74,9 @@ namespace IndianBank_ChatBOT.Utils
                             ResonseFeedback = null,
                             TimeStamp = msg.Timestamp?.LocalDateTime,
                             Id = 0,
-                            ResponseSource = _responseSource
+                            ResponseSource = _responseSource,
+                            MainTitle = _mainTitle,
+                            SubTitle = _subTitle
                         };
 
                         var data = await dbContext.ChatLogs.AddAsync(logData);
@@ -78,8 +92,6 @@ namespace IndianBank_ChatBOT.Utils
                 }
             }
         }
-
-
         public static async Task LogActivityCustom(IActivity activity, string connectionString)
         {
             //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
@@ -111,7 +123,9 @@ namespace IndianBank_ChatBOT.Utils
                             ResonseFeedback = null,
                             TimeStamp = msg.Timestamp?.LocalDateTime,
                             Id = 0,
-                            ResponseSource = _responseSource
+                            ResponseSource = _responseSource,
+                            MainTitle = _mainTitle,
+                            SubTitle = _subTitle
                         };
 
                         var data = await dbContext.ChatLogs.AddAsync(logData);
@@ -123,6 +137,7 @@ namespace IndianBank_ChatBOT.Utils
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     throw;
                 }
             }
@@ -132,6 +147,14 @@ namespace IndianBank_ChatBOT.Utils
             _intentName = intentName;
             _intentScore = intentScore;
             _entities = entity;
+        }
+        public static void UpdateSubTitle(string subTitle)
+        {
+            _subTitle = subTitle;
+        }
+        public static void UpdateMainTitle(string mainTitle)
+        {
+            _mainTitle = mainTitle;
         }
         public static void UpdateResponseJsonText(string responseJsonText)
         {

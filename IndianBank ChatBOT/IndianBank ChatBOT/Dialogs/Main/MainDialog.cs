@@ -328,13 +328,16 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
                 BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                 BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
+                string conversationID = dc.Context.Activity.Conversation.Id;
+                UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
                 if (generalIntentScore > 0.32)
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
                     {
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {OnBoardingFormDialog.ApplicantName}. How may I help you today?");
+
+                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
                     }
                     else if (generalIntent == "small_talks_intent")
                     {
@@ -346,7 +349,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else if (generalIntent == "bye_intent")
                     {
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {OnBoardingFormDialog.ApplicantName}. It was nice talking to you today.");
+                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
                     }
                     else if (entityType == "atm_entity")
                     {
@@ -370,7 +373,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 else if (generalIntent == "thankyouintent")
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                    await dc.Context.SendActivityAsync($"{messageData}!!! {OnBoardingFormDialog.ApplicantName}. It was nice talking to you today.");
+                    await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
                 }
                 else if (entityType == "scrollbar_entity")
                 {
@@ -625,12 +628,19 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {
-            //TODO
-            BotChatActivityLogger.UpdateRaSaData("TODO", 0, "");
-            BotChatActivityLogger.UpdateResponseJsonText(backendResult);
-            BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
-
             JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
+
+            if (jsonObject.DOCUMENTS.Count >= 1)
+            {
+                var main_title = jsonObject.DOCUMENTS[0].main_title;
+                var sub_title = jsonObject.DOCUMENTS[0].title;
+
+                BotChatActivityLogger.UpdateRaSaData(main_title, 0, "");
+                BotChatActivityLogger.UpdateMainTitle(main_title);
+                BotChatActivityLogger.UpdateSubTitle(sub_title);
+                BotChatActivityLogger.UpdateResponseJsonText(backendResult);
+                BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
+            }
 
             if (!String.IsNullOrEmpty(jsonObject.FILENAME))
             {
@@ -706,6 +716,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
             }
         }
+
 
         public static string rabbitMq(string queryParam, string context)
         {
