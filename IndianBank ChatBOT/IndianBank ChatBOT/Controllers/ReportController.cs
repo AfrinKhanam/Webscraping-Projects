@@ -110,13 +110,14 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult LeadGenerationReport()
         {
-            var query = $"select * from \"ChatLogs\" where coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet') and \"Text\" is not null order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet') and \"ConversationId\"='89eea750-6038-41a8-947d-a9256784ad7f' order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
-            //var chatLogs = _dbContext.ChatLogs.Where(c => c.RasaIntent != null && c.RasaIntent != "").OrderByDescending(c => c.TimeStamp).ToList();
+            var overallChatLogs = chatLogs;
 
+            chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
 
-            List<List<ChatLog>> listOfList = chatLogs.GroupBy(item => item.RasaIntent)
-                                             .Select(group => group.ToList())
+            List<List<ChatLog>> conversationList = chatLogs.GroupBy(item => item.RasaIntent)
+                                             .Select(item => item.ToList())
                                              .ToList();
 
             List<ConversationByIntent> conversationByIntent = new List<ConversationByIntent>();
@@ -125,8 +126,9 @@ namespace IndianBank_ChatBOT.Controllers
 
             var userInfo = _dbContext.UserInfos.Where(u => conversationIds.Contains(u.ConversationId)).ToList();
 
+            conversationList = conversationList.FindAll(a => a.All(b => b.RasaIntent != null && b.RasaIntent != "")).ToList();
 
-            foreach (var list in listOfList)
+            foreach (var list in conversationList)
             {
                 var cbi = new ConversationByIntent
                 {
@@ -146,6 +148,28 @@ namespace IndianBank_ChatBOT.Controllers
                                              .ToList();
                 cbi.ConversationByUsers = li;
                 conversationByIntent.Add(cbi);
+            }
+
+            foreach (var conv in conversationByIntent)
+            {
+                foreach (var userCov in conv.ConversationByUsers)
+                {
+                    var turnConversations = new List<TurnConversation>();
+                    var botLogs = userCov.ChatLogs.Where(l => l.ReplyToActivityId != null).ToList();
+                    foreach (var log in botLogs)
+                    {
+                        var botResponse = overallChatLogs.Where(c => c.ReplyToActivityId == log.ReplyToActivityId).FirstOrDefault();
+                        var userResponse = overallChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
+                        var turnConversation = new TurnConversation
+                        {
+                            ActivityId = log.ReplyToActivityId,
+                            BotResponse = botResponse == null ? string.Empty : (string.IsNullOrEmpty(botResponse.Text) ? botResponse.MainTitle : botResponse.Text),
+                            UserQuery = userResponse == null ? string.Empty : userResponse.Text,
+                        };
+                        turnConversations.Add(turnConversation);
+                    }
+                    userCov.TurnConversations = turnConversations;
+                }
             }
 
             return View(conversationByIntent);

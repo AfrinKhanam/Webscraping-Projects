@@ -11,20 +11,21 @@
 <div id="accordion">
     @{
         var headerIndex = 0;
-        var headerText = "";
+        var headerId = "";
         var data_target = "";
         var id = "";
     }
     @foreach (var item in Model)
     {
         {
+            var uniqueNumber = Guid.NewGuid().ToString();
             headerIndex = headerIndex + 1;
-            headerText = "heading" + headerIndex.ToString();
-            data_target = "#collapse" + headerIndex;
-            id = "collapse" + headerIndex;
+            headerId = "heading" + uniqueNumber;
+            data_target = "#collapse" + uniqueNumber;
+            id = "collapse" + uniqueNumber;
         }
         <div class="card">
-            <div class="card-header" id="@headerText">
+            <div class="card-header" id="@headerId">
                 <h5 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="@data_target" aria-expanded="true" aria-controls="@id">
                         @item.Intent
@@ -32,7 +33,7 @@
                 </h5>
             </div>
 
-            <div id="@id" class="collapse show" aria-labelledby="@headerText" data-parent="#accordion">
+            <div id="@id" class="collapse show" aria-labelledby="@headerId" data-parent="#accordion">
                 <div class="card-body">
                     <table class="table">
                         <thead>
@@ -68,11 +69,12 @@
                         @foreach (var user in item.ConversationByUsers)
                         {
                             {
+                                var uniqueNumber = Guid.NewGuid().ToString();
                                 index = index + 1;
                                 visitedOn = user.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
-                                ChatLogs = user.ChatLogs.Count();
-                                groupdata_target = "#group-of-rows-" + index;
-                                groupId = "group-of-rows-" + index;
+                                ChatLogs = user.TurnConversations.Count();
+                                groupdata_target = "#group-of-rows-" + uniqueNumber;
+                                groupId = "group-of-rows-" + uniqueNumber;
                             }
                             <tbody>
                                 <tr class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
@@ -84,27 +86,15 @@
                                     <td><i class="fa fa-plus" aria-hidden="true"></i>View</td>
                                 </tr>
                             </tbody>
-                            <thead id="@groupId" class="collapse">
+                            <thead id="@groupId" class="collapse example-table">
                                 <tr><th>#</th><th>Visitor Query</th><th>Bot Response</th></tr>
                             </thead>
 
-                            <tbody id="@groupId" class="collapse">
+                            <tbody id="@groupId" class="collapse example-table">
                                 @{
                                     var childRowIndex = 0;
                                     var TurnConversations = new List<TurnConversation>();
-
-                                    List<string> Activities = user.ChatLogs.Select(c => c.ActivityId).Distinct().ToList();
-                                    Activities = Activities.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-                                    foreach (var act in Activities)
-                                    {
-                                        TurnConversation tc = new TurnConversation();
-                                        tc.ActivityId = act;
-                                        var br = user.ChatLogs.Where(c => c.ReplyToActivityId == act).FirstOrDefault();
-                                        tc.BotResponse = br != null ? br.Text : string.Empty;
-                                        var ur = user.ChatLogs.Where(c => c.ActivityId == act).FirstOrDefault();
-                                        tc.UserQuery = ur != null ? ur.Text : string.Empty;
-                                        TurnConversations.Add(tc);
-                                    }
+                                    TurnConversations = user.TurnConversations;
                                 }
 
                                 @foreach (var data in TurnConversations)
@@ -112,7 +102,7 @@
                                     {
                                         childRowIndex = childRowIndex + 1;
                                     }
-                                    <tr>
+                                    <tr class="table-info">
                                         <td>@childRowIndex</td>
                                         <td>@data.UserQuery</td>
                                         <td>@data.BotResponse</td>
@@ -126,3 +116,13 @@
         </div>
     }
 </div>
+
+<style>
+    .example-table td {
+        padding: 30px;
+    }
+
+    .example-table th {
+        padding: 30px;
+    }
+</style>
