@@ -110,11 +110,11 @@ namespace IndianBank_ChatBOT
                     BotChatActivityLogger.UpdateRaSaData("bye_intent", 0, "");
                     BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                     BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
-                    await BotChatActivityLogger.LogActivityCustom(activity);
+                    await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
                     await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
                     // await context.SendActivityAsync(exception.GetBaseException().ToString());
                 };
-                
+
 
                 var transcriptMiddleware = new TranscriptLoggerMiddleware(myLogger);
                 options.Middleware.Add(transcriptMiddleware);

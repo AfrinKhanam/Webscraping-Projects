@@ -31,8 +31,11 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult FrequentlyAskedQueries()
         {
-            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
+            //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
+            var query = $"select* from \"ChatLogs\" where coalesce(\"RasaIntent\", '') != '' and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') and \"ReplyToActivityId\" is null";
+
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
             var frequentlyAskedQueries = chatLogs.GroupBy(item => item.Text)
                                              .Select(c => new FrequentlyAskedQueries
                                              {
@@ -55,7 +58,9 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult UnAnsweredQueries()
         {
             //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
-            var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
+            //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
+            //var query = $"select * from \"ChatLogs\" where (\"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '') or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) order by \"TimeStamp\"";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
 
@@ -110,7 +115,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult LeadGenerationReport()
         {
-            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet') and \"ConversationId\"='89eea750-6038-41a8-947d-a9256784ad7f' order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet') order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             var overallChatLogs = chatLogs;
 

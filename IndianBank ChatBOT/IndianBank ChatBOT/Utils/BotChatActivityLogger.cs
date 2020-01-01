@@ -24,10 +24,17 @@ namespace IndianBank_ChatBOT.Utils
             this._connectionString = value;
         }
 
+        private static void ReSetValues()
+        {
+            _intentName = string.Empty;
+            _intentScore = 0.0;
+            _entities = string.Empty;
+            _responseJsonText = string.Empty;
+            _responseSource = null;
+        }
+
         public async Task LogActivityAsync(IActivity activity)
         {
-            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
-
             using (var dbContext = new AppDbContext(_connectionString))
             {
                 var msg = activity.AsMessageActivity();
@@ -61,6 +68,8 @@ namespace IndianBank_ChatBOT.Utils
                         var data = await dbContext.ChatLogs.AddAsync(logData);
 
                         var result = await dbContext.SaveChangesAsync();
+
+                        ReSetValues();
                     }
                 }
                 catch (Exception ex)
@@ -71,11 +80,11 @@ namespace IndianBank_ChatBOT.Utils
         }
 
 
-        public static async Task LogActivityCustom(IActivity activity)
+        public static async Task LogActivityCustom(IActivity activity, string connectionString)
         {
-            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
 
-            using (var dbContext = new AppDbContext(cs))
+            using (var dbContext = new AppDbContext(connectionString))
             {
                 var msg = activity.AsMessageActivity();
                 try
@@ -108,6 +117,8 @@ namespace IndianBank_ChatBOT.Utils
                         var data = await dbContext.ChatLogs.AddAsync(logData);
 
                         var result = await dbContext.SaveChangesAsync();
+
+                        ReSetValues();
                     }
                 }
                 catch (Exception ex)
@@ -129,11 +140,6 @@ namespace IndianBank_ChatBOT.Utils
         public static void UpdateSource(ResponseSource responseSource)
         {
             _responseSource = responseSource;
-        }
-        public static void GetDepavlovResult(string confidence)
-        {
-            _intentName = "Faq";
-            _intentScore = Convert.ToDouble(confidence);
         }
     }
 }
