@@ -92,10 +92,17 @@ namespace IndianBank_ChatBOT.Utils
                 }
             }
         }
+
+        public static void UpdateOnBoardingMessageFlag(string conversationId)
+        {
+            var chatLogs = _dbContext.ChatLogs.Where(c => c.ConversationId == conversationId).ToList();
+            chatLogs.ForEach(c => c.IsOnBoardingMessage = true);
+            _dbContext.ChatLogs.UpdateRange(chatLogs);
+            _dbContext.SaveChanges();
+        }
+
         public static async Task LogActivityCustom(IActivity activity, string connectionString)
         {
-            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
-
             using (var dbContext = new AppDbContext(connectionString))
             {
                 var msg = activity.AsMessageActivity();

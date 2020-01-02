@@ -2,6 +2,7 @@
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Middleware;
 using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
@@ -165,6 +166,8 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
                     var data = await dbContext.UserInfos.AddAsync(userInfo);
 
                     var result = await dbContext.SaveChangesAsync();
+
+                    BotChatActivityLogger.UpdateOnBoardingMessageFlag(stepContext.Context.Activity.Conversation.Id);
                 }
                 catch (Exception ex)
                 {

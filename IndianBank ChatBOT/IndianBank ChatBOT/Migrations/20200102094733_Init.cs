@@ -33,7 +33,8 @@ namespace IndianBank_ChatBOT.Migrations
                     RasaScore = table.Column<double>(nullable: true),
                     RasaEntities = table.Column<string>(nullable: true),
                     ResonseFeedback = table.Column<int>(nullable: true),
-                    TimeStamp = table.Column<DateTime>(nullable: true)
+                    TimeStamp = table.Column<DateTime>(nullable: true),
+                    IsOnBoardingMessage = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {

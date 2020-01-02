@@ -38,6 +38,8 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.Property<string>("FromName");
 
+                    b.Property<bool?>("IsOnBoardingMessage");
+
                     b.Property<string>("MainTitle");
 
                     b.Property<string>("RasaEntities");

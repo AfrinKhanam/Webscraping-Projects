@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191231130632_Init")]
+    [Migration("20200102094733_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,8 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<string>("FromId");
 
                     b.Property<string>("FromName");
+
+                    b.Property<bool?>("IsOnBoardingMessage");
 
                     b.Property<string>("MainTitle");
 

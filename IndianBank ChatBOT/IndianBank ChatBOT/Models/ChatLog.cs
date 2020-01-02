@@ -31,5 +31,6 @@ namespace IndianBank_ChatBOT.Models
         public string RasaEntities { get; set; }
         public ResonseFeedback? ResonseFeedback { get; set; }
         public DateTime? TimeStamp { get; set; }
+        public bool? IsOnBoardingMessage { get; set; }
     }
 }
