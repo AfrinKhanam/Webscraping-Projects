@@ -4,16 +4,12 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
-
-    <script src="lib/jquery-min.js"></script>
-    <script src="lib/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 
 
     <style type="text/css">
-
         .chatbox-pos {
             position: fixed;
             bottom: 80px;
@@ -22,9 +18,9 @@
             padding: 0;
         }
 
-            .chatbox-pos body {
-                background-color: yellow;
-            }
+        .chatbox-pos body {
+            background-color: yellow;
+        }
 
         /* #chat,
         #chat:after,
@@ -53,12 +49,12 @@
             border: 0px solid #FF7A00
         }
 
-            #chat:after,
-            #chat:before {
-                position: absolute;
-                border-style: solid;
-                content: ""
-            }
+        #chat:after,
+        #chat:before {
+            position: absolute;
+            border-style: solid;
+            content: ""
+        }
 
         .chatbox {
             position: fixed;
@@ -134,43 +130,43 @@
 
         #chat {
             width: 40px;
-            border-radius: 3px;
+            border-radius: 3px;            
             font-size: 12px;
             -webkit-transform: translateZ(0);
             transform: translateZ(0)
         }
 
-            #chat:before {
-                border-width: 10px 11px 0 0;
-                border-color: #A8A8A8 transparent transparent;
-                left: 7px;
-                bottom: -10px
-            }
+        #chat:before {
+            border-width: 10px 11px 0 0;
+            border-color: #A8A8A8 transparent transparent;
+            left: 7px;
+            bottom: -10px
+        }
 
-            #chat:after {
-                border-width: 9px 8px 0 0;
-                border-color: #fff transparent transparent;
-                left: 8px;
-                bottom: -8px
-            }
+        #chat:after {
+            border-width: 9px 8px 0 0;
+            border-color: #fff transparent transparent;
+            left: 8px;
+            bottom: -8px
+        }
 
-            #chat:hover {
-                /* background: #f5cb42;*/
-                -webkit-animation-name: hvr-pulse-grow;
-                animation-name: hvr-pulse-grow;
-                -webkit-animation-duration: .3s;
-                animation-duration: .3s;
-                -webkit-animation-timing-function: linear;
-                animation-timing-function: linear;
-                -webkit-animation-iteration-count: infinite;
-                animation-iteration-count: infinite;
-                -webkit-animation-direction: alternate;
-                animation-direction: alternate
-            }
+        #chat:hover {
+            /* background: #f5cb42;*/
+            -webkit-animation-name: hvr-pulse-grow;
+            animation-name: hvr-pulse-grow;
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate
+        }
 
-                #chat:hover:after {
-                    border-color: #ddd transparent transparent !important
-                }
+        #chat:hover:after {
+            border-color: #ddd transparent transparent !important
+        }
 
         .animated-chat {
             -webkit-animation-duration: 1s;
@@ -186,15 +182,21 @@
                 -webkit-transform: scale(1)
             }
 
-            10%, 20% {
+            10%,
+            20% {
                 -webkit-transform: scale(.9)rotate(-3deg)
             }
 
-            30%, 50%, 70%, 90% {
+            30%,
+            50%,
+            70%,
+            90% {
                 -webkit-transform: scale(1.1)rotate(3deg)
             }
 
-            40%, 60%, 80% {
+            40%,
+            60%,
+            80% {
                 -webkit-transform: scale(1.1)rotate(-3deg)
             }
 
@@ -208,15 +210,21 @@
                 transform: scale(1)
             }
 
-            10%, 20% {
+            10%,
+            20% {
                 transform: scale(.9)rotate(-3deg)
             }
 
-            30%, 50%, 70%, 90% {
+            30%,
+            50%,
+            70%,
+            90% {
                 transform: scale(1.1)rotate(3deg)
             }
 
-            40%, 60%, 80% {
+            40%,
+            60%,
+            80% {
                 transform: scale(1.1)rotate(-3deg)
             }
 
@@ -248,20 +256,15 @@
 
         #chat {
             background-color: transparent;
-            /* #e0a800;*/
+            /* #e0a800;*/ 
             height: 120px;
             /*border-radius: 50% !important;*/
-            line-height: 65px;
+            line-height: 65px;            
             cursor: pointer;
             z-index: 10000;
             /*  box-shadow: 0px 2px 5px rgba(224,168,0,0.7), 1px 1px 4px rgba(128, 128, 128, 0.7), 0 0 0px rgba(128, 128, 128, 0.7) inset;*/
             /*  box-shadow: 0px 1px 5px rgba(128, 128, 128, 0.7), 1px 1px 4px rgba(128, 128, 128, 0.7), 0 0 0px rgba(128, 128, 128, 0.7) inset;*/
-            position: fixed;
-            bottom: 50px;
-            right: 25px;
-            width: 80px;
-            z-index: 99999;
-            padding: 0;
+            position: fixed;bottom: 50px;right: 25px;width:80px; z-index: 99999; padding: 0; 
         }
 
         .chatbox {
@@ -274,6 +277,7 @@
             border-color: transparent transparent transparent;
             left: 0px;
             bottom: 0px;
+
         }
 
         #close-chat {
@@ -291,12 +295,15 @@
         }
 
         .wc-message-groups {
+
             padding-left: 0px;
             padding-right: 0px;
         }
 
         #chat::before {
+
             border-color: transparent transparent transparent;
+
         }
 
         #chatbox {
@@ -333,6 +340,7 @@
         }
 
         #chatbox-popup-top {
+
             position: absolute;
             bottom: 80px;
             left: -50px;
@@ -340,6 +348,7 @@
             text-align: center;
             font-size: 13px;
             opacity: 0;
+
             transition: opacity 1s linear;
             -webkit-animation: mover 1s infinite alternate;
             animation: mover 1s infinite alternate;
@@ -348,18 +357,18 @@
         }
 
 
-            #chatbox-popup-top:after {
-                content: '';
-                position: absolute;
-                right: 55px;
-                top: 49px;
-                width: 0;
-                height: 0;
-                border-left: 8px solid transparent;
-                border-right: 8px solid transparent;
-                border-top: 8px solid #d9d9d9;
-                clear: both;
-            }
+        #chatbox-popup-top:after {
+            content: '';
+            position: absolute;
+            right: 55px;
+            top: 49px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #d9d9d9;
+            clear: both;
+        }
 
         @-webkit-keyframes mover {
             0% {
@@ -427,38 +436,30 @@
             }
         }
 
-        .chatbot-title {
-            width: 270px;
-            margin: auto;
-            display: inline-block;
-            font-size: 15px;
-            padding-top: 16px
+        .chatbot-title{
+            width:270px;margin:auto;display:inline-block;font-size:15px;padding-top:16px
         }
 
-            .chatbot-title:hover {
-                cursor: move;
-            }
+        .chatbot-title:hover{
+           cursor: move;
+        }
 
-        .chatbot-inner-image {
+        .chatbot-inner-image{
+
             box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
             border-radius: 50%;
-            position: absolute;
-            margin: 0;
-            max-height: 80px;
-            height: 80px;
-            width: 80px;
-            top: 0;
-            right: 0;
-            opacity: 1;
-            padding: 0;
-            border-radius: 50%;
+            position:absolute;margin:0;max-height:80px;height:80px;width:80px;top:0;right:0;opacity: 1;padding:0;border-radius:50%; 
             background-color: white;
+
         }
 
-            .chatbot-inner-image:hover {
-                background-color: #e0a800;
-                transition: background-color 1s ease;
-            }
+        .chatbot-inner-image:hover{ 
+            background-color: #e0a800;
+transition: background-color 1s ease;
+}
+ 
+
+
     </style>
 
 </head>
@@ -500,7 +501,7 @@
 
         </div>
 
-        <iframe id="ibotWindow" src="http://52.172.14.249:7512" scrolling="auto" frameborder="0"
+        <iframe id="ibotWindow" src="http://localhost:7512" scrolling="auto" frameborder="0"
             style="position:absolute;bottom:0px;left:0px;border:0; margin:0; padding: 0;height:550px;width:100%;padding-bottom:0px">
         </iframe>
     </div>

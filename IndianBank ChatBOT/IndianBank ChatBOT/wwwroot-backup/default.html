@@ -12,19 +12,11 @@
     <title>Indian Bank Bot</title>
 
     <!--Links for slider-->
- <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <!--Ends-->
-
-      <!--Links for slider-->
-    <link rel="stylesheet" href="content/bootstrap/css/bootstrap.min.css">
-    <script src="content/js/jquery_3.1.4.js"></script>
-    <script src="content/bootstrap/js/bootstrap.min.js"></script>
-    <script src="content/js/jquery-ui.js"></script>  
-    <!--Ends-->
-
     <!--React Libraries-->
     <script src="content/webchat/babel.min.js" charset="utf-8"></script>
     <script src="content/webchat/react.development.js"></script>
@@ -303,7 +295,6 @@
     <div id="webchat" role="main"></div>
 
 
-
     <!--New Slder Starts-->
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
         <div class="col-md-12">
@@ -330,15 +321,15 @@
                     </div>
 
                     <div class="item">
-                        <button onclick="sendSuggestedMenuMessage('product')" type="button"
+                        <button onclick="sendSuggestedMenuMessage('rates')" type="button"
                                 style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
                                 class="btn btn-xs btn-outline-primary">
-                            Products
+                            Rates
                         </button>
-                        <button onclick="sendSuggestedMenuMessage('services')" type="button"
+                        <button onclick="sendSuggestedMenuMessage('contacts')" type="button"
                                 style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
                                 class="btn btn-xs btn-outline-primary">
-                            Services
+                            Contacts
                         </button>
                         <button onclick="sendSuggestedMenuMessage('links')" type="button"
                                 style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
@@ -348,22 +339,21 @@
                     </div>
 
                     <div class="item">
-                        <button onclick="sendSuggestedMenuMessage('services')" type="button"
-                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
-                                class="btn btn-xs btn-outline-primary">
-                            Services
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('links')" type="button"
-                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
-                                class="btn btn-xs btn-outline-primary">
-                            Links
-                        </button>
                         <button onclick="sendSuggestedMenuMessage('rates')" type="button"
                                 style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
                                 class="btn btn-xs btn-outline-primary">
                             Rates
                         </button>
-
+                        <button onclick="sendSuggestedMenuMessage('contacts')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Contacts
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('product')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Products
+                        </button>
                     </div>
                 </div>
 
@@ -378,7 +368,6 @@
         </div>
     </div>
     <!--New Slider Ends-->
-
 
     <script type="text/babel">
         (async function () {
@@ -453,7 +442,7 @@
         }
         });
 
-        window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
 
         window.current_Context = "";
 
@@ -521,7 +510,7 @@
 
         sendFeedback = (feedBack) => {
         debugger;
-        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
+        fetch('http://localhost:7512/Report/UpdateFeedback', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
@@ -588,10 +577,10 @@
 
         window.ReactDOM.render(
         <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
-        activityMiddleware={activityMiddleware}
-        directLine={directLine}
-        styleOptions={styleOptions}
-        store={store} />,
+                      activityMiddleware={activityMiddleware}
+                      directLine={directLine}
+                      styleOptions={styleOptions}
+                      store={store} />,
         document.getElementById('webchat')
         );
 
@@ -602,7 +591,6 @@
 
     <script src="content/js/webchat-es5.js"></script>
     <style>
-
         html,
         body {
             height: 100%
@@ -874,7 +862,6 @@
         });
     </script>
     <style>
-
         .css-990gl9 {
             background-color: transparent !important;
         }
@@ -1075,7 +1062,6 @@
     </style>
 
     <style>
-
         /**Reduce size of bot container**/
         .css-y1c0xs,
         [data-css-y1c0xs] {
