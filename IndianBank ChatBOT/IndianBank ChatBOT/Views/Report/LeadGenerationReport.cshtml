@@ -24,6 +24,7 @@
             data_target = "#collapse" + uniqueNumber;
             id = "collapse" + uniqueNumber;
         }
+
         <div class="card">
             <div class="card-header" id="@headerId">
                 <h5 class="mb-0">
@@ -105,7 +106,7 @@
                                     <tr class="table-info">
                                         <td>@childRowIndex</td>
                                         <td>@data.UserQuery</td>
-                                        <td>@data.BotResponse</td>
+                                        <td><p style="white-space: pre-line">@Html.Raw(data.BotResponse)</p></td>
                                     </tr>
                                 }
                             </tbody>

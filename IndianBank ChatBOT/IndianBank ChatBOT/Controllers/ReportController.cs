@@ -7,6 +7,7 @@ using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -53,7 +54,7 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult FrequentlyAskedQueries()
         {
             CleanChatLog();
-            
+
             //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
             var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
 
@@ -138,7 +139,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult LeadGenerationReport()
         {
-            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet') order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet','bye_intent', 'lost_intent') order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             var overallChatLogs = chatLogs;
 
@@ -184,14 +185,28 @@ namespace IndianBank_ChatBOT.Controllers
                 {
                     var turnConversations = new List<TurnConversation>();
                     var botLogs = userCov.ChatLogs.Where(l => l.ReplyToActivityId != null).ToList();
-                    foreach (var log in botLogs)
+                    var ReplyToActivityIds = botLogs.Select(r => r.ReplyToActivityId).Distinct().ToList();
+
+                    foreach (var replyId in ReplyToActivityIds)
                     {
-                        var botResponse = overallChatLogs.Where(c => c.ReplyToActivityId == log.ReplyToActivityId).FirstOrDefault();
-                        var userResponse = overallChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
+                        var botResponses = overallChatLogs.Where(c => c.ReplyToActivityId == replyId).ToList();
+                        var botResponseText = new StringBuilder();
+
+                        for (int i = 0; i <= botResponses.Count - 1; i++)
+                        {
+                            var text = (string.IsNullOrEmpty(botResponses[i].Text)) ? botResponses[i].MainTitle : botResponses[i].Text;
+                            botResponseText.Append(text);
+                            if (i != botResponses.Count - 1)
+                            {
+                                botResponseText.Append(Environment.NewLine);
+                            }
+                        }
+
+                        var userResponse = _dbContext.ChatLogs.Where(c => c.ActivityId == replyId).FirstOrDefault();
                         var turnConversation = new TurnConversation
                         {
-                            ActivityId = log.ReplyToActivityId,
-                            BotResponse = botResponse == null ? string.Empty : (string.IsNullOrEmpty(botResponse.Text) ? botResponse.MainTitle : botResponse.Text),
+                            ActivityId = replyId,
+                            BotResponse = botResponseText.ToString(),
                             UserQuery = userResponse == null ? string.Empty : userResponse.Text,
                         };
                         turnConversations.Add(turnConversation);

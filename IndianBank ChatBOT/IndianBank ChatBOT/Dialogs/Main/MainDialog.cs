@@ -357,7 +357,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else if (entityType == "lost_entity")
                     {
-                        await dc.Context.SendActivityAsync($"Looks like your query requires futher assistance. Please contact customer care immediately on the folowwing number's : \n\n <tel:180042500000> /  <tel:18004254422>");
+                        await dc.Context.SendActivityAsync($"Looks like your query requires futher assistance. Please contact customer care immediately on the following number's : \n\n <tel:180042500000> /  <tel:18004254422>");
                     }
                     else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
                     {
