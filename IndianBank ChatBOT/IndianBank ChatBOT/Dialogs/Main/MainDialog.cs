@@ -336,7 +336,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
                     {
-
                         await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
                     }
                     else if (generalIntent == "small_talks_intent")
@@ -361,7 +360,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
                     {
-                        //await dc.Context.SendActivityAsync("Display the predefined FAQ's");
                         SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
                         await dc.EndDialogAsync();
                     }
@@ -390,25 +388,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     await ExecuteRabbitMqQueryAsync(dc);
                 }
-
-                //Rabbitmq code
-
-                //data = rabbitMq(result.Text);
-                //if (data != null)
-                //{
-                //    JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(data);
-                //    // foreach (var list in jsonObject.DOCUMENTS)
-                //    // {
-                //    //     await dc.Context.SendActivityAsync("Data: " + list.value + " \n For more info click on below URL: " + list.url);
-                //    // }
-                //    await dc.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n {jsonObject.DOCUMENTS[0].title}\n {jsonObject.DOCUMENTS[0].value} \n For more info click on below URL: {jsonObject.DOCUMENTS[0].url}");
-                //}
-                //else
-                //{
-                //    await dc.Context.SendActivityAsync("your query in invalid");
-                //}
-
-
             }
             else
             {
@@ -424,13 +403,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             var context = string.Empty;
 
             Console.WriteLine(dc.Context.Activity.ChannelData);
-
-            // if (dc.Context.Activity.ChannelData != null)
-            // {
-            //     context = ((dc.Context.Activity.ChannelData as JArray).First as JObject)?.Value<string>("context");
-            // }
-
-            //await dc.Context.SendActivityAsync("Send to Backend for answer!!");
 
             var data = rabbitMq(rabbitMqQuery, context);
 
@@ -628,90 +600,97 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {
-            JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
-
-            if (jsonObject.DOCUMENTS.Count >= 1)
+            if (string.IsNullOrEmpty(backendResult))
             {
-                var main_title = jsonObject.DOCUMENTS[0].main_title;
-                var sub_title = jsonObject.DOCUMENTS[0].title;
-
-                BotChatActivityLogger.UpdateRaSaData(main_title, 0, "");
-                BotChatActivityLogger.UpdateMainTitle(main_title);
-                BotChatActivityLogger.UpdateSubTitle(sub_title);
-                BotChatActivityLogger.UpdateResponseJsonText(backendResult);
-                BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
-            }
-
-            if (!String.IsNullOrEmpty(jsonObject.FILENAME))
-            {
-                ImageData pathName = getImagePath(jsonObject.FILENAME);
-
-                if (pathName.ImagePath != null)
-                {
-                    var attachment = new HeroCard()
-                    {
-                        Images = new List<CardImage> { new CardImage(pathName.ImagePath) }
-                    }.ToAttachment();
-
-
-                    var result = MessageFactory.Attachment(attachment, ssml: null, inputHint: InputHints.AcceptingInput);
-                    await dialogContext.Context.SendActivityAsync(result);
-                }
-
-                if (jsonObject.DOCUMENTS[0].value != null)
-                {
-                    await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-                }
-                else
-                {
-                    await dialogContext.Context.SendActivityAsync($"For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-                }
-
+                await dialogContext.Context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
             }
             else
             {
+                JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
 
-                if (jsonObject.WORD_SCORE == 0)
+                if (jsonObject.DOCUMENTS.Count >= 1)
                 {
-                    await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:180042500000> /  <tel:18004254422> \n\n Please click on the link below for futher contact details: \n\n https://indianbank.in/departments/quick-contact/ ");
-                    await dialogContext.Context.SendActivityAsync($"Please feel free to ask me anything else about Indian Bank");
+                    var main_title = jsonObject.DOCUMENTS[0].main_title;
+                    var sub_title = jsonObject.DOCUMENTS[0].title;
+
+                    BotChatActivityLogger.UpdateRaSaData(main_title, 0, "");
+                    BotChatActivityLogger.UpdateMainTitle(main_title);
+                    BotChatActivityLogger.UpdateSubTitle(sub_title);
+                    BotChatActivityLogger.UpdateResponseJsonText(backendResult);
+                    BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
                 }
-                else if (jsonObject.WORD_SCORE < 0.6)
+
+                if (!String.IsNullOrEmpty(jsonObject.FILENAME))
                 {
-                    await dialogContext.Context.SendActivityAsync("I did not find an exact answer but here is something similar");
-                    await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-                }
-                else
-                {
-                    await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.CORRECT_QUERY}\"");
-                    if (jsonObject.WORD_COUNT > 100)
+                    ImageData pathName = getImagePath(jsonObject.FILENAME);
+
+                    if (pathName.ImagePath != null)
                     {
-                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}");
+                        var attachment = new HeroCard()
+                        {
+                            Images = new List<CardImage> { new CardImage(pathName.ImagePath) }
+                        }.ToAttachment();
+
+
+                        var result = MessageFactory.Attachment(attachment, ssml: null, inputHint: InputHints.AcceptingInput);
+                        await dialogContext.Context.SendActivityAsync(result);
                     }
-                    else if (jsonObject.WORD_COUNT < 25)
-                    {
-                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
 
+                    if (jsonObject.DOCUMENTS[0].value != null)
+                    {
+                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
                     }
                     else
                     {
-                        var message = string.Empty;
-                        var documentCount = jsonObject.DOCUMENTS.Count();
-                        if (documentCount == 1)
+                        await dialogContext.Context.SendActivityAsync($"For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
+                    }
+
+                }
+                else
+                {
+
+                    if (jsonObject.WORD_SCORE == 0)
+                    {
+                        await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:180042500000> /  <tel:18004254422> \n\n Please click on the link below for futher contact details: \n\n https://indianbank.in/departments/quick-contact/ ");
+                        await dialogContext.Context.SendActivityAsync($"Please feel free to ask me anything else about Indian Bank");
+                    }
+                    else if (jsonObject.WORD_SCORE < 0.6)
+                    {
+                        await dialogContext.Context.SendActivityAsync("I did not find an exact answer but here is something similar");
+                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
+                    }
+                    else
+                    {
+                        await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.CORRECT_QUERY}\"");
+                        if (jsonObject.WORD_COUNT > 100)
                         {
-                            message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}";
+                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}");
                         }
-                        else if (documentCount > 1 && documentCount <= 2)
+                        else if (jsonObject.WORD_COUNT < 25)
                         {
-                            message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
+                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
 
                         }
                         else
                         {
-                            message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}\n\n{jsonObject.DOCUMENTS[2].url}";
-                        }
+                            var message = string.Empty;
+                            var documentCount = jsonObject.DOCUMENTS.Count();
+                            if (documentCount == 1)
+                            {
+                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}";
+                            }
+                            else if (documentCount > 1 && documentCount <= 2)
+                            {
+                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
 
-                        await dialogContext.Context.SendActivityAsync(message);
+                            }
+                            else
+                            {
+                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}\n\n{jsonObject.DOCUMENTS[2].url}";
+                            }
+
+                            await dialogContext.Context.SendActivityAsync(message);
+                        }
                     }
                 }
             }
@@ -731,7 +710,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             factory.Password = "indian";
             factory.VirtualHost = "indian-bank";
             factory.HostName = "ashutosh-rabbitmq";
-            //  factory.HostName =  "localhost";
+            //factory.HostName = "localhost";
 
             Console.WriteLine($"Key Generated is {key}");
 
@@ -752,16 +731,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             Console.WriteLine("Message Sent");
 
             string host = "ashutosh-redis";
-            //string keyy = "fdfgdf";
-            //   string host = "localhost";
-            //Store data in the cache
-            //       bool success = Save(host, key.ToString(),  queryParam);
-            //Thread.Sleep(10000);
+            //string host = "localhost";
 
-            // var keydata = Get(host, key.ToString());
-            // Console.WriteLine("FROM REDIS ************************************" + keydata);
-            // redis_res = Encoding.UTF8.GetString(keydata, 0, keydata.Length);
-            // Console.WriteLine("FROM REDIS ************************************" + redis_res);
             int count = 0;
             while (count <= 25 && redis_res == string.Empty)
             {
@@ -777,11 +748,13 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 Console.WriteLine($"redis_res==string.Empty = {redis_res == string.Empty}");
             }
 
-            var jObject = JObject.Parse(redis_res);
-            Console.WriteLine("AFTER PARSING ************************************" + jObject);
+            if (!string.IsNullOrEmpty(redis_res))
+            {
+                var jObject = JObject.Parse(redis_res);
+                Console.WriteLine("AFTER PARSING ************************************" + jObject);
+            }
 
             return redis_res;
-
         }
 
         //rabbitmq method ends here
@@ -815,6 +788,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             await dc.Context.SendActivityAsync("Please find the menu.");
             await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
         }
+
         public async Task CalculateEmiCalculateFormAsync(DialogContext dc, int principal, int rate, int time)
         {
             var localeChangedEventActivity = dc.Context.Activity.CreateReply();
