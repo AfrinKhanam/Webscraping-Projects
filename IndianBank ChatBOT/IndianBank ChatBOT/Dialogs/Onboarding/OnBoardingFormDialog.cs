@@ -47,7 +47,6 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
              //   AskEmailId,
                 AskPhoneNo,
                 EndOnboardingDialog
-
            };
 
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
@@ -137,7 +136,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             }, cancellationToken);
         }
 
-        public async Task<DialogTurnResult> EndOnboardingDialog(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+                public async Task<DialogTurnResult> EndOnboardingDialog(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             string userPhoneNumber = stepContext.Result as string;
             stepContext.Values["UserPhoneNumber"] = stepContext.Result;
@@ -167,14 +166,14 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 
                     var result = await dbContext.SaveChangesAsync();
 
-                    BotChatActivityLogger.UpdateOnBoardingMessageFlag(stepContext.Context.Activity.Conversation.Id);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                 }
             }
-
+            
+            BotChatActivityLogger.UpdateOnBoardingMessageFlag(stepContext.Context.Activity.Conversation.Id);
 
             return await stepContext.EndDialogAsync();
         }

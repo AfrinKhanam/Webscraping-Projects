@@ -68,7 +68,7 @@ namespace IndianBank_ChatBOT.Dialogs.EMI
         private async Task<bool> ValidatePrincipalAmount(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
         {
             string principalAmount = pc.Recognized.Value;
-            int enteredPrincipalAmount = await AmountUtils.Parse(principalAmount);
+            int enteredPrincipalAmount = AmountUtils.Parse(principalAmount);
             pc.Context.TurnState["PrincipalAmount"] = enteredPrincipalAmount;
 
             if (enteredPrincipalAmount == 0)

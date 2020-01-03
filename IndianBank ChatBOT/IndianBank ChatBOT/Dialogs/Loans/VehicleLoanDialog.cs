@@ -167,7 +167,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
         private async Task<bool> ValidateMonthlySalary(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
         {
             string monthlySalary = pc.Recognized.Value;
-            int grossMonthlySalary = await AmountUtils.Parse(monthlySalary);
+            int grossMonthlySalary = AmountUtils.Parse(monthlySalary);
             pc.Context.TurnState["MonthlyGrossSalary"] = grossMonthlySalary;
             if (grossMonthlySalary == 0)
             {
@@ -367,7 +367,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
         private async Task<bool> ValidateVehicleLoanAmount(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
         {
             string principalAmount = pc.Recognized.Value;
-            int vehicleLoanAmount = await AmountUtils.Parse(principalAmount);
+            int vehicleLoanAmount = AmountUtils.Parse(principalAmount);
             pc.Context.TurnState["VehicleLoanAmount"] = vehicleLoanAmount;
             if (vehicleLoanAmount == 0)
             {

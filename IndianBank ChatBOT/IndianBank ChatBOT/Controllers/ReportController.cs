@@ -29,10 +29,33 @@ namespace IndianBank_ChatBOT.Controllers
             return View();
         }
 
+        private void CleanChatLog()
+        {
+            var conversationIds = _dbContext.ChatLogs.Where(c => c.IsOnBoardingMessage == null).Select(c => c.ConversationId).Distinct().ToList();
+
+            foreach (var conversationId in conversationIds)
+            {
+                var userInfo = _dbContext.UserInfos.Where(u => u.ConversationId == conversationId).FirstOrDefault();
+                if (userInfo != null)
+                {
+                    var phoneNumber = userInfo.PhoneNumber.ToLower();
+                    var chatInfo = _dbContext.ChatLogs.Where(c => c.ConversationId == conversationId && c.Text.ToLower() == phoneNumber).FirstOrDefault();
+                    if (chatInfo != null)
+                    {
+                        chatInfo.IsOnBoardingMessage = true;
+                        _dbContext.ChatLogs.Update(chatInfo);
+                        _dbContext.SaveChanges();
+                    }
+                }
+            }
+        }
+
         public ActionResult FrequentlyAskedQueries()
         {
+            CleanChatLog();
+            
             //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
-            var query = $"select* from \"ChatLogs\" where coalesce(\"RasaIntent\", '') != '' and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') and \"ReplyToActivityId\" is null";
+            var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();

@@ -25,11 +25,11 @@ namespace IndianBank_ChatBOT.Utils
 		    };
         }
 
-        public static async Task<int> Parse(string utterance)
+        public static int Parse(string utterance)
         {
             int loanAmount = TryParse(utterance);
 
-            if (loanAmount!=0)
+            if (loanAmount != 0)
                 return loanAmount;
 
             return 0;

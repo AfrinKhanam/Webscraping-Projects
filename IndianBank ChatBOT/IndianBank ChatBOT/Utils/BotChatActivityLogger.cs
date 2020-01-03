@@ -88,6 +88,7 @@ namespace IndianBank_ChatBOT.Utils
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     throw;
                 }
             }
