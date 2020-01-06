@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -228,14 +229,19 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <param name="conversationState">State of the conversation.</param>
         /// <param name="userState">State of the user.</param>
         /// <exception cref="ArgumentNullException">services</exception>
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState)
+
+        private static  AppSettings appSettings;
+
+        public MainDialog(BotServices services, ConversationState conversationState, UserState userState,AppSettings appsettings)
             : base(nameof(MainDialog))
         {
+            appSettings = appsettings;
+
             _services = services ?? throw new ArgumentNullException(nameof(services));
             _conversationState = conversationState;
             _userState = userState;
             AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
-            AddDialog(new OnBoardingFormDialog(_services, conversationState, userState));
+            AddDialog(new OnBoardingFormDialog(_services, conversationState, userState,appsettings));
             AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
         }
 
@@ -336,6 +342,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
                     {
+                       
                         await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
                     }
                     else if (generalIntent == "small_talks_intent")
@@ -706,11 +713,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
             ConnectionFactory factory = new ConnectionFactory();
             // "guest"/"guest" by default, limited to localhost connections
-            factory.UserName = "indian";
-            factory.Password = "indian";
-            factory.VirtualHost = "indian-bank";
-            factory.HostName = "ashutosh-rabbitmq";
-            //factory.HostName = "localhost";
+
+            factory.UserName = appSettings.RabbitmqUsername;
+            factory.Password = appSettings.RabbitmqPassword; 
+            factory.VirtualHost = appSettings.RabbitmqVirtualHost;
+            factory.HostName = appSettings.RabbitmqHostName;
+            factory.HostName = "localhost";
 
             Console.WriteLine($"Key Generated is {key}");
 

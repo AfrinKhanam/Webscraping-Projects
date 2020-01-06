@@ -28,13 +28,16 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         private ConversationState _conversationState;
         private MainResponses _responder = new MainResponses();
 
+        private readonly AppSettings _appSettings;
+
         // public static string ApplicantName = string.Empty;
         // public static string ApplicantEmailID = string.Empty;
         // public static string ApplicantPhoneNumber = string.Empty;
 
-        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState) : base(services, nameof(OnBoardingFormDialog))
+        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState,AppSettings appsettings) : base(services, nameof(OnBoardingFormDialog))
         {
 
+            _appSettings=appsettings;
             InitialDialogId = nameof(OnBoardingFormDialog);
 
             _services = services ?? throw new ArgumentNullException(nameof(services));
@@ -145,7 +148,9 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             //await stepContext.Context.SendActivityAsync("Please find the menu.");
             //await _responder.ReplyWith(stepContext.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
 
-            var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+
+            var cs = _appSettings.ConnectionString;
 
             using (var dbContext = new AppDbContext(cs))
             {
