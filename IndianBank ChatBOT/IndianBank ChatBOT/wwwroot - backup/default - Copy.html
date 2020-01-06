@@ -11,14 +11,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Indian Bank Bot</title>
 
-
-
     <!--Links for slider-->
+ <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+    <!--Ends-->
+
+      <!--Links for slider-->
     <link rel="stylesheet" href="content/bootstrap/css/bootstrap.min.css">
     <script src="content/js/jquery_3.1.4.js"></script>
     <script src="content/bootstrap/js/bootstrap.min.js"></script>
-    <script src="content/js/jquery-ui.js"></script>
+    <script src="content/js/jquery-ui.js"></script>  
     <!--Ends-->
+
     <!--React Libraries-->
     <script src="content/webchat/babel.min.js" charset="utf-8"></script>
     <script src="content/webchat/react.development.js"></script>
@@ -373,38 +379,8 @@
     </div>
     <!--New Slider Ends-->
 
-    <script src="content/js/webchat-es5.js"></script>
-
-    <script type="text/javascript">
-       //     window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-   window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
-
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            debugger;
-            //  window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-            //  const directLine = window.WebChat.createDirectLine({ domain: 'http://127.0.0.1:3000/directline', webSocket: false });
-            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
-            var styleOptions = {
-                backgroundColor: '',
-                hideUploadButton: true,
-                botAvatarInitials: 'BOT',
-                botAvatarImage: './botAvatar.png',
-                botAvatarBackgroundColor: '#e2aa42ad'
-            };
-
-            window.WebChat.renderWebChat({
-                directLine: directLine,
-                userID: 'IndianBank_ChatBOT',
-                styleOptions: styleOptions,
-                resize: 'detect'
-            }, document.getElementById('webchat'));
-        }
-    </script>
-
-
 
     <script type="text/babel">
-        if(!(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))){
         (async function () {
         'use strict';
 
@@ -417,7 +393,6 @@
         botAvatarImage: './botAvatar.png',
         botAvatarBackgroundColor: '#e2aa42ad'
         };
-
 
         const ACTIVITY_WITH_FEEDBACK_CSS = css({
         minHeight: 60,
@@ -477,7 +452,8 @@
 
         }
         });
-        //   window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+
+        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
 
         window.current_Context = "";
 
@@ -545,7 +521,7 @@
 
         sendFeedback = (feedBack) => {
         debugger;
-        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
+        fetch('http://localhost:7512/Report/UpdateFeedback', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
@@ -559,13 +535,13 @@
         }
 
         handleDownvoteButton = () => {
-        this.setState({ upvote_class: 'feedback-done', downvote_class: 'reaction-downvote feedback-done', disabled: 'disabled' });
+        this.setState({ upvote_class: '', downvote_class: 'reaction-downvote', disabled: 'disabled' });
 
         this.sendFeedback(-1);
         }
 
         handleUpvoteButton = () => {
-        this.setState({ upvote_class: 'reaction-upvote feedback-done ', downvote_class: 'feedback-done', disabled: 'disabled' });
+        this.setState({ upvote_class: 'reaction-upvote', downvote_class: '', disabled: 'disabled' });
 
         this.sendFeedback(1);
         }
@@ -577,12 +553,11 @@
         <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
             <div className="activity">{props.children}</div>
             <ul className="button-bar">
-
                 <li>
-                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
+                    <button className={this.state.upvote_class} disabled={this.state.disabled} onClick={this.handleUpvoteButton}>👍</button>
                 </li>
                 <li>
-                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
+                    <button className={this.state.downvote_class} disabled={this.state.disabled} onClick={this.handleDownvoteButton}>👎</button>
                 </li>
             </ul>
 
@@ -594,12 +569,12 @@
         const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
         <ActivityWithFeedback { ...props} />
         ));
-        debugger;
+
         let excludedText = [`Hi! My name is Iva 😃.
         Welcome to Indian Bank.
         I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
         const activityMiddleware = () => next => card => {
-        if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) {
+        if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text)) {
         return children => (
         <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
             {next(card)(children)}
@@ -622,14 +597,12 @@
 
         document.querySelector('#webchat > *').focus();
         })().catch(err => console.error(err));
-        }
     </script>
 
 
-
-
-
+    <script src="content/js/webchat-es5.js"></script>
     <style>
+
         html,
         body {
             height: 100%
@@ -658,7 +631,7 @@
                 cursor: pointer;
             }
     </style>
-    <script>
+    <script type="text/javascript">
         window.current_Context = "undefined";
 
         onSendButtonClick = function (e) {
@@ -721,7 +694,7 @@
         $(document).ready(function () {
             setTimeout(function () {
                 $("div.main").hide();
-                var element = '<div class="main css-16qahhi css-qn8ts8 css-1g3yky9 css-1fe8kfc"><input id="autocomplete-ajax" aria-label="Type your message" placeholder="Type your message" type="text" value=""><div><button onclick="onSendButtonClick()" class="css-115fwte" title="Send" type="button"><img src="send-icon.png" style="width: 53%;"></button></div></div>';
+                var element = `<div class="main css-16qahhi css-qn8ts8 css-1g3yky9 css-1fe8kfc"><input id="autocomplete-ajax" aria-label="Type your message" placeholder="Type your message" type="text" value=""><div><button onclick="onSendButtonClick()" class="css-115fwte" title="Send" type="button"><img src="send-icon.png" style="width: 53%;"></button></div></div>`;
                 $(element).insertAfter($("div.main"));
 
                 $('#autocomplete-ajax').autocomplete({
@@ -901,6 +874,7 @@
         });
     </script>
     <style>
+
         .css-990gl9 {
             background-color: transparent !important;
         }
@@ -1089,45 +1063,19 @@
             fill: rgb(12, 77, 162);
         }
 
-        /*Reaction buttons Styling*/
-
-
-        .button-bar li {
-            color: green !important;
-        }
-
-
-            .button-bar li:not(:first-child):hover {
-                color: red !important;
-            }
-
-            .button-bar li:hover {
-                color: green !important;
-            }
-
-
-            .button-bar li:not(:first-child) {
-                color: red !important;
-            }
-
         .reaction-downvote {
             background-color: red !important;
             border-radius: 17px;
-            color: white !important;
         }
 
         .reaction-upvote {
             background-color: green !important;
             border-radius: 17px;
-            color: white !important;
-        }
-
-        .feedback-done {
-            /* display: none;  */
         }
     </style>
 
     <style>
+
         /**Reduce size of bot container**/
         .css-y1c0xs,
         [data-css-y1c0xs] {

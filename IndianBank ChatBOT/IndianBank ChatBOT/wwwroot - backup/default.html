@@ -11,14 +11,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Indian Bank Bot</title>
 
-
-
     <!--Links for slider-->
+ <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+    <!--Ends-->
+
+      <!--Links for slider-->
     <link rel="stylesheet" href="content/bootstrap/css/bootstrap.min.css">
     <script src="content/js/jquery_3.1.4.js"></script>
     <script src="content/bootstrap/js/bootstrap.min.js"></script>
-    <script src="content/js/jquery-ui.js"></script>
+    <script src="content/js/jquery-ui.js"></script>  
     <!--Ends-->
+
     <!--React Libraries-->
     <script src="content/webchat/babel.min.js" charset="utf-8"></script>
     <script src="content/webchat/react.development.js"></script>
@@ -375,261 +381,32 @@
 
     <script src="content/js/webchat-es5.js"></script>
 
-    <script type="text/javascript">
-       //     window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-   window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
-
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            debugger;
-            //  window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-            //  const directLine = window.WebChat.createDirectLine({ domain: 'http://127.0.0.1:3000/directline', webSocket: false });
-            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
-            var styleOptions = {
-                backgroundColor: '',
-                hideUploadButton: true,
-                botAvatarInitials: 'BOT',
-                botAvatarImage: './botAvatar.png',
-                botAvatarBackgroundColor: '#e2aa42ad'
-            };
-
-            window.WebChat.renderWebChat({
-                directLine: directLine,
-                userID: 'IndianBank_ChatBOT',
-                styleOptions: styleOptions,
-                resize: 'detect'
-            }, document.getElementById('webchat'));
-        }
-    </script>
-
-
-
     <script type="text/babel">
-        if(!(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))){
-        (async function () {
-        'use strict';
-
-        const { connectToWebChat, ReactWebChat } = window.WebChat;
-        const { css } = window.Glamor;
-        const styleOptions = {
-        backgroundColor: '',
-        hideUploadButton: true,
-        botAvatarInitials: 'BOT',
-        botAvatarImage: './botAvatar.png',
-        botAvatarBackgroundColor: '#e2aa42ad'
-        };
-
-
-        const ACTIVITY_WITH_FEEDBACK_CSS = css({
-        minHeight: 60,
-        position: 'relative',
-
-        '& > .activity': {
-        paddingLeft: 0
-        },
-
-        '& > .button-bar': {
-        paddingLeft: 50,
-        listStyleType: 'none',
-        margin: '0 0 0 10px',
-        position: 'relative',
-
-        '& > li': {
-        display: 'inline-block'
-        },
-
-        '& > li > button': {
-        background: 'White',
-        border: 'solid 0px #E6E6E6',
-        marginBottom: 2,
-        padding: '2px 5px 5px',
-
-        '&:hover': {
-        opacity: 0.50,
-        cursor: 'pointer',
-        }
-        }
-        }
-        });
-
-
-        const ATTACHMENT_FEEDBACK = css({
-        padding: 10,
-        margin: 0,
-        textAlign: 'left',
-        minHeight: 20,
-        position: 'relative',
-
-        '& > button': {
-
-        fontFamily: '"Calibri", "Helvetica Neue", "Arial", "sans-serif"',
-        padding: '2px 10px',
-        margin: '3px 3px',
-        fontSize: '16px',
-        color: 'black',
-        background: '#f1f0f0',
-        borderRadius: '5px',
-        weight: '400',
-
-        '&:hover': {
-        opacity: 0.50,
-        cursor: 'pointer',
-        }
-
-        }
-        });
-        //   window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-
-        window.current_Context = "";
-
-        const store = window.WebChat.createStore();
-
-        class IntegraHeroCard extends React.Component {
-
-        sendMessageButton = (e) => {
-
-        return store.dispatch({
-        type: 'WEB_CHAT/SEND_MESSAGE',
-        payload: { text: e }
-        });
-        }
-        render() {
-        const { props } = this;
-        const items = []
-        for (const button of props.buttons) {
-        items.push(
-        <button onClick={() => this.sendMessageButton(button.value)} key={button.title}>{button.title}</button>)
-        }
-        return (
-        <div className={ATTACHMENT_FEEDBACK}>
-            {items}
-        </div>
-        );
-        }
-        }
-
-        const attachmentMiddleware = () => next => card => {
-        switch (card.attachment.contentType) {
-        case 'application/vnd.microsoft.card.hero': {
-        console.log(card.attachment.contentType)
-        console.log(card.attachment)
-        console.log(card)
-        return (
-        <IntegraHeroCard buttons={card.attachment.content.buttons} />
-        );
-        }
-
-        default:
-        return next(card);
-        }
-        };
-
-        const REACTION_DISABLED = css({
-        enabled: false
-        });
-
-        const REACTION_SELECTED = css({
-        backgroundColor: 'red'
-        });
-
-        class ActivityWithFeedback extends React.Component {
-
-        constructor () {
-        super();
-
-        this.state = {
-        upvote_class: '',
-        downvote_class: '',
-        disabled: false
-        };
-        }
-
-        sendFeedback = (feedBack) => {
-        debugger;
-        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
-        method: 'POST',
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        ActivityId: this.props.replyId,
-        ResonseFeedback: feedBack,
-        })
-        })
-        }
-
-        handleDownvoteButton = () => {
-        this.setState({ upvote_class: 'feedback-done', downvote_class: 'reaction-downvote feedback-done', disabled: 'disabled' });
-
-        this.sendFeedback(-1);
-        }
-
-        handleUpvoteButton = () => {
-        this.setState({ upvote_class: 'reaction-upvote feedback-done ', downvote_class: 'feedback-done', disabled: 'disabled' });
-
-        this.sendFeedback(1);
-        }
-
-        render() {
-        const { props } = this;
-
-        return (
-        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
-            <div className="activity">{props.children}</div>
-            <ul className="button-bar">
-
-                <li>
-                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
-                </li>
-                <li>
-                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
-                </li>
-            </ul>
-
-        </div>
-        );
-        }
-        }
-
-        const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
-        <ActivityWithFeedback { ...props} />
-        ));
-        debugger;
-        let excludedText = [`Hi! My name is Iva 😃.
-        Welcome to Indian Bank.
-        I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
-        const activityMiddleware = () => next => card => {
-        if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) {
-        return children => (
-        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
-            {next(card)(children)}
-        </ConnectedActivityWithFeedback>
-        );
-        } else {
-        return next(card);
-        }
-        };
-
-
-        window.ReactDOM.render(
-        <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
-        activityMiddleware={activityMiddleware}
-        directLine={directLine}
-        styleOptions={styleOptions}
-        store={store} />,
-        document.getElementById('webchat')
-        );
-
-        document.querySelector('#webchat > *').focus();
-        })().catch(err => console.error(err));
-        }
-    </script>
-
-
+    'use strict';
+        const directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+         //  const directLine = window.WebChat.createDirectLine({ domain: 'http://127.0.0.1:3000/directline', webSocket: false });
+           //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
+           var styleOptions = {
+               backgroundColor: '',
+               hideUploadButton: true,
+               botAvatarInitials: 'BOT',
+               botAvatarImage:'./botAvatar.png',
+               botAvatarBackgroundColor: '#e2aa42ad'
+           };
+   
+           window.WebChat.renderWebChat({
+               directLine: directLine,
+               userID: 'IndianBank_ChatBOT',
+               styleOptions: styleOptions,
+               resize: 'detect'
+           }, document.getElementById('webchat'));
+   
+       </script>
 
 
 
     <style>
+
         html,
         body {
             height: 100%
@@ -658,7 +435,7 @@
                 cursor: pointer;
             }
     </style>
-    <script>
+ <script> 
         window.current_Context = "undefined";
 
         onSendButtonClick = function (e) {
@@ -775,7 +552,7 @@
                                     var src = item._source;
                                     var itemContext = src.primary_context_and_keyword.split(',', 1)[0].toLowerCase();
 
-                                    return { "value": src.Questions, "data": src.Questions, "context": itemContext };
+                                    return {"value": src.Questions, "data": src.Questions, "context": itemContext};
                                 });
 
                                 /*console.log(curContext);
@@ -901,6 +678,7 @@
         });
     </script>
     <style>
+
         .css-990gl9 {
             background-color: transparent !important;
         }
@@ -1089,45 +867,19 @@
             fill: rgb(12, 77, 162);
         }
 
-        /*Reaction buttons Styling*/
-
-
-        .button-bar li {
-            color: green !important;
-        }
-
-
-            .button-bar li:not(:first-child):hover {
-                color: red !important;
-            }
-
-            .button-bar li:hover {
-                color: green !important;
-            }
-
-
-            .button-bar li:not(:first-child) {
-                color: red !important;
-            }
-
         .reaction-downvote {
             background-color: red !important;
             border-radius: 17px;
-            color: white !important;
         }
 
         .reaction-upvote {
             background-color: green !important;
             border-radius: 17px;
-            color: white !important;
-        }
-
-        .feedback-done {
-            /* display: none;  */
         }
     </style>
 
     <style>
+
         /**Reduce size of bot container**/
         .css-y1c0xs,
         [data-css-y1c0xs] {
