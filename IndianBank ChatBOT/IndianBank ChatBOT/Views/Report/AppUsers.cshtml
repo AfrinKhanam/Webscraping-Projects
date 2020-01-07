@@ -1,13 +1,36 @@
 ﻿@model List<UserInfo>
 
 @{
-    ViewData["Title"] = "FrequentlyAskedQueries";
+    ViewData["Title"] = "Visitors";
 }
 
-<h2>Visitors</h2>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav nav-tabs ">
+            <li class="nav-item">
+                <a class="nav-link color-black" href='@Url.Action("FrequentlyAskedQueries", "Report")'>Frequently Asked Queries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-black active" href='@Url.Action("AppUsers", "Report")'>Visitors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-black" href='@Url.Action("UnAnsweredQueries", "Report")'>UnAnswered Queries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-black" href='@Url.Action("LeadGenerationReport", "Report")'>Lead Generation Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-black" href='@Url.Action("UnSatisfiedVisitors", "Report")'>UnSatisfied Visitors</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-<br />
-<br />
+
+
+<h2 class="pt-3 pb-3">Visitors</h2>
+ 
+
 <table class="table css-serial">
     <thead>
         <tr>

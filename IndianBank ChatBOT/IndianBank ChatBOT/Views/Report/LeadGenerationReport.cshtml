@@ -4,126 +4,189 @@
     ViewData["Title"] = "Lead Generation Report";
 }
 
-<h2>Lead Generation Report</h2>
-<br />
-<br />
+    <nav class="navbar navbar-expand-lg navbar-light  "> 
+ 
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link color-black" href='@Url.Action("FrequentlyAskedQueries", "Report")'>Frequently Asked Queries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-black" href='@Url.Action("AppUsers", "Report")'>Visitors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-black" href='@Url.Action("UnAnsweredQueries", "Report")'>UnAnswered Queries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-black active" href='@Url.Action("LeadGenerationReport", "Report")'>Lead Generation Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-black" href='@Url.Action("UnSatisfiedVisitors", "Report")'>UnSatisfied Visitors</a>
+                </li>
+            </ul>
+        </div>
 
-<div id="accordion">
-    @{
-        var headerIndex = 0;
-        var headerId = "";
-        var data_target = "";
-        var id = "";
-    }
-    @foreach (var item in Model)
-    {
-        {
-            var uniqueNumber = Guid.NewGuid().ToString();
-            headerIndex = headerIndex + 1;
-            headerId = "heading" + uniqueNumber;
-            data_target = "#collapse" + uniqueNumber;
-            id = "collapse" + uniqueNumber;
+    </nav>
+
+
+
+    <h2 class="pt-3 pb-3">Lead Generation Report</h2>
+
+
+    <div id="accordion">
+        @{
+            var headerIndex = 0;
+            var headerId = "";
+            var data_target = "";
+            var id = "";
         }
+        @foreach (var item in Model)
+        {
+            {
+                var uniqueNumber = Guid.NewGuid().ToString();
+                headerIndex = headerIndex + 1;
+                headerId = "heading" + uniqueNumber;
+                data_target = "#collapse" + uniqueNumber;
+                id = "collapse" + uniqueNumber;
+            }
 
-        <div class="card">
-            <div class="card-header" id="@headerId">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="@data_target" aria-expanded="true" aria-controls="@id">
-                        @item.Intent
-                    </button>
-                </h5>
-            </div>
+            <div class="card">
+                <div class="card-header" id="@headerId">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link report-heading" data-toggle="collapse" data-target="@data_target" aria-expanded="true" aria-controls="@id">
+                            @item.Intent
+                        </button>
+                    </h5>
+                </div>
 
-            <div id="@id" class="collapse show" aria-labelledby="@headerId" data-parent="#accordion">
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Visitor Name
-                                </th>
-                                <th>
-                                    Visitor Phone Number
-                                </th>
-                                <th>
-                                    Number of queries
-                                </th>
-                                <th>
-                                    Visited On
-                                </th>
-                                <th>
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-
-                        @{
-                            int index = 0;
-                            int ChatLogs = 0;
-                            var groupdata_target = "";
-                            var groupId = "";
-                            var visitedOn = "";
-                        }
-                        @foreach (var user in item.ConversationByUsers)
-                        {
-                            {
-                                var uniqueNumber = Guid.NewGuid().ToString();
-                                index = index + 1;
-                                visitedOn = user.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
-                                ChatLogs = user.TurnConversations.Count();
-                                groupdata_target = "#group-of-rows-" + uniqueNumber;
-                                groupId = "group-of-rows-" + uniqueNumber;
-                            }
-                            <tbody>
-                                <tr class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
-                                    <td>@index</td>
-                                    <td>@Html.DisplayFor(modelItem => user.Name)</td>
-                                    <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
-                                    <td>@ChatLogs</td>
-                                    <td>@visitedOn</td>
-                                    <td><i class="fa fa-plus" aria-hidden="true"></i>View</td>
+                <div id="@id" class="collapse show" aria-labelledby="@headerId" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Visitor Name
+                                    </th>
+                                    <th>
+                                        Visitor Phone Number
+                                    </th>
+                                    <th>
+                                        Number of queries
+                                    </th>
+                                    <th>
+                                        Visited On
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
-                            </tbody>
-                            <thead id="@groupId" class="collapse example-table">
-                                <tr><th>#</th><th>Visitor Query</th><th>Bot Response</th></tr>
                             </thead>
 
-                            <tbody id="@groupId" class="collapse example-table">
-                                @{
-                                    var childRowIndex = 0;
-                                    var TurnConversations = new List<TurnConversation>();
-                                    TurnConversations = user.TurnConversations;
-                                }
-
-                                @foreach (var data in TurnConversations)
+                            @{
+                                int index = 0;
+                                int ChatLogs = 0;
+                                var groupdata_target = "";
+                                var groupId = "";
+                                var visitedOn = "";
+                            }
+                            @foreach (var user in item.ConversationByUsers)
+                            {
                                 {
-                                    {
-                                        childRowIndex = childRowIndex + 1;
-                                    }
-                                    <tr class="table-info">
-                                        <td>@childRowIndex</td>
-                                        <td>@data.UserQuery</td>
-                                        <td><p style="white-space: pre-line">@Html.Raw(data.BotResponse)</p></td>
-                                    </tr>
+                                    var uniqueNumber = Guid.NewGuid().ToString();
+                                    index = index + 1;
+                                    visitedOn = user.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
+                                    ChatLogs = user.TurnConversations.Count();
+                                    groupdata_target = "#group-of-rows-" + uniqueNumber;
+                                    groupId = "group-of-rows-" + uniqueNumber;
                                 }
-                            </tbody>
-                        }
-                    </table>
+                                <tbody>
+                                    <tr class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
+                                        <td>@index</td>
+                                        <td>@Html.DisplayFor(modelItem => user.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
+                                        <td>@ChatLogs</td>
+                                        <td>@visitedOn</td>
+                                        <td>
+                                            <button type="button" class="btn btn-light btn-hover">View</button>
+                                            <i class="fa fa-plus " aria-hidden="true"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <table id="@groupId" class="table  table-bordered collapse example-table sub-table">
+                                    <thead>
+                                        <tr><th>S. No.</th><th>Visitor Query</th><th>Bot Response</th> </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @{
+                                            var childRowIndex = 0;
+                                            var TurnConversations = new List<TurnConversation>();
+                                            TurnConversations = user.TurnConversations;
+                                        }
+
+                                        @foreach (var data in TurnConversations)
+                                        {
+                                            {
+                                                childRowIndex = childRowIndex + 1;
+                                            }
+                                            <tr class="table-info">
+                                                <td>@childRowIndex</td>
+                                                <td>@data.UserQuery</td>
+                                                <td><p style="white-space: pre-line">@Html.Raw(data.BotResponse)</p></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
-<style>
-    .example-table td {
-        padding: 30px;
-    }
+    <style>
+        .example-table td {
+            padding: 30px;
+        }
 
-    .example-table th {
-        padding: 30px;
-    }
-</style>
+        .example-table th {
+            padding: 30px;
+        }
+
+        .sub-table {
+            width: 100%;
+            background-color: #00245f;
+            transition: display 0s, opacity 2s linear;
+        }
+
+            .sub-table th {
+                font-size: 14px;
+                color: white;
+            }
+
+            .sub-table td {
+                font-size: 13px;
+            }
+
+        .btn-hover {
+            cursor: pointer !important;
+        }
+
+        .report-heading {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+            .report-heading:hover {
+                color: black;
+            }
+
+        .color-black {
+            color: black;
+        }
+    </style>
