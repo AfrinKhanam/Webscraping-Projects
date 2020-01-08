@@ -1,0 +1,24 @@
+{
+	"https://www.indianbank.in/departments/mca-payment/" : {
+		"page_hierarchy" : {
+			"domain" : "service",
+			"class" : "premium"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+}

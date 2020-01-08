@@ -4,8 +4,8 @@ class RedisClient():
     def __init__(self, host='localhost', port=6379):
         self.redis_client = Redis(host, port)
 
-    def set_value(self, key, value):
-        self.redis_client.set(key, value)
+    def set_value(self, key, value, expiry_time):
+        self.redis_client.set(key, value, ex=expiry_time)
 
         return
 

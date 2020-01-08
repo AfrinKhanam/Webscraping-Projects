@@ -147,9 +147,7 @@ test_query = "education loan prime  amount of loan"
 test_query = "security deposit to be paid for education loan"
 test_query = "security deposit to be paid for education loan"
 
-test_query = "domestic branches"
-test_query = "eligibility for argriculture godowns"
-test_query = "margin for tractor in sugar mill"
+test_query = "argriculture jewel loan"
 
 test_query_string = {
     "UUID" : "absdj-1237812-asdjdas",

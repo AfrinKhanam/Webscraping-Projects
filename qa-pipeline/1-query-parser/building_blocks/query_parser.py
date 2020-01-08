@@ -9,7 +9,6 @@ import re
 
 class QueryParser:
     def __init__(self):
-        
         #-------------- Initialise all custom stop words ---------------------#
         self.ps = PorterStemmer()
         self.bag_of_words = []
@@ -20,7 +19,7 @@ class QueryParser:
         #--------------------------------------------------------------------#
 
         #-------------- Initialise all synonyms -----------------------------#
-        
+
         # Reading Stemmed file
         self.synonyms_repo = []
         f = open('./config_files/synonyms.txt', 'r')
@@ -31,7 +30,7 @@ class QueryParser:
         # Creating list of synonyms words
         for idx, record in enumerate(self.synonyms_repo):
             self.synonyms_repo[idx] = re.split(r'=+', record)
-        
+
         # Stemming words
         synonyms_repo = []
 
@@ -59,7 +58,7 @@ class QueryParser:
 
 
 
-        print(self.synonyms_repo)
+        #print(self.synonyms_repo)
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -74,14 +73,13 @@ class QueryParser:
 
         f.close()
         self.correct_word = correct_word
-        print(correct_word)
+        #print(correct_word)
         #--------------------------------------------------------------------#
-        
 
     def parse(self, query_string):
         #--------------------------------------------------------------------#
         query_string = self.remove_unwanted_charater(query_string)
-        print("unwanted charater removed :: ", query_string)
+        #print("unwanted charater removed :: ", query_string)
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -90,18 +88,18 @@ class QueryParser:
 
         try:
             auto_correct_string = w_autocorrect(query_string)
-            print('Autocorrected query :: ' , auto_correct_string)
+            #print('Autocorrected query :: ' , auto_correct_string)
         except:
-            print('!!!!!!!!!!!!!!!! unable to do autocorrect')
+            #print('!!!!!!!!!!!!!!!! unable to do autocorrect')
             auto_correct_string = query_string
         
-        print('Autocorrected query[new] :: ' , auto_correct_string)
+        #print('Autocorrected query[new] :: ' , auto_correct_string)
         #--------------------------------------------------------------------#
         
 
         #--------------------------------------------------------------------#
         parsed_query_string = self.remove_stopword(auto_correct_string)
-        print('After removing stop words :: ' , parsed_query_string)
+        #print('After removing stop words :: ' , parsed_query_string)
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -141,8 +139,8 @@ class QueryParser:
 
         #stemmed_synonym_query = " ".join(stemmed_list)
         #---------------------------------------------#
-        print('query_synonyms_dict :: ', query_synonyms_dict)
-        print("QUERY WITH SYNONYMS :: ", synonym_query)
+        #print('query_synonyms_dict :: ', query_synonyms_dict)
+        #print("QUERY WITH SYNONYMS :: ", synonym_query)
         #print("QUERY WITH SYNONYMS :: ", stemmed_synonym_query)
 
         return synonym_query
@@ -189,18 +187,18 @@ class QueryParser:
         for key,value in self.correct_word.items():
 
             if key.lower() in auto_correct_string.split():
-                print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
+                #print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
                 auto_correct_string = (re.sub(key.lower(), value.lower(), auto_correct_string))
-                print(auto_correct_string)
+                #print(auto_correct_string)
         #---------------------------------------------------------------#
 
-        print('auto correct string :: ', auto_correct_string)
+        #print('auto correct string :: ', auto_correct_string)
 
         return auto_correct_string
 
 
     def add_synonym_to_input_query(self, query):
-        print("--> parsed query string : ",format(query) )
+        #print("--> parsed query string : ",format(query) )
 
         #-----------------------------------------------------------#
         query_synonyms_dict = []
@@ -214,17 +212,17 @@ class QueryParser:
                 if len(query_synonyms_dict) == 0: 
                     if re.findall(regex, query) and len(word) != 0:
                     #if re.search(regex, query) and len(word) != 0:
-                        print('------> : word : ', word)
-                        print('------> : record : ', record)
+                        #print('------> : word : ', word)
+                        #print('------> : record : ', record)
                         query_synonyms_dict.append(record)
                 else:
                     if re.findall(regex, query) and len(word) != 0:
                     #if re.search(regex, query) and len(word) != 0:
-                        print('\n\n')
-                        print('------> : word : ', word)
-                        print('------> : record : ', record)
-                        print('------> : query :', query)
-                        print('\n\n')
+                        #print('\n\n')
+                        #print('------> : word : ', word)
+                        #print('------> : record : ', record)
+                        #print('------> : query :', query)
+                        #print('\n\n')
                         for element in query_synonyms_dict:
                             element = set(element)
 
@@ -264,10 +262,10 @@ class QueryParser:
         query_with_synonym +=  ' ' + query
         query_with_synonym = set(query_with_synonym.split())
         query_with_synonym = " ".join(query_with_synonym)
-        print('-------> query_with_synonyms : ', query_with_synonym)
+        #print('-------> query_with_synonyms : ', query_with_synonym)
         #-----------------------------------------------------------#
 
-        print('-------> query_synonyms_dict : ', query_synonyms_dict)
+        #print('-------> query_synonyms_dict : ', query_synonyms_dict)
 
 
 
@@ -297,10 +295,11 @@ class QueryParser:
                     #print('parsed word ::', parsed_query_words_copy)
                     #print('\n\n')
 
-                    if query_word not in parsed_query_words_copy:
-                        print("NOT IN LIST")
-                    else:
-                        print('IT IS IN LIST')
+                    #if query_word not in parsed_query_words_copy:
+                        #print("NOT IN LIST")
+                    #else:
+                        #print('IT IS IN LIST')
+
                     parsed_query_words_copy.remove(query_word)
 
         if len(parsed_query_words_copy) != 0:
@@ -340,7 +339,7 @@ class QueryParser:
 
     def add_synonym_to_words(self, parsed_query_string):
         #-------------------------------------------#
-        print('parsed_query_string == ', parsed_query_string)
+        #print('parsed_query_string == ', parsed_query_string)
         parsed_query_words = parsed_query_string.split()
         parsed_query_words_copy = parsed_query_words.copy()
         query_synonyms_dict = []
@@ -359,7 +358,7 @@ class QueryParser:
         #-------------------------------------------#
         
         #-------------------------------------------#
-        print(set(query_synonyms_dict))
+        #print(set(query_synonyms_dict))
         return query_synonyms_dict
         #-------------------------------------------#
 
@@ -372,7 +371,7 @@ class QueryParser:
         auto_correct_string = ''
 
         #---------------------------------------------------------------#
-        print('parsing....')
+        #print('parsing....')
         for word in word_list:
             auto_correct_string += self.parser.parse(word)['result'] + ' '
         auto_correct_string = auto_correct_string.lower()
@@ -383,9 +382,9 @@ class QueryParser:
         for key,value in self.correct_word.items():
 
             if key.lower() in auto_correct_string.split():
-                print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
+                #print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
                 auto_correct_string = (re.sub(key.lower(), value.lower(), auto_correct_string))
-                print(auto_correct_string)
+                #print(auto_correct_string)
         #---------------------------------------------------------------#
 
         return auto_correct_string

@@ -121,10 +121,10 @@ class ESPostProcessing:
         # ------------ SENDING TOP 10 RESULT ------------------------ #
         document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:10]
 
-        print('------------------ PRIORTISE DOCUMENT BASED ON THE WORD SCORE != 1 ------\n')
-        print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
-        print('---------------------------------------------------------------------------\n\n')
-        print('___________________________________________________________________________\n')
+        #print('------------------ PRIORTISE DOCUMENT BASED ON THE WORD SCORE != 1 ------\n')
+        #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
+        #print('---------------------------------------------------------------------------\n\n')
+        #print('___________________________________________________________________________\n')
         # ----------------------------------------------------------- #
         return document
 
@@ -220,7 +220,7 @@ class ESPostProcessing:
         word_list = [self.ps.stem(word) for word in word_list]
         key = " ".join(word_list)
 
-        print('--------------> key : [{}] : '.format(key) )
+        #print('--------------> key : [{}] : '.format(key) )
         #print('--------------> autocorrect : [{}] : '.format(document['AUTO_CORRECT_QUERY']) )
 
         for record in self.image_data:
@@ -230,7 +230,7 @@ class ESPostProcessing:
 
 
             if re.match(key, question):
-                print('--------------> record : [{}]'.format(question) )
+                #print('--------------> record : [{}]'.format(question) )
                 document['FILENAME'] = record['filename']
                 break
 
@@ -252,7 +252,7 @@ class ESPostProcessing:
 
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/home-improve/':
-                        print("Keyword found : {}".format('home loan improve'))
+                        #print("Keyword found : {}".format('home loan improve'))
 
                         documents.append(record)
 
@@ -262,7 +262,7 @@ class ESPostProcessing:
 
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/ib-home-loan-combo/':
-                        print("Keyword found : {}".format('home loan combo'))
+                        #print("Keyword found : {}".format('home loan combo'))
 
                         documents.append(record)
 
@@ -274,7 +274,7 @@ class ESPostProcessing:
 
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/ib-home-loan-combo/':
-                        print("Keyword found : {}".format('home loan plus'))
+                        #print("Keyword found : {}".format('home loan plus'))
 
                         documents.append(record)
 
@@ -283,7 +283,7 @@ class ESPostProcessing:
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
             else:
-                print("Keyword found : {}".format('home loan'))
+                #print("Keyword found : {}".format('home loan'))
 
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/ib-home-loan/':
@@ -370,7 +370,7 @@ class ESPostProcessing:
                 for record in document['ES_RESULT']['DOCUMENTS']:
 
                     if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/":
-                        print("Keyword found : {}".format('education loan'))
+                        #print("Keyword found : {}".format('education loan'))
                         documents.append(record)
 
                 documents += document['ES_RESULT']['DOCUMENTS']

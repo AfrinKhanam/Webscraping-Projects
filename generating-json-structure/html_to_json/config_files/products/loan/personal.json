@@ -74,6 +74,7 @@
 
 
 	"https://www.indianbank.in/departments/ib-clean-loan-to-salaried-class/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "personal"
@@ -146,6 +147,7 @@
 
 
 	"https://www.indianbank.in/departments/ib-vehicle-loan/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "personal"
@@ -169,6 +171,7 @@
 
 
 	"https://www.indianbank.in/departments/ind-mortgage/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "personal"
@@ -193,6 +196,7 @@
 
 
 	"https://www.indianbank.in/departments/ib-home-loan/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "personal"

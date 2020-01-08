@@ -1,13 +1,13 @@
 
 {
 
-	"https://www.indianbank.in/departments/applications-supported-by-blocked-amount/" : {
+	"https://www.indianbank.in/departments/debit-cards/" : {
 		"page_hierarchy" : {
 			"domain" : "deposit",
 			"class" : "featured product / services/ Schemes"
 		},
 
-		"subtitle_pattern" : "<h3>.*</h3>",
+		"subtitle_pattern" : null,
 		"html" : {
 			"main_title" : {
 				"tag" : "h1",
@@ -16,7 +16,7 @@
 
 			"main_content" : {
 				"tag" : "div",
-				"class" : "wow zoomIn"
+				"class" : "row debitCardBTGridTopRow"
 			}
 
 

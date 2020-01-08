@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------#
-from building_blocks.utils import strip_tags
+from building_blocks.utils.utils import strip_tags
 from building_blocks.content.paragraph_to_json import parse_paragraph
 from building_blocks.content.list_to_json import parse_ul_to_json
 #---------------------------------------------------------------------#
@@ -102,7 +102,7 @@ def parse_table_to_json(dom):
                 for column in row:
                     if column.name is not None:
                         idx += 1
-                        if idx % 2 == 0: 
+                        if idx % 2 == 0:
                             column = replace_tag(column)
 
                             for ele in column.contents:
@@ -147,7 +147,7 @@ def parse_table_to_json(dom):
 def replace_tag(dom):
     #------------------------------------------------------------#
     #print('_______________________________________________')
-    dom = strip_tags(dom, ['span', 'strong', 'a', 'h4', 'u'])
+    dom = strip_tags(dom, ['span', 'strong', 'a', 'h4', 'u', 'b'])
 
     #print("\n\ncolumn elements ::  {} ".format(dom.contents))
 

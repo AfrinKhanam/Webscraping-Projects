@@ -46,6 +46,7 @@
 
 
 	"https://www.indianbank.in/departments/ib-doctor-plus/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "msme"
@@ -92,6 +93,7 @@
 
 
 	"https://www.indianbank.in/departments/ib-tradewell/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "msme"
@@ -206,6 +208,7 @@
 
 
 	"https://www.indianbank.in/departments/ind-sme-e-vaahan/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "msme"

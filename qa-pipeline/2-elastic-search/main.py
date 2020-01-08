@@ -1,69 +1,80 @@
-from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe                                  
-from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe                                  
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
+from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
 from building_blocks.elastic_search import Elastic
-import json                                                                                  
+import json
 
 
-                                                                                             
-def callback(ch, method, properties, body):                                                  
+def callback(ch, method, properties, body):
         #---------------------------------------------------------------#
-        query = json.loads(body)                                                           
-        print(json.dumps(query, indent=4, sort_keys=True))
+        log = {
+            "INCOMING" : json.loads(body),
+            "OUTGOING" : ''
+        }
+        #---------------------------------------------------------------#
+
+        #---------------------------------------------------------------#
+        query = json.loads(body)
         #---------------------------------------------------------------#
 
         #---------------------------------------------------------------#
         es_result = elastic.w_search(query)
-
-        print('--------------------- ELASTIC SEARCH ------------------------------')
-        print(es_result)
-        print('-------------------------------------------------------------------')
-
+        #print('--------------------- ELASTIC SEARCH ------------------------------')
+        #print(es_result)
+        #print('-------------------------------------------------------------------')
         #---------------------------------------------------------------#
-                                                                                             
+
         #---------------------------------------------------------------#
         if es_result == None:
-            rabbitmq_producer.publish(json.dumps({
+            input_to_next_module = {
                     "UUID"                  : query["UUID"],
                     "QUERY_STRING"          : query["QUERY_STRING"],
                     "PARSED_QUERY_STRING"   : query['PARSED_QUERY_STRING'],
                     "POTENTIAL_QUERY_LIST"  : query["POTENTIAL_QUERY_LIST"],
                     "QUERY_SYNONYMS"        : query['QUERY_SYNONYMS'],
                     "QUERY_SYNONYMS_DICT"   : query['QUERY_SYNONYMS_DICT'],
-                    "PROCESSING"            : query['PROCESSING'],
-                    "AUTO_CORRECT_QUERY"    : query['AUTO_CORRECT_QUERY'],
-                    "ES_RESULT"             : { "DOCUMENTS" : []} }).encode()) 
-        else:
-            rabbitmq_producer.publish(json.dumps({
-                    "UUID"                  : query["UUID"],
-                    "QUERY_STRING"          : query["QUERY_STRING"],
-                    "PARSED_QUERY_STRING"   : query['PARSED_QUERY_STRING'],
-                    "POTENTIAL_QUERY_LIST"  : query["POTENTIAL_QUERY_LIST"],
-                    "QUERY_SYNONYMS"        : query['QUERY_SYNONYMS'],
-                    "QUERY_SYNONYMS_DICT"   : query['QUERY_SYNONYMS_DICT'],
-                    "PROCESSING"            : query['PROCESSING'],
-                    "AUTO_CORRECT_QUERY"    : query['AUTO_CORRECT_QUERY'],
                     "CORRECT_QUERY"         : query['CORRECT_QUERY'],
-                    "ES_RESULT"             : { "DOCUMENTS" : es_result} }).encode()) 
+                    "AUTO_CORRECT_QUERY"    : query['AUTO_CORRECT_QUERY'],
+                    "ES_RESULT"             : { "DOCUMENTS" : []}
+            }
+        else:
+            input_to_next_module = {
+                    "UUID"                  : query["UUID"],
+                    "QUERY_STRING"          : query["QUERY_STRING"],
+                    "PARSED_QUERY_STRING"   : query['PARSED_QUERY_STRING'],
+                    "POTENTIAL_QUERY_LIST"  : query["POTENTIAL_QUERY_LIST"],
+                    "QUERY_SYNONYMS"        : query['QUERY_SYNONYMS'],
+                    "QUERY_SYNONYMS_DICT"   : query['QUERY_SYNONYMS_DICT'],
+                    "CORRECT_QUERY"         : query['CORRECT_QUERY'],
+                    "AUTO_CORRECT_QUERY"    : query['AUTO_CORRECT_QUERY'],
+                    "ES_RESULT"             : { "DOCUMENTS" : es_result}
+            }
+
+        rabbitmq_producer.publish(json.dumps(input_to_next_module).encode())
         #---------------------------------------------------------------#
 
-        return                                                                               
-                                                                                             
+        #--------- LOGGING ---------------------------------------------#
+        log['OUTGOING'] = input_to_next_module
+        print(json.dumps(log, indent=4) )
+        #---------------------------------------------------------------#
+
+        return
+
 #---------------------------------------------------------------#
-elastic = Elastic(index='indian-bank-index')
+elastic = Elastic(index='indian-bank-index-v2')
 #elastic = Elastic(index='indian-bank-index-modified')
 
 rabbimq_consumer = RabbitmqConsumerPipe(
-        exchange="elasticSearchEx", 
+        exchange="elasticSearchEx",
         queue="esQueue",
-        routing_key="es", 
-        callback=callback, 
+        routing_key="es",
+        callback=callback,
         host='localhost')
 
 
 rabbitmq_producer = RabbitmqProducerPipe(
-        publish_exchange="esResultEx", 
+        publish_exchange="esResultEx",
         routing_key="es_result",
-        host="localhost")                                                                                                                     
+        host="localhost")
 '''
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange='esPostProcessingEx',
@@ -71,6 +82,6 @@ rabbitmq_producer = RabbitmqProducerPipe(
 )
 '''
 
-print('Service is up and running......')
+print('Service is up and running...... [2-elasticsearch]')
 rabbimq_consumer.start_consuming()
 #---------------------------------------------------------------#

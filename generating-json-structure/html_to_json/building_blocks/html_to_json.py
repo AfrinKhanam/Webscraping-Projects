@@ -3,16 +3,16 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from building_blocks.subtitle.subtitles import Subtitle
 from building_blocks.content.content  import extract_content
-from building_blocks.post_processing import post_processing
+from building_blocks.post_processing.post_processing import PostProcessing
 import json
 import requests
 #-----------------------------------------------------------------#
 
 
-class HtmlToJson(Subtitle):
+class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
     def __init__(self, document, source):
-        super().__init__()
+        PostProcessing.__init__(self)
 
         if source is 'local':
             with open(document['filename']) as file:
@@ -66,10 +66,10 @@ class HtmlToJson(Subtitle):
         #-----------------------------------------------------------#
         main_content = self.dom.find(document['html']['main_content']['tag'], attrs={"class" : document['html']['main_content']['class']})
 
-        if main_content.find('div', attrs={"class" : "table-responsive"}):
-            main_content = main_content.find('div', attrs={"class" : "table-responsive"})
-        elif main_content.find('div', attrs={"class" : "table-wraper"}):
-            main_content = main_content.find('div', attrs={"class" : "table-wraper"})
+        #if main_content.find('div', attrs={"class" : "table-responsive"}):
+            #main_content = main_content.find('div', attrs={"class" : "table-responsive"})
+        #elif main_content.find('div', attrs={"class" : "table-wraper"}):
+            #main_content = main_content.find('div', attrs={"class" : "table-wraper"})
         #-----------------------------------------------------------#
 
         #-----------------------------------------------------------#
@@ -116,11 +116,5 @@ class HtmlToJson(Subtitle):
         #-----------------------------------------------------------#
 
         return document
-    #-----------------------------------------------------------------#
-
-
-    #-----------------------------------------------------------------#
-    def post_processing(self, document):
-        return post_processing(document)
     #-----------------------------------------------------------------#
 

@@ -147,7 +147,6 @@ def autocorrect(query_string):
     auto_correct_string = ''
     for word in word_list:
         if word in setofwords:
-            
             auto_correct_string += spell(word) + ' '
         else:
             auto_correct_string += (word) + ' '
@@ -217,13 +216,13 @@ def autocorrect_module(word_list,setofwords,soundex_dict,query_string):
                                     
                 #query_string.replace(word,key)
 
-    print ("soundex_query",query_string)
+    #print ("soundex_query",query_string)
     import time
     import re
     start = time.process_time()
 
     update_output=[]
-    correct_word=read_text_to_dict("./data/corrections_text.txt")
+    correct_word=read_text_to_dict("./config_files/corrections_text.txt")
     #print ("corrected",correct_word)
     for key,value in correct_word.items():
             
@@ -240,7 +239,7 @@ def autocorrect_module(word_list,setofwords,soundex_dict,query_string):
         update_output=query_string
     
     final_auto_corrected_string=autocorrect(update_output)
-    print (final_auto_corrected_string)
+    #print (final_auto_corrected_string)
     return final_auto_corrected_string
 
             
@@ -257,8 +256,8 @@ def w_autocorrect(query_string):
 
     auto_correct_string = ''
 
-    print('------------------->>>> ', query_string)
+    #print('------------------->>>> ', query_string)
     auto_correct_string = autocorrect_module(word_list, setofwords, soundex_dict, query_string)
-    print('--------------------->>>', auto_correct_string)
+    #print('--------------------->>>', auto_correct_string)
 
     return auto_correct_string

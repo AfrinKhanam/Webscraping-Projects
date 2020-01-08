@@ -1,15 +1,12 @@
 #---------------------------------------------------------------------#
 import json
-import building_blocks.utils as utils
+import building_blocks.utils.utils as utils
 import re
 import sys
 from bs4 import BeautifulSoup
 from building_blocks.content.table_to_json import parse_table_to_json
 from building_blocks.content.list_to_json import parse_ul_to_json
 #---------------------------------------------------------------------#
-
-
-
 
 #---------------------------------------------------------------------#
 def extract_content(document):
@@ -18,10 +15,6 @@ def extract_content(document):
 
     return document
 #---------------------------------------------------------------------#
-
-
-
-
 
 #---------------------------------------------------------------------#
 def get_dom(document):
@@ -56,7 +49,10 @@ def get_text(document):
             if dom.name == 'ul' or dom.name == 'ol':
                 content_item['text'] = parse_ul_to_json(dom)
 
-            elif dom.name == 'p' or dom.name == 'h5':
+            elif dom.name == 'p' or dom.name == 'h5' or dom.name == 'h3':
+                content_item['text'] = [dom.get_text()]
+
+            elif dom.name == 'em':
                 content_item['text'] = [dom.get_text()]
 
             elif dom.name == 'table':

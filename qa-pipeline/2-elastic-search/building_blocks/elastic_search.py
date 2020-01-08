@@ -7,15 +7,15 @@ class Elastic:
         self.index = index
 
     def w_search(self, query):
-        print('----------------- TRYING WITH ORIGINAL QUERY ---------------------')
+        #print('----------------- TRYING WITH ORIGINAL QUERY ---------------------')
         #search_string = query['QUERY_SYNONYMS'] + ' ' + query['CONTEXT'] 
         #es_result = self.search_with_original_query(search_string)
 
         es_result = self.search_with_original_query(query['QUERY_SYNONYMS'])
         #es_result = self.search_with_original_query(query['PARSED_QUERY_STRING'])
 
-        print(json.dumps(es_result, indent=4, sort_keys=True))
-        print('------------------------------------------------------------------\n\n')
+        #print(json.dumps(es_result, indent=4, sort_keys=True))
+        #print('------------------------------------------------------------------\n\n')
 
         if es_result == None:
             return None
@@ -46,9 +46,9 @@ class Elastic:
                 title = record['_source']['subtitle']
                 title_stem = record['_source']['subtitle_stem']
 
-            print('----------------------------- record ----------------------')
-            print(record)
-            print('-----------------------------------------------------------\n\n')
+            #print('----------------------------- record ----------------------')
+            #print(record)
+            #print('-----------------------------------------------------------\n\n')
 
             documents.append({
                 'main_title'        : record['_source']['main_title'],
@@ -63,13 +63,13 @@ class Elastic:
                 'inner_table_keys_stem' : record['_source']['inner_table_keys_stem'],
                 'inner_table_values'    : record['_source']['inner_table_values'],
                 'inner_table_values_stem' : record['_source']['inner_table_values_stem']
-            })          
+            })
         #---------------------------------------------------------------#
         return documents
 
     def search_with_original_query(self, search_string):
         #---------------------------------------------------------------#
-        print("SEARCH STRING :: ", search_string)
+        #print("SEARCH STRING :: ", search_string)
 
         es_result = self.es.search(
             index = self.index, 
@@ -128,7 +128,7 @@ class Elastic:
 
     def search_with_equivalent_query(self, synonyms_dict):
         query = self.create_equivalent_query(synonyms_dict)
-        print('EQUIVALENT QUERY ::: ', query)
+        #print('EQUIVALENT QUERY ::: ', query)
 
         #---------------------------------------------------------------#
         # parsed_query = ''

@@ -7,8 +7,14 @@ import json
 
 def callback(ch, method, properties, body):
         #---------------------------------------------------------------#
+        log = {
+            "INCOMING" : json.loads(body),
+            "OUTGOING" : ''
+        }
+        #---------------------------------------------------------------#
+
+        #---------------------------------------------------------------#
         from_es = json.loads(body)
-        print(json.dumps(from_es, indent=4, sort_keys=True))
 
         if len(from_es['ES_RESULT']['DOCUMENTS']) == 0:
             final_result = {
@@ -20,7 +26,7 @@ def callback(ch, method, properties, body):
                 "DOCUMENTS"     : []
             }
 
-            redis_client.set_value(from_es['UUID'], json.dumps(final_result))
+            redis_client.set_value(from_es['UUID'], json.dumps(final_result), expiry_time=120)
             return 
 
         #---------------------------------------------------------------#
@@ -50,11 +56,16 @@ def callback(ch, method, properties, body):
             "WORD_COUNT"    : from_es['ES_RESULT']['WORD_COUNT'],
             "WORD_SCORE"    : from_es['ES_RESULT']['WORD_SCORE'],
             "DOCUMENTS"     : from_es['ES_RESULT']['DOCUMENTS'],
+            "PARSED_QUERY"  :from_es['PARSED_QUERY_STRING'],
             "FILENAME" : from_es['FILENAME']
         }
 
-        redis_client.set_value(from_es['UUID'], json.dumps(final_result))
-        print(json.dumps(final_result, indent=4, sort_keys=True))
+        redis_client.set_value(from_es['UUID'], json.dumps(final_result), expiry_time=120)
+        #---------------------------------------------------------------#
+
+        #--------- LOGGING ---------------------------------------------#
+        log['OUTGOING'] = final_result
+        print(json.dumps(log, indent=4) )
         #---------------------------------------------------------------#
 
         return
@@ -76,7 +87,7 @@ rabbimq_consumer_text_summerizer = RabbitmqConsumerPipe(
        host='localhost')
 
 
-print('Service is up and running.....')
+print('Service is up and running..... [5-redis]')
 rabbimq_consumer_text_summerizer.start_consuming()
 #rabbimq_consumer.start_consuming()
 #---------------------------------------------------------------#

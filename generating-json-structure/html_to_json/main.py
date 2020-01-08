@@ -3,262 +3,7 @@ from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
 import json
 import sys
 
-path = "../../indian-bank-web-scraped-data/www.indianbank.in.2-Nov-2019/en/departments/"
-
-filename_list = [
-    # ---------------------------- SERVICE -------------------------------- #
-    #"/mca-payment/index.html",
-    #"/money-gram/index.html",
-    #"/atm-debit-cards/index.html",
-    #"/ind-mobile-banking/index.html",
-    #"/ind-netbanking/index.html",
-    #"/credit-cards/index.html",
-    #"/xpress-money-inward-remittance-money-transfer-service-scheme/index.html",
-    #"/n-e-f-t/index.html",
-    #"/ind-jet-remit-rtgs/index.html",
-
-
-
-
-    #"/multicity-cheque-facility/index.html",
-    #"/ib-vidyarthi-suraksha-with-pnb-metlife/index.html",
-
-
-
-    # NOT WORKING
-    #"/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/index.html",
-    #"/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/index.html",
-    #"/ib-griha-jeevan-group-insurance-scheme-for-mortgage-borrowers-launched-in-association-with-lic/index.html",
-
-
-
-
-
-
-    #"/universal-health-care-launched-in-association-with-uiic-ltd/index.html",
-    #"/jana-shree-bima-yojana-launched-in-association-with-lic/index.html",
-    #"/new-ib-jeevan-vidya-2/index.html",
-    #"/ib-jeevan-kalyan/index.html",
-    #"/ib-varishtha/index.html",
-    #"/ib-chhatra/index.html",
-    #"/ib-yatra-suraksha-with-uiic-ltd/index.html", 
-
-
-    #"/cms-plus/index.html",
-
-
-
-    #"/doorstep-banking/index.html",
-
-
-
-    #"/e-payment-of-direct-taxes/index.html", 
-    #"/e-payment-of-indirect-taxes/index.html", 
-    #"/debenture-trustee/index.html",
-    #---------------------------------------------------------------------- #
-
-
-
-    # ---------------------------- AGRICULTURE ---------------------------- #
-    #"/agricultural-godowns-cold-storage/index.html",
-    #"/loans-for-maintenance-of-tractors-under-tie-up-with-sugar-mills/index.html",
-    #"/agricultural-produce-marketing-loan/index.html",
-    #"/financing-agriculturists-for-purchase-of-tractors/index.html",
-    #"/purchase-of-second-hand-pre-used-tractors-by-agriculturists/index.html",
-    #"/agri-clinic-and-agri-business-centres/index.html",
-    #"/shg-bank-linkage-programme-direct-linkage-to-shgs/index.html",
-
-    # table inside list
-    #"/rupay-kisan-card/index.html",
-
-    #"/dri-scheme-revised-norms/index.html",
-
-    #table inside list
-    #"/sugar-premium-scheme/index.html",
-
-    #"/golden-harvest-scheme/index.html",
-
-    #table inside list
-    #"/agricultural-jewel-loan-scheme/index.html",
-    # ---------------------------- ------- -------------------------------- #
-
-
-
-    # ---------------------------- PERSONAL LOAN -------------------------- #
-    #"/ib-rent-encash/index.html",
-    #"/loan-od-against-deposits/index.html",
-    #"/ib-clean-loan-to-salaried-class/index.html",
-    #"/ib-balavidhya-scheme/index.html",
-    #"/ind-reverse-mortgage/index.html",
-
-
-    #(<u></u>)
-    #"/ib-vehicle-loan/index.html",
-
-    #"/ind-mortgage/index.html",
-
-    #(<strong>Age </strong>)
-    #"/ib-home-loan/index.html", 
-
-    #"/ib-home-loan-combo/index.html",
-    #"/ib-pension-loan/index.html",
-    #"/home-improve/index.html",
-    #"/ib-home-loan-plus/index.html", 
-    #"/loan-od-against-nsc-kvp-relief-bonds-of-rbi-lic-policies/index.html",
-    #---------------------------------------------------------------------- #
-
-
-    #------------------------------ MSME ---------------------------------- #
-    #"/ib-vidhya-mandir/index.html", 
-    #"/my-own-shop/index.html",
-
-    #(<u></u>)
-    #"/ib-doctor-plus/index.html", 
-
-    #"/ib-contractors/index.html",
-    #"/ib-tradewell/index.html",
-    #"/ind-sme-secure/index.html", 
-    #"/ind-msme-vehicle/index.html",
-    #"/ib-micro/index.html", 
-    #"/ind-sme-mortgage/index.html", 
-
-    #(<u></u>)
-    #"/ind-sme-e-vaahan/index.html",
-    #---------------------------------------------------------------------- #
-
-
-    #----------------------------- EDUCATION ------------------------------ #
-    #"/revised-iba-model-educational-loan-scheme-2015/index.html",
-    #"/ib-educational-loan-prime/index.html",
-    #"/ib-skill-loan-scheme/index.html",
-    #"/hindi-education-loan-interest-subsidies/index.html",
-    #---------------------------------------------------------------------- #
-
-
-    #----------------------------- Saving Bank ------------------------------ #
-    #"/savings-bank/index.html",
-    #"/ib-corp-sb-payroll-package-scheme-for-salaried-class/index.html",
-    #"/vikas-savings-khata-a-no-frills-savings-bank-account/index.html",
-    #"/ib-smart-kid/index.html",
-    #"/important-terms-and-conditions/index.html",
-    #"/sb-platinum/index.html",
-
-    #"/ib-surabhi",(**** different table pattern)
-    #---------------------------------------------------------------------- #
-
-
-    #----------------------------- CURRENT ACCOUNT -------------------------- #
-    #"/supreme-current-accounts/index.html", (table)
-
-    #"/current-account/index.html",
-    #"/ib-i-freedom-current-account/index.html",
-    #"/important-terms-and-conditions-2/index.html",
-    #"/premium-current-account/index.html", 
-    #------------------------------------------------------------------------ #
-
-
-    #----------------------------- TERM DEPOSIT ----------------------------- #
-    #"/facility-deposit/index.html",
-    #"/capital-gains/index.html",
-    #"/terms-and-conditions-term-deposit-account/index.html",
-    #"/recurring-deposit/index.html",
-    #"/ib-tax-saver-scheme/index.html",
-    #"/fixed-deposit/index.html",
-    #"/variable-recurring-deposit/index.html",
-    #------------------------------------------------------------------------ #
-
-
-    #----------------------------- TERM DEPOSIT ----------------------------- #
-    #"/resident-foreign-currency-account-for-returning-indians/index.html",
-    #"/nre-fd-rip-rd-accounts/index.html",
-    #"/non-resident-ordinary-account/index.html",
-    #"/fcnr-b-accounts/index.html",
-    #------------------------------------------------------------------------ #
-
-    # ---------------------------- DIGITAL PRODUCT ------------------------ #
-    #"/pos/index.html",
-    #"/cash-at-pos/index.html",
-
-    #"/indpay/index.html",(****)
-    #"/ib-collect-plus-2/index.html", (*** not working)
-    #"/ib-v-collect-plus-2/index.html", (*** not working)
-    #"/internet-banking/index.html", (*** table pattern different)
-    #"/debit-cards/index.html", (*** div class different)
-
-    #"/credit-card/index.html",
-    #---------------------------------------------------------------------- #
-
-
-    # ---------------------------- FEATURED PRODUCT ----------------------- #
-    #"/applications-supported-by-blocked-amount/index.html",
-    #"/n-r-i-foreign-exchange/index.html",
-
-
-    #"/central-scheme-to-provide-interest-subsidy-csis/index.html", (*****)
-    #"/centralized-pension-processing-system/index.html", (totally different pattern)
-    #---------------------------------------------------------------------- #
-
-    #----------------------------- RATES ---------------------------------- #
-    #"/service-charges-forex-rates/index.html",
-    #"/lending-rates/index.html",
-    #---------------------------------------------------------------------- #
-
-
-
-    # ---------------------------- ABOUT US ------------------------------- #
-    #"/managing-director-ceos-profile/index.html",
-    #"/banks-profile/index.html",
-    #"/vision-and-mission/index.html",
-
-    #"/executive-directors-profile/index.html", (***)
-    #"/general-managers/index.html", (***)
-
-    #"/chief-vigilance-officer/index.html", 
-
-
-    #"/financial-results/index.html", (totally different)
-
-    #"/corporate-governance/index.html", 
-    #"/nodal-officers/index.html",
-    #"/annual-general-meeting/index.html",
-    #"/shareholding-pattern/index.html",
-    #"/annual-reports/index.html",
-
-    #"/indian-bank-mutual-fund/index.html", (*** totally different)
-
-    #"/index.html",
-    #---------------------------------------------------------------------- #
-
-    # ---------------------------- CONTACT -------------------------------- #
-    #"/quick-contact/index.html",
-
-    #"/complaints-officers-list/index.html", (*** table structure )
-
-    #"/chief-vigilance-officer/index.html",
-    #"/death-claim/index.html",
-
-
-    #"/head-office/index.html",
-    #"/department/index.html", 
-
-
-    #"/executives/index.html",  (** table )
-    #"/image-2/index.html", (** table)
-    #"/foreign-branches/index.html", (** table)
-    #"/overseas-branches/index.html", (** table)
-    #"/nri-branches/index.html", (** table)
-    #"/zonal-offices/index.html", (** table)
-    #"/e-confirmation-of-bank-guarantee/index.html",(** table)
-    #---------------------------------------------------------------------- #
-
-    # ---------------------------- RBI KEHTA HAI -------------------------- #
-    #"/rbi-kehta-hain/index.html",
-    # --------------------------------------------------------------------- #
-
-]
-
-#filename_list_board_of_director = ["../data/indian-bank/web-scraping-data/departments/board-of-directors/index.html"]
-#filename_list = ["../data/indian-bank/web-scraping-data/departments/universal-health-care-launched-in-association-with-uiic-ltd/index_modified.html"]
+path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 
 # ----------------------------------------------------------- #
 loan_product_path = "./config_files/products/loan/"
@@ -298,10 +43,109 @@ digital_product = "./config_files/products/digital/"
 pos_config_file = digital_product + "pos.json"
 
 cash_pos_config_file = digital_product + "cash@pos.json"
+debit_card = digital_product + 'debit_card.json'
+credit_card = digital_product + 'credit_card.json'
 # ----------------------------------------------------------- #
 
 # ----------------------------------------------------------- #
-with open(education_config_file, "r") as file:
+about_us = "./config_files/about_us/"
+
+bank_profile = about_us + 'bank_profile.json'
+
+vision_mission = about_us + "vision_mission.json"
+
+management = about_us + "management/"
+managing_director_profile = management + "management_director_ceo_profile.json"
+
+board_of_director = management + "board_of_director.json"
+cheif_vigilance_officer = management + "chief_vigilance_officer.json"
+general_manager = management + "general_manager.json"
+
+
+corporate_governance = about_us + "corporate_governance.json"
+nodal_officers = about_us + "nodal_officers.json"
+annual_general_meeting = about_us + "annual_general_meeting.json"
+shareholding_pattern = about_us + "shareholding_pattern.json"
+annual_reports = about_us + "annual_reports.json"
+image = about_us + "image.json"
+# ----------------------------------------------------------- #
+
+
+
+# ----------------------------------------------------------- #
+service = "./config_files/service/"
+
+credit_cards = service + 'credit_cards.json'
+
+premium =  service + 'premium/'
+mca_payment = premium + 'mca_payment.json'
+money_gram = premium + 'money_gram.json'
+atm_debit_cards = premium + 'atm_debit_cards.json'
+mobile_banking = premium + 'mobile_banking.json'
+netbanking = premium + 'netbanking.json'
+premium_credit_cards = premium + 'credit_cards.json' 
+xpress_money = premium + 'xpress_money.json'
+neft = premium + 'neft.json'
+rtgs = premium + 'rtgs.json'
+multicity_cheque_facility = premium + 'multicity_cheque_facility.json'
+# ----------------------------------------------------------- #
+
+
+# ----------------------------------------------------------- #
+service = "./config_files/service/"
+insurance = service + 'insurance/'
+
+vidyarthi_suraksha = insurance + 'vidyarthi_suraksha.json'
+home_security = insurance + 'home_security.json'
+universal_health_care = insurance + 'universal_health_care.json'
+jana_shree_bima_yojana = insurance + 'jana_shree_bima_yojana.json'
+new_jeevan_vidaya = insurance + 'new_jeevan_vidaya.json'
+jeevan_kalyan = insurance + 'jeevan_kalyan.json'
+varishtha = insurance + 'varishtha.json'
+chhatra = insurance + 'chhatra.json'
+griha_jeevan_group = insurance + 'griha_jeevan_group.json'
+yatra_suraksha = insurance + 'yatra_suraksha.json'
+
+
+cms_plus = service + 'cms_plus.json'
+doorstep_banking = service + 'doorstep_banking.json'
+e_payment_direct_tax = service + 'e_payment_direct_tax.json'
+e_payment_indirect_tax = service + 'e_payment_indirect_tax.json'
+debenture_trustee = service + 'debenture_trustee.json'
+# ----------------------------------------------------------- #
+
+# ----------------------------------------------------------- #
+rates = './config_files/rates/'
+deposit_rates = rates + 'deposit.json'
+lending = rates + 'lending.json'
+forex = rates + 'forex.json'
+# ----------------------------------------------------------- #
+
+# ----------------------------------------------------------- #
+contacts = './config_files/contacts/'
+
+quick_contacts = contacts + 'quick_contacts.json'
+
+customer_support = contacts + 'customer_support/'
+complaint_officer_list = customer_support + 'complaint_officer_list.json'
+customer_complaints = customer_support + 'customer_complaints.json'
+death_claim = customer_support + 'death_claim.json'
+
+
+email = contacts + 'email/'
+head_office = email + 'head_office.json'
+department = email + 'department.json'
+executives = email + 'executives.json'
+image_email = email + 'image.json'
+foreign_branches = email + 'foreign_branches.json'
+overseas_branches = email + 'overseas_branches.json'
+nri_branches = email + 'nri_branches.json'
+zonal_offices = email + 'zonal_offices.json'
+e_confirmation_bank_guarantee = email + 'e_confirmation_bank_guarantee.json'
+# ----------------------------------------------------------- #
+
+# ----------------------------------------------------------- #
+with open(current_config_file, "r") as file:
     url_list = json.loads(file.read())
 # ----------------------------------------------------------- #
 
@@ -321,7 +165,7 @@ def main():
     for document in documents:
 
         #---------------------------------------------------------------#
-        try:
+        #try:
             print('---------------------------------------------------\n')
             print("filename :: ", document['filename'])
             print("url :: ", document['url'])
@@ -347,13 +191,13 @@ def main():
             #---------------------------------------------------------------#
 
             print('---------------------------------------------------\n\n')
-        except Exception as e:
-            print('ERROR :: ', str(e))
+            input("Press key to continue") 
+        #except Exception as e:
+            #print('ERROR :: ', str(e))
         #---------------------------------------------------------------#
 
 
 
-        input("Press key to continue") 
 
 # ----------------------------------------------------------- #
 

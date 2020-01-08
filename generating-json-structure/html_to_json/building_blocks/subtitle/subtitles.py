@@ -48,8 +48,8 @@ class Subtitle():
         #-----------------------------------------------------------------#
         document['subtitle']['html_tag'] = subtitle_pattern
 
-        document['subtitle']["elements"] = [{"text": tag.get_text(), "content" : []} 
-                for tag in document['html']['main_content']['elements'] 
+        document['subtitle']["elements"] = [{"text": tag.get_text(), "content" : []}
+                for tag in document['html']['main_content']['elements']
                 if re.search(subtitle_pattern, str(tag)) ]
 
         document['subtitle']['indices'] = self.get_subtitle_tag_indices(document)
