@@ -376,14 +376,11 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-       //     window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-   window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+          // window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+             window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            debugger;
-            //  window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-            //  const directLine = window.WebChat.createDirectLine({ domain: 'http://127.0.0.1:3000/directline', webSocket: false });
-            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) { 
+               //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
             var styleOptions = {
                 backgroundColor: '',
                 hideUploadButton: true,
@@ -477,7 +474,6 @@
 
         }
         });
-        //   window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
 
         window.current_Context = "";
 

@@ -1,6 +1,5 @@
 ﻿@model List<FrequentlyAskedQueries>
 
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -27,57 +26,4 @@
     </div>
 </nav>
 
-
-
-<h2 class="pt-3 pb-3">Available Reports</h2>
- 
- 
-
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Visitor Query
-                </th>
-                <th>
-                    Hits
-                </th>
-                <th>
-                    Positive Feedback
-                </th>
-                <th>
-                    Negetive Feedback
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                var index = 0;
-            }
-            @foreach (var item in Model)
-            {
-                {
-                    index += 1;
-                }
-                <tr>
-                    <td>@index</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Query)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Count)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PositiveFeedback)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NegetiveFeedback)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
-
+<h2 class="pt-3 pb-3">Reports</h2>
