@@ -1,0 +1,235 @@
+{
+    "document_name": "E Confirmation of Bank Guarantee",
+    "url": "https://indianbank.in/departments/e-confirmation-of-bank-guarantee/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "E Confirmation of Bank Guarantee",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "Request for confirmation of the Bank guarantee issued by our Bank may be made through E Mail to the concerned Zonal Office as specified in the covering letter of the Bank guarantee. Beneficiaries to enclose a scanned copy of their request letter alongwith the E mail.",
+                            "Mail confirmation shall also be sent to the beneficiary.",
+                            "If the beneficiary does not receive confirmation through E Mail from the concerned Zonal office within 7 days from the date of E Mail, the beneficiary may take up with Corporate Office, Credit Division, Chennai for getting confirmation. The E mail address is hocredit[at]indianbank[dot]co[dot]in[dot] The request to Corporate Office should contain the details of the guarantee and date on which the matter was taken up with the Zonal office.",
+                            "This e mail service is only an additional facility provided by the Bank. Neither Bank nor our Bank officials shall be held responsible for any technical snag / E Mail not received / E Mail not properly received etc.",
+                            "As Digital Certificates may become mandatory in course of time, the beneficiaries of Guarantees are advised to obtain Digital certificates for the purpose of obtaining Bank guarantee confirmation through E Mail."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Zonal Office-Ahmedabad",
+                                "value": [
+                                    "E Mail Address- \n gteeahmedabad[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Bangalore",
+                                "value": [
+                                    "E Mail Address- \n gteebangalore[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Bhubaneswar",
+                                "value": [
+                                    "E Mail Address- \n gteebhubaneswar[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Chandigarh",
+                                "value": [
+                                    "E Mail Address- \n gteechandigarh[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Chennainorth",
+                                "value": [
+                                    "E Mail Address- \n gteechennainorth[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Chennaisouth",
+                                "value": [
+                                    "E Mail Address- \n gteechennaisouth[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Chittoor",
+                                "value": [
+                                    "E Mail Address- \n gteechittoor[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Coimbatore",
+                                "value": [
+                                    "E Mail Address- \n gteecoimbatore[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Cuddalore",
+                                "value": [
+                                    "E Mail Address- \n gteecuddalore[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Dharmapuri",
+                                "value": [
+                                    "E Mail Address- \n gteedharmapuri[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Delhi",
+                                "value": [
+                                    "E Mail Address- \n gteedelhi[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Ernakulam",
+                                "value": [
+                                    "E Mail Address- \n gteeernakulam[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Ghaziabad",
+                                "value": [
+                                    "E Mail Address- \n gteeghaziabad[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Guwahati",
+                                "value": [
+                                    "E Mail Address- \n gteeguwahati[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Hyderabad",
+                                "value": [
+                                    "E Mail Address- \n gteehyderabad[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Hubli",
+                                "value": [
+                                    "E Mail Address- \n gteehubli[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Kancheepuram",
+                                "value": [
+                                    "E Mail Address- \n gteekancheepuram[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Karnal",
+                                "value": [
+                                    "E Mail Address- \n gteekarnal[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Kolkata",
+                                "value": [
+                                    "E Mail Address- \n gteekarnal[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Kumbakonam",
+                                "value": [
+                                    "E Mail Address- \n gteekumbakonam[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Lucknow",
+                                "value": [
+                                    "E Mail Address- \n gteelucknow[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Madurai",
+                                "value": [
+                                    "E Mail Address- \n gteemadurai[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Mumbai",
+                                "value": [
+                                    "E Mail Address- \n gteemumbai[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Patna",
+                                "value": [
+                                    "E Mail Address- \n gteepatna[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Pondicherry",
+                                "value": [
+                                    "E Mail Address- \n gteepondicherry[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Pune",
+                                "value": [
+                                    "E Mail Address- \n gteepune[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Salem",
+                                "value": [
+                                    "E Mail Address- \n gteesalem[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Trichy",
+                                "value": [
+                                    "E Mail Address- \n gteetrichy[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Tirunelveli",
+                                "value": [
+                                    "E Mail Address- \n gteetirunelveli[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Vellore",
+                                "value": [
+                                    "E Mail Address- \n gteevellore[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Vijayawada",
+                                "value": [
+                                    "E Mail Address- \n gteevijayawada[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Visakhapatnam",
+                                "value": [
+                                    "E Mail Address- \n gteevisakhapatnam[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key": "Zonal Office-Thiruvananathapuram",
+                                "value": [
+                                    "E Mail Address- \n gteethiruvananathapuram[at]indianbank[dot]co[dot]in"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

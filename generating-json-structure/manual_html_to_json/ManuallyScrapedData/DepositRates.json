@@ -1,0 +1,174 @@
+{
+    "document_name": "deposit-rates",
+    "url": "https://indianbank.in/departments/deposit-rates/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "Deposit Rates",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "Interest Rates on Domestic Term Deposits (% per annum)",
+                "content": [
+                    {
+                        "text": [
+                            "The interest rate applicable for “Deposit/s of above ₹ 5 crore” and approval for acceptance of such deposit/s shall be obtained from Treasury Branch. This condition is also applicable to cases where the aggregate value of deposits of an individual customer is above ₹ 5 crores for the day. Aggregate value of deposits placed on the day for an identical tenor will be reckoned for deciding applicable interest rate."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Revision of Interest rate on Savings Bank Deposits wef 01.11.2019",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Balance Up to Rs 50 lakhs",
+                                "value": [
+                                    "Rate of interest (%) - 3.50%"
+                                ]
+                            },
+                            {
+                                "key": "Incremental balance over Rs 50 lakhs .",
+                                "value": [
+                                    "Rate of interest (%) - 3.75%"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Revision of Interest rate on Savings Bank Deposits wef 01.11.2019",
+                "content": [
+                    {
+                        "text": [
+                            "In other words, interest on Savings Bank accounts with balance upto ₹50 lakhs shall be 3.50% and for incremental/additional balance above ₹50 lakhs, interest would be paid at 3.75%.",
+                            "Interest calculated on a daily basis as above would be credited on a quarterly basis in the month of June, September, December and March every year."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "IMPORTANT:",
+                "content": [
+                    {
+                        "text": [
+                            "The rate of interest on domestic term deposit is also applicable to IB Tax Saver Scheme and Capital Gains Scheme Type B (Term Deposits) 1988 Scheme.",
+                            "Senior Citizen Accounts: For Domestic Term Deposit for Senior Citizens, additional rate of interest payable would be 0.50% p.a. for amount up to ₹10 crore. The additional rate would be offered on deposits of 15 days to 10 years over the card rate in respect of Short Term Deposits, Fixed Deposits and Money Multiplier Deposit Schemes. Similarly, for Recurring Deposit accounts, additional interest rate would be eligible for the period from 6 months to 120 months (In multiples of 3 months).  The above ceiling is applicable to all types of term deposits standing in the name of the Senior Citizen as the principal account holder at one or more branches put together. However, no Single deposit be opened in a day for more than ₹2 Cr within the overall limit of ₹10 Cr tagged to a single CIF.",
+                            "However, deposits of Senior Citizen opened under Capital Gains Scheme Type B (Term Deposits) 1988 Scheme is not eligible for this benefit. Similarly in the case of term deposits standing in the name of an HUF, the Karta of the HUF is not eligible for higher rate of interest, even if he is a senior citizen, as the beneficial owner of the deposit is the HUF and not the Karta in his individual capacity.",
+                            "The interest rates on NRE term deposits is subject to compliance of all the extant exclusive/specific RBI Guidelines on NRE accounts relating to minimum/maximum term of deposits, category of customer etc.",
+                            "The revised interest rates on domestic term deposits are applicable only to fresh deposits and on renewal of maturing deposits."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "IB CORP SB – PAYROLL  PACKAGE  SCHEME  FOR  SALARIED  CLASS",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Balance Up to Rs 50 lakhs",
+                                "value": [
+                                    "Rate of interest (%) - 3.50%"
+                                ]
+                            },
+                            {
+                                "key": "Balance Up to Rs 50 lakhs",
+                                "value": [
+                                    "Rate of interest (%) - 3.75%"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Pre-closure of FCNR (B) Deposits :",
+                "content": [
+                    {
+                        "text": [
+                            "For Closure of FCNR(B) deposits the existing guidelines hold good i.e. if the deposits is closed before due date ,interest rate for the period run without penalty or the contracted rate without penalty, which ever is less, is applicable.",
+                            "Interest Rates on SB/NRO/NRE accounts (Savings Bank Account, No Frill account, Non Resident Ordinary and Non Resident External Account)",
+                            "NRE and RFC SB interest Rates in various foreign currencies",
+                            "FCNR (B) DEPOSITS and RFC TERM DEPOSITSDeposits in various foreign currencies for 1, 2, 3, 4 and 5 year terms",
+                            "Bulk Deposits Rates (Rates of above Rs 5 crore)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "All the other extant RBI guidelines as given below, applicable specifically for NRE term deposits hold good:",
+                "content": [
+                    {
+                        "text": [
+                            "NRE term deposits should be opened for a minimum term of one year.",
+                            "No interest is payable on NRE term deposits pre-closed before one year from the date of opening of the said deposit.",
+                            "Interest rates on NRE deposits cannot be higher than those offered on comparable domestic rupee term deposits.",
+                            "Additional interest rate of one percent per annum payable to Bank’s own staff is not available in respect of NRE/NRO deposits.",
+                            "If loan/overdraft has been availed against any NRE term deposit, pre-closure of such deposits is not permitted.",
+                            "In the case of premature withdrawal of NRE term deposits for conversion into Resident Foreign Currency (RFC) Account the bank should not levy any penalty for premature withdrawal."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Foreclosure charges - Applicable for premature withdrawal of Term Deposits – opened or rolled over on or after 07.10.2015.",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Foreclosure charges Period Run - 7 days to 14 days",
+                                "value": [
+                                    "Deposits upto Rs. 5 lakhs - No interest will be paid on foreclosure of deposit",
+                                    "Deposits above Rs. 5 lakhs - No interest will be paid on foreclosure of deposit"
+                                ]
+                            },
+                            {
+                                "key": "Foreclosure charges Period Run - 15 days and above",
+                                "value": [
+                                    "Deposits upto Rs. 5 lakhs - No penalty to be levied for pre closure of deposits provided the deposit has been retained for atleast 181 days i.e. eligible interest rate will be the applicable card rate for the actual period run prevailing on the date of deposit.  For deposits closed before 181 days, eligible rate will be the applicable card rate for the actual period run prevailing on the date of deposit less 1.00% p.a. as foreclosure charges",
+                                    "Deposits above Rs. 5 lakhs - Eligible rate will be the applicable card rate for the actual period run prevailing on the date of deposit less 1.00% p.a. as foreclosure charges",
+                                    "No foreclosure charges to be levied for domestic term deposits placed by Corporate/Government Departments (State, Central and Quasi Government), Institutions and non profitable organizations (which exist for Educational / Religious or Charitable reasons and from which its share holders or trustees do not benefit financially) ",
+                                    "No foreclosure charges to be levied for deposits in the name of  staff/ex staff/ex staff cum senior citizen."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Discretion to disallow foreclosure of large value Term Deposits opened on or after 07.10.2015",
+                "content": [
+                    {
+                        "text": [
+                            "Bank may at its discretion disallow withdrawal of large value Rupee Term Deposits of Rs.5.00 crore and above, before completion of the deposit period agreed upon at the time of placing the deposit."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Penalty for pre-mature withdrawl of NRE and NRO Term deposits and Exercise of discretion to disallow forclosure of large value term deposits –opened or rolled over on or after 07.10.2015 .",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "period 1 year  and above",
+                                "value": [
+                                    "Deposits above Rs. 5 lakhs - \n Eligible rate will be the applicable card rate for the actual period run prevailing on the date of deposit less 1.00% p.a. as foreclosure charges.",
+                                    "Deposits above Rs. 5 lakhs - \n No foreclosure charges to be levied for deposits in the name of staff/ex staff/ex staff cum senior citizen."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

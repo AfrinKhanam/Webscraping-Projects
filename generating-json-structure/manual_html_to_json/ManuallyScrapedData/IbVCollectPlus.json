@@ -1,0 +1,106 @@
+
+{
+    "document_name": "agricultural-godowns-cold-storage",
+    "url": "https://indianbank.in/departments/ib-v-collect-plus-2/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "IB V Collect Plus",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "Offline Collection with Online Response",
+                "content": [
+                    {
+                        "text": [
+                            "Indian Bank offers a Digital Collection Product with real time MIS regarding Remitter details to empower Educational lnstitutions, Corporates, Finance companies, Chit Companies etc. to receive funds from different sources through branch counters or net banking of any bank"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Key Features:",
+                "content": [
+                    {
+                        "text": [
+                            "6 Digits Virtual lD of Institution/Merchant’s choice- mapped to account number.",
+                            "Ease of remittance through Branches and Net Banking of any bank.",
+                            "Validating correctness of Remitter lD / Amount",
+                            "Real Time confirmation of receipt of funds to the lnstitution/Merchant",
+                            "Automated MIS Reports"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Target Segment:",
+                "content": [
+                    {
+                        "text": [
+                            "Educational lnstitutions like Schools/ Colleges/Universities to collect fee payments",
+                            "Corporates collecting payment dues from Dealers / Agents",
+                            "Newspaper / Periodicals who collect subscription",
+                            "Chit Companies/Jewellery shops collecting subscription",
+                            "Residential Association for collection of charges",
+                            "Finance companies collecting loan installments from borrowers.",
+                            "Any other type of customer who collects money from multiple remitters at regular intervals"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How it Works?",
+                "content": [
+                    {
+                        "text": "When a transaction is initiated through IB V Collect Plus, the following will be the flow of work: –",
+                        "content":[
+                            {
+                                "text":"Option 1 : Real Time Credit confirmation to the lnstitution",
+                                "content":[
+                                    ""
+                                ]
+                            }
+
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Interest Rates",
+                "content": [
+                    {
+                        "text": [
+                            "Please refer the Lending Rates link on home page in our Bank`s Website."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Repayment",
+                "content": [
+                    {
+                        "text": [
+                            "9 to 11Years including holiday period of 2 years(Half yearly installments)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Security",
+                "content": [
+                    {
+                        "text": [
+                            "Hypothecation of the assets created with the bank loan.",
+                            "Hypothecation of the produce stored in the godown, if owned by the godown owner.",
+                            "Mortgage of Properties."
+                        ]
+                    }
+                ]
+            },
+            {
+
+            }
+        ]
+    }
+}

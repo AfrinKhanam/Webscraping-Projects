@@ -1,0 +1,48 @@
+
+{
+    "document_name": "image",
+    "url": "https://indianbank.in/departments/image/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "IMAGE",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text":"IMAGE which is the acronym for Indian bank Management Academy for Growth and Excellence is the prestigious Training Academy of Indian Bank",
+                "content":[
+                    {
+                        "text":[
+                            "The academy stands at a quiet and peaceful locality of MRC Nagar Chennai India in a sprawling complex, with modern amenities like air-conditioned Class Rooms, Seminar Halls, indoor recreational facilities and a state-of-the-art Auditorium.",
+                            "The Academy caters to the training needs of Indian Bank, its Subsidiaries and other members of the banking fraternity. The Academy also undertakes Training of Middle and Senior Management Personnel of Government, Public Sector and Corporate companies. The Infrastructure facilities are also available on payment of stipulated fees to select group of Corporate companies and other bodies."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "The infrastructure facilities available at IMAGE are of international Standards and this learning institute is considered Asia’s finest. The following would substantiate the above :",
+                "content": [
+                    {
+                        "text": [
+                            "Located in about 2 acres of land at the coziest centre of Chennai City enjoying serene atmosphere conducive to learning and intellectual pursuits.",
+                            "Surrounded by lush greenery and a mere stone’s throw away is the brilliant blue waters of the Bay of Bengal.",
+                            "Centrally Air conditioned class rooms to accommodate 35 to 40 participants each.",
+                            "Advanced Computer centre with state-of-the-art machines and facilities.",
+                            "Two Conference Halls with a seating capacity of 67 & 103 with specially designed audio system and microphone for each seat.",
+                            "A cute small Conference room with facilities for organizing mini conferences and Web conferencing with multi-media presentations to accommodate 15 at a time.",
+                            "A massive acoustically designed Auditorium with a seating capacity of 841 attached with a spacious lounge, two Dining Halls and independent kitchen.",
+                            "Indoor Recreational facilities like Indoor Badminton Court, Table Tennis court, Carrom Board Room, Chess Table, Gym and Yoga sessions.",
+                            "A dispensary attended by a Doctor every evening with‘ at call ‘ facility for emergency.",
+                            "Hostel Block with 67 air-conditioned rooms for housing 134 trainees at a time.",
+                            "Executive suites for VIP Guests.",
+                            "Uninterrupted Power Supply backed by an independent Power Transformer and a Generator set of 750 KV capacity.",
+                            "Clean potable drinking water."
+                        ]
+                    }
+                ]
+            }
+          
+        ]
+    }
+}

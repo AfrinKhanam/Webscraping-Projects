@@ -1,0 +1,40 @@
+
+{
+    "document_name": "Executive Director’s Profile",
+    "url": "https://indianbank.in/departments/executive-directors-profile/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "Executive Director’s Profile",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text":"Executive Director’s Profile - Shri M.K.Bhattacharya ",
+                "content":[
+                    {
+                        "text":[
+                            "Mr. M K Bhattacharya, aged 56 years, assumed charge as Executive Director on 18.02.2017.",
+                            "Mr. M K Bhattacharya holds M.Com and CAIIB. He is an Associate Member of Institute of Cost and Works Accountant (AICWA). He joined State Bank Group as Probationary Officer in 1985 and was posted to State Bank of Mysore and had a stint there at various levels up to Assistant General Manager.",
+                            "Mr. M K Bhattacharya was promoted to DGM Cadre in 2010 and moved to State Bank of Hyderabad. On promotion to GM Cadre in 2013, he moved to State Bank of Travancore (SBT) and held various assignments and got promoted to Chief General Manager in 2016. During his stay at State Bank group he headed the branches at various scales and is having wide experience as Branch Head (22 years), Regional Head (1 year) and Module Head (3 years) spanning across India.",
+                            "Mr. M K Bhattacharya While serving in SBT, he had also played role as Chief Risk Officer of the Bank and engaged in other assignments viz., General Manager-Business Strategy, Retail Banking, NRI Banking, Controlling foreign offices of the Bank."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Executive Director’s Profile - Shri Shenoy Vishwanath V ",
+                "content": [
+                    {
+                        "text": [
+                            "Shri Shenoy Vishwanath V assumed charge as Executive Director on 01.12.2018.",
+                            "Shri Shenoy Vishwanath V is a Commerce Graduate from Mumbai University. Joined as Probationary Officer in Union Bank of India on 17  January, 1985. Is also an Associate Member of Indian Institute of Bankers and successfully underwent one year Management Education Programme conducted internally by the Union Bank of India. Is a career banker since last 35 years.",
+                            "Shri Shenoy Vishwanath V Has worked in Branches in Rural, Semi Urban, Urban and Metro centres as well as Administrative Offices in different geographies as Branch, Saral, Regional and Vertical Head.. Worked in different verticals like Credit, Vigilance, Transaction Banking, Credit Policy and MSME, Large Corporate as well as Chairman’s Secretariat.  Was a Core member in Verticalisation and Centralisation of Credit functions. Is also a Nominee Director on the Board of Central Registry of Securitisation Asset Reconstruction and Security Interest of India."
+                        ]
+                    }
+                ]
+            }
+          
+        ]
+    }
+}

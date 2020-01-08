@@ -1,0 +1,55 @@
+
+{
+    "document_name": "Complaints Officers List",
+    "url": "https://indianbank.in/departments/complaints-officers-list/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "Complaints Officers List",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": " Nodal Officer for Customer Service/Grievance Redressal: [For all types of Grievances including grievances against the service providers of outsourced agencies)",
+                                    "value": [
+                                        "Sri. A.Ramu \n General Manager [BO/CHIEF OPERATING OFFICER] \n Indian Bank, Corporate Office, \n 254-260, Avvai Shanmugham Salai, \n CHENNAI – 600014 \n FAX No. 044-28134053. \n Email: nodalofficer[at]indianbank[dot]co[dot]in"
+                                    ]
+                            },
+                            {
+                                "key":"Nodal Officer Under Banking Ombudsman Scheme :",
+                                "value":[
+                                    "Sri. A.Ramu \n General Manager [BO/CHIEF OPERATING OFFICER] \n Indian Bank, Corporate Office, \n 254-260, Avvai Shanmugham Salai, \n CHENNAI – 600014 \n Telephone: 044-28134053. \n FAX No. 044-28134053. \n Email: nodalofficer[at]indianbank[dot]co[dot]in"
+                                ]
+                            },
+                            {
+                                "key":"",
+                                "value":[
+                                    "Address, Telephone/Fax No/email ID of Public Information Officers & Assistant Public Information Officers, First Appellate Authority and Transparency Officer"
+                                ]
+                            },
+                            {
+                                "key":" Banking Ombudsman Scheme, 2006 :",
+                                "value":[
+                                    "Nodal Officers under Banking Ombudsman Scheme,2006 at Zonal Level"
+                                ]
+                            },
+                            {
+                                "key":" Customer Complaint :",
+                                "value":[
+                                    "Nodal Officers for Customer Complaints"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+                }
+            ]
+
+            }
+        }

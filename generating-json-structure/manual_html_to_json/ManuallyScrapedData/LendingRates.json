@@ -1,0 +1,39 @@
+{
+    "document_name": "Lending rates",
+    "url": "https://indianbank.in/lending-rates/",
+    "domain": "deposit",
+    "class": "Savings Bank A/c",
+    "sub_class": "",
+    "main_title": "Lending rates",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "MCLR w.e.f. 03122019",
+                            "Base Rate is 9.45 % p. a. with effect from 07.05.2017",
+                            "Benchmark Prime Lending Rate is 14.20 % p. a. with effect from 08.06.2015",
+                            "Interest Rates on Personal Segment Loan Products ",
+                            "Personal Segment Loan – REPO linked interest rates (incl. Festival Offer) & Fixed rates wef 01.11.2019",
+                            "Min Max Mean ROI for quarter ended 30092019",
+                            "INTEREST RATES FOR MSME LOANS w.e.f. 08-03-2019",
+                            "Interest rate on Agricultural Products",
+                            "Based on Base Rate",
+                            "Based on BPLR",
+                            "All agricultural loans and Agri Structured Products / Schemes, Coffee and tea growers loans, Poultry advances, Farm Mechanization advances, Post Harvest Financing, Gramin Mahila Sowhbagya Scheme (GMSS), Non priority Jewel loans including secured OD against Gold Ornaments, Non Priority staff Jewel loans, Grihalakshmi (Housing Loan to SHG Members), Financing Micro Finance Institutions, SHG Bank Linkage Programme etc.",
+                            "Interest rate range of contracted loans for the quarter ended March 2018",
+                            "Interest rate on Export Credit in Foreign Currency",
+                            "Pre-shipment Credit, Post-shipment Credit, Export Credit Not Otherwise Specified (ECNOS)",
+                            "Interest rate on Rupee Export Credit",
+                            "Pre-shipment Credit, Post-shipment Credit"
+
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

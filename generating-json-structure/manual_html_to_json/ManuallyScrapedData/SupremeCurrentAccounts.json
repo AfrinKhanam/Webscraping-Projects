@@ -1,0 +1,318 @@
+{
+    "document_name": "Supreme Current Accounts",
+    "url": "https://indianbank.in/departments/supreme-current-accounts/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "Supreme Current Accounts",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "Supreme Current Accounts",
+                "content": [
+                    {
+                        "text": [
+                            "comprising of four variants, each having a different average monthly balance starting from Rs.1 lakh to Rs.10 lakhs and variable level of insurance cover and concession in service charges is launched now",
+                            "Individuals/ Sole-proprietorship concerns/Joint Hindu Families/ Partnership Firms/ Limited Companies/ Trusts / Non-corporate bodies like Clubs, Committes, Association etc / Schools, Colleges / Societies can open this account"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": "SUPREME CURRENT ACCOUNT",
+                        "table": [
+                            {
+                                "key": "SUPREME CURRENT ACCOUNT - Average Monthly Balance  (AMB) * \n Mode of calculation: ",
+                                "value": [
+                                    "Average of daily closing clear balance in the account spread over a period of one month subject to maintenance of 50% of the stipulated AMB as the minimum balance on every day."
+                                ]
+                            },
+
+                            {
+                                "key": "SUPREME CURRENT ACCOUNT-Average Monthly Balance  (AMB) * \n Mode of calculation: Average of daily closing clear balance in the account spread over a period of one month subject to maintenance of 50% of the stipulated AMB as the minimum balance on every day.",
+                                "value": [
+                                    "Plan A- \n Rs.1 lakh",
+                                    "Plan B- \n Rs.2 lakhs",
+                                    "Plan C- \n Rs.3 lakhs",
+                                    "Plan D- \n Rs.10 lakhs"
+
+                                ]
+                            },
+                            {
+                                "key": "INSURANCE:-AROGYARAKSHA Plan B",
+                                "value": [
+                                    "Plan D- \n Rs.3 lakhs"
+                                ]
+                            },
+                            {
+                                "key": "INSURANCE:",
+                                "value": [
+                                    "Comprehensive House Holders Policy – Limit specified against each centre \n Plan A- \n Rs.1 lakh",
+                                    "Comprehensive House Holders Policy – Limit specified against each centre \n Plan B- \n Rs.2 lakhs",
+                                    "Comprehensive House Holders Policy – Limit specified against each centre \n Plan C- \n Rs.3 lakhs",
+                                    "Comprehensive House Holders Policy – Limit specified against each centre \n Plan D- \n Rs.10 lakhs"
+                                ]
+                            },
+                            {
+                                "key": "SERVICES:– ATM Balance Enquiry Intracity charges",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "SERVICES:- Outward –  RTGS, Outward -NEFT, ECS transactions",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                   
+                                ]
+                            },
+                            {
+                                "key": "SERVICES:- Issue of Statement of Account / Balance / Confirmation",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "SERVICES:- Folio Charges- Registration of  Nomination – Issue of Duplicate Statement",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                    
+                                ]
+                            },
+                            {
+                                "key": "SERVICES:- Cash Handling Charges",
+                                "value": [
+                                    "Plan A- \n Free for first 10 sections a day , in any denomination",
+                                    "Plan B- \n Free for first 10 sections a day , in any denomination",
+                                    "Plan C- \n Free for first 10 sections a day , in any denomination",
+                                    "Plan D- \n Free for first 10 sections a day , in any denomination"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Cash Withdrawal (other than Home Br.):",
+                                "value": [
+                                    "Plan A- \n For Self – on a single day –  Rs.50000/- per occasion – No limits for number of  occasions – For third party Rs.50000/- per occasion.",
+                                    "Plan B- \n For Self – on a single day –  Rs.50000/- per occasion – No limits for number of  occasions – For third party Rs.50000/- per occasion.",
+                                    "Plan C- \n For Self – on a single day –  Rs.50000/- per occasion – No limits for number of  occasions – For third party Rs.50000/- per occasion.",
+                                    "Plan D- \n For Self – on a single day –  Rs.50000/- per occasion – No limits for number of  occasions – For third party Rs.50000/- per occasion."
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Demand Drafts – Upto Rs.1 lakhs",
+                                "value": [
+                                    "Plan A- \n As per existing schedule",
+                                    "Plan B- \n As per existing schedule",
+                                    "Plan C- \n As per existing schedule",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Demand Drafts – Above Rs.1 lakh",
+                                "value": [
+                                    "Plan A- \n As per existing schedule",
+                                    "Plan B- \n As per existing schedule",
+                                    "Plan C- \n As per existing schedule",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Demand Drafts – Cacellation",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Demand Drafts  – Revalidation (Revalidation permitted only once)",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Demand Drafts – Duplicate Issuance",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Bankers Pay Order – Upto Rs.1 lakhs",
+                                "value": [
+                                    "Plan A- \n As per existing schedule",
+                                    "Plan B- \n As per existing schedule",
+                                    "Plan C- \n As per existing schedule",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Bankers Pay Order – Above Rs.1 lakh",
+                                "value": [
+                                    "Plan A- \n As per existing schedule",
+                                    "Plan B- \n As per existing schedule",
+                                    "Plan C- \n As per existing schedule",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Bankers Pay Order – Cacellation",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:- Bankers Pay Order  – Revalidation (Revalidation permitted only once)",
+                                "value": [
+                                    "Plan A- \n FREE",
+                                    "Plan B- \n FREE",
+                                    "Plan C- \n FREE",
+                                    "Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:-",
+                                "value": [
+                                    "Bankers Pay Order – Duplicate Issuance \n Plan A - FREE",
+                                    "Bankers Pay Order – Duplicate Issuance \n Plan B- \n FREE",
+                                    "Bankers Pay Order – Duplicate Issuance \n Plan C- \n FREE",
+                                    "Bankers Pay Order – Duplicate Issuance \n Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "VALUE ADD-ONs:-",
+                                "value": [
+                                    "Charges will be collected as sponsor Bank. No charges at destination branch of our Bank. RBI charges if any will be recovered \n Plan A - As per existing schedule",
+                                    "Charges will be collected as sponsor Bank. No charges at destination branch of our Bank. RBI charges if any will be recovered \n Plan B- \n As per existing schedule",
+                                    "Charges will be collected as sponsor Bank. No charges at destination branch of our Bank. RBI charges if any will be recovered \n Plan C- \n As per existing schedule",
+                                    "Charges will be collected as sponsor Bank. No charges at destination branch of our Bank. RBI charges if any will be recovered \n Plan D- \n FREE"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "Collection  of  inland Outstation Cheques drawn on Indian Bank locations (where Indian Bank has branches)",
+                                "value": [
+                                    "Collection  of  inland Outstation Cheques drawn on Indian Bank locations \n Plan A - As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on Indian Bank locations  \n Plan B- \n As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on Indian Bank locations Collection  of  inland Outstation Cheques drawn on Indian Bank locations  \n Plan C- \n As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on Indian Bank locations  \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Collection  of  inland Outstation Cheques drawn on non Indian Bank locations",
+                                "value": [
+                                    "Collection  of  inland Outstation Cheques drawn on non Indian Bank locations (where Indian Bank has no branch). Other Bank charges, if any, will be recovered \n Plan A - As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on non Indian Bank locations (where Indian Bank has no branch). Other Bank charges, if any, will be recovered \n Plan B- \n As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on non Indian Bank locations (where Indian Bank has no branch). Other Bank charges, if any, will be recovered \n Plan C- \n As per existing schedule",
+                                    "Collection  of  inland Outstation Cheques drawn on non Indian Bank locations (where Indian Bank has no branch). Other Bank charges, if any, will be recovered\n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Cash Deposit/withdrawal /Clearing/Transfer",
+                                "value": [
+                                    "Cash Deposit/withdrawal /Clearing/Transfer \n Plan A - As per existing schedule",
+                                    "Cash Deposit/withdrawal /Clearing/Transfer \n Plan B- \n As per existing schedule",
+                                    "Cash Deposit/withdrawal /Clearing/Transfer \n Plan C- \n As per existing schedule",
+                                    "Cash Deposit/withdrawal /Clearing/Transfer \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "(At home branch and Intracity free) – Intercity charges",
+                                "value": [
+                                    "Intercity charges \n Plan A - As per existing schedule",
+                                    "Intercity charges \n Plan B- \n As per existing schedule",
+                                    "Intercity charges \n Plan C- \n As per existing schedule",
+                                    "Intercity charges \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Cheque Book Facility",
+                                "value": [
+                                    "Cheque Book Facility \n Plan A - As per existing schedule",
+                                    "Cheque Book Facility \n Plan B- \n As per existing schedule",
+                                    "Cheque Book Facility \n Plan C- \n As per existing schedule",
+                                    "Cheque Book Facility \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Signature Verification",
+                                "value": [
+                                    "Signature Verification \n Plan A - FREE",
+                                    "Signature Verification \n Plan B- \n FREE",
+                                    "Signature Verification \n Plan C- \n FREE",
+                                    "Signature Verification \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Enquiry relating to Old records for item more than one year old",
+                                "value": [
+                                    "Enquiry relating to Old records for item more than one year old \n Plan A - FREE",
+                                    "Enquiry relating to Old records for item more than one year old \n Plan B- \n FREE",
+                                    "Enquiry relating to Old records for item more than one year old \n Plan C- \n FREE",
+                                    "Enquiry relating to Old records for item more than one year old \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Addition / Deletion of Names in the account",
+                                "value": [
+                                    "Addition / Deletion of Names in the account \n Plan A - FREE",
+                                    "Addition / Deletion of Names in the account \n Plan B- \n FREE",
+                                    "Addition / Deletion of Names in the account \n Plan C- \n FREE",
+                                    "Addition / Deletion of Names in the account \n Plan D- \n FREE"
+                                ]
+                            },
+                            {
+                                "key": "Registration of  Power of Attorney in respect of operations",
+                                "value": [
+                                    "Registration of  Power of Attorney in respect of operations \n Change in Operational  Instruction \n Change of authorised signatory \n Plan A - FREE",
+                                    "Registration of  Power of Attorney in respect of operations \n Change in Operational  Instruction \n Change of authorised signatory \n Plan B- \n FREE",
+                                    "Registration of  Power of Attorney in respect of operations \n Change in Operational  Instruction \n Change of authorised signatory \n Plan C- \n FREE",
+                                    "Registration of  Power of Attorney in respect of operations \n Change in Operational  Instruction \n Change of authorised signatory \n Plan D- \n FREE"
+                                ]
+                            }
+
+                        ]
+                    }
+                ]
+            }
+           
+        ]
+    }
+}

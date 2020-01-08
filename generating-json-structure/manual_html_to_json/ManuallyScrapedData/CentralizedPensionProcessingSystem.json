@@ -1,0 +1,133 @@
+
+{
+    "document_name": "CENTRALIZED PENSION PROCESSING SYSTEM",
+    "url": "https://indianbank.in/departments/centralized-pension-processing-system/",
+    "domain": "departments",
+    "class": "Featured Products / Services / Schemes",
+    "sub_class": "",
+    "main_title": "CENTRALIZED PENSION PROCESSING SYSTEM",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "Pensioners are worthy customers who are ambassadors of our Bank and they are important source for business development of our bank. With a view to provide better and complaint free service to all pensioners, by  keeping abreast with the pension rules, Indian Bank has centralized the payment of pension throughout the country in all pension paying Branches. In our Bank we have established Centralized Pension Processing Centre at Chennai to facilitate the calculation of the pension at centralized level for all the pensioners drawing pension from our Indian Bank. All the changes in Pension Paying parameters including revised DA, arrears of DA ,etc are also done centrally and payment of arrears as per pay commission recommendations by calculation of the same as per the data available in the Centralized pension processing system [CPPS)  By this we are assured of timely and accurate payment of pension to all categories of pensioners.",
+                            "Pension is granted by the Central as well as State Governments as one of the retirement benefits to their employees. All the Public Sector Banks are authorized to make pension payment on behalf of Government."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":" Contact Us",
+                "content":[
+                    {
+                        "text":[
+                            "Indian Bank Pension Customer can contact through this e-mail cppc[at]indianbank[dot]co[dot]in  for suggestions, grievances or enquiry. \n \n CPPC is located at Chennai \n Centralized Pension Processing Center, \n Indian Bank, \n 4TH FLOOR \n 66, RAJAJI SALAI \n CHENNAI-600 001 \n Phone : 044- 25231756/25231757 \n FAX : 044 – 2523 1751 \n Cell No : 9445030401 / 2"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Downloading of  Pension slip",
+                "content":[
+                    {
+                        "text":[
+                            "Pensioners who are having Net Banking facility with our Bank, can download the pension slip at any time. \n *Navigation: The pensioner should login with valid user ID and password in http://www.indianbank.net.in . Select menu In Demat/pension -> Pension enquiry-> select PPO No and select Year and month-> click display. \n Pension Slip will be displayed. Facility for printing the pension slip is also provided."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"METHOD OF CALCULATION OF PENSION",
+                "content":[
+                    {
+                        "text":[
+                            "Basic Pension \n Disability Pension \n Dearness Pension \n Personal Pension \n DA Relief amount \n Medical Allowance \n Other Allowances \n And deducting the following- \n  Commutation deduction amount \n Any excess paid Pension \n Income Tax Amount \n The DA Relief is calculated as below: \n DA Relief Amount = [Basic Pension + Disability Pension + Dearness Pension] * DA%."
+
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Other Important Points :",
+                "content":[
+                    {
+                        "text":[
+                            "Disability pension is paid to eligible Defence Pensioners only. It may be Temporary or Permanent as per PPO instructions.",
+                            "Dearness Pension    The pensioners those who retired on or before 31/03/2004 are eligible for 50% of Dearness Pension. Please note that this Dearness pension is abolished after Sixth Pay commission Revision.",
+                            "Medical Allowance of Rs.100/- is eligible for the pensioners belonging to Central Civil, Defence, Railway, Telecom, TN state, etc categories for those who are not under ECHS scheme"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Other Allowances",
+                "content":[
+                    {
+                        "text":[
+                            "For Defence :  Exgratia / Constant Attendants allowance/Gallary Awards, etc.",
+                            "Commutation Deduction : Our system will automatically restore the Commutation installments after 15 years from the date of payment of commutation amount for all pensioners except Orissa state Government Pensioners. For them it will be restored after 12 years.",
+                            "Enhanced family pension has to be paid only up to the date specified in the PPO. After the specified date, normal family pension is paid automatically.",
+                            "Income Tax is deducted at source on pension payment by CPPC in our Bank. Pensioners are requested to submit the saving/investment details for the purpose of claiming Tax exemption at the branches, where the pension is credited.",
+                            "Pensioners can submit their Life Certificate in the month of November every year, at any of our branches."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Our Bank provides pension payment facility to the following categories of pensioners on Pan India basis:",
+                "content":[
+                    {
+                        "text":[
+                            "Central Civil \n Defence \n Freedom Fighters [Central / State) \n Railways [ with effect from 01.10.2013)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Our Bank provides pension payment facility to the following categories of pensioners through identified branches in 26 zones [except Ahmedabad, Chandigarh, Ghaziabad, Guwahati, Karnal, Pune and Patna Zones] in nearly 1300 branches across the country:",
+                "content":[
+                    {
+                        "text":[
+                            "Post Office \n State Government Pension of various States"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"",
+                "content":[
+                    {
+                        "text":[
+                            "Indian Bank has migrated to Centralized Pension Processing system w e f 01.04.2009 through the in-house software.  Centralized Pension Processing Centre [CPPC] branch is located at Chennai. Processing, Reports generation and crediting the Pension are centralized in CPPC."
+                        ]
+                    },
+                    {
+                        "text":[
+                            "The Paying branches are having the rights to update the data pertaining to their branch pensioners using a secured mechanism of maker and checker facility.  For the existing pensioners of our bank, any further changes / modifications in the Pension data, it should be done by the paying branch only [like Corrigendum PPO, death of the pensioner, Change of pension to other branches / banks]."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"The details required for availing Pension Disbursement Facility from Indian Bank are  as under:",
+                "content":[
+                    {
+                        "text":[
+                            "Before commencement of pension – Pensioners should have a Savings Bank Account preferably Joint account with Spouse [E or S] with our bank."
+                        ]
+                    },
+                    {
+                        "text":[
+                            "The same has to be intimated to PPO issuing authorities for sending the PPO to the paying branch through the respective Link Branch for crediting the pension amount."
+                        ]
+                    }
+                ]
+            }
+
+        ]
+    }
+}

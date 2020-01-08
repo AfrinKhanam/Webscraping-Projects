@@ -1,0 +1,88 @@
+{
+    "document_name": "internet-banking",
+    "url": "https://indianbank.in/departments/internet-banking/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "Internet banking",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "Indian Bank Provides anywhere, anytime banking facility to the customer through Internet banking- a quick, simple and convenient way of Banking for the customers.",
+                            "User Guide – Internet Banking Registration"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Features of Net Banking:",
+                "content": [
+                    {
+                        "text": "Financial Services",
+                        "table": [
+                            {
+                                "key": "Financial Services-Fund Transfer within Indian Bank",
+                                "value": [
+                                    "Fund Transfer within Indian Bank-\n Self Transfers \n Other Indian Bank Account Transfers \n PPF Account \n V Collect"
+                                ]
+                            },
+                            {
+                                "key": "Financial Services-Fund Transfer to other Bank ",
+                                "value": [
+                                    "Fund Transfer to other Bank : \n NEFT \n RTGS \n IMPS (24/7) \n Easipay (without adding benificiary)"
+                                ]
+                            },
+                            {
+                                "key": "Financial Services-Recharge and Bill Pay",
+                                "value": [
+                                    "Recharge and Bill Pay : \n Pay Bills for gas, electricity, water, DTH and broadband/ landline can be paid",
+                                    "Recharge and Bill Pay: \n Pay Taxes",
+                                    "Recharge and Bill Pay: \n Pay Credit Card Bill"
+                                ]
+                            },
+                            {
+                                "key": "Financial Services-IB – Opening of account:",
+                                "value": [
+                                    "Opening of account:\n Open Term Deposit Account- RD/ FD/VRD/STD/MMD \n Open e-purse Account \n LC Account \n NPS Account"
+                                ]
+                            },
+                            {
+                                "key": "Non-Financial Services-Account Related:",
+                                "value": [
+                                    "Account Related : \n Account Statement for specified period \n Account Statement for specified period"
+                                   
+                                ]
+                            },
+                            {
+                                "key": "Non-Financial Services-Cheque Related Services",
+                                "value": [
+                                    "Cheque Related Services : \n Stop payment of cheque \n Cheque Status Inquiry \n Cheque Status Inquiry"
+                                  
+                                ]
+                            },
+                            {
+                                "key": "Non-Financial Services-Password Related:",
+                                "value": [
+                                    "Password Related: \n Change/reset  Login Password \n Change/reset Transaction Password"
+                                    
+                                ]
+                            },
+                            {
+                                "key": "Value Added Services",
+                                "value": [
+                                    "Standing Instruction \n Instant Beneficiary Addition. \n Account wise TDS Details. \n APY, PMJJBY, PMSBY registration. \n Application for ASBA \n Change User ID as per your convenience. \n Personalized Dash board for overall view of accounts. \n Personalized Dash board for overall view of accounts. \n E- Interest Certificate \n TDS Certificate \n Submit Form 15-G or 15-H, A2 \n Get Form 26 S. \n Closure of FD/RD/VRD/STD/MMD \n Transaction Lock/Unlock \n Aadhaar Seeding facility \n Tax E-receipt \n Download Form 16A \n Email Statement subscription"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+           
+        ]
+    }
+}

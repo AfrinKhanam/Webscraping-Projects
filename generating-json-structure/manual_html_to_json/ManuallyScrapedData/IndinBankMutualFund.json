@@ -1,0 +1,223 @@
+
+{
+    "document_name": "INDIAN BANK MUTUAL FUND",
+    "url": "https://indianbank.in/departments/indian-bank-mutual-fund/",
+    "domain": "home",
+    "class": "departments",
+    "sub_class": "",
+    "main_title": "INDIAN BANK MUTUAL FUND",
+    "subtitle": {
+        "html_tag": "<h3>.*</h3>",
+        "elements": [
+            {
+                "text":"INDIAN BANK MUTUAL FUND",
+                "content":[
+                    {
+                        "text":[
+                            "Indian Bank Mutual Fund [IBMF] was formed as a Trust during 1990 sponsored by Indian Bank with a corpus of Rs. 25 lakhs. The schemes of IBMF were managed by the Trust during the years 1990-1994. To comply with the SEBI [MF] Regulations, 1993, M/s Indfund Management Ltd. [IFML), an Asset Management Company was formed during January 1994 as a wholly owned subsidiary of Indian Bank with a paid up capital of Rs.5 crores. Since January 1994, the schemes of IBMF were managed by IFML. IBMF launched 12 close-ended schemes and raised Rs.627.10 crore. Out of the 12 schemes 9 schemes were redeemed on maturity dates. Three schemes, viz; Ind Navratna, Ind Shelter and Ind Tax Shield schemes were transferred to Tata Mutual Fund during November 2001. Consequent to a Scheme of Amalgamation approved by the Hon’ble High Court of Bombay, IFML has been since merged with Indian Bank on 07.09.2012 and the Trust [IBMF] is functioning from   INDIAN BANK, Corporate office, Chennai –600014."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "The following schemes of Indian Bank Mutual Fund have been redeemed and the redemption value can be obtained by submitting completed redemption application along with Unit Certificates.",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Ind Ratna [1990] - Date of Redemption",
+                                    "value": [
+                                        "31.01.1996"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Ratna [1990] - Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "14.14"
+                                ]
+                            },
+                            {
+                                "key": "Ind Ratna [Rolled Over] - Date of Redemption",
+                                    "value": [
+                                        "21.02.2001"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Ratna [Rolled Over] - Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "17.66"
+                                ]
+                            },
+                            {
+                                "key": "IndSwarna Pushpa [Monthly] [1990] - Date of Redemption",
+                                    "value": [
+                                        "31.01.1996"
+                                    ]
+                            },
+                            {
+                                "key":"IndSwarna Pushpa [Monthly] [1990] - Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "101.72"
+                                ]
+                            },
+                            {
+                                "key": "Swarna Pushpa [Monthly] Rolled Over - Date of Redemption",
+                                    "value": [
+                                        "31.03.1999"
+                                    ]
+                            },
+                            {
+                                "key":"Swarna Pushpa [Monthly] Rolled Over- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "100.00"
+                                ]
+                            },
+                            {
+                                "key": "Swarna Pushpa [Yearly] Rolled Over - Date of Redemption",
+                                    "value": [
+                                        "31.03.1999"
+                                    ]
+                            },
+                            {
+                                "key":"Swarna Pushpa [Yearly] Rolled Over- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "100.00"
+                                ]
+                            },
+                            {
+                                "key": "Ind 88 A - Date of Redemption",
+                                    "value": [
+                                        "31.03.1996"
+                                    ]
+                            },
+                            {
+                                "key":"Ind 88 A- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "128.07"
+                                ]
+                            },
+                            {
+                                "key": "Ind Moti- Date of Redemption",
+                                    "value": [
+                                        "30.06.1997"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Moti- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "7.72"
+                                ]
+                            },
+                            {
+                                "key": "Ind Jyothi A- Date of Redemption",
+                                    "value": [
+                                        "31.03.1998"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Jyothi A- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "8.54"
+                                ]
+                            },
+                            {
+                                "key": "Ind Jyothi B- Date of Redemption",
+                                    "value": [
+                                        "31.03.1998"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Jyothi B- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "20.02"
+                                ]
+                            },
+                            {
+                                "key": "Ind Prakash A- Date of Redemption",
+                                    "value": [
+                                        "30.11.1999"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Prakash A- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "10.00"
+                                ]
+                            },
+                            {
+                                "key": "Ind Prakash B- Date of Redemption",
+                                    "value": [
+                                        "30.11.1999"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Prakash B- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "19.11"
+                                ]
+                            },
+                            {
+                                "key": "Ind Sagar- Date of Redemption",
+                                    "value": [
+                                        "15.06.2001"
+                                    ]
+                            },
+                            {
+                                "key":"Ind Sagar- Redemption price per unit Rs.Ps.",
+                                "value":[
+                                    "19.22"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+                },
+                {
+                    "text": "  The following offices can also be contacted for the Redemption forms:",
+                    "content": [
+                        {
+                            "text": "",
+                            "table": [
+                                {
+                                    "key":"OFFICE-INDIAN BANK MUTUAL FUND",
+                                    "value":[
+                                        "C/o INDIAN BANK,Corporate Office, Accounts Dept \n 254-260, Avvai Shanmugam Salai \n Royapettah, Chennai 600 014 \n Phone: 044-28134168 Fax: 044-28134170 \n E-Mail: ibmf[at]indianbank[dot]co[dot]in"
+                                    ]
+                                },
+                                {
+                                    "key":"REGISTRAR",
+                                    "value":[
+                                        "M/s CAMEO Corporate Services Ltd \n UNIT-INDIAN BANK MUTUAL FUND ,Subramanian Building \n No 1, Club House Road Chennai 600 002 \n Phone: 044- 28460718 Fax: 044- 28460129 \n E-mail: investor[at]cameoindia[dot]com"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text":"Investors of Ind Shelter, Ind Tax Shield and Ind Navratna schemes are requested to approach Tata Mutual Fund for redemption or any other queries at the following address:",
+                    "content":[
+                        {
+                            "text":[
+                                "Tata Asset Management Ltd \n Mulla House, Ground floor \n 51 M G Road , Near Flora Fountain \n Mumbai – 400 001 \n Toll Free No. 1800 209 0101 \n MCS Ltd – Tel: 022-23726253, /55/ 56"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text":"Schemes Transferred to M/s Tata Mutual Fund:",
+                    "content":[
+                        {
+                            "text":[
+                                "Ind Shelter scheme matured on 31.03.2002. Tata Mutual Fund has sent redemption warrant to all the unit holders during the last week of April 2002.",
+                                "Ind Taxshield  scheme was redeemed on 31.03.2003. Tata Mutual Fund has automatically classified the unredeemed folios under the above scheme to Tata Equities Opportunities Fund [open ended scheme] and also sent the Statement of Account to all the investors having unredeemed units.",
+                                "Navratna [Rolled Over]f scheme was redeemed on 31.03.2004. Tata Mutual Fund has automatically classified the unredeemed folios under the above scheme to Tata Growth Scheme [open ended] and also sent the Statement of Account to all the investors having unredeemed units."
+                            ]
+                        }
+                    ]
+                }
+            ]
+
+            }
+        }
