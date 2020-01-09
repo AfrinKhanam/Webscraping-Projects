@@ -4,23 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BackEnd</title>
-
     <script type="text/javascript" src="~/lib//jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker_1.3.css" rel="stylesheet" type="text/css" />
+    <script src="~/lib/bootstrap-datepicker/bootstrap_datepicker.js"></script>
 </head>
 
 <body class="scroll-enable">
-
-
     <header>
-
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ib-yellow-border">
             <div class="container">
-
-
                 <a class="navbar-brand" asp-area="" asp-controller="Report" asp-action="Index">
                     <img src="~/lib/images/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="Indian Bank">
                     Indian Bank - Backend
@@ -62,6 +57,69 @@
         .ib-yellow-border {
             border-bottom: 1px solid #e0a800 !important;
         }
+
+        .nav-tabs {
+            width: 100%;
+        }
+
+        .example-table td {
+            padding: 30px;
+        }
+
+        .example-table th {
+            padding: 30px;
+        }
+
+        .sub-table {
+            width: 100%;
+            background-color: #00245f;
+            transition: display 0s, opacity 2s linear;
+        }
+
+            .sub-table th {
+                font-size: 14px;
+                color: white;
+            }
+
+            .sub-table td {
+                font-size: 13px;
+            }
+
+        .btn-hover {
+            cursor: pointer !important;
+        }
+
+        .report-heading {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+            .report-heading:hover {
+                color: black;
+            }
+
+        .color-black {
+            color: black;
+        }
+
+        label.date_label {
+            margin-left: 20px;
+        }
+
+        #datepicker_from, #datepicker_to {
+            width: 180px;
+            margin: 0 20px 20px 20px;
+        }
+
+            #datepicker_from, #datepicker_to > span:hover {
+                cursor: pointer;
+            }
+
+        .form-control:disabled, .form-control[readonly] {
+            background-color: transparent;
+            opacity: 1;
+        }
     </style>
+
 </body>
 </html>

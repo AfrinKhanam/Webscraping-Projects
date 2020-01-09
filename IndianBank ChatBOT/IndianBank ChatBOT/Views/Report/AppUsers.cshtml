@@ -26,10 +26,66 @@
     </div>
 </nav>
 
-
-
-<h2 class="pt-3 pb-3">Visitors</h2>
  
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-4'>
+            <h2 class="pt-3 pb-3">Visitors</h2>
+        </div>
+        <div class='col-sm-6'>
+            <div class="form-group row pt-3 pb-3">
+                <label class="date_label">From: </label>
+                <div id="datepicker_from" class="input-group date" data-date-format="mm-dd-yyyy">
+                    <input class="form-control" type="text" readonly id="from_date_input" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+                <label class="date_label">To: </label>
+                <div id="datepicker_to" class="input-group date" data-date-format="mm-dd-yyyy">
+                    <input class="form-control" type="text" readonly id="to_date_input" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class='col-sm-2  pt-3 pb-3'>
+            <button type="button" id="filter_btn" class="btn btn-primary">Filter</button>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+            $("#datepicker_from").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());
+
+            $("#datepicker_to").datepicker({
+            autoclose: true,
+            todayHighlight: true
+            }).datepicker('update', new Date());
+
+            var from_date = "";
+            var to_date = "";
+
+            $("#from_date_input").change(function () {
+                from_date = this.value;
+            });
+
+            $("#to_date_input").change(function () {
+                to_date = this.value;
+            });
+
+            $('#filter_btn').click(function () {
+                if (from_date != "" && to_date != "") {
+                    alert("From: "+from_date+" -To- "+to_date);
+                }
+            });
+    });
+
+</script>
 
 <table class="table css-serial">
     <thead>
