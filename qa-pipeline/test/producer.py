@@ -148,6 +148,10 @@ test_query = "security deposit to be paid for education loan"
 test_query = "security deposit to be paid for education loan"
 
 test_query = "argriculture jewel loan"
+test_query = "produce marketing loan"
+
+#test_query = "what is the eligibility to apply for a godown or cold storage"
+
 
 test_query_string = {
     "UUID" : "absdj-1237812-asdjdas",
