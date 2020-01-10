@@ -51,12 +51,24 @@ namespace IndianBank_ChatBOT.Controllers
             }
         }
 
-        public ActionResult FrequentlyAskedQueries()
+        public ActionResult FrequentlyAskedQueries(string from, string to)
         {
-            CleanChatLog();
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
 
-            //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet')";
-            var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
+            CleanChatLog();
+            //var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
+            var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\" asc";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
@@ -70,21 +82,62 @@ namespace IndianBank_ChatBOT.Controllers
                                              }).OrderByDescending(c => c.Count)
                                              .ToList();
 
-            return View(frequentlyAskedQueries);
+            var vm = new FrequentlyAskedQueriesViewModel
+            {
+                FrequentlyAskedQueries = frequentlyAskedQueries,
+                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy"),
+            };
+            return View(vm);
         }
 
-        public ActionResult AppUsers()
+        public ActionResult AppUsers(string from, string to)
         {
-            var users = _dbContext.UserInfos.ToList();
-            return View(users);
+            var fromDateTime = Convert.ToDateTime(from);
+            var toDateTime = Convert.ToDateTime(to);
+
+            var fromDate = from;
+            var toDate = to;
+
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var users = _dbContext.UserInfos.Where(u => u.CreatedOn.Date >= fromDateTime.Date && u.CreatedOn.Date <= toDateTime.Date).ToList();
+
+            var vm = new VisitorsViewModel
+            {
+                UserInfos = users,
+                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+            };
+
+            return View(vm);
         }
 
-        public ActionResult UnAnsweredQueries()
+        public ActionResult UnAnsweredQueries(string from, string to)
         {
-            //var query = $"select \"Text\" as Query  from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')";
-            //var query = $"select * from \"ChatLogs\" where \"FromId\"='IndianBank_ChatBOT' and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent') order by \"TimeStamp\"";
-            //var query = $"select * from \"ChatLogs\" where (\"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '') or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) order by \"TimeStamp\"";
-            var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) order by \"TimeStamp\"";
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
 
@@ -107,12 +160,31 @@ namespace IndianBank_ChatBOT.Controllers
                 unAnsweredQueries.Add(unAnsweredQuery);
             }
 
-            return View(unAnsweredQueries);
+            var vm = new UnAnsweredQueriesViewModel
+            {
+                UnAnsweredQueries = unAnsweredQueries,
+                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+            };
+            return View(vm);
         }
 
-        public ActionResult UnSatisfiedVisitors()
+        public ActionResult UnSatisfiedVisitors(string from, string to)
         {
-            var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = '-1'";
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = '-1' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
 
@@ -134,12 +206,32 @@ namespace IndianBank_ChatBOT.Controllers
                 };
                 unAnsweredQueries.Add(unAnsweredQuery);
             }
-            return View(unAnsweredQueries);
+
+            var vm = new UnSatisfiedVisitorsViewModel
+            {
+                UnAnsweredQueries = unAnsweredQueries,
+                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+            };
+            return View(vm);
         }
 
-        public ActionResult LeadGenerationReport()
+        public ActionResult LeadGenerationReport(string from, string to)
         {
-            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet','bye_intent', 'lost_intent') order by \"TimeStamp\"";
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet','bye_intent', 'lost_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             var overallChatLogs = chatLogs;
 
@@ -215,7 +307,14 @@ namespace IndianBank_ChatBOT.Controllers
                 }
             }
 
-            return View(conversationByIntent);
+            var vm = new LeadGenerationReportViewModel
+            {
+                ConversationsByIntent = conversationByIntent,
+                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+            };
+
+            return View(vm);
         }
 
         [HttpPost]

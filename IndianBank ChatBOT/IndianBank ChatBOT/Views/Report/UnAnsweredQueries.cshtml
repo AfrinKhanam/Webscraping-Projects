@@ -1,4 +1,4 @@
-﻿@model List<UnAnsweredQueries>
+﻿@model UnAnsweredQueriesViewModel
 
 @{
     ViewData["Title"] = "Unanswered Queries";
@@ -26,11 +26,11 @@
     </div>
 </nav>
 
- 
+
 <div class="container">
     <div class="row">
         <div class='col-sm-4'>
-            <h2 class="pt-3 pb-3">UnAnswered Queries</h2>
+            @*<h2 class="pt-3 pb-3">UnAnswered Queries</h2>*@
         </div>
         <div class='col-sm-6'>
             <div class="form-group row pt-3 pb-3">
@@ -53,38 +53,53 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
-    $(function () {
-            $("#datepicker_from").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            }).datepicker('update', new Date());
+    function formatDate(date, type) {
+        var current_datetime, formatted_date;
+        switch (type) {
+            case "mm-dd-yyyy":
+                current_datetime = new Date(date);
+                formatted_date = (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "-" + current_datetime.getFullYear();
+                break;
+            case "yyyy-mm-dd":
+                current_datetime = new Date(date);
+                formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+                break;
+            default:
+        }
+        return formatted_date;
+    }
 
-            $("#datepicker_to").datepicker({
+    $(function () {
+        var from_date = '@Model.From';
+        var to_date = '@Model.To';
+
+        $("#datepicker_from").datepicker({
             autoclose: true,
             todayHighlight: true
-            }).datepicker('update', new Date());
+        }).datepicker('update', formatDate(from_date, "mm-dd-yyyy"));
 
-            var from_date = "";
-            var to_date = "";
+        $("#datepicker_to").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', formatDate(to_date, "mm-dd-yyyy"));
 
-            $("#from_date_input").change(function () {
-                from_date = this.value;
-            });
+        $("#from_date_input").change(function () {
+            from_date = formatDate(this.value, "mm-dd-yyyy");
+        });
 
-            $("#to_date_input").change(function () {
-                to_date = this.value;
-            });
+        $("#to_date_input").change(function () {
+            to_date = formatDate(this.value, "mm-dd-yyyy");
+        });
 
-            $('#filter_btn').click(function () {
-                if (from_date != "" && to_date != "") {
-                    alert("From: "+from_date+" -To- "+to_date);
-                }
-            });
+        $('#filter_btn').click(function () {
+            var fdate = formatDate(from_date, "yyyy-mm-dd");
+            var tdate = formatDate(to_date, "yyyy-mm-dd");
+            window.location.href = "/Report/UnAnsweredQueries?from=" + fdate + "&to=" + tdate;
+        });
     });
-
 </script>
+
 <table class="table">
     <thead>
         <tr>
@@ -108,7 +123,7 @@
         @{
             var index = 0;
         }
-        @foreach (var item in Model)
+        @foreach (var item in Model.UnAnsweredQueries)
         {
             {
                 index = index + 1;
@@ -127,6 +142,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
+            </tr>
+        }
+
+        @if (Model.UnAnsweredQueries.Count == 0)
+        {
+           <tr class="no-data" style="text-align:center">
+                <td colspan="5">No data found !</td>
             </tr>
         }
     </tbody>
