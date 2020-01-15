@@ -77,8 +77,6 @@ namespace IndianBank_ChatBOT
             var dataStore = new MemoryStorage();
             var userState = new UserState(dataStore);
             var conversationState = new ConversationState(dataStore);
-
-
             services.AddSingleton(dataStore);
             services.AddSingleton(userState);
             services.AddSingleton(conversationState);
@@ -157,12 +155,12 @@ namespace IndianBank_ChatBOT
             _loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);
 
             app.UseCors(MyAllowSpecificOrigins);
-
+            app.UseHttpContext();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //app.UseHttpContext();
             app.UseDefaultFiles()
                .UseStaticFiles()
                .UseBotFramework();
@@ -176,8 +174,8 @@ namespace IndianBank_ChatBOT
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/MyStaticFiles")),
-                RequestPath = "/StaticFiles"
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WebScrapingStaticFiles")),
+                RequestPath = "/WebScrapingStaticFiles"
             });
         }
 

@@ -40,13 +40,13 @@ namespace IndianBank_ChatBOT.Controllers
 
         public IActionResult GetAllWordsCsv()
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             var wordsCsv = new List<string>();
-            foreach (var item in Synonyms)
+            foreach (var synonym in synonyms)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(item.Word);
-                var SynonymWords = item.SynonymWords.ToList();
+                sb.Append(synonym.Word);
+                var SynonymWords = synonym.SynonymWords.ToList();
                 for (int i = 0; i < SynonymWords.Count; i++)
                 {
                     sb.Append(",");
@@ -54,6 +54,7 @@ namespace IndianBank_ChatBOT.Controllers
                 }
                 wordsCsv.Add(sb.ToString());
             }
+
             return Ok(wordsCsv);
         }
 
