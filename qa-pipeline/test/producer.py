@@ -157,12 +157,11 @@ test_query = "About Indian bank"
 test_query = "Name of the subsidiary companies of Indian bank" #match via subtitle and prioritize the documents accordingly
 test_query = "With whom all indian bank tie up for sale of mutual fund products" #working fine
 test_query = "Do Indian bank have international branches?" #working as expected
-test_query = "What is the vision of the bank" #working as expected
 test_query = "motor cycle bike"
 test_query = "study loan"
 test_query = "four-wheeler loan"
 test_query = "mobike loan"
-test_query = "hocompliance at indianbank dot co dot in"
+test_query = "four wheeler loan"
 
 
 test_query_string = {

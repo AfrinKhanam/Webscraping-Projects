@@ -25,6 +25,7 @@ class QueryParser:
         f = open('./config_files/synonyms.txt', 'r')
         content = f.read()
         self.synonyms_repo = content.split('\n')
+        print("synonyms------------->\n",self.synonyms_repo[0])
         f.close()
 
         # Creating list of synonyms words
