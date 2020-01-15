@@ -387,7 +387,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
                 else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
                 {
-                    //await dc.Context.SendActivityAsync("Display the predefined FAQ's");
+                    await dc.Context.SendActivityAsync("Display the predefined FAQ's");
                     SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
                     await dc.EndDialogAsync();
                 }
@@ -738,8 +738,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             model.BasicPublish("queryExchange", "query", properties, messageBuffer);
             Console.WriteLine("Message Sent");
 
-            string host = "ashutosh-redis";
-            //string host = "localhost";
+           // string host = "ashutosh-redis";
+            string host = "localhost";
 
             int count = 0;
             while (count <= 25 && redis_res == string.Empty)

@@ -60,16 +60,23 @@ def callback(ch, method, properties, body):
         return
 
 #---------------------------------------------------------------#
+
 # elastic = Elastic(index='indian-bank-index-v2')
 elastic = Elastic(index='indian-bank-agriculture-v1')
 
 # elastic = Elastic(index='indian-bank-index-modified')
 
 
+# rabbimq_consumer = RabbitmqConsumerPipe(
+#         exchange="elasticSearchEx",
+#         queue="esQueue",
+#         routing_key="es",
+#         callback=callback,
+#         host='localhost')
 rabbimq_consumer = RabbitmqConsumerPipe(
         exchange="elasticSearchEx",
         queue="esQueue",
-        routing_key="es",
+        routing_key="queryParserResult",
         callback=callback,
         host='localhost')
 

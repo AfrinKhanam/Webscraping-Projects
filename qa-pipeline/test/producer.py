@@ -150,7 +150,18 @@ test_query = "security deposit to be paid for education loan"
 test_query = "argriculture jewel loan"
 test_query = "produce marketing loan"
 
-#test_query = "what is the eligibility to apply for a godown or cold storage"
+test_query="what is the eligibility to apply for a godown or cold storage"
+test_query = "what is the eligibility to apply for a godown or cold storage"
+test_query = "Indian bank profile"
+test_query = "About Indian bank"
+test_query = "Name of the subsidiary companies of Indian bank" #match via subtitle and prioritize the documents accordingly
+test_query = "With whom all indian bank tie up for sale of mutual fund products" #working fine
+test_query = "Do Indian bank have international branches?" #working as expected
+test_query = "motor cycle bike"
+test_query = "study loan"
+test_query = "four-wheeler loan"
+test_query = "mobike loan"
+test_query = "four wheeler loan"
 
 
 test_query_string = {
@@ -158,9 +169,7 @@ test_query_string = {
     "QUERY_STRING" : test_query,
     "CONTEXT" : ""
 }
-
 rabbitmq_producer_query = RabbitmqProducerPipe(publish_exchange="queryExchange", 
         routing_key="query",
         host="localhost")
-
 rabbitmq_producer_query.publish(json.dumps(test_query_string).encode())

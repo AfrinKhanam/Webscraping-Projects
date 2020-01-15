@@ -17,7 +17,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
-                    new CardAction(type: ActionTypes.ImBack, title: "Profile", value: "profile"),
+                    new CardAction(type: ActionTypes.ImBack, title: "Profile", value: "profiles"),
                     new CardAction(type: ActionTypes.ImBack, title: "Vision & Mission", value: "vision and mission"),
                     new CardAction(type: ActionTypes.ImBack, title: "Management", value: "management"),
                     //new CardAction(type: ActionTypes.ImBack, title: "Finance Result", value: "finance result"),

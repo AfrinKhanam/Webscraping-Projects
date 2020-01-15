@@ -31,7 +31,6 @@
 - hey
 - namaste
 - namaskaram
-- Good morning
 - good day
 
 ## intent:bye_intent
@@ -73,7 +72,7 @@
 - I have [forgotten](lost_entity:lost) my password. What will I do?
 
 ## intent:about_us_intent
-- [profile](aboutus_entity)
+- [profiles](aboutus_entity)
 - [vision and mission](aboutus_entity)
 - [management](aboutus_entity)
 - [finance result](aboutus_entity)

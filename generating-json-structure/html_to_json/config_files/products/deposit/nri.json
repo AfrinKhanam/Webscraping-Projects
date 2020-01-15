@@ -1,117 +1,70 @@
 {
-	"https://www.indianbank.in/departments/resident-foreign-currency-account-for-returning-indians/" : {
-		"page_hierarchy" : {
-			"domain" : "deposit",
-			"class" : "nri"
+	"https://www.indianbank.in/departments/resident-foreign-currency-account-for-returning-indians/": {
+		"page_hierarchy": {
+			"domain": "deposit",
+			"class": "nri"
 		},
-
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
+		"subtitle_pattern": null,
+		"html": {
+			"main_title": {
+				"tag": "h1",
+				"class": "contentTitle wow bounceInRight"
 			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
+			"main_content": {
+				"tag": "div",
+				"class": "wow zoomIn"
 			}
-
-
 		}
 	},
-
-
-	"https://www.indianbank.in/departments/nre-fd-rip-rd-accounts/" : {
-		"page_hierarchy" : {
-			"domain" : "deposit",
-			"class" : "nri"
+	"https://www.indianbank.in/departments/nre-fd-rip-rd-accounts/": {
+		"page_hierarchy": {
+			"domain": "deposit",
+			"class": "nri"
 		},
-
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
+		"subtitle_pattern": null,
+		"html": {
+			"main_title": {
+				"tag": "h1",
+				"class": "contentTitle wow bounceInRight"
 			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
+			"main_content": {
+				"tag": "div",
+				"class": "wow zoomIn"
 			}
-
-
 		}
 	},
-
-
-
-	"https://www.indianbank.in/departments/nre-sb-accounts/" : {
-		"page_hierarchy" : {
-			"domain" : "deposit",
-			"class" : "nri"
+	"https://www.indianbank.in/departments/nre-sb-accounts/": {
+		"page_hierarchy": {
+			"domain": "deposit",
+			"class": "nri"
 		},
-
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
+		"subtitle_pattern": null,
+		"html": {
+			"main_title": {
+				"tag": "h1",
+				"class": "contentTitle wow bounceInRight"
 			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
+			"main_content": {
+				"tag": "div",
+				"class": "wow zoomIn"
 			}
-
-
 		}
 	},
-
-
-	"https://www.indianbank.in/departments/non-resident-ordinary-account/" : {
-		"page_hierarchy" : {
-			"domain" : "deposit",
-			"class" : "nri"
+	"https://www.indianbank.in/departments/non-resident-ordinary-account/": {
+		"page_hierarchy": {
+			"domain": "deposit",
+			"class": "nri"
 		},
-
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
+		"subtitle_pattern": null,
+		"html": {
+			"main_title": {
+				"tag": "h1",
+				"class": "contentTitle wow bounceInRight"
 			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
+			"main_content": {
+				"tag": "div",
+				"class": "wow zoomIn"
 			}
-
-
-		}
-	},
-
-
-	"https://www.indianbank.in/departments/fcnr-b-accounts/" : {
-		"page_hierarchy" : {
-			"domain" : "deposit",
-			"class" : "nri"
-		},
-
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
-			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
-			}
-
-
 		}
 	}
-
 }
