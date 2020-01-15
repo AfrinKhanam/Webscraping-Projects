@@ -3,15 +3,14 @@ using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Azure.Documents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Controllers
@@ -43,23 +42,44 @@ namespace IndianBank_ChatBOT.Controllers
             foreach (string path in System.IO.Directory.EnumerateFiles(folderPath, "*.html"))
             {
                 FileInfo fileInfo = new FileInfo(path);
-                var p = Path.Combine(urlPath, fileInfo.Name);
-                files.Add(new StaticFile { FileName = fileInfo.Name, Path = p });
+                var staticFilePath = Path.Combine(urlPath, fileInfo.Name);
+                files.Add(new StaticFile { FileName = fileInfo.Name, Path = staticFilePath });
             }
             return files;
         }
 
-        public IActionResult GetAllStaticFileInfo()
+        public IActionResult GetAllStaticFileInfo1()
         {
             var files = GetAllStaticFiles();
-            //files.ForEach(f => f.Path = System.Net.WebUtility.UrlEncode(f.Path));
             return Ok(files);
+        }
+        public IActionResult GetPageConfigById(int id)
+        {
+            if (id != 0)
+            {
+                var staticPage = _dbContext.StaticPages.FirstOrDefault(s => s.Id == id);
+                if (staticPage != null)
+                {
+                    return Ok(staticPage);
+                }
+            }
+            return NotFound($"Static Page with the id {id} not found!");
+        }
+
+        public IActionResult GetAllStaticFileInfo()
+        {
+            var pageConfigarations = _dbContext.StaticPages.ToList();
+            var configObjects = new List<object>();
+            foreach (var item in pageConfigarations)
+            {
+                configObjects.Add(JsonConvert.DeserializeObject(item.PageConfig));
+            }
+            return Ok(configObjects);
         }
 
         public ActionResult Index()
         {
-            var files = GetAllStaticFiles();
-            files.ForEach(f => f.Path = System.Net.WebUtility.UrlEncode(f.Path));
+            var files = _dbContext.StaticPages.ToList();
             return View(files);
         }
 
@@ -86,23 +106,67 @@ namespace IndianBank_ChatBOT.Controllers
                 {
                     await file.CopyToAsync(fileStream);
                 }
+
+                var staticPage = new StaticPage
+                {
+                    EncodedPageUrl = System.Net.WebUtility.UrlEncode(GetStaticPageUrl(file.FileName)),
+                    Id = 0,
+                    PageConfig = "",
+                    FileName = file.FileName,
+                    PageUrl = GetStaticPageUrl(file.FileName)
+                };
+
+                _dbContext.StaticPages.Add(staticPage);
+                _dbContext.SaveChanges();
+
                 return Ok("File uploaded successfully ");
             }
         }
 
-        [HttpDelete]
-        public IActionResult DeleteFile(string fileName)
+        [HttpGet]
+        public IActionResult UpdatePageConfigById(int id, string pageConfig)
         {
-            string projectRootPath = _hostingEnvironment.WebRootPath;
-            var folderPath = Path.Combine(projectRootPath, "WebScrapingStaticFiles");
-            var fileToDelete = Path.Combine(folderPath, fileName);
-            if (System.IO.File.Exists(fileToDelete))
+            if (id != 0)
             {
-                System.IO.File.Delete(fileToDelete);
-                return Ok();
+                var staticPage = _dbContext.StaticPages.FirstOrDefault(s => s.Id == id);
+                if (staticPage != null)
+                {
+                    staticPage.PageConfig = pageConfig;
+                    _dbContext.StaticPages.Update(staticPage);
+                    _dbContext.SaveChanges();
+                    return Ok();
+                }
             }
+            return NotFound($"Static Page with the id {id} not found!");
+        }
 
-            return NotFound($"File not found {fileName}");
+        private string GetStaticPageUrl(string fileName)
+        {
+            var appBaseUrl = AppHttpContext.AppBaseUrl;
+            var urlPath = Path.Combine(appBaseUrl, "WebScrapingStaticFiles");
+            var staticFilePath = Path.Combine(urlPath, fileName);
+            return staticFilePath;
+        }
+
+        [HttpGet]
+        public IActionResult DeleteStaticFileById(int id)
+        {
+            var staticPage = _dbContext.StaticPages.FirstOrDefault(f => f.Id == id);
+            if (staticPage != null)
+            {
+                _dbContext.StaticPages.Remove(staticPage);
+                _dbContext.SaveChanges();
+
+                string projectRootPath = _hostingEnvironment.WebRootPath;
+                var folderPath = Path.Combine(projectRootPath, "WebScrapingStaticFiles");
+                var fileToDelete = Path.Combine(folderPath, staticPage.FileName);
+                if (System.IO.File.Exists(fileToDelete))
+                {
+                    System.IO.File.Delete(fileToDelete);
+                    return Ok();
+                }
+            }
+            return NotFound($"File with the Id {id} is not found");
         }
     }
 }

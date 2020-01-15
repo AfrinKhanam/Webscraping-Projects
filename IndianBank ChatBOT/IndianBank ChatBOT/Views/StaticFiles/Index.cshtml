@@ -1,7 +1,12 @@
-﻿@model List<StaticFile>
+﻿@model List<StaticPage>
 @{
     ViewData["Title"] = "Static Files";
 }
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="~/lib/form-json-editor/json-edit.js"></script>
+<link href="~/lib/form-json-editor/json-edit.css" rel="stylesheet" />
 
 <h2>Static Files</h2>
 <p>
@@ -36,9 +41,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FileName)
                 </td>
-                <td width="20%">
-                    <button onclick='viewStaticFile("@item.Path")' class="btn btn-sm btn-outline-primary">View</button>
-                    <button onclick="setFileDeleteId('@item.FileName')" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteFileModal">Delete</button>
+                <td width="25%">
+                    <button onclick="setFileDeleteId('@item.Id', '@item.EncodedPageUrl'); getPageConfigById()" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#setupPageConfigModel">Page Config</button>
+                    <button onclick='viewStaticFile("@item.EncodedPageUrl")' class="btn btn-sm btn-outline-primary">View</button>
+                    <button onclick="setFileDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteFileModal">Delete</button>
                 </td>
             </tr>
         }
@@ -96,6 +102,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="setupPageConfigModel" tabindex="-1" role="dialog" aria-labelledby="setupPageConfigModelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="setupPageConfigModelLabel">Page Configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="jsonEditor"></div>
+                @*<div class="input-group">
+                        <pre id="jsonValue"></pre>
+                    </div>*@
+            </div>
+            <div class="modal-footer">
+                <input id="EncodedFilePath" type="hidden" value="" />
+                <button onclick="updatePageConfig();" class="btn btn-outline-primary" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     function viewStaticFile(url) {
@@ -129,16 +159,17 @@
         }
     }
 
-    function setFileDeleteId(fileName) {
+    function setFileDeleteId(fileName, encodedFilePath) {
         $('#deleteFileId').val(fileName);
+        $('#EncodedFilePath').val(encodedFilePath);
     }
 
     function deleteStaticFile() {
-        var fileName = $('#deleteFileId').val();
+        var fileId = $('#deleteFileId').val();
 
         var request = $.ajax({
-            url: "/StaticFiles/DeleteFile?fileName=" + fileName,
-            type: "DELETE"
+            url: "/StaticFiles/DeleteStaticFileById?id=" + fileId,
+            type: "GET"
         });
 
         request.done(function (response) {
@@ -148,4 +179,130 @@
         request.fail(function (jqXHR, textStatus) {
         });
     }
+
+    function getPageConfigById() {
+        var fileId = $('#deleteFileId').val();
+        setTimeout(function () {
+            var request = $.ajax({
+                url: "/StaticFiles/GetPageConfigById?id=" + fileId,
+                type: "GET"
+            });
+
+            request.done(function (res) {
+                var staticPageInfo = res;
+                var pageUrl = res.pageUrl.replace(/\\/g, "/");
+                var config = JSON.parse(staticPageInfo.pageConfig)[pageUrl];
+                je.setValue(config)
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+            });
+
+        }, 500);
+    }
+
+    function updatePageConfig() {
+
+        var fileId = $('#deleteFileId').val();
+        var pageConfig = je.getValue();
+
+        var urlPath = decodeURIComponent($('#EncodedFilePath').val());
+        urlPath = urlPath.replace(/\\/g, "/");
+
+        var obj = {};
+        obj[urlPath] = pageConfig;
+
+        var stringifiedPageConfig = JSON.stringify(obj);
+
+        var request = $.ajax({
+            url: "/StaticFiles/UpdatePageConfigById?id=" + fileId + "&pageConfig=" + stringifiedPageConfig,
+            type: "GET"
+        });
+
+        request.done(function (response) {
+            window.location.reload();
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+        });
+    }
+
+    var jsonEditorSchema = {
+        "title": "json schema sample",
+        "type": "object",
+        "properties": {
+            "page_hierarchy": {
+                "type": "object",
+                "properties": {
+                    "domain": {
+                        "type": "string"
+                    },
+                    "class": {
+                        "type": "string"
+                    }
+                }
+            },
+            "subtitle_pattern": {
+                "title": "subtitle_pattern",
+                "type": "string"
+            },
+            "html": {
+                "type": "object",
+                "properties": {
+                    "main_title": {
+                        "type": "object",
+                        "properties": {
+                            "tag": {
+                                "type": "string"
+                            }, "class": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "main_content": {
+                        "type": "object",
+                        "properties": {
+                            "tag": {
+                                "type": "string"
+                            }, "class": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                }
+            }
+        },
+        "required": ["subtitle_pattern"]
+    };
+
+    var jsonEditorValues = {
+        "subtitle_pattern": "",
+        "page_hierarchy": {
+            "domain": "",
+            "class": ""
+        }
+    };
+
+    var je;
+
+    $(document).ready(function () {
+        je = $("#jsonEditor").jsonEdit({
+            "treeExpandCollapseButton": "true",
+            "schema": jsonEditorSchema,
+            "value": jsonEditorValues,
+            "afterValueChanged": function (newValue, newSchema) {
+                $("#jsonValue").html(JSON.stringify(newValue, null, 2));
+                setValidity();
+            },
+            "afterWidgetCreated": function (newValue, newSchema) {
+                $("#jsonValue").html(JSON.stringify(newValue, null, 2));
+                setValidity();
+            }
+        });
+    });
+
+    function setValidity() {
+        if (je) $("#jsonValidity").html(JSON.stringify(je.isValid()));
+    }
+
 </script>

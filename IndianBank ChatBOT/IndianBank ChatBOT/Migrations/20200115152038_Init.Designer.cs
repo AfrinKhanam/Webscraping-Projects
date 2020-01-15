@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200114114441_init")]
-    partial class init
+    [Migration("20200115152038_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,24 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChatLogs");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.StaticPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EncodedPageUrl");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("PageConfig");
+
+                    b.Property<string>("PageUrl");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StaticPages");
                 });
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.Synonym", b =>

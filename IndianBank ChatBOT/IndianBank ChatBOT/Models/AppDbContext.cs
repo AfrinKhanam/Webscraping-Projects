@@ -27,6 +27,7 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<ChatLog> ChatLogs { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<Synonym> Synonyms { get; set; }
+        public DbSet<StaticPage> StaticPages { get; set; }
         public DbSet<SynonymWord> SynonymWords { get; set; }
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
         public DbQuery<UnAnsweredQueries> UnAnsweredQueries { get; set; }

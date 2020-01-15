@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,6 +39,22 @@ namespace IndianBank_ChatBOT.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChatLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StaticPages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    EncodedPageUrl = table.Column<string>(nullable: true),
+                    PageUrl = table.Column<string>(nullable: true),
+                    PageConfig = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaticPages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,6 +116,9 @@ namespace IndianBank_ChatBOT.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ChatLogs");
+
+            migrationBuilder.DropTable(
+                name: "StaticPages");
 
             migrationBuilder.DropTable(
                 name: "SynonymWords");

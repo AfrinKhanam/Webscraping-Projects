@@ -71,6 +71,24 @@ namespace IndianBank_ChatBOT.Migrations
                     b.ToTable("ChatLogs");
                 });
 
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.StaticPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EncodedPageUrl");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("PageConfig");
+
+                    b.Property<string>("PageUrl");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StaticPages");
+                });
+
             modelBuilder.Entity("IndianBank_ChatBOT.Models.Synonym", b =>
                 {
                     b.Property<int>("Id")
