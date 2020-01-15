@@ -1,0 +1,274 @@
+﻿@model List<Synonym>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Synonyms</h2>
+<p>
+    <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNewSynonymModal">Add New Word</button>
+</p>
+
+<table class="table css-serial">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Word
+            </th>
+            <th>
+                Synonym Words
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            {
+                index += 1;
+            }
+            <tr>
+                <td>@index</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Word)
+                </td>
+                <td>
+                    @foreach (var sw in item.SynonymWords)
+                    {
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @sw.Name
+                                <button data-toggle="modal" data-target="#deleteSynonymWordModal" onclick="updateDeleteSynonymWordId('@sw.Id')" type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </li>
+                        </ul>
+                    }
+                </td>
+                <td width="30%">
+                    <button onclick="updateSynonymDetails('@item.Id','@item.Word')" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addNewSynonymWordModal">Add New Synonym Word</button>
+                    @*<button class="btn btn-sm btn-outline-primary" onclick="location.href='@Url.Action("Update", "Faq", new { id = 1 })'">Edit</button>*@
+                    <button onclick="setWordDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteWordModal">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="deleteSynonymWordModal" tabindex="-1" role="dialog" aria-labelledby="deleteSynonymWordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSynonymWordModalLabel">Delete Synonym Word</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Synonym Word?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <input id="deleteSynonymWordId" type="hidden" value="" />
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="deleteSynonymWord()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteWordModal" tabindex="-1" role="dialog" aria-labelledby="deleteWordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteWordModalLabel">Delete Word</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Word?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <input id="wordDeleteId" type="hidden" value="" />
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="deleteWord()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addNewSynonymModal" tabindex="-1" role="dialog" aria-labelledby="addNewSynonymModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewSynonymModalLabel">Add New Word</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Word</label>
+                    <input type="text" class="form-control" id="word" placeholder="Add new word">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="addNewWord();" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addNewSynonymWordModal" tabindex="-1" role="dialog" aria-labelledby="addNewSynonymModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewSynonymWordModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Synonym Word</label>
+                    <input type="text" class="form-control" id="SynonymWord" placeholder="Add new synonym word">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="addNewSynonymWord();" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteSynonymSuccessStatus" style="display:none; margin-top: 10px;" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success.</strong> FAQ is deleted Successfully.
+    <button onclick="closeStatusBar('deleteSynonymSuccessStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="deleteFailedStatus" style="display:none; margin-top: 10px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed.</strong> Failed to delete Synonym.
+    <button onclick="closeStatusBar('deleteFailedStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<script type="text/javascript">
+    var synonymDetails = {};
+    var wordDetails = {};
+
+    function setWordDeleteId(id) {
+        $('#wordDeleteId').val(id);
+    }
+
+    function updateDeleteSynonymWordId(id) {
+        $('#deleteSynonymWordId').val(id)
+    }
+
+    function deleteWord() {
+        var id = $('#wordDeleteId').val();
+
+        var request = $.ajax({
+            url: "/Synonyms/DeleteWordById?id=" + id,
+            type: "DELETE"
+        });
+
+        request.done(function (response) {
+            window.location.reload();
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+        });
+    }
+
+    function deleteSynonymWord() {
+        var id = $('#deleteSynonymWordId').val();
+
+        var request = $.ajax({
+            url: "/Synonyms/DeleteSynonymWordById?id=" + id,
+            type: "DELETE"
+        });
+
+        request.done(function (response) {
+            window.location.reload();
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+        });
+    }
+
+    function updateSynonymDetails(id, word) {
+        synonymDetails.id = id;
+        synonymDetails.word = word;
+        $('#addNewSynonymWordModalLabel').text('Add New Synonym Word for - ' + word);
+    }
+
+    function addNewWord() {
+        var word = document.getElementById('word').value.trim();
+
+        if (word.trim().length == 0) {
+            alert('Please enter the Word.');
+            return;
+        }
+
+        var request = $.ajax({
+            url: "/Synonyms/AddNewWord",
+            data: { Id: 0, Word: word },
+            type: "POST"
+        });
+
+        request.done(function (response) {
+            //document.getElementById("deleteSynonymSuccessStatus").style.display = "block";
+            //setTimeout(function () { window.location.reload(); }, 500);
+            window.location.reload();
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            //document.getElementById("testFailedStatus").style.display = "block";
+        });
+    }
+
+    function addNewSynonymWord() {
+        debugger;
+        var word = document.getElementById('SynonymWord').value.trim();
+
+        var synonymWord = { Id: 0, name: word, SynonymId: synonymDetails.id };
+
+        if (word.trim().length == 0) {
+            alert('Please enter the Synonym Word.');
+            return;
+        }
+
+        var request = $.ajax({
+            url: "/Synonyms/AddNewSynonymWord",
+            data: synonymWord,
+            type: "POST"
+        });
+
+        request.done(function (response) {
+            //document.getElementById("deleteSynonymSuccessStatus").style.display = "block";
+            //setTimeout(function () { window.location.reload(); }, 500);
+            window.location.reload();
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            //document.getElementById("testFailedStatus").style.display = "block";
+        });
+    }
+
+</script>
