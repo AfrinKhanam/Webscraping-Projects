@@ -82,6 +82,30 @@
         "text": "where can I find the ATM Point"
       },
       {
+        "intent": "atm_locator",
+        "entities": [
+          {
+            "start": 11,
+            "end": 25,
+            "value": "branch locator",
+            "entity": "atm_entity"
+          }
+        ],
+        "text": "get me the branch locator"
+      },
+      {
+        "intent": "atm_locator",
+        "entities": [
+          {
+            "start": 11,
+            "end": 22,
+            "value": "ATM locator",
+            "entity": "atm_entity"
+          }
+        ],
+        "text": "get me the ATM locator"
+      },
+      {
         "intent": "greet",
         "text": "hi"
       },
@@ -120,10 +144,6 @@
       {
         "intent": "greet",
         "text": "namaskaram"
-      },
-      {
-        "intent": "greet",
-        "text": "Good morning"
       },
       {
         "intent": "greet",
@@ -180,6 +200,18 @@
       {
         "intent": "bye_intent",
         "text": "night night"
+      },
+      {
+        "intent": "thankyouintent",
+        "text": "thank you"
+      },
+      {
+        "intent": "thankyouintent",
+        "text": "thanks"
+      },
+      {
+        "intent": "thankyouintent",
+        "text": "ty"
       },
       {
         "intent": "scrollbar_intent",
@@ -254,16 +286,112 @@
         "text": "links"
       },
       {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 24,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my lost credit card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 24,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my lost debit card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 24,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my lost atm card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 27,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my missing credit card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 27,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my missing debit card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 20,
+            "end": 27,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I need to report my missing atm card"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 5,
+            "end": 9,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I am lost. What can I do?"
+      },
+      {
+        "intent": "lost_intent",
+        "entities": [
+          {
+            "start": 7,
+            "end": 16,
+            "value": "lost",
+            "entity": "lost_entity"
+          }
+        ],
+        "text": "I have forgotten my password. What will I do?"
+      },
+      {
         "intent": "about_us_intent",
         "entities": [
           {
             "start": 0,
-            "end": 7,
-            "value": "profile",
+            "end": 8,
+            "value": "profiles",
             "entity": "aboutus_entity"
           }
         ],
-        "text": "profile"
+        "text": "profiles"
       },
       {
         "intent": "about_us_intent",
@@ -658,6 +786,13 @@
       }
     ],
     "entity_synonyms": [
+      {
+        "value": "lost",
+        "synonyms": [
+          "missing",
+          "forgotten"
+        ]
+      },
       {
         "value": "schemes",
         "synonyms": [

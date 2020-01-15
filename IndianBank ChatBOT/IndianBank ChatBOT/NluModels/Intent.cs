@@ -44,7 +44,7 @@ public class ScrollbarEntities
 
 public class AboutUsEntities
 {
-    public const string Profile = "profile";
+    public const string Profile = "profiles";
     public const string VisionMission = "vision and mission";
     public const string Management = "management";
     public const string FinanceResult = "finance result";

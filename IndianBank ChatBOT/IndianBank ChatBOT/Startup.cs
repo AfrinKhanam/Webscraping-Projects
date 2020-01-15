@@ -111,8 +111,8 @@ namespace IndianBank_ChatBOT
                     BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                     BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
                     await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
-                    await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
-                    // await context.SendActivityAsync(exception.GetBaseException().ToString());
+                  //  await context.SendActivityAsync("Error occured..!!.");
+                     await context.SendActivityAsync(exception.GetBaseException().ToString());
                 };
 
 

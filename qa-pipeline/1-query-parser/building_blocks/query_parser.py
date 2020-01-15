@@ -76,9 +76,21 @@ class QueryParser:
         #print(correct_word)
         #--------------------------------------------------------------------#
 
+    def remove_hyphen(self,query):
+        #query=query.replace('-',' ')
+        # query['PARSED_QUERY_STRING'].replace('-',' ')
+        # query['POTENTIAL_QUERY_LIST'].replace('-',' ')
+        # query['AUTO_CORRECT_QUERY'].replace('-',' ')
+        # query['CORRECT_QUERY'].replace('-',' ')
+
+        return query
+
     def parse(self, query_string):
         #--------------------------------------------------------------------#
+        # preprocessedQuery= self.remove_hyphen(query_string)
+        # print("after removing hyphen------> ",preprocessedQuery)
         query_string = self.remove_unwanted_charater(query_string)
+       
         #print("unwanted charater removed :: ", query_string)
         #--------------------------------------------------------------------#
 
@@ -99,7 +111,7 @@ class QueryParser:
 
         #--------------------------------------------------------------------#
         parsed_query_string = self.remove_stopword(auto_correct_string)
-        #print('After removing stop words :: ' , parsed_query_string)
+        print('After removing stop words :: ' , parsed_query_string)
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -119,7 +131,7 @@ class QueryParser:
         return (parsed_query_string, query_synonyms_dict, potential_query_list, synonym_query, auto_correct_string)
 
     def remove_unwanted_charater(self, string):
-        string = re.sub('(\?|@|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', '', string)
+        string = re.sub('(\?|@|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', ' ', string)
         string = re.sub('\.', ' ', string)
         return string
 
@@ -139,9 +151,9 @@ class QueryParser:
 
         #stemmed_synonym_query = " ".join(stemmed_list)
         #---------------------------------------------#
-        #print('query_synonyms_dict :: ', query_synonyms_dict)
-        #print("QUERY WITH SYNONYMS :: ", synonym_query)
-        #print("QUERY WITH SYNONYMS :: ", stemmed_synonym_query)
+        # print('query_synonyms_dict :: ', query_synonyms_dict)
+        # print("QUERY WITH SYNONYMS :: ", synonym_query)
+        # print("QUERY WITH SYNONYMS :: ", stemmed_synonym_query)
 
         return synonym_query
 

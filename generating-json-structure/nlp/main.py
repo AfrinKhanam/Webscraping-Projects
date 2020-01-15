@@ -31,15 +31,15 @@ stemmer = Stemmer()
 
 rabbimq_consumer = RabbitmqConsumerPipe(
         exchange="nlpEx",
-        queue="nlp",
+        queue="nlpQueue",
         routing_key="nlp",
         callback=callback,
         host='localhost')
 
 rabbitmq_producer = RabbitmqProducerPipe(
-        publish_exchange="esEx",
-        routing_key="es",
-        queue_name='esQueue',
+        publish_exchange="preProcessingEx",
+        routing_key="preProcessing",
+        queue_name='preProcessingQueue',
         host="localhost")
 #---------------------------------------------------------------#
 

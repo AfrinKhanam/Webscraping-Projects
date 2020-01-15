@@ -59,9 +59,13 @@ rabbimq_consumer = RabbitmqConsumerPipe(
         callback=callback,
         host='localhost')
 
+# rabbitmq_producer = RabbitmqProducerPipe(
+#         publish_exchange="elasticSearchEx",
+#         routing_key="es",
+#         host="localhost")
 rabbitmq_producer = RabbitmqProducerPipe(
         publish_exchange="elasticSearchEx",
-        routing_key="es",
+        routing_key="queryParserResult",
         host="localhost")
 
 print('Service is up and running...... [1-query-parser]')

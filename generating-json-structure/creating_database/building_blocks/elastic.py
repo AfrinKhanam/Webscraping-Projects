@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from uuid import uuid1
 import json
+import re
 
 class Elastic():
     def __init__(self, host='localhost', port='9200', index='indian-bank-agriculture-v1', doc_type='_doc'):
@@ -46,6 +47,13 @@ class Elastic():
 
         return document
 
+    def removeSpecialCharacters(self,string):
+        string = re.sub('(\?|@|/|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', ' ', string)
+        string = re.sub('\.', ' ', string)
+        string = (string.replace('[',' ')).replace(']',' ')
+        return string
+
+
     def document_out_of_content(self, document):
         # --------------------------------------------------------- #
         document_list = []
@@ -57,11 +65,11 @@ class Elastic():
                         "document_name"     : self.get_document_name(document),
                         "url"               : self.get_url(document),
                         "main_title"        : self.get_main_title(document),
-                        "main_title_stem"   : self.get_main_title_stem(document),
+                        "main_title_stem"   : self.removeSpecialCharacters(self.get_main_title_stem(document)),
                         "subtitle"          : element['text'],
-                        "subtitle_stem"     : element['text_stem'],
+                        "subtitle_stem"     : self.removeSpecialCharacters(element['text_stem']),
                         "text"              : text,
-                        "text_stem"         : text_stem,
+                        "text_stem"         : self.removeSpecialCharacters(text_stem),
                         "key"               : '',
                         "key_stem"          : '',
                         "value_stem"        : '',
@@ -95,15 +103,15 @@ class Elastic():
                                     "document_name"     : self.get_document_name(document),
                                     "url"               : self.get_url(document),
                                     "main_title"        : self.get_main_title(document),
-                                    "main_title_stem"   : self.get_main_title_stem(document),
+                                    "main_title_stem"   : self.removeSpecialCharacters(self.get_main_title_stem(document)),
                                     "subtitle"          : element['text'],
-                                    "subtitle_stem"     : element['text_stem'],
+                                    "subtitle_stem"     : self.removeSpecialCharacters(element['text_stem']),
                                     "text"              : '',
                                     "text_stem"         : '',
                                     "key"               : table_row['key'],
-                                    "key_stem"          : table_row['key_stem'],
+                                    "key_stem"          : self.removeSpecialCharacters(table_row['key_stem']),
                                     "value"             : value,
-                                    "value_stem"        : value_stem,
+                                    "value_stem"        : self.removeSpecialCharacters(value_stem),
                                     "inner_table_keys"   : [],
                                     "inner_table_values" : [],
                                     "inner_table_keys_stem"   : [],

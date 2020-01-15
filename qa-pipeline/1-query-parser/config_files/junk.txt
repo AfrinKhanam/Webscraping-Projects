@@ -1,9 +1,4 @@
 individual=single
-education = study
-four = 4
-two = 2
-three = 3
-vehicle=motor bike = motor cycle = mobike
 healthcare=health care
 shareholder=share holder
 jewel=gold
@@ -29,7 +24,7 @@ requirement=necessary=recommended=required
 objectives=aim=goal=intention=purpose=information
 interest rate=interest
 margin=edge=border=scope=surplus
-security=safety=protection                 
+security=safety=protection
 maximum=max=maxi=highest
 repayment=paying back=compensate=compensation=reimbursement
 permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted
@@ -73,4 +68,3 @@ Non Resident Indian =NRI
 ib=IB=Indian Bank
 Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
-

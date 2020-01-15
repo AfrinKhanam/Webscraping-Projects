@@ -37,12 +37,12 @@ json_files = [
 documents = []
 
 for json_file in json_files:
-        print('############', json_file)
+        # print('############', json_file, indent=4)
         with open(json_file, "r") as file:
                 read_json = json.loads(file.read())
                 documents.append(read_json)
                
-                # print("--------------   ",read_json)
+                print("---------------------------",read_json,"\n \n")
 
 
 

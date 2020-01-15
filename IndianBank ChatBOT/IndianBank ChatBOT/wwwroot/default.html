@@ -376,8 +376,8 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-          // window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-             window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+           window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+          //   window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
         if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) { 
                //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
@@ -541,7 +541,7 @@
 
         sendFeedback = (feedBack) => {
         debugger;
-        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
+        fetch('http://localhost:7512/Report/UpdateFeedback', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
