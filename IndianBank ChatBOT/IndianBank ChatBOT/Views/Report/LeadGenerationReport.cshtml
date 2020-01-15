@@ -1,4 +1,4 @@
-﻿@model List<ConversationByIntent>
+﻿@model LeadGenerationReportViewModel
 
 @{
     ViewData["Title"] = "Lead Generation Report";
@@ -29,12 +29,10 @@
 </nav>
 
 
-
-
 <div class="container">
     <div class="row">
         <div class='col-sm-4'>
-            <h3 class="pt-3 pb-3">Lead Generation Report</h3>
+            @*<h3 class="pt-3 pb-3">Lead Generation Report</h3>*@
         </div>
         <div class='col-sm-6'>
             <div class="form-group row pt-3 pb-3">
@@ -47,47 +45,62 @@
                 <div id="datepicker_to" class="input-group date" data-date-format="mm-dd-yyyy">
                     <input class="form-control" type="text" readonly id="to_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                </div>               
+                </div>
             </div>
         </div>
         <div class='col-sm-2  pt-3 pb-3'>
             <button type="button" id="filter_btn" class="btn btn-primary">Filter</button>
         </div>
 
-        </div>
     </div>
+</div>
 
 
 <script type="text/javascript">
-    $(function () { 
-            $("#datepicker_from").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            }).datepicker('update', new Date());
+    function formatDate(date, type) {
+        var current_datetime, formatted_date;
+        switch (type) {
+            case "mm-dd-yyyy":
+                current_datetime = new Date(date);
+                formatted_date = (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "-" + current_datetime.getFullYear();
+                break;
+            case "yyyy-mm-dd":
+                current_datetime = new Date(date);
+                formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+                break;
+            default:
+        }
+        return formatted_date;
+    }
 
-            $("#datepicker_to").datepicker({
+    $(function () {
+        var from_date = '@Model.From';
+        var to_date = '@Model.To';
+
+        $("#datepicker_from").datepicker({
             autoclose: true,
             todayHighlight: true
-            }).datepicker('update', new Date());
+        }).datepicker('update', formatDate(from_date, "mm-dd-yyyy"));
 
-            var from_date = "";
-            var to_date = "";
+        $("#datepicker_to").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', formatDate(to_date, "mm-dd-yyyy"));
 
-            $("#from_date_input").change(function () {
-                from_date = this.value;
-            });
+        $("#from_date_input").change(function () {
+            from_date = formatDate(this.value, "mm-dd-yyyy");
+        });
 
-            $("#to_date_input").change(function () {
-                to_date = this.value;
-            });
+        $("#to_date_input").change(function () {
+            to_date = formatDate(this.value, "mm-dd-yyyy");
+        });
 
-            $('#filter_btn').click(function () {           
-                if (from_date != "" && to_date != "") {
-                    alert("From: "+from_date+" -To- "+to_date);
-                }
-            });
+        $('#filter_btn').click(function () {
+            var fdate = formatDate(from_date, "yyyy-mm-dd");
+            var tdate = formatDate(to_date, "yyyy-mm-dd");
+            window.location.href = "/Report/LeadGenerationReport?from=" + fdate + "&to=" + tdate;
+        });
     });
-
 </script>
 
 <div id="accordion">
@@ -97,7 +110,7 @@
         var data_target = "";
         var id = "";
     }
-    @foreach (var item in Model)
+    @foreach (var item in Model.ConversationsByIntent)
     {
         {
             var uniqueNumber = Guid.NewGuid().ToString();
@@ -205,3 +218,11 @@
         </div>
     }
 </div>
+
+@if (Model.ConversationsByIntent.Count == 0)
+{
+
+    <div id="accordion" style="text-align:center">
+        No data found !
+    </div>
+}

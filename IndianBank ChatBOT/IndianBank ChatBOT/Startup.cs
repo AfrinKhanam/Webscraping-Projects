@@ -17,6 +17,9 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace IndianBank_ChatBOT
 {
@@ -30,6 +33,7 @@ namespace IndianBank_ChatBOT
         private bool _isProduction = false;
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         #endregion
 
         #region methods
@@ -79,7 +83,22 @@ namespace IndianBank_ChatBOT
             services.AddSingleton(userState);
             services.AddSingleton(conversationState);
             services.AddSingleton(new BotStateSet(userState, conversationState));
-            services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
+
+            services.AddMvc()
+                   .AddJsonOptions(o =>
+                   {
+                       o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                       o.SerializerSettings.Formatting = Formatting.Indented;
+                       o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                   });
             //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
             //services.AddTransient<LogDataContext, LogDataContext>();
 
@@ -137,6 +156,8 @@ namespace IndianBank_ChatBOT
             // Configure Application Insights
             _loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -150,6 +171,13 @@ namespace IndianBank_ChatBOT
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Faq}/{action=Display}");
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/MyStaticFiles")),
+                RequestPath = "/StaticFiles"
             });
         }
 

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,6 +42,19 @@ namespace IndianBank_ChatBOT.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Synonyms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Word = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Synonyms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserInfos",
                 columns: table => new
                 {
@@ -56,6 +69,31 @@ namespace IndianBank_ChatBOT.Migrations
                 {
                     table.PrimaryKey("PK_UserInfos", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "SynonymWords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Name = table.Column<string>(nullable: true),
+                    SynonymId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SynonymWords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SynonymWords_Synonyms_SynonymId",
+                        column: x => x.SynonymId,
+                        principalTable: "Synonyms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SynonymWords_SynonymId",
+                table: "SynonymWords",
+                column: "SynonymId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -64,7 +102,13 @@ namespace IndianBank_ChatBOT.Migrations
                 name: "ChatLogs");
 
             migrationBuilder.DropTable(
+                name: "SynonymWords");
+
+            migrationBuilder.DropTable(
                 name: "UserInfos");
+
+            migrationBuilder.DropTable(
+                name: "Synonyms");
         }
     }
 }

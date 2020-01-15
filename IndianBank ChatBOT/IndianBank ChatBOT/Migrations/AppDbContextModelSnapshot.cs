@@ -71,6 +71,34 @@ namespace IndianBank_ChatBOT.Migrations
                     b.ToTable("ChatLogs");
                 });
 
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.Synonym", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Word");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Synonyms");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.SynonymWord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SynonymId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SynonymId");
+
+                    b.ToTable("SynonymWords");
+                });
+
             modelBuilder.Entity("IndianBank_ChatBOT.Models.UserInfo", b =>
                 {
                     b.Property<int>("Id")
@@ -87,6 +115,14 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserInfos");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.SynonymWord", b =>
+                {
+                    b.HasOne("IndianBank_ChatBOT.Models.Synonym", "Synonym")
+                        .WithMany("SynonymWords")
+                        .HasForeignKey("SynonymId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

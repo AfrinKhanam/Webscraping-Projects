@@ -29,10 +29,16 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            var index = 0;
+        }
         @foreach (var item in Model)
         {
+            {
+                index += 1;
+            }
             <tr>
-                <td></td>
+                <td>@index</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Question)
                 </td>
@@ -49,6 +55,7 @@
     </tbody>
 </table>
 <style>
+
     .css-serial {
         counter-reset: serial-number; /* Set the serial number counter to 0 */
     }
@@ -207,7 +214,7 @@
 </div>
 <script>
     function test() {
-        
+
         document.getElementById('testResult').textContent = "";
 
         var testData = document.getElementById('testData').value.trim();
