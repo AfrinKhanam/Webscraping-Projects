@@ -1,0 +1,50 @@
+﻿@model List<StaticFile>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Synonyms</h2>
+
+<table class="table css-serial">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                File Name
+            </th>
+            <th>
+                Path
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            {
+                index += 1;
+            }
+        <tr>
+            <td>@index</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+            <td width="30%">
+                @*<button onclick="updateSynonymDetails('@item.Id','@item.Word')" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addNewSynonymWordModal">Add New Synonym Word</button>
+                <button onclick="setWordDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteWordModal">Delete</button>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

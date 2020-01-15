@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -35,6 +36,25 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             return Ok(Synonyms);
+        }
+
+        public IActionResult GetAllWordsCsv()
+        {
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var wordsCsv = new List<string>();
+            foreach (var item in Synonyms)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(item.Word);
+                var SynonymWords = item.SynonymWords.ToList();
+                for (int i = 0; i < SynonymWords.Count; i++)
+                {
+                    sb.Append(",");
+                    sb.Append(SynonymWords[i].Name);
+                }
+                wordsCsv.Add(sb.ToString());
+            }
+            return Ok(wordsCsv);
         }
 
         [HttpDelete]
@@ -117,6 +137,6 @@ namespace IndianBank_ChatBOT.Controllers
             }
             return NotFound($"Synonym Word with the id {id} not found!");
         }
-        
+
     }
 }

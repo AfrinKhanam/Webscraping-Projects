@@ -18,6 +18,8 @@ using AutoMapper;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace IndianBank_ChatBOT
 {
@@ -169,6 +171,13 @@ namespace IndianBank_ChatBOT
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Faq}/{action=Display}");
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/MyStaticFiles")),
+                RequestPath = "/StaticFiles"
             });
         }
 
