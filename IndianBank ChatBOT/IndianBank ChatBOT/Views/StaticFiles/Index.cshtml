@@ -181,6 +181,7 @@
     }
 
     function getPageConfigById() {
+        resetConfiguration();
         var fileId = $('#deleteFileId').val();
         setTimeout(function () {
             var request = $.ajax({
@@ -191,14 +192,19 @@
             request.done(function (res) {
                 var staticPageInfo = res;
                 var pageUrl = res.pageUrl.replace(/\\/g, "/");
-                var config = JSON.parse(staticPageInfo.pageConfig)[pageUrl];
-                je.setValue(config)
+                var config = {};
+                if (staticPageInfo.pageConfig != "") {
+                    config = JSON.parse(staticPageInfo.pageConfig)[pageUrl];
+                    je.setValue(config);
+                } else {
+                    resetConfiguration();
+                }
             });
 
             request.fail(function (jqXHR, textStatus) {
             });
 
-        }, 500);
+        }, 300);
     }
 
     function updatePageConfig() {
@@ -282,6 +288,17 @@
             "class": ""
         }
     };
+
+    function resetConfiguration() {
+        config = {
+            "subtitle_pattern": "",
+            "page_hierarchy": {
+                "domain": "",
+                "class": ""
+            }
+        }
+        je.setValue(config);
+    }
 
     var je;
 
