@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Controllers
@@ -75,6 +76,28 @@ namespace IndianBank_ChatBOT.Controllers
                 configObjects.Add(JsonConvert.DeserializeObject(item.PageConfig));
             }
             return Ok(configObjects);
+        }
+
+        public IActionResult GetAllStaticFileInfoAsText()
+        {
+            var pageConfigarations = _dbContext.StaticPages.ToList();
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < pageConfigarations.Count; i++)
+            {
+                var trimedFirstCharString = pageConfigarations[i].PageConfig;
+                trimedFirstCharString = trimedFirstCharString.Substring(1);
+
+                string trimmedLastCharString = trimedFirstCharString.Remove(trimedFirstCharString.Length - 1, 1);
+
+                sb.Append(trimmedLastCharString);
+                if (i != pageConfigarations.Count - 1)
+                {
+                    sb.Append(",");
+                }
+            }
+            var dataString = sb.ToString();
+            return Ok(dataString);
         }
 
         public ActionResult Index()

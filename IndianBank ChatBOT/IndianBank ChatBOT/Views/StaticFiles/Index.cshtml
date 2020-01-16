@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "Static Files";
 }
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="~/lib/form-json-editor/json-edit.js"></script>
 <link href="~/lib/form-json-editor/json-edit.css" rel="stylesheet" />
 
@@ -217,7 +214,7 @@
 
         var obj = {};
         obj[urlPath] = pageConfig;
-
+        debugger;
         var stringifiedPageConfig = JSON.stringify(obj);
 
         var request = $.ajax({
