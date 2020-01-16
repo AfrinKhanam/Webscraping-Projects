@@ -82,6 +82,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var pageConfigarations = _dbContext.StaticPages.ToList();
             var sb = new StringBuilder();
+            sb.Append("{");
 
             for (int i = 0; i < pageConfigarations.Count; i++)
             {
@@ -96,6 +97,7 @@ namespace IndianBank_ChatBOT.Controllers
                     sb.Append(",");
                 }
             }
+            sb.Append("}");
             var dataString = sb.ToString();
             return Ok(dataString);
         }
