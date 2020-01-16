@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="jquery.js"></script>
+    <style type="text/css">
+        .chatbox-pos {
+            position: fixed;
+            bottom: 35px;
+            right: 25px;
+            z-index: 99999;
+            padding: 0;
+        }
+
+        .chatbox-pos body { 
+             background-color: yellow;       }
+
+        #chat,
+        #chat:after,
+        .chatbox {
+            transition: all .4s ease-in-out
+        }
+
+        #chat,
+        #close-chat,
+        #reload-chat,
+        .minim-button,
+        .maxi-button,
+        .chat-text {
+            font-weight: 700;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            height: 20px;
+            line-height: 20px
+        }
+
+        #chat,
+        #close-chat,
+        #reload-chat,
+        .chatbox {
+            border: 0px solid #FF7A00
+        }
+
+        #chat:after,
+        #chat:before {
+            position: absolute;
+            border-style: solid;
+            content: ""
+        }
+
+        .chatbox {
+            position: fixed;
+            bottom: 8px;
+            right: 8px;
+            margin: 0 0 -1500px;
+            background: #fff;
+            border-bottom: none;
+            padding: 28px 10px 10px;
+            z-index: 100000
+        }
+
+        #close-chat {
+            position: absolute;
+            top: 8px;
+            right: 2px;
+            font-size: 24px;
+            border: 0px solid #dedede;
+            width: 20px;
+            background: #fefefe;
+            z-index: 2
+        }
+
+        #reload-chat {
+            position: absolute;
+            top: 8px;
+            right: 30px;
+            font-size: 24px;
+            border: 0px solid #dedede;
+            width: 20px;
+            background: #fefefe;
+            z-index: 2
+        }
+
+        #minim-chat,
+        #maxi-chat {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            cursor: pointer;
+            z-index: 1
+        }
+
+        .minim-button {
+            position: absolute;
+            top: 2px;
+            right: 26px;
+            font-size: 24px;
+            border: 0px solid #dedede;
+            width: 20px;
+            background: #fefefe
+        }
+
+        .maxi-button {
+            position: absolute;
+            top: 2px;
+            right: 26px;
+            font-size: 24px;
+            border: 0px solid #dedede;
+            width: 20px;
+            background: #fefefe;
+        }
+
+        .chat-text {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 16px;
+        }
+
+        #chat {
+            width: 40px;
+            border-radius: 3px;
+            padding: 2px 8px;
+            font-size: 12px;
+            background:rgb(224,168,0);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+
+        #chat:before {
+            border-width: 10px 11px 0 0;
+            border-color: #A8A8A8 transparent transparent;
+            left: 7px;
+            bottom: -10px
+        }
+
+        #chat:after {
+            border-width: 9px 8px 0 0;
+            border-color: #fff transparent transparent;
+            left: 8px;
+            bottom: -8px
+        }
+
+        #chat:hover {
+           /* background: #f5cb42;*/
+            -webkit-animation-name: hvr-pulse-grow;
+            animation-name: hvr-pulse-grow;
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate
+        }
+
+        #chat:hover:after {
+            border-color: #ddd transparent transparent !important
+        }
+
+        .animated-chat {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+
+        @-webkit-keyframes tada {
+            0% {
+                -webkit-transform: scale(1)
+            }
+
+            10%,
+            20% {
+                -webkit-transform: scale(.9)rotate(-3deg)
+            }
+
+            30%,
+            50%,
+            70%,
+            90% {
+                -webkit-transform: scale(1.1)rotate(3deg)
+            }
+
+            40%,
+            60%,
+            80% {
+                -webkit-transform: scale(1.1)rotate(-3deg)
+            }
+
+            100% {
+                -webkit-transform: scale(1)rotate(0)
+            }
+        }
+
+        @keyframes tada {
+            0% {
+                transform: scale(1)
+            }
+
+            10%,
+            20% {
+                transform: scale(.9)rotate(-3deg)
+            }
+
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: scale(1.1)rotate(3deg)
+            }
+
+            40%,
+            60%,
+            80% {
+                transform: scale(1.1)rotate(-3deg)
+            }
+
+            100% {
+                transform: scale(1)rotate(0)
+            }
+        }
+
+        .tada {
+            -webkit-animation-name: tada;
+            animation-name: tada
+        }
+
+        @-webkit-keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1)
+            }
+        }
+
+        @keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1)
+            }
+        }
+
+        /**Style edited **/
+
+        #chat {
+            background-color: rgba(12, 77, 162,1.0);  /* #e0a800;*/
+            width: 65px;
+            height: 65px;
+            border-radius: 50% !important;
+            line-height: 65px;
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0px 2px 5px rgba(224,168,0,0.7), 1px 1px 4px rgba(128, 128, 128, 0.7), 0 0 0px rgba(128, 128, 128, 0.7) inset;
+          /*  box-shadow: 0px 1px 5px rgba(128, 128, 128, 0.7), 1px 1px 4px rgba(128, 128, 128, 0.7), 0 0 0px rgba(128, 128, 128, 0.7) inset;*/
+        }
+
+        .chatbox {
+            padding-left: 0px;
+            border-radius: 6px 6px 6px 6px;
+        }
+
+        #chat::after {
+            border-width: 0px 0px 0 0;
+            border-color: transparent transparent transparent;
+            left: 0px;
+            bottom: 0px;
+
+        }
+
+        #close-chat {
+            border: 0 solid white;
+            background: transparent;
+        }
+
+        #reload-chat {
+            border: 0 solid white;
+            background: transparent;
+        }
+
+        #minim-chat {
+            border: 0 solid white;
+        }
+
+        .wc-message-groups {
+
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        #chat::before {
+
+            border-color: transparent transparent transparent;
+
+        }
+
+        #chatbox {
+         /*   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 50px rgba(0, 0, 0, 0.24);*/
+         /*box-shadow: 0 2px 5px rgba(12, 77, 162, 0.09), 0 4px 50px rgba(224, 168, 0, 0.40);*/
+         box-shadow: rgb(186, 186, 186) 0px 4px 8px 0px, rgb(136, 136, 136) 0px 6px 20px 0px;
+         border:none;
+        }
+
+        .close-button-wraper {
+            width: 100%;
+            height: 6%;
+            border-bottom: 1px solid black;
+        }
+
+        .bot-title-left {
+            margin-left: 15px;
+            margin-top: 15px;
+            color: white;
+        }
+
+        .bot-logo-wraper {
+            display: inline-block;
+            height: 100%;
+            width: auto;
+        }
+
+
+        /*Style for pop up starts*/
+
+        .bot-logo-wraper {
+            display: inline-block;
+            height: 100%;
+            width: auto;
+        }
+
+        #chatbox-popup-top {
+
+            position: absolute;
+            bottom: 60px;
+            left: -50px;
+            width: 200%;
+            text-align: center;
+            font-size: 13px;
+            opacity: 0;
+
+            transition: opacity 1s linear;
+            -webkit-animation: mover 1s infinite alternate;
+            animation: mover 1s infinite alternate;
+            -webkit-animation: mover 1s infinite alternate;
+            animation: mover 1s infinite alternate;
+        }
+
+        .scrollRemove {
+            overflow: hidden;
+            width : 100%;
+            display: block;
+        }
+
+        .scrollTags {   
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            height: 37px;
+            list-style: none;
+            white-space: nowrap;
+            overflow: auto;
+        }
+
+        #chatbox-popup-top:after {
+            content: '';
+            position: absolute;
+            right: 55px;
+            top: 49px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #d9d9d9 ;
+            clear: both;
+        }
+
+        @-webkit-keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        #chatbox-popup-top span {
+            font-family: 'OpenSans-Regular', sans-serif;
+            color: black;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #d9d9d9 ; 
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(12, 77, 162, 0.09), 0 2px 50px rgba(224, 168, 0, 0.40);
+        }
+
+
+
+        #chatbox-popup-bottom {
+            font-family: 'OpenSans-Regular', sans-serif;
+            position: absolute;
+            top: 50px;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+        }
+        /*Style for pop up ends*/
+
+
+        /*Stylr for Text glow Starts*/
+        .glow { 
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgb(224,168,0) 0 0 40px rgb(224,168,0), 0 0 50px rgb(224,168,0), 0 0 60px rgb(224,168,0), 0 0 70px rgb(224,168,0);
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px rgb(224,168,0), 0 0 40px rgb(224,168,0), 0 0 50px rgb(224,168,0), 0 0 60px rgb(224,168,0), 0 0 70px rgb(224,168,0), 0 0 80px rgb(224,168,0);
+  }
+}
+    </style>
+    <script>
+    function callChatbot(){// pass your data in method
+     $.ajax({
+             type: "POST",
+             url: "http://localhost:7512/",
+            //  data: JSON.stringify(data),// now data come in this function
+             contentType: "application/json; charset=utf-8",
+             crossDomain: true,
+             dataType: "json",
+             success: function (data, status, jqXHR) {
+                alert("data -> "+data);
+                alert("success");// write success in " "
+             },
+
+             error: function (jqXHR, status) {
+                 // error handler
+                 console.log(jqXHR);
+                 alert('fail' + status.code);
+             }
+          });
+    }</script>
+</head>
+
+<body>
+    <div class="chatbox-pos">
+        <!--############################################# Chat Icon Starts ######################################################-->
+        <div id="chat" class="animated-chat tada" onclick="loadChatbox()"
+            style=" position:relative;height:60px;width:60px; ">
+            <div id="chatbox-popup-top"><b><span>Ask Iva ! </span></b></div>
+            <img src="./logo-design.png"
+                style="position:absolute;margin:auto;max-width:45px;top:0;bottom:0;left:0;right:0;opacity: 1;">
+            <div id="chatbox-popup-bottom"><span class="glow">Ask me<span></div>
+        </div>
+        <!--############################################### Chat Icon Ends #######################################################-->
+
+        <!--***********************************************  Chat Box starts *****************************************************-->
+        <div class="chatbox" id="chatbox"
+            style="border:none;border-radius:11px;;padding-right:0px;padding-bottom:0;max-width:100%;padding-top:0px;">
+            <!--<span class="chat-text">Indian Bank virtual assistent</span>-->
+            <div id="smartchatbox_img901621879"
+                style="width: 320px; height: 500px; overflow: hidden; margin: auto; padding: 0;border-radius:8px">
+                <div id="smartchatbox901621879"
+                    style="width: 320px; height: 500px; overflow: hidden; margin: auto; padding: 0; border:0;background:rgb(12, 77, 162) ">
+                    <div class="close-button-wraper">
+                        <div class="bot-title-left"> <img src="./indian-bank-logo.png"
+                                style="width:30px ;height:auto" /> <i><b> Indian Bank Virtual Assistant </b> </i></div>
+                        <div id="close-chat" onclick="closeChatbox()" title="Close Chat Window"
+                            style="color:white;margin-right:7px;margin-top:7px;">&times;</div>
+                    </div>
+
+                    <iframe id="ibotWindow" src="http://localhost:7512/" scrolling="auto" frameborder="0" width="100%"
+                        height="83%"  style="border:0; margin:0; padding: 0; overflow-x: auto;">
+                    </iframe>
+                    
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                        <div class="carousel-inner">
+                            <div class="item active">
+                              <input type="button" style="border-radius: 30px;margin-left: 15%;" value="Credit Cards" onclick="callChatbot()">
+                              <input type="button" style="border-radius: 30px;margin-left: 5%;" value="Online Services" onclick="callChatbot()">
+                            </div>
+                      
+                            <div class="item">
+                                <input type="button" style="border-radius: 30px;margin-left: 15%;" value="Online Portal" onclick="callChatbot()">
+                                <input type="button" style="border-radius: 30px;margin-left: 5%;" value="Related Sites" onclick="callChatbot()">
+                            </div>
+                          
+                            <div class="item">
+                                <input type="button" style="border-radius: 30px;margin-left: 12%;" value="Payments" onclick="callChatbot()">
+                                <input type="button" style="border-radius: 30px;margin-left: 5%;" value="Alliances" onclick="callChatbot()">
+                                <input type="button" style="border-radius: 30px;margin-left: 3%;" value="Challans" onclick="callChatbot()">
+                            </div>
+                        </div>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--<div id="reload-chat" onclick="reloadChatbox()" title="Restart Chat" style="color:white;margin-right:7px;margin-top:7px;">&#x21bb;</div>-->
+        </div>
+
+        <!--*************************************************  Chat Box Ends  ****************************************************-->
+
+        <script>
+            //<![CDATA[
+            var p = document.getElementById('chatbox-popup-top');
+            function loadChatbox() {
+                var e = document.getElementById("chatbox"); e.style.margin = "0";
+                p.style.opacity = "0";
+                // window.location.href = "http://127.0.0.1:3000/directline";
+            }
+            function closeChatbox() { var e = document.getElementById("chatbox"); e.style.margin = "0 0 -1500px 0"; }
+            //function reloadChatbox(){var e= document.getElementById("ibotWindow");e.contentWindow.location.reload(); }
+            //]]>
+
+            setTimeout(function () { p.style.opacity = "1"; }, 1000);
+        </script>
+    </div>
+</body>
+
+</html>

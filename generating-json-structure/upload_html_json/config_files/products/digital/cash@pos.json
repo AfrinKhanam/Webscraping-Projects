@@ -1,0 +1,24 @@
+{
+
+	"https://www.indianbank.in/departments/cash-at-pos/" : {
+		"page_hierarchy" : {
+			"domain" : "digital",
+			"class" : "cash@pos"
+		},
+
+		"subtitle_pattern" : "<p><strong>.*</strong></p>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

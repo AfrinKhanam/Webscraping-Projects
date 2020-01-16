@@ -345,7 +345,7 @@ class ESPostProcessing:
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
 
-        if re.search(r'(educ)', document['PARSED_QUERY_STRING']):
+        if re.search(r'(educ)', document['QUERY_SYNONYMS']):
 
             if re.search(r'(jeevan vidya)', document['PARSED_QUERY_STRING']):
 

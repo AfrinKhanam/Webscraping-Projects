@@ -1,2 +1,4 @@
 two=2=too
 four=4
+wheeler=vehicle
+study=education

@@ -161,7 +161,10 @@ test_query = "motor cycle bike"
 test_query = "study loan"
 test_query = "four-wheeler loan"
 test_query = "mobike loan"
-test_query = "four wheeler loan"
+test_query = "What is the eligibility to apply for a godown or cold storage loan?"
+test_query = "What is the criteria to apply for a godown or cold storage loan?"
+test_query = "2975"
+test_query = "What are the type of loans?"
 
 
 test_query_string = {
