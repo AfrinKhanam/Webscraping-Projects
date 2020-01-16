@@ -1,0 +1,97 @@
+{
+	"https://www.indianbank.in/departments/current-account/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "current"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/ib-i-freedom-current-account/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "current"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/important-terms-and-conditions-2/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "current"
+		},
+
+		"subtitle_pattern" : "<h4>.*</h4>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/premium-current-account/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "current"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+
+
+}

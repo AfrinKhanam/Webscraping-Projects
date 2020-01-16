@@ -1,0 +1,93 @@
+{
+
+	"https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ib-educational-loan-prime/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ib-skill-loan-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/hindi-education-loan-interest-subsidies/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"https://www.indianbank.in/departments/department/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "contacts",
+			"class" : "email ids"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "table-wraper"
+			}
+
+
+		}
+	}
+
+}
+
