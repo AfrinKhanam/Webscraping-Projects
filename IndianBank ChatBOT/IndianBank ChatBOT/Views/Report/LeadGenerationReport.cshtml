@@ -161,7 +161,11 @@
                             var groupdata_target = "";
                             var groupId = "";
                             var visitedOn = "";
+                            var groupdata_collepes_parent_parent="";
+                            var groupdata_collepes_parent_parent_target="";
                         }
+
+                         <tbody>
                         @foreach (var user in item.ConversationByUsers)
                         {
                             {
@@ -171,9 +175,11 @@
                                 ChatLogs = user.TurnConversations.Count();
                                 groupdata_target = "#group-of-rows-" + uniqueNumber;
                                 groupId = "group-of-rows-" + uniqueNumber;
+                                groupdata_collepes_parent_parent_target = "#collepes-parent-" + uniqueNumber;
+                                groupdata_collepes_parent_parent = "collepes-parent-" + uniqueNumber;
                             }
-                            <tbody>
-                                <tr class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
+                           
+                                <tr id="@groupdata_collepes_parent_parent" class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
                                     <td>@index</td>
                                     <td>@Html.DisplayFor(modelItem => user.Name)</td>
                                     <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
@@ -182,11 +188,12 @@
                                     <td>
                                         <button type="button" class="btn btn-light btn-hover">View</button>
                                         <i class="fa fa-plus " aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                            </tbody>
+                                    </td> 
+                                </tr> 
 
-                            <table id="@groupId" class="table  table-bordered collapse example-table sub-table">
+                                <tr  >
+                                <td  colspan="6">
+                                 <table id="@groupId"   class="table table-bordered example-table sub-table collapse "  data-parent="@groupdata_collepes_parent_parent_target">
                                 <thead>
                                     <tr><th>S. No.</th><th>Visitor Query</th><th>Bot Response</th> </tr>
                                 </thead>
@@ -211,8 +218,15 @@
                                     }
                                 </tbody>
                             </table>
+
+                                </td>
+                                </tr> 
                         }
+                           </tbody>
                     </table>
+
+                     
+
                 </div>
             </div>
         </div>
