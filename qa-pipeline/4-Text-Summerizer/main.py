@@ -60,9 +60,9 @@ def callback(ch, method, properties, body):
         return
 #---------------------------------------------------------------#
 rabbimq_consumer = RabbitmqConsumerPipe(
-        exchange="esPostProcessingEx", 
-        queue="esPostProcessingQ",
-        routing_key="es_post_processing", 
+        exchange="postProcessingEx", 
+        queue="postProcessingQ",
+        routing_key="post_processing", 
         callback=callback, 
         host='localhost')
 

@@ -3,7 +3,7 @@ education = study
 four = 4
 two = 2
 three = 3
-vehicle=motor bike = motor cycle = mobike
+vehicle=motor bike = motor cycle = mobike=car
 healthcare=health care
 shareholder=share holder
 jewel=gold
@@ -22,7 +22,7 @@ offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=di
 wish=want=prefered
 look=see=view=lk
 agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
-eligibility=ability= who can
+eligibility=ability= who can=criteria
 apply=place=join
 criteria=norms=rule=prototype
 requirement=necessary=recommended=required
@@ -51,7 +51,7 @@ documents=record=script=report=certificate=documentation
 shg=self help groups=sh group=shgs
 some=little=part of=few
 provide=serve=give=add=grant
-DRI=Differential Rate of Interest=differential RI
+DRI=differential RI
 targets=goals
 harvest=golden harvest scheme=ghs=gh scheme
 Jewel loan=Agricultural Jewel Loan=AGL=AGL
@@ -73,4 +73,3 @@ Non Resident Indian =NRI
 ib=IB=Indian Bank
 Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
-

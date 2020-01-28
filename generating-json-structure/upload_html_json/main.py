@@ -4,6 +4,7 @@ import json
 import sys
 import os
 import requests 
+import time
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 
@@ -68,4 +69,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        time.sleep(60)
+

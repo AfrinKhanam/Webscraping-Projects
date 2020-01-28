@@ -174,7 +174,9 @@ json_files = [
     money_gram,
     atm_debit_cards,
     mobile_banking,
+
     netbanking,
+
     premium_credit_cards,
     xpress_money,
     neft,
@@ -196,7 +198,7 @@ json_files = [
     e_payment_indirect_tax,
     debenture_trustee,
     deposit_rates,
-    # lending,
+
     forex,
     quick_contacts,
     complaint_officer_list,

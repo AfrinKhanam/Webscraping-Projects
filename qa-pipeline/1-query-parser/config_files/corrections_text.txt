@@ -1,5 +1,5 @@
 vykal:vehicle
-car:carr
+car:car
 trectar:tractor
 house:home
 landing:lending

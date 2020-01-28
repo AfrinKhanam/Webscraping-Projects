@@ -30,17 +30,144 @@ class ESPostProcessing:
     def create_regex(self, string):
         # ------------------------------------- #
         word_list = string.split()
+        return word_list
         # ------------------------------------- #
 
         # ------------------------------------- #
-        regex = '('
-        for word in word_list:
-            regex = regex + word + '|'
-        regex = regex + ')'
-        regex = regex.replace('|)', ')')
-        # ------------------------------------- #
+        # regex = '( '
+        # for word in word_list:
+        #     regex = regex + word + ' | '
+        # regex = regex + ')'
+        # regex = regex.replace('|)', ' )')
+        # # ------------------------------------- #
 
-        return regex
+        # return regex
+    def getUnmatchedWordsFromMainTitle(self,document):
+        self.matched_words=[]
+        self.unMatched_words=[]
+        unmatched_docs=[]
+        doc_list=[]
+        main_title_list=[]
+
+        regex=self.create_regex(document['PARSED_QUERY_STRING'])
+        # regex=self.create_regex(document['POTENTIAL_QUERY_LIST'])
+
+        for doc in document['ES_RESULT']['DOCUMENTS']:
+            # print("doc--> ",json.dumps(doc,indent=4))
+            for w in regex:
+                # if doc['stemmed_main_title'].find(w)!=-1:
+                #     self.matched_words.append(w)
+                if w in doc['stemmed_main_title']:
+                    self.matched_words.append(w)
+                else:
+                    self.unMatched_words.append(w)
+            main_title_list.append(doc['main_title'])
+            
+            if len(self.matched_words)!=0:
+                doc_list.insert(0,doc)
+            else:
+                unmatched_docs.append(doc)
+
+
+        url_to_compare=main_title_list[0]
+        url_count=0
+        for u in main_title_list:
+            if url_to_compare==u:
+                url_count+=1
+        print("count is------> ",url_count)
+        print("len is------> ",len(main_title_list))
+
+        # if doc url is different...different docs
+        # or url_count==1
+        if len(main_title_list)==url_count :
+            pass
+        else:
+            print("inside url comparision")
+            doc_list.extend(unmatched_docs)
+        # print(json.dumps(doc_list,indent=4))
+            document['ES_RESULT']['DOCUMENTS']=doc_list
+
+
+
+        #   -------------------------------------------------------------------------
+        # Remove word frequency
+        self.unMatched_words=self.removeWordFrequency(self.unMatched_words)
+        # regex=unMatched_words
+        # print("\n\nWords dint match in string is------>",self.unMatched_words)
+        # print("\n\nWords matched in string is------>",self.matched_words)
+        # ----------------------------------------------------------------------------
+
+        self.priortising_document_subTitle(self.unMatched_words,document)
+
+        # return self.unMatched_words
+    
+    def priortising_document_subTitle(self,unMatched_words,document):
+        self.remove_prepositions_from_title(document)
+        words=unMatched_words
+        document_list=[]
+        unmatched_documents=[]
+        for idx,doc in enumerate(document['ES_RESULT']['DOCUMENTS']):
+                matched_subtitles=[]
+                unMatched_subtitles=[]
+                for w in words:
+                    print("word is--> ",w)
+                    if w in doc['stemmed_title']:
+                        matched_subtitles.append(w)
+
+                    else:
+                        unMatched_subtitles.append(w)
+                doc['unMatched_words_subtitle']=unMatched_subtitles
+                doc['matched_words_subtitle']=matched_subtitles
+                if len(matched_subtitles)!=0:
+                    document_list.insert(0,doc)
+                else:
+                    unmatched_documents.append(doc)
+
+                words=unMatched_subtitles
+                print("matched words in subtitle---->> ",matched_subtitles)
+                print("matched words in subtitle---->> ",unMatched_subtitles)
+        document_list.extend(unmatched_documents)
+        document['ES_RESULT']['DOCUMENTS']=document_list
+       
+
+        
+       
+           
+        print(json.dumps(document,indent=4))
+
+    def removeWordFrequency(self,unMatched_words):
+        words=[]
+        for u in unMatched_words:
+            if u not in words:
+                words.append(u)
+        return words
+    
+    def remove_prepositions_from_title(self,document):
+
+        for idx,doc in enumerate(document['ES_RESULT']['DOCUMENTS']):
+            subtitle=doc['stemmed_title']
+            print("subtitle is---> ",subtitle)
+            preposition_words=[" on "," for "," of "," by "," over "," at "," from "]
+            for p in preposition_words:
+                try:
+                   
+                    result=subtitle.index(p)
+                    print("result is------> ",result)
+                    text=subtitle[:result]
+                    print("inside try block-----",p)
+                    print("text after removing prepositions is----------> ",text)
+                    doc['stemmed_title']=text
+                    print("stemmed_title is-----> ",doc['stemmed_title'])
+                except:
+                    print("inside except block------->>",p)
+                    pass
+        # print("document after removing prepositions-----> ",json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
+            
+
+
+
+
+
 
     def priortising_document(self, document):
 
@@ -126,7 +253,6 @@ class ESPostProcessing:
         #print('---------------------------------------------------------------------------\n\n')
         #print('___________________________________________________________________________\n')
         # ----------------------------------------------------------- #
-        # print("document------------> ",json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
         return document
 
     def remove_unwanted_words(self, document):
@@ -149,7 +275,7 @@ class ESPostProcessing:
         # ----------------------------------------------- #
 
         return word_score
-     
+
     def calculate_word_score(self, document):
 
         for record in document['ES_RESULT']['DOCUMENTS']:
@@ -379,8 +505,6 @@ class ESPostProcessing:
 
 
         document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:3]
-        # document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:10]
-
         #-----------------------------------------------------------------------------------------------#
 
         return document
