@@ -34,6 +34,7 @@ class ESPostProcessing:
                 print("**********",w,"\n")
                 # if doc['stemmed_main_title'].find(w)!=-1:
                 #     self.matched_words.append(w)
+                # .
                 if w in doc['stemmed_main_title']:
                     # print("matched word--->  ",w)
 
