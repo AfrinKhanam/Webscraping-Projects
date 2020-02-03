@@ -3,7 +3,7 @@ education = study
 four = 4
 two = 2
 three = 3
-vehicle=motor bike = motor cycle = mobike=car
+vehicle=motor bike = motor cycle = mobike=car=bike
 healthcare=health care
 shareholder=share holder
 jewel=gold

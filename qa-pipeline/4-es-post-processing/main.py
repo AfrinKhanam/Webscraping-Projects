@@ -21,6 +21,7 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         if len(document['ES_RESULT']['DOCUMENTS']) != 0:
+            pass
             es_post_processing.getUnmatchedWordsFromMainTitle(document)
             # es_post_processing.priortising_document_subTitle(unMatched_words,document)
             # es_post_processing.priortising_document(document)
@@ -36,7 +37,7 @@ def callback(ch, method, properties, body):
 
         #--------- LOGGING ---------------------------------------------#
         log['OUTGOING'] = document
-        # print(json.dumps(log, indent=4) )
+        print(json.dumps(log, indent=4) )
         #---------------------------------------------------------------#
 
         return
@@ -50,7 +51,7 @@ rabbitmq_producer = RabbitmqProducerPipe(
 
 rabbimq_consumer = RabbitmqConsumerPipe(
         exchange="esPostProcessingEx", 
-        queue="esResultQ",
+        queue="esPostProcessingResultQ",
         routing_key="es_post_processing", 
         callback=callback, 
         host='localhost')

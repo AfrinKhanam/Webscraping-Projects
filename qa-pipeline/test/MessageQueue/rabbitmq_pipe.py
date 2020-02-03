@@ -2,13 +2,13 @@ import pika
 
 class RabbitmqProducerPipe:
     def __init__(self, publish_exchange, routing_key, host='localhost'):
-        self.credentials = pika.PlainCredentials('indian', 'indian')
+        self.credentials = pika.PlainCredentials('demo', 'demo')
         self.publish_routing_key = routing_key
         self.publish_exchange = publish_exchange
 
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(
             host, 
-            virtual_host='indian-bank',
+            virtual_host='demo',
             heartbeat = 0,
             credentials=self.credentials))
         self.channel = self.connection.channel()
@@ -32,11 +32,11 @@ class RabbitmqConsumerPipe:
         self.queue = queue
         self.exchange = exchange
         self.routing_key = routing_key
-        self.credentials = pika.PlainCredentials('indian', 'indian')
+        self.credentials = pika.PlainCredentials('demo', 'demo')
 
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(
             host, 
-            virtual_host='indian-bank',
+            virtual_host='demo',
             heartbeat=0,
             credentials=self.credentials))
         self.channel = self.connection.channel()
