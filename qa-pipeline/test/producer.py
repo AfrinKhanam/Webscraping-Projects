@@ -187,7 +187,7 @@ test_query = "What is the security deposit required for the DRI Scheme-Revised N
 test_query = "What are the revised targets for a DRI loan?"
 test_query = "What is the security required for Loans associated with the maintenances of tractors under tie up with sugar mills?"
 test_query = "What is the criteria to apply for a godown or cold storage loan?"
-test_query = "interest rate on home loan"
+test_query = "criteria for gowdowns or cold storage loan"
 
 
 
