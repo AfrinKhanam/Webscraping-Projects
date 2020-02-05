@@ -188,6 +188,23 @@ test_query = "What are the revised targets for a DRI loan?"
 test_query = "What is the security required for Loans associated with the maintenances of tractors under tie up with sugar mills?"
 test_query = "What is the criteria to apply for a godown or cold storage loan?"
 test_query = "criteria for gowdowns or cold storage loan"
+# test_query = "what is the maximum term on fixed deposit"-->200-->No Maximum
+# test_query = "what is the lowest amount for fixed deposit"-->200--->Minimum Deposit- Rs.100/-
+# test_query = "when interest is paid on fixed deposit"-->200-->\nSalient Features\n
+# test_query = "can i get monthly interest on fixed deposit"--20--->\nSalient Features\n
+test_query = "can I get payment of fixed before maturity"
+test_query = "what is the maximum term on fixed deposit"
+test_query = "when interest is paid on fixed deposit"
+test_query = "can i get monthly interest on fixed deposit"
+
+
+
+
+
+
+
+
+
 
 
 

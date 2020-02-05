@@ -86,7 +86,29 @@ class ESPostProcessing:
         #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
         #print('---------------------------------------------------------------------------\n\n')
 
-        document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:10]
+        if re.search(r'(fix)', document['PARSED_QUERY_STRING']):
+
+
+            documents = []
+            for record in document['ES_RESULT']['DOCUMENTS']:
+
+
+                if record['url'] == "https://www.indianbank.in/departments/fixed-deposit/":
+                    documents.append(record)
+
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:10]
+            # print("***********************************8")
+            # print(json.dumps(document,indent=4))
+        else:
+            document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:250]
+
+
+
+
+
+# afrin
+        # document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:10]
         #print('---------------- PRIORTISE DOCUMENT BASED ON THE WORD SCORE ---------------\n')
         #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
         #print('---------------------------------------------------------------------------\n\n')
@@ -117,9 +139,11 @@ class ESPostProcessing:
         document['ES_RESULT']['WORD_COUNT'] = document['ES_RESULT']['DOCUMENTS'][0]['word_count']
         document['ES_RESULT']['WORD_SCORE'] = document['ES_RESULT']['DOCUMENTS'][0]['word_score']
         # ----------------------------------------------------------- #
-
+        # print(json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
         # ------------ SENDING TOP 10 RESULT ------------------------ #
-        document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:10]
+        document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:250]
+        # document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:20]
+        
 
         #print('------------------ PRIORTISE DOCUMENT BASED ON THE WORD SCORE != 1 ------\n')
         #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
@@ -238,6 +262,8 @@ class ESPostProcessing:
         return document
 
     def give_high_weightage_to_document(self, document):
+        # print(json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
+        # print(json.dumps(document[0:20],indent=4))
         '''
         "ib home loan"
         "ib home loan combo"
@@ -306,6 +332,28 @@ class ESPostProcessing:
 
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+
+
+            # -----------------------------------------------------------------------------
+        # if re.search(r'(fix)', document['QUERY_SYNONYMS']):
+
+        #     documents = []
+        #     for record in document['ES_RESULT']['DOCUMENTS']:
+
+        #         if record['url'] == "https://www.indianbank.in/departments/fixed-deposit/":
+        #             documents.append(record)
+
+        #     documents += document['ES_RESULT']['DOCUMENTS']
+        #     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            # print(json.dumps(document,indent=4))
+            # -------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
         if re.search(r'(vision|mission)', document['PARSED_QUERY_STRING']):
@@ -379,7 +427,7 @@ class ESPostProcessing:
 
 
         document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:3]
-        # document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:10]
+        # document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:20]
 
         #-----------------------------------------------------------------------------------------------#
 
