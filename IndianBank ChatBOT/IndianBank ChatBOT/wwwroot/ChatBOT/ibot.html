@@ -6,21 +6,45 @@
     <meta content="utf-8" http-equiv="encoding">
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
-
+ss
        <script src="lib/jquery-min.js"></script>
     <script src="lib/jquery-ui.js"></script>
 
 
 
     <style type="text/css">
-    @font-face {
-  font-family: 'roboto slab';
-  src: url('../font/RobotoSlab-VariableFont:wght.ttf')  format('truetype'), /* Safari, Android, iOS */
-      
+ @font-face {
+    font-family: classic robot; 
+    src: url("./font/Classic_Robot.otf") format("opentype");
 }
 
+@font-face {
+    font-family: classic robot;
+	font-style:italic;
+    src: url("./font/Classic_Robot_Italic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: classic robot;
+	font-style:italic;
+	font-weight:bold;
+    src: url("./font/Classic_Robot_Bold_Italic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: classic robot;
+	font-weight:bold;
+    src: url("./font/Classic_Robot_Bold.otf") format("opentype");
+}
+ 
+body{
+
+}
+
+
+
     body{
-        font-family: 'roboto slab', sans-serif !important;
+        /* font-family:'classic robot' !important; */
     }
 
         .chatbox-pos {
@@ -498,7 +522,7 @@
                 </div>
             </div>
             <div class="chatbot-title">
-                <i  style="color:white;"><b>ADYA</b></i>
+                <b style="color:white; font-family: 'classic robot';">ADYA</b>
                 <div id="reload-chat" onclick="reloadChatbox()" title="Restart Chat"
                     style="color:white;margin-right:7px">&#x21bb;</div>
                 <div id="close-chat" onclick="closeChatbox()" title="Close Chat Window"
@@ -510,7 +534,7 @@
 
         </div>
         <!--http://52.172.14.249:7512-->
-        <iframe id="ibotWindow" src="http://localhost:7512" scrolling="auto" frameborder="0"
+        <iframe id="ibotWindow" src="http://52.172.14.249:7512" scrolling="auto" frameborder="0"
             style="position:absolute;bottom:0px;left:0px;border:0; margin:0; padding: 0;height:550px;width:100%;padding-bottom:0px">
         </iframe>
     </div>
