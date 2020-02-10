@@ -101,8 +101,8 @@
 <table class="table css-serial">
     <thead>
         <tr>
-            <th>
-                #
+            <th style="text-align:right">
+                S No.
             </th>
             <th>
                 Name
@@ -124,21 +124,21 @@
             {
                 index += 1;
             }
-        <tr>
-            <td>@index</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @{
-                    var date = item.CreatedOn.ToString("ddd, dd MMM yyy HH:mm:ss");
-                }
-                @date
-            </td>
-        </tr>
+            <tr>
+                <td style="text-align:right">@index</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @{
+                        var date = item.CreatedOn.ToString("dd-MMM-yy HH:mm");
+                    }
+                    @date
+                </td>
+            </tr>
         }
 
         @if (Model.UserInfos.Count == 0)

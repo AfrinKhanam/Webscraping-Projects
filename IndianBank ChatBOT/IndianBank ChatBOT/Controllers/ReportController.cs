@@ -272,7 +272,7 @@ namespace IndianBank_ChatBOT.Controllers
             }
 
             foreach (var conv in conversationByIntent)
-            {
+            {   
                 foreach (var userCov in conv.ConversationByUsers)
                 {
                     var turnConversations = new List<TurnConversation>();
