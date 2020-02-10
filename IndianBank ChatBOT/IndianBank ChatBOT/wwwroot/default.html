@@ -376,8 +376,8 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-           window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-          //   window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+             //window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+             window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
         if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) { 
                //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
@@ -386,7 +386,7 @@
                 hideUploadButton: true,
                 botAvatarInitials: 'BOT',
                 botAvatarImage: './botAvatar.png',
-                botAvatarBackgroundColor: '#e2aa42ad'
+                botAvatarBackgroundColor: '#ffe8a3'
             };
 
             window.WebChat.renderWebChat({
@@ -541,7 +541,7 @@
 
         sendFeedback = (feedBack) => {
         debugger;
-        fetch('http://localhost:7512/Report/UpdateFeedback', {
+        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
@@ -572,8 +572,7 @@
         return (
         <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
             <div className="activity">{props.children}</div>
-            <ul className="button-bar">
-
+            <ul className="button-bar"> 
                 <li>
                     <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
                 </li>
@@ -994,11 +993,12 @@
         /*Avatar Backgeround color*/
         .css-1dgbgmu,
         [data-css-1dgbgmu] {
-            color: #f3c164 !important
+            color: #ffe8a3 !important
         }
+ 
 
         .avatar {
-            background-color: #f3c164 !important;
+            background-color: #ffe8a3 !important;
         }
 
 

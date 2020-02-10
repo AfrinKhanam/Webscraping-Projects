@@ -1,4 +1,75 @@
-two=2=too
-four=4
-wheeler=vehicle
-study=education
+individual=single
+education = study
+four = 4
+two = 2
+three = 3
+vehicle=motor bike = motor cycle = mobike=car=bike
+healthcare=health care
+shareholder=share holder
+jewel=gold
+profit
+doorstep=door step
+award=accolades
+mediclaim=medi claim
+beyond reach=cannot affort=can't afford
+managing director==ceo==chief executive officer==md
+neft=n e f t
+fd=fixed deposit
+rd=recurring deposit
+sb=saving bank
+wc=working capital
+offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
+wish=want=prefered
+look=see=view=lk
+agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
+eligibility=ability= who can=criteria
+apply=place=join
+criteria=norms=rule=prototype
+requirement=necessary=recommended=required
+objectives=aim=goal=intention=purpose=information
+interest rate=interest
+margin=edge=border=scope=surplus
+security=safety=protection                 
+maximum=max=maxi=highest
+repayment=paying back=compensate=compensation=reimbursement
+permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted
+maintenances=support=repairs=adjustment=replacement=maintain
+tractors=tractrs=tract
+associated=correlated=combined=joined=mixed=mingle
+regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
+details=info=specifics=feature
+produce=production=yield=outcome
+know=be aware=inquire=have knowledge=understand
+tenure=term=period=time=span=duration=AM=PM
+purchase=buy=obtain
+involving=relate
+amount=amt=cash=money=payment
+rate of interest=interest rate
+financing=funding=costs
+second hand=2nd hand=pre used
+documents=record=script=report=certificate=documentation
+shg=self help groups=sh group=shgs
+some=little=part of=few
+provide=serve=give=add=grant
+DRI=differential RI
+targets=goals
+harvest=golden harvest scheme=ghs=gh scheme
+Jewel loan=Agricultural Jewel Loan=AGL=AGL
+get=have=take=receive=earn
+categories=types=list=group
+repayment=paying back=compensation
+prepayment=advance payment
+policy=procedure=plan=method
+salient=important=noticeable
+against=opposite to
+terms and conditions=terms=terms & conditions=conditions=T and C=T&C
+quantum=amount
+submitted=given
+benefits=advantage
+additional=extra=further=other=supplementary
+Details=info=more about
+home=house=hm
+Non Resident Indian =NRI
+ib=IB=Indian Bank
+Micro Small & Medium Enterprises=MSME
+different=distinct=dissimilar=separate=many

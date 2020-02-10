@@ -4,20 +4,21 @@ import json
 import sys
 import os
 import requests 
+import time
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 
 def main():
     if os.path.exists(os.path.abspath(os.pardir)+"/upload_html_json/config_files/uploadedHtml.json"):
         os.remove(os.path.abspath(os.pardir)+"/upload_html_json/config_files/uploadedHtml.json")
-        urls="http://localhost:7512/StaticFiles/GetAllStaticFileInfo"
+        urls="http://localhost:7512/StaticFiles/GetAllStaticFileInfoAsText"
         ROOT_DIR = os.path.abspath(os.pardir)
         try:
             response=requests.get(url=urls)
             data=response.json()
-            for j in data:
-                with open(ROOT_DIR+"/upload_html_json/config_files/uploadedHtml.json","w+") as file:
-                    json.dump(j,file,indent=4)
+            print(json.dumps(data, indent=4))
+            with open(ROOT_DIR+"/upload_html_json/config_files/uploadedHtml.json","w+") as file:
+                json.dump(data,file,indent=4)
         except Exception as e:
             print("exception occurred..!!",e)
         finally:
@@ -68,4 +69,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        time.sleep(60)
+

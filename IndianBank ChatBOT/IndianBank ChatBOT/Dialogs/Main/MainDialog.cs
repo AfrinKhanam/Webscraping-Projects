@@ -258,7 +258,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         protected override async Task OnStartAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
             var view = new MainResponses();
-            await dc.Context.SendActivityAsync("Hi! My name is Iva \U0001F603.\n Welcome to Indian Bank.\n I am your virtual assistant, here to assist you with all your banking queries 24x7");
+            await dc.Context.SendActivityAsync("Hi! My name is ADYA \U0001F603.\n Welcome to Indian Bank.\n I am your virtual assistant, here to assist you with all your banking queries 24x7");
             //  await view.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
 
             await dc.BeginDialogAsync(nameof(OnBoardingFormDialog));

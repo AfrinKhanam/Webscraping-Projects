@@ -164,14 +164,69 @@ test_query = "mobike loan"
 test_query = "What is the eligibility to apply for a godown or cold storage loan?"
 test_query = "What is the criteria to apply for a godown or cold storage loan?"
 test_query = "2975"
-test_query = "What are the type of loans?"
+
+
+test_query = "What is the loan eligibility to apply for a godown or cold storage?"
+test_query = "security for 2 wheeler loan"
+test_query = "What is the interest rate on godown or cold storage loans?"
+test_query = "What is the criteria to apply for a godown or cold storage loan?"
+test_query = "What is the margin on a cold storage loan?"
+test_query = "What is the security required for a godown or cold storage loan?"
+test_query = "What is the maximum term for repayment for godown or cold storage loans?"
+test_query = "What is the maximum amount of loan permissible under godown or cold storage loans?"
+
+test_query = "security for 2 wheeler loan"
+
+test_query = "What is the purpose of the loans for maintenances of tractors under tie up with sugar mills?"
+test_query = "What is the eligibility of Loans for maintenances of tractors under tie up with sugar mills?"
+test_query = "What is the margin on the Loans for maintenances of tractors under tie up with sugar mills?"
+test_query = "What are the Loans for maintenance of tractors under tie up with sugar mills?"
+test_query = "how can i avail for agriculture produce loan?"
+test_query = "What is the maximum tenure of repayment as per the DRI Scheme-Revised Norms?"
+test_query = "What is the security deposit required for the DRI Scheme-Revised Norms?"
+test_query = "What are the revised targets for a DRI loan?"
+test_query = "What is the security required for Loans associated with the maintenances of tractors under tie up with sugar mills?"
+test_query = "What is the criteria to apply for a godown or cold storage loan?"
+test_query = "criteria for gowdowns or cold storage loan"
+# test_query = "what is the maximum term on fixed deposit"-->200-->No Maximum
+# test_query = "what is the lowest amount for fixed deposit"-->200--->Minimum Deposit- Rs.100/-
+# test_query = "when interest is paid on fixed deposit"-->200-->\nSalient Features\n
+# test_query = "can i get monthly interest on fixed deposit"--20--->\nSalient Features\n
+test_query = "can I get payment of fixed before maturity"
+test_query = "what is the maximum term on fixed deposit"
+test_query = "when interest is paid on fixed deposit"
+test_query = "can i get monthly interest on fixed deposit"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 test_query_string = {
     "UUID" : "absdj-1237812-asdjdas",
     "QUERY_STRING" : test_query,
     "CONTEXT" : ""
-}
+
+    }
 rabbitmq_producer_query = RabbitmqProducerPipe(publish_exchange="queryExchange", 
         routing_key="query",
         host="localhost")

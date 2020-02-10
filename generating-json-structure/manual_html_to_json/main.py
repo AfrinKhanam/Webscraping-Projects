@@ -63,7 +63,7 @@ def main():
 rabbitmq_producer = RabbitmqProducerPipe(
         publish_exchange="nlpEx",
         routing_key="nlp",
-        queue_name='nlp',
+        queue_name='nlpQueue',
         host="localhost")
 
 

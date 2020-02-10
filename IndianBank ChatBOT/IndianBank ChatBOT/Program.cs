@@ -25,7 +25,7 @@ namespace IndianBank_ChatBOT
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>() // Note: Application Insights is added in Startup.  Disabling is also handled there.
-		.UseUrls("http://localhost:7512")
+		.UseUrls("http://0.0.0.0:7512")
 		.Build();
     }
 }
