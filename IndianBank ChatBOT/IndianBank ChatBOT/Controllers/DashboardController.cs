@@ -30,9 +30,27 @@ namespace IndianBank_ChatBOT.Controllers
             return View();
         }
 
-        private void GetVisitsReport()
+        public ActionResult GetVisitsReport(string from, string to)
         {
-            var currentDate = DateTime.Now.Year;
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            //var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet','bye_intent', 'lost_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
+            var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
+
+            var chatLogs = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList();
+
+            return null;
         }
     }
 }

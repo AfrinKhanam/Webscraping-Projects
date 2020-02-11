@@ -1,4 +1,4 @@
-﻿@model VisitorsViewModel
+﻿@model ChatBotVisitorsViewModel
 
 @{
     ViewData["Title"] = "Visitors";
@@ -105,10 +105,16 @@
                 S No.
             </th>
             <th>
-                Name
+                Visitor
             </th>
             <th>
                 Phone Number
+            </th>
+            <th style="text-align:right">
+                No. of Visits
+            </th>
+            <th style="text-align:right">
+                No. of Queries
             </th>
             <th>
                 Last Visited
@@ -119,7 +125,7 @@
         @{
             var index = 0;
         }
-        @foreach (var item in Model.UserInfos)
+        @foreach (var item in Model.ChatBotVisitorDetails)
         {
             {
                 index += 1;
@@ -127,21 +133,27 @@
             <tr>
                 <td style="text-align:right">@index</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Visitor)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem => item.NumberOfVisits)
+                </td>
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem => item.NumberOfQueries)
+                </td>
                 <td>
                     @{
-                        var date = item.CreatedOn.ToString("dd-MMM-yy HH:mm");
+                        var date = item.LastVisited.ToString("dd-MMM-yy HH:mm");
                     }
                     @date
                 </td>
             </tr>
         }
 
-        @if (Model.UserInfos.Count == 0)
+        @if (Model.ChatBotVisitorDetails.Count == 0)
         {
             <tr class="no-data" style="text-align:center">
                 <td colspan="5">No data found !</td>
