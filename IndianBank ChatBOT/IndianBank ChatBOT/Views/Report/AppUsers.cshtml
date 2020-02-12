@@ -32,7 +32,7 @@
             @*<h2 class="pt-3 pb-3">Visitors</h2>*@
         </div>
         <div class='col-sm-6'>
-            <div class="form-group row pt-3 pb-3">
+            <div class="form-group row pt-3">
                 <label class="date_label">From: </label>
                 <div id="datepicker_from" class="input-group date" data-date-format="mm-dd-yyyy">
                     <input class="form-control" type="text" readonly id="from_date_input" />
@@ -97,6 +97,29 @@
         });
     });
 </script>
+
+<table class="table table-borderless" style="float:right;width:60%;">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>To</th>
+            <th style="text-align:right">Total Visits</th>
+            <th style="text-align:right">Total Queries</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @{
+                var fromDate = Convert.ToDateTime(Model.From).ToString("dd-MMM-yy");
+                var toDate = Convert.ToDateTime(Model.To).ToString("dd-MMM-yy");
+            }
+            <td>@fromDate</td>
+            <td>@toDate</td>
+            <td style="text-align:right">@Model.TotalVisits</td>
+            <td style="text-align:right">@Model.TotalQueries</td>
+        </tr>
+    </tbody>
+</table>
 
 <table class="table css-serial">
     <thead>
