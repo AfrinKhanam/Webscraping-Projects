@@ -85,8 +85,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new FrequentlyAskedQueriesViewModel
             {
                 FrequentlyAskedQueries = frequentlyAskedQueries,
-                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy"),
+                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy"),
             };
             return View(vm);
         }
