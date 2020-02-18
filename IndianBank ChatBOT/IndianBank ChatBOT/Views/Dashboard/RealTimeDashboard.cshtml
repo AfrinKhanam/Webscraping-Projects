@@ -1,0 +1,64 @@
+﻿@model VisitorsStatisticsViewModel
+
+@{
+    ViewData["Title"] = "RealTimeDashboard";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-stats" style="margin-bottom: 20px;">
+                <div class="card-stats-title">
+                    Number of Visits
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        @{
+                            var yearToDateNoOfVisits = Model.NumberOfVisitsCurrentYear.ToString() + " (" + Model.NumberOfVisitsLastYear.ToString() + ")";
+                            var monthToDateNoOfVisits = Model.NumberOfVisitsCurrentMonth.ToString() + " (" + Model.NumberOfVisitsLastMonth.ToString() + ")";
+                            var todayNoOfVisits = Model.NumberOfVisitsToday.ToString() + " (" + Model.NumberOfVisitsYesterday.ToString() + ")";
+
+                            var yearToDateNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsCurrentYear.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastYear.ToString() + ")";
+                            var monthToDateNoOfUnsatisfactoryVisitss = Model.NumberOfUnsatisfactoryVisitsCurrentMonth.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastMonth.ToString() + ")";
+                            var todayNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsToday.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsYesterday.ToString() + ")";
+                        }
+                        <div class="card-stats-item-count">@yearToDateNoOfVisits</div>
+                        <div class="card-stats-item-label">Year-to-Date</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@monthToDateNoOfVisits</div>
+                        <div class="card-stats-item-label">Month-to-Date</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@todayNoOfVisits</div>
+                        <div class="card-stats-item-label">Today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-stats" style="margin-bottom: 20px;">
+                <div class="card-stats-title">
+                    Number of Unsatisfactory Visits
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@yearToDateNoOfUnsatisfactoryVisits</div>
+                        <div class="card-stats-item-label">Year-to-Date</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@monthToDateNoOfUnsatisfactoryVisitss</div>
+                        <div class="card-stats-item-label">Month-to-Date</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@todayNoOfUnsatisfactoryVisits</div>
+                        <div class="card-stats-item-label">Today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

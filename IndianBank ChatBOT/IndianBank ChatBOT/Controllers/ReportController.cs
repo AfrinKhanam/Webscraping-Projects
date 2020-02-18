@@ -222,8 +222,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new UnAnsweredQueriesViewModel
             {
                 UnAnsweredQueries = unAnsweredQueries,
-                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
             };
             return View(vm);
         }
@@ -269,8 +269,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new UnSatisfiedVisitorsViewModel
             {
                 UnAnsweredQueries = unAnsweredQueries,
-                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
             };
             return View(vm);
         }
@@ -369,8 +369,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new LeadGenerationReportViewModel
             {
                 ConversationsByIntent = conversationByIntent,
-                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
             };
 
             return View(vm);
