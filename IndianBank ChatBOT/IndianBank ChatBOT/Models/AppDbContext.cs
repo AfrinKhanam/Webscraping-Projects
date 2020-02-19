@@ -31,7 +31,12 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<SynonymWord> SynonymWords { get; set; }
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
         public DbQuery<UnAnsweredQueries> UnAnsweredQueries { get; set; }
+        
+        public DbQuery<Top10DomainsVisitedViewModel> Top10DomainsVisitedViewModels { get; set; }
 
         public DbQuery<ChatBotVisitorDetail> ChatBotVisitorDetails { get; set; }
+        
+        public DbQuery<VisitorsByYearMonthViewModel> VisitorsByYearMonthViewModels { get; set; }
     }
 }
+

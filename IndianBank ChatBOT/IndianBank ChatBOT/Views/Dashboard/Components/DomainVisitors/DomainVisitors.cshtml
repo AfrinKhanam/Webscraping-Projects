@@ -1,0 +1,24 @@
+﻿@model List<Top10DomainsVisitedViewModel>
+<div class="card">
+    <div class="card-header">
+        <h4>ChatBOT - Top 10 Domain Visited - Current Year</h4>
+    </div>
+    <div class="card-body">
+
+        @{
+            var maxValue = Model.Sum(i => i.TotalHits);
+            foreach (var item in Model)
+            {
+                var percentage = item.HitPercentage.ToString() + "%;";
+
+                <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">@item.TotalHits</div>
+                    <div class="font-weight-bold mb-1">@item.DomainName</div>
+                    <div class="progress" data-height="3" style="height: 3px;">
+                        <div class="progress-bar" role="progressbar" data-width="@percentage" aria-valuenow="@item.HitPercentage" aria-valuemin="0" aria-valuemax="100" style="width: @percentage"></div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

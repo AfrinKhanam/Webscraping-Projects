@@ -113,5 +113,11 @@ namespace IndianBank_ChatBOT.Controllers
 
             return users;
         }
+
+
+        public PartialViewResult GetDomainVisitorsReport()
+        {
+            return PartialView("~/Views/Shared/MenuPartial", null);
+        }
     }
 }
