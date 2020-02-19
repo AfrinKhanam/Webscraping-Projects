@@ -1,0 +1,73 @@
+﻿@model List<VisitorsByMonthViewModel>
+@{
+    var data = Model;
+}
+<div class="card">
+    <div class="card-header">
+        <h4>ChatBOT Visits - Current Month</h4>
+    </div>
+    <div class="card-body">
+        <canvas id="VisitorsByMonthChart"></canvas>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                renderVisitorsByMonthChart();
+            });
+
+            function renderVisitorsByMonthChart() {
+                var response = @Html.Raw(Json.Serialize(Model));
+                var reportLabels = [];
+                var reportData = [];
+
+                response.forEach(function (value, index, array) {
+                    //var dayText = value.monthText + "-" + value.dayNumber;
+                    var dayText = value.dayNumber+value.monthText;
+                    reportLabels.push(dayText);
+                    reportData.push(value.visits);
+                });
+
+                var ctx = document.getElementById("VisitorsByMonthChart").getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: reportLabels,
+                        datasets: [{
+                            label: 'Number of Visits ',
+                            data: reportData,
+                            borderWidth: 2,
+                            backgroundColor: '#6777ef',
+                            borderColor: '#6777ef',
+                            borderWidth: 2.5,
+                            pointBackgroundColor: '#ffffff',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    drawBorder: false,
+                                    color: '#f2f2f2',
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 20
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    display: false
+                                },
+                                gridLines: {
+                                    display: false
+                                }
+                            }]
+                        },
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>

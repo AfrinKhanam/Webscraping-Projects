@@ -37,6 +37,8 @@ namespace IndianBank_ChatBOT.Models
         public DbQuery<ChatBotVisitorDetail> ChatBotVisitorDetails { get; set; }
         
         public DbQuery<VisitorsByYearMonthViewModel> VisitorsByYearMonthViewModels { get; set; }
+
+        public DbQuery<VisitorsByMonthViewModel> VisitorsByMonthViewModels { get; set; }
     }
 }
 

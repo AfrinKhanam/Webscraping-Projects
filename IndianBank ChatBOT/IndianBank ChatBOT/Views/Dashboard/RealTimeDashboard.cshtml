@@ -63,11 +63,6 @@
 </div>
 
 <script src="~/lib/stisla/modules/chart.min.js"></script>
-@*@await Component.InvokeAsync("DomainVisitors")*@
-
-@*@await Component.InvokeAsync("ChatBOTVisitorsByMonthYear")*@
-
-
 <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
         @await Component.InvokeAsync("DomainVisitors")
@@ -75,6 +70,12 @@
 
     <div class="col-lg-6 col-md-6 col-12">
         @await Component.InvokeAsync("ChatBOTVisitorsByMonthYear")       
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        @await Component.InvokeAsync("ChatBOTVisitorsByMonth")
     </div>
 </div>
 
