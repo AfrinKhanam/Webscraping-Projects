@@ -114,10 +114,21 @@ namespace IndianBank_ChatBOT.Controllers
             return users;
         }
 
-
-        public PartialViewResult GetDomainVisitorsReport()
+        public IActionResult GetMostQueriedDomainsByYearMonth()
         {
-            return PartialView("~/Views/Shared/MenuPartial", null);
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+            var query = $"SELECT C.\"RasaIntent\" AS DomainName, Count(C.\"ActivityId\") AS TotalHits , TRUNC(((Count(C.\"ActivityId\") / Sum(Count(C.\"ActivityId\")) OVER ())*100),2) AS HitPercentage FROM \"ChatLogs\" C WHERE C.\"ReplyToActivityId\" IS NOT NULL AND C.\"RasaIntent\" NOT IN ('about_us_intent', 'greet', 'bye_intent', 'link_intent', 'services_intent', 'scrollbar_intent') AND COALESCE(C.\"RasaIntent\", '') != '' AND extract(YEAR FROM C.\"TimeStamp\") = '{currentYear}' AND extract(month from C.\"TimeStamp\") = '{currentMonth}' GROUP BY C.\"RasaIntent\" ORDER BY Count(C.\"ActivityId\") DESC limit 3";
+            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSql(query).ToList();
+            return Ok(vm);
+        }
+
+        public IActionResult GetMostQueriedDomainsByYear()
+        {
+            int currentYear = DateTime.Now.Year;
+            var query = $"SELECT C.\"RasaIntent\" AS DomainName, Count(C.\"ActivityId\") AS TotalHits , TRUNC(((Count(C.\"ActivityId\") / Sum(Count(C.\"ActivityId\")) OVER ())*100),2) AS HitPercentage FROM \"ChatLogs\" C WHERE C.\"ReplyToActivityId\" IS NOT NULL AND C.\"RasaIntent\" NOT IN ('about_us_intent', 'greet', 'bye_intent', 'link_intent', 'services_intent', 'scrollbar_intent') AND COALESCE(C.\"RasaIntent\", '') != '' AND extract(YEAR FROM C.\"TimeStamp\") = '{currentYear}' GROUP BY C.\"RasaIntent\" ORDER BY Count(C.\"ActivityId\") DESC limit 3";
+            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSql(query).ToList();
+            return Ok(vm);
         }
     }
 }

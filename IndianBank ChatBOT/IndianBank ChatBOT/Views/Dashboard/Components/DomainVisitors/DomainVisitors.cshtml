@@ -1,7 +1,13 @@
 ﻿@model List<Top10DomainsVisitedViewModel>
+@{
+    var currentMonthText = DateTime.Now.ToString("MMM");
+    var currentYear = DateTime.Now.Year;
+    var currentMonthYearText = currentMonthText + " " + currentYear;
+}
+
 <div class="card">
     <div class="card-header">
-        <h4>ChatBOT - Top 10 Domain Visited - Current Year</h4>
+        <h4>ChatBOT - Top 10 Domain Visited - @currentYear</h4>
     </div>
     <div class="card-body">
 

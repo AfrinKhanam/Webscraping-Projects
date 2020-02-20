@@ -1,10 +1,14 @@
 ﻿@model List<VisitorsByYearMonthViewModel>
 @{
     var data = Model;
+    var currentMonthText = DateTime.Now.ToString("MMM");
+    var currentYear = DateTime.Now.Year;
+    var currentMonthYearText = currentMonthText + " " + currentYear;
 }
+
 <div class="card">
     <div class="card-header">
-        <h4>ChatBOT Visits - Current Year</h4>
+        <h4>ChatBOT Visits - @currentYear</h4>
     </div>
     <div class="card-body">
         <canvas id="VisitorsByYearMonthChart"></canvas>

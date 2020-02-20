@@ -4,57 +4,138 @@
     ViewData["Title"] = "RealTimeDashboard";
 }
 
+@{
+    var currentMonthText = DateTime.Now.ToString("MMM");
+    var currentYear = DateTime.Now.Year;
+    var currentMonthYearText = currentMonthText + " " + currentYear;
+}
+<script src="~/lib/stisla/modules/chart.min.js"></script>
+
+@*<div class="row">
+        <div class="col-lg-6 col-md-4 col-sm-12">
+            <div class="card card-statistic-2">
+                <div class="card-stats" style="margin-bottom: 20px;">
+                    <div class="card-stats-title">
+                        Number of Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            @{
+                                var yearToDateNoOfVisits = Model.NumberOfVisitsCurrentYear.ToString() + " (" + Model.NumberOfVisitsLastYear.ToString() + ")";
+                                var monthToDateNoOfVisits = Model.NumberOfVisitsCurrentMonth.ToString() + " (" + Model.NumberOfVisitsLastMonth.ToString() + ")";
+                                var todayNoOfVisits = Model.NumberOfVisitsToday.ToString() + " (" + Model.NumberOfVisitsYesterday.ToString() + ")";
+
+                                var yearToDateNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsCurrentYear.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastYear.ToString() + ")";
+                                var monthToDateNoOfUnsatisfactoryVisitss = Model.NumberOfUnsatisfactoryVisitsCurrentMonth.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastMonth.ToString() + ")";
+                                var todayNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsToday.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsYesterday.ToString() + ")";
+                            }
+                            <div class="card-stats-item-count">@yearToDateNoOfVisits</div>
+                            <div class="card-stats-item-label">Year-to-Date</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@monthToDateNoOfVisits</div>
+                            <div class="card-stats-item-label">Month-to-Date</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@todayNoOfVisits</div>
+                            <div class="card-stats-item-label">Today</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-12">
+            <div class="card card-statistic-2">
+                <div class="card-stats" style="margin-bottom: 20px;">
+                    <div class="card-stats-title">
+                        Number of Unsatisfactory Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@yearToDateNoOfUnsatisfactoryVisits</div>
+                            <div class="card-stats-item-label">Year-to-Date</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@monthToDateNoOfUnsatisfactoryVisitss</div>
+                            <div class="card-stats-item-label">Month-to-Date</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@todayNoOfUnsatisfactoryVisits</div>
+                            <div class="card-stats-item-label">Today</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
 <div class="row">
-    <div class="col-lg-6 col-md-4 col-sm-12">
-        <div class="card card-statistic-2">
-            <div class="card-stats" style="margin-bottom: 20px;">
-                <div class="card-stats-title">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-statistic-2" style="height:90%">
+            <div class="card-stats">
+                <div class="card-stats-title" style="font-weight:bold">
                     Number of Visits
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
-                        @{
-                            var yearToDateNoOfVisits = Model.NumberOfVisitsCurrentYear.ToString() + " (" + Model.NumberOfVisitsLastYear.ToString() + ")";
-                            var monthToDateNoOfVisits = Model.NumberOfVisitsCurrentMonth.ToString() + " (" + Model.NumberOfVisitsLastMonth.ToString() + ")";
-                            var todayNoOfVisits = Model.NumberOfVisitsToday.ToString() + " (" + Model.NumberOfVisitsYesterday.ToString() + ")";
-
-                            var yearToDateNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsCurrentYear.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastYear.ToString() + ")";
-                            var monthToDateNoOfUnsatisfactoryVisitss = Model.NumberOfUnsatisfactoryVisitsCurrentMonth.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsLastMonth.ToString() + ")";
-                            var todayNoOfUnsatisfactoryVisits = Model.NumberOfUnsatisfactoryVisitsToday.ToString() + " (" + Model.NumberOfUnsatisfactoryVisitsYesterday.ToString() + ")";
-                        }
-                        <div class="card-stats-item-count">@yearToDateNoOfVisits</div>
-                        <div class="card-stats-item-label">Year-to-Date</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">@monthToDateNoOfVisits</div>
-                        <div class="card-stats-item-label">Month-to-Date</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">@todayNoOfVisits</div>
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsToday.ToString()</div>
                         <div class="card-stats-item-label">Today</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsYesterday.ToString()</div>
+                        <div class="card-stats-item-label">Yesterday</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsCurrentMonth.ToString()</div>
+                        <div class="card-stats-item-label">Current Month</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsLastMonth.ToString()</div>
+                        <div class="card-stats-item-label">Last Month</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsCurrentYear.ToString()</div>
+                        <div class="card-stats-item-label">Current Year</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfVisitsLastYear.ToString()</div>
+                        <div class="card-stats-item-label">Last Year</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-4 col-sm-12">
-        <div class="card card-statistic-2">
-            <div class="card-stats" style="margin-bottom: 20px;">
-                <div class="card-stats-title">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-statistic-2" style="height:90%">
+            <div class="card-stats">
+                <div class="card-stats-title" style="font-weight:bold">
                     Number of Unsatisfactory Visits
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">@yearToDateNoOfUnsatisfactoryVisits</div>
-                        <div class="card-stats-item-label">Year-to-Date</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">@monthToDateNoOfUnsatisfactoryVisitss</div>
-                        <div class="card-stats-item-label">Month-to-Date</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">@todayNoOfUnsatisfactoryVisits</div>
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsToday.ToString()</div>
                         <div class="card-stats-item-label">Today</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsYesterday.ToString()</div>
+                        <div class="card-stats-item-label">Yesterday</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsCurrentMonth.ToString()</div>
+                        <div class="card-stats-item-label">Current Month</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsLastMonth.ToString()</div>
+                        <div class="card-stats-item-label">Last Month</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsCurrentYear.ToString()</div>
+                        <div class="card-stats-item-label">Current Year</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsLastYear.ToString()</div>
+                        <div class="card-stats-item-label">Last Year</div>
                     </div>
                 </div>
             </div>
@@ -62,14 +143,147 @@
     </div>
 </div>
 
-<script src="~/lib/stisla/modules/chart.min.js"></script>
+@*<div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsToday.ToString()</div>
+                            <div class="card-stats-item-label">Today</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsYesterday.ToString()</div>
+                            <div class="card-stats-item-label">Yesterday</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsCurrentMonth.ToString()</div>
+                            <div class="card-stats-item-label">Current Month</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsLastMonth.ToString()</div>
+                            <div class="card-stats-item-label">Last Month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsCurrentYear.ToString()</div>
+                            <div class="card-stats-item-label">Current Year</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfVisitsLastYear.ToString()</div>
+                            <div class="card-stats-item-label">Last Year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@*<div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Unsatisfactory Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsToday.ToString()</div>
+                            <div class="card-stats-item-label">Today</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsYesterday.ToString()</div>
+                            <div class="card-stats-item-label">Yesterday</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Unsatisfactory Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsCurrentMonth.ToString()</div>
+                            <div class="card-stats-item-label">Current Month</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsLastMonth.ToString()</div>
+                            <div class="card-stats-item-label">Last Month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2" style="height:90%">
+                <div class="card-stats">
+                    <div class="card-stats-title">
+                        Number of Unsatisfactory Visits
+                    </div>
+                    <div class="card-stats-items">
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsCurrentYear.ToString()</div>
+                            <div class="card-stats-item-label">Current Year</div>
+                        </div>
+                        <div class="card-stats-item">
+                            <div class="card-stats-item-count">@Model.NumberOfUnsatisfactoryVisitsLastYear.ToString()</div>
+                            <div class="card-stats-item-label">Last Year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
 <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
         @await Component.InvokeAsync("DomainVisitors")
     </div>
-
-    <div class="col-lg-6 col-md-6 col-12">
-        @await Component.InvokeAsync("ChatBOTVisitorsByMonthYear")       
+    <div class="col-lg-3 col-md-3 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Most Queried Domains - @currentMonthYearText</h4>
+            </div>
+            <div class="card-body" id="MostQueriedDomainsByYearMonthData">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Most Queried Domains - @currentYear</h4>
+            </div>
+            <div class="card-body" id="MostQueriedDomainsByYearData">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -77,6 +291,75 @@
     <div class="col-lg-6 col-md-6 col-12">
         @await Component.InvokeAsync("ChatBOTVisitorsByMonth")
     </div>
+
+    <div class="col-lg-6 col-md-6 col-12">
+        @await Component.InvokeAsync("ChatBOTVisitorsByMonthYear")
+    </div>
 </div>
 
+
+<script type="text/javascript">
+
+    var renderMostQueriedDomainsByYearMonthReport = function () {
+        $.ajax({
+            url: "/Dashboard/GetMostQueriedDomainsByYearMonth",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $.each(result, function (index, value) {
+                    if (result.length == 0) {
+                        $('#MostQueriedDomainsByYearMonthData').append('<div style="text-align:center">No records found.</div>');
+                    } else {
+                        var html = generateHtml(value.domainName, value.totalHits, value.hitPercentage);
+                        $("#MostQueriedDomainsByYearMonthData").append(html);
+                    }
+                });
+            },
+            error: function () {
+                $('#MostQueriedDomainsByYearMonthData').append('<div style="text-align:center">No records found.</div>');
+            }
+        });
+    };
+
+    var renderMostQueriedDomainsByYearReport = function () {
+        $.ajax({
+            url: "/Dashboard/GetMostQueriedDomainsByYear",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result.length == 0) {
+                    $('#MostQueriedDomainsByYearData').append('<div style="text-align:center">No records found.</div>');
+                } else {
+                    $.each(result, function (index, value) {
+                        var html = generateHtml(value.domainName, value.totalHits, value.hitPercentage);
+                        $("#MostQueriedDomainsByYearData").append(html);
+                    });
+                }
+            },
+            error: function () {
+                $('#MostQueriedDomainsByYearData').append('<div style="text-align:center">No records found.</div>');
+            }
+        });
+    };
+
+    var generateHtml = function (domainName, totalHits, hitPercentage) {
+        var hitPercentageText = hitPercentage + "%";
+        var html = `<div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">${totalHits}</div>
+                    <div class="font-weight-bold mb-1">${domainName}</div>
+                    <div class="progress" data-height="3" style="height: 3px;">
+                        <div class="progress-bar" role="progressbar" data-width="${hitPercentageText};" aria-valuenow="${hitPercentage}" aria-valuemin="0" aria-valuemax="100" style="width: ${hitPercentageText};"></div>
+                    </div>
+                    </div>`;
+        return html;
+    };
+
+    $(document).ready(function () {
+        renderMostQueriedDomainsByYearMonthReport();
+        renderMostQueriedDomainsByYearReport();
+    });
+
+</script>
 
