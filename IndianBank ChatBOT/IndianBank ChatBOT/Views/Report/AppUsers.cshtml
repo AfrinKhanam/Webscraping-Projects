@@ -26,6 +26,9 @@
         var from_date = '@Model.From';
         var to_date = '@Model.To';
 
+        from_date = from_date.split("-")[1] + "-" + from_date.split("-")[0] + "-" + from_date.split("-")[2];
+        to_date = to_date.split("-")[1] + "-" + to_date.split("-")[0] + "-" + to_date.split("-")[2];
+
         $("#datepicker_from").datepicker({
             autoclose: true,
             todayHighlight: true
