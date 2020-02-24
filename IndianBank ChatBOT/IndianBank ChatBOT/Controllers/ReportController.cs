@@ -85,8 +85,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new FrequentlyAskedQueriesViewModel
             {
                 FrequentlyAskedQueries = frequentlyAskedQueries,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy"),
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
             return View(vm);
         }
@@ -142,8 +142,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new ChatBotVisitorsViewModel
             {
                 ChatBotVisitorDetails = users,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy"),
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy"),
                 TotalQueries = users.Sum(u => u.NumberOfQueries),
                 TotalVisits = users.Sum(u => u.NumberOfVisits)
             };
@@ -174,8 +174,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new ChatBotVisitorsViewModel
             {
                 ChatBotVisitorDetails = users,
-                From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
 
             return View(vm);
@@ -222,8 +222,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new UnAnsweredQueriesViewModel
             {
                 UnAnsweredQueries = unAnsweredQueries,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
             return View(vm);
         }
@@ -269,8 +269,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new UnSatisfiedVisitorsViewModel
             {
                 UnAnsweredQueries = unAnsweredQueries,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
             return View(vm);
         }
@@ -369,8 +369,8 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = new LeadGenerationReportViewModel
             {
                 ConversationsByIntent = conversationByIntent,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy")
+                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
 
             return View(vm);

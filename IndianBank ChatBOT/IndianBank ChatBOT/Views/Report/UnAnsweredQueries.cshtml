@@ -94,8 +94,8 @@
                     <div class="card-stats">
                         <div class="card-stats-items">
                             @{
-                                var fromDate = Convert.ToDateTime(Model.From).ToString("dd-MMM-yy");
-                                var toDate = Convert.ToDateTime(Model.To).ToString("dd-MMM-yy");
+                               var fromDate = Model.From;
+                                var toDate = Model.To;
                                 var totalUnansweredQueries = Model.UnAnsweredQueries.Count;
                             }
                             <div class="card-stats-item">
