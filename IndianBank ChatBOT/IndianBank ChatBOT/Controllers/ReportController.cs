@@ -75,12 +75,20 @@ namespace IndianBank_ChatBOT.Controllers
             var frequentlyAskedQueries = chatLogs.GroupBy(item => item.Text)
                                              .Select(c => new FrequentlyAskedQueries
                                              {
+                                                 ActivityIds = c.Select(j => j.ActivityId).ToList(),
                                                  Count = c.ToList().Count(),
-                                                 NegetiveFeedback = c.ToList().Where(j => j.ResonseFeedback == ResonseFeedback.ThumbsDown).Count(),
-                                                 PositiveFeedback = c.ToList().Where(j => j.ResonseFeedback == ResonseFeedback.ThumbsUp).Count(),
                                                  Query = c.Key
                                              }).OrderByDescending(c => c.Count)
                                              .ToList();
+
+
+
+            foreach (var queryItem in frequentlyAskedQueries)
+            {
+                var records = _dbContext.ChatLogs.Where(c => c.ResonseFeedback.HasValue && queryItem.ActivityIds.Contains(c.ReplyToActivityId)).ToList();
+                queryItem.NegetiveFeedback = records.Where(c => c.ResonseFeedback == ResonseFeedback.ThumbsDown).Skip(1).Count();
+                queryItem.PositiveFeedback = records.Where(c => c.ResonseFeedback == ResonseFeedback.ThumbsUp).Skip(1).Count();
+            }
 
             var vm = new FrequentlyAskedQueriesViewModel
             {
@@ -137,7 +145,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.NumberOfVisits).ThenByDescending(u => u.NumberOfQueries).ToList();
 
             var vm = new ChatBotVisitorsViewModel
             {
