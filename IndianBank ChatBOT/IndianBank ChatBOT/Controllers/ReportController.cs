@@ -251,28 +251,72 @@ namespace IndianBank_ChatBOT.Controllers
                 toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
             }
 
-            var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = '-1' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = -1 and \"IsOnBoardingMessage\" is null and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
 
             var conversationIds = chatLogs.Select(c => c.ConversationId).Distinct().ToList();
 
+            var groupedConversations = chatLogs
+                                        .GroupBy(c => c.ReplyToActivityId)
+                                        .Select(grp => grp.ToList())
+                                        .ToList();
+
             var userInfo = _dbContext.UserInfos.Where(u => conversationIds.Contains(u.ConversationId)).ToList();
 
             List<UnAnsweredQueries> unAnsweredQueries = new List<UnAnsweredQueries>();
-            foreach (var log in chatLogs)
+
+            foreach (var conversation in groupedConversations)
             {
-                var data = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
-                UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                var log = conversation.FirstOrDefault();
+
+                var texts = string.Empty;
+                var activityId = conversation.FirstOrDefault().ReplyToActivityId;
+
+                var data = _dbContext.ChatLogs.Where(c => c.ActivityId == activityId).FirstOrDefault();
+
+                if (conversation.Count == 1)
                 {
-                    Query = (data == null) ? string.Empty : data.Text,
-                    BotResponse = log.Text,
-                    Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
-                    PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
-                    TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
-                };
-                unAnsweredQueries.Add(unAnsweredQuery);
+                    texts = conversation.FirstOrDefault().Text;
+                }
+                else if (conversation.Count > 1)
+                {
+                    texts = string.Join("\n", conversation.Select(c => c.Text).ToList());
+                }
+
+                if (data != null)
+                {
+                    UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                    {
+                        Query = data.Text,
+                        BotResponse = texts,
+                        Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
+                        PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
+                        TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
+                    };
+                    unAnsweredQueries.Add(unAnsweredQuery);
+                }
             }
+
+
+            //foreach (var log in chatLogs)
+            //{
+            //    var responses = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).ToList();
+            //    var data = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
+
+            //    if (data != null)
+            //    {
+            //        UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+            //        {
+            //            Query = data.Text,
+            //            BotResponse = log.Text,
+            //            Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
+            //            PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
+            //            TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
+            //        };
+            //        unAnsweredQueries.Add(unAnsweredQuery);
+            //    }
+            //}
 
             var vm = new UnSatisfiedVisitorsViewModel
             {
@@ -280,6 +324,7 @@ namespace IndianBank_ChatBOT.Controllers
                 From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
+
             return View(vm);
         }
 
