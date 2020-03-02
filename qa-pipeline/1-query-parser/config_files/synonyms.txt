@@ -1,7 +1,7 @@
 individual=single
 education = study
 four = 4
-two = 2
+two = 2 = scooter
 three = 3
 vehicle=motor bike = motor cycle = mobike=car=bike
 healthcare=health care
@@ -12,7 +12,8 @@ doorstep=door step
 award=accolades
 mediclaim=medi claim
 beyond reach=cannot affort=can't afford
-managing director==ceo==chief executive officer==md
+managing directo==md
+ceo=chief executive officer
 neft=n e f t
 fd=fixed deposit
 rd=recurring deposit
@@ -23,6 +24,7 @@ wish=want=prefered
 look=see=view=lk
 agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
 eligibility=ability= who can=criteria
+minimum=min
 apply=place=join
 criteria=norms=rule=prototype
 requirement=necessary=recommended=required
@@ -37,7 +39,6 @@ maintenances=support=repairs=adjustment=replacement=maintain
 tractors=tractrs=tract
 associated=correlated=combined=joined=mixed=mingle
 regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
-details=info=specifics=feature
 produce=production=yield=outcome
 know=be aware=inquire=have knowledge=understand
 tenure=term=period=time=span=duration=AM=PM

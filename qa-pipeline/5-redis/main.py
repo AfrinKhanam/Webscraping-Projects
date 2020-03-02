@@ -33,6 +33,7 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         documents = from_es['ES_RESULT']['DOCUMENTS']
+        # print(json.dumps(documents,indent=4))
         for idx in range(len(documents)):
                 documents[idx].pop('WORD', None)
                 documents[idx].pop('WORD_COUNT', None)

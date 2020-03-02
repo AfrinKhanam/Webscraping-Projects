@@ -385,12 +385,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     ScrollBarDialog.DisplayScrollBarMenu(dc, entityName);
                     await dc.EndDialogAsync();
                 }
-                else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
-                {
-                    await dc.Context.SendActivityAsync("Display the predefined FAQ's");
-                    SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
-                    await dc.EndDialogAsync();
-                }
+                // else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
+                // {
+                //     await dc.Context.SendActivityAsync("Display the predefined FAQ's");
+                //     SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                //     await dc.EndDialogAsync();
+                // }
                 else
                 {
                     await ExecuteRabbitMqQueryAsync(dc);
@@ -663,6 +663,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else if (jsonObject.WORD_SCORE < 0.6)
                     {
+                        // await dialogContext.Context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
+
                         await dialogContext.Context.SendActivityAsync("I did not find an exact answer but here is something similar");
                         await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
                     }

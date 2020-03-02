@@ -21,8 +21,7 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         if len(document['ES_RESULT']['DOCUMENTS']) != 0:
-            pass
-            es_post_processing.getUnmatchedWordsFromMainTitle(document)
+            es_post_processing.MainTitlePrioritization(document)
             # es_post_processing.priortising_document_subTitle(unMatched_words,document)
             # es_post_processing.priortising_document(document)
             # es_post_processing.remove_unwanted_words(document)
@@ -37,7 +36,7 @@ def callback(ch, method, properties, body):
 
         #--------- LOGGING ---------------------------------------------#
         log['OUTGOING'] = document
-        print(json.dumps(log, indent=4) )
+        # print(json.dumps(log, indent=4) )
         #---------------------------------------------------------------#
 
         return

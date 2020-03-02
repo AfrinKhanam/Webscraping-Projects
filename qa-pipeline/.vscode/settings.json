@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/ashutosh/anaconda3/envs/indian-bank/bin/python",
+    "python.pythonPath": "/home/ashutosh/miniconda3/envs/indian-bank/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }

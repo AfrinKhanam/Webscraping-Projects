@@ -175,7 +175,6 @@ test_query = "What is the security required for a godown or cold storage loan?"
 test_query = "What is the maximum term for repayment for godown or cold storage loans?"
 test_query = "What is the maximum amount of loan permissible under godown or cold storage loans?"
 
-test_query = "security for 2 wheeler loan"
 
 test_query = "What is the purpose of the loans for maintenances of tractors under tie up with sugar mills?"
 test_query = "What is the eligibility of Loans for maintenances of tractors under tie up with sugar mills?"
@@ -193,9 +192,50 @@ test_query = "criteria for gowdowns or cold storage loan"
 # test_query = "when interest is paid on fixed deposit"-->200-->\nSalient Features\n
 # test_query = "can i get monthly interest on fixed deposit"--20--->\nSalient Features\n
 test_query = "can I get payment of fixed before maturity"
-test_query = "what is the maximum term on fixed deposit"
+
 test_query = "when interest is paid on fixed deposit"
-test_query = "can i get monthly interest on fixed deposit"
+test_query = "what is the maximum term on fixed deposit"
+test_query = "criteria for gowdowns or cold storage loan"
+test_query = "What are the salient features of Fixed Deposit? "
+
+	
+# details	,info,specifics,feature
+
+# ..................JYOTHI SIR.................
+test_query = "Eligibility for car loan"
+# test_query = "rickshaw loan" check
+test_query = "scooter loan"
+# test_query = "cycle rickshaw loan" not working
+# test_query = "What is DRI Scheme" rasa
+# test_query = "Loans under DRI Scheme" rasa
+# test_query = "DRI Scheme Revised Norms" rasa
+# test_query = "Maximum Loan amount under DRI Scheme" rasa
+test_query = "Interest uander DRI Scheme"
+test_query = "what is the minimum amount on fixed deposit"
+test_query = "criteria to apply for agriculture godowns or cold storage loan"
+test_query = "Eligibility for car loan"
+test_query = "Interest Rate on Jewel Loan"
+test_query = "security for 2 wheeler loan"
+test_query = "eligibility on agriculture godowns or cold storage loan"
+test_query = "What is the eligibility to apply for a godown or cold storage loan?"
+test_query = "amount of loan on agriculture godowns"
+
+test_query = "min amt of fixed deposit"
+test_query = "Who is the Managing Director of Indian Bank?"
+test_query = "Who is the Managing Director of Indian Bank?"
+test_query = "What are service charges on Forex Rate Cards?"
+
+test_query = "What are the service charges on Forex transactions?"
+test_query = "What is the rent on lockers?"
+test_query = "What are the Foreclosure charges applicable on premature withdrawal of Term Deposits?"
+
+
+
+
+
+
+
+
 
 
 
