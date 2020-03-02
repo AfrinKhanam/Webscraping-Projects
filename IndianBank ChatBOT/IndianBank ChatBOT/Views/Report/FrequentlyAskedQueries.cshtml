@@ -56,6 +56,11 @@
         });
     });
 </script>
+<style>
+    table td {
+        word-wrap: break-word;
+    }
+</style>
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -141,61 +146,61 @@
 
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-striped table-md">
-                            <thead>
-                                <tr>
-                                    <th style="text-align:right">
-                                        S No.
-                                    </th>
-                                    <th>
-                                        Visitor Query
-                                    </th>
-                                    <th style="text-align:right">
-                                        Hits
-                                    </th>
-                                    <th style="text-align:right">
-                                        Positive Feedback
-                                    </th>
-                                    <th style="text-align:right">
-                                        Negetive Feedback
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    var index = 0;
-                                }
-                                @foreach (var item in Model.FrequentlyAskedQueries)
-                                {
-                                    {
-                                        index += 1;
-                                    }
+                            <table class="table table-striped table-md">
+                                <thead>
                                     <tr>
-                                        <td style="text-align:right">@index</td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Query)
-                                        </td>
-                                        <td style="text-align:right">
-                                            @Html.DisplayFor(modelItem => item.Count)
-                                        </td>
-                                        <td style="text-align:right">
-                                            @Html.DisplayFor(modelItem => item.PositiveFeedback)
-                                        </td>
-                                        <td style="text-align:right">
-                                            @Html.DisplayFor(modelItem => item.NegetiveFeedback)
-                                        </td>
+                                        <th style="text-align:right">
+                                            S No.
+                                        </th>
+                                        <th>
+                                            Visitor Query
+                                        </th>
+                                        <th style="text-align:right">
+                                            Hits
+                                        </th>
+                                        <th style="text-align:right">
+                                            Positive Feedback
+                                        </th>
+                                        <th style="text-align:right">
+                                            Negetive Feedback
+                                        </th>
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var index = 0;
+                                    }
+                                    @foreach (var item in Model.FrequentlyAskedQueries)
+                                    {
+                                        {
+                                            index += 1;
+                                        }
+                                        <tr>
+                                            <td style="text-align:right">@index</td>
+                                            <td style="word-break:break-all;">
+                                                @Html.DisplayFor(modelItem => item.Query)
+                                            </td>
+                                            <td style="text-align:right">
+                                                @Html.DisplayFor(modelItem => item.Count)
+                                            </td>
+                                            <td style="text-align:right">
+                                                @Html.DisplayFor(modelItem => item.PositiveFeedback)
+                                            </td>
+                                            <td style="text-align:right">
+                                                @Html.DisplayFor(modelItem => item.NegetiveFeedback)
+                                            </td>
+                                        </tr>
+                                    }
 
-                                @if (Model.FrequentlyAskedQueries.Count == 0)
-                                {
-                                    <tr class="no-data" style="text-align:center">
-                                        <td colspan="5">No data found !</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                                    @if (Model.FrequentlyAskedQueries.Count == 0)
+                                    {
+                                        <tr class="no-data" style="text-align:center">
+                                            <td colspan="5">No data found !</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             </div>
         </div>

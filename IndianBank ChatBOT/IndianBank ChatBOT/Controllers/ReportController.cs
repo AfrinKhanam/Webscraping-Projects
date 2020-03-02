@@ -79,11 +79,11 @@ namespace IndianBank_ChatBOT.Controllers
                                                  Count = c.ToList().Count(),
                                                  Query = c.Key
                                              }).OrderByDescending(c => c.Count)
-                                             .ToList();
+                                             .AsQueryable();
 
+            var frequentlyAskedQueryList = frequentlyAskedQueries.Where(faq => faq.Count > 1).ToList();
 
-
-            foreach (var queryItem in frequentlyAskedQueries)
+            foreach (var queryItem in frequentlyAskedQueryList)
             {
                 var records = _dbContext.ChatLogs.Where(c => c.ResonseFeedback.HasValue && queryItem.ActivityIds.Contains(c.ReplyToActivityId)).ToList();
                 queryItem.NegetiveFeedback = records.Where(c => c.ResonseFeedback == ResonseFeedback.ThumbsDown).Skip(1).Count();
@@ -92,7 +92,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var vm = new FrequentlyAskedQueriesViewModel
             {
-                FrequentlyAskedQueries = frequentlyAskedQueries,
+                FrequentlyAskedQueries = frequentlyAskedQueryList,
                 From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
