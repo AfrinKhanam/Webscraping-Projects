@@ -93,8 +93,33 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult AppUsers(string from, string to)
         {
-            var fromDateTime = Convert.ToDateTime(from);
-            var toDateTime = Convert.ToDateTime(to);
+            //var fromDateTime = Convert.ToDateTime(from);
+            //var toDateTime = Convert.ToDateTime(to);
+
+            //var fromDate = from;
+            //var toDate = to;
+
+            //if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            //{
+            //    fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+            //    toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            //}
+            //else
+            //{
+            //    fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+            //    toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            //}
+
+            //var users = _dbContext.UserInfos.Where(u => u.CreatedOn.Date >= fromDateTime.Date && u.CreatedOn.Date <= toDateTime.Date).ToList();
+
+            //var vm = new VisitorsViewModel
+            //{
+            //    UserInfos = users,
+            //    From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
+            //    To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
+            //};
+
+            //return View(vm);
 
             var fromDate = from;
             var toDate = to;
@@ -110,11 +135,45 @@ namespace IndianBank_ChatBOT.Controllers
                 toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
             }
 
-            var users = _dbContext.UserInfos.Where(u => u.CreatedOn.Date >= fromDateTime.Date && u.CreatedOn.Date <= toDateTime.Date).ToList();
+            var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var vm = new VisitorsViewModel
+            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+
+            var vm = new ChatBotVisitorsViewModel
             {
-                UserInfos = users,
+                ChatBotVisitorDetails = users,
+                From = Convert.ToDateTime(fromDate).ToString("dd-MM-yyyy"),
+                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MM-yyyy"),
+                TotalQueries = users.Sum(u => u.NumberOfQueries),
+                TotalVisits = users.Sum(u => u.NumberOfVisits)
+            };
+
+            return View(vm);
+        }
+
+        public ActionResult AppVisitors(string from, string to)
+        {
+            var fromDate = from;
+            var toDate = to;
+
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
+
+            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList();
+
+            var vm = new ChatBotVisitorsViewModel
+            {
+                ChatBotVisitorDetails = users,
                 From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
             };
