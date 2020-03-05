@@ -307,14 +307,17 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-                $.each(result, function (index, value) {
-                    if (result.length == 0) {
-                        $('#MostQueriedDomainsByYearMonthData').append('<div style="text-align:center">No records found.</div>');
-                    } else {
-                        var html = generateHtml(value.domainName, value.totalHits, value.hitPercentage);
+                if (result.length == 0) {
+                    $('#MostQueriedDomainsByYearMonthData').append('<div style="text-align:center">No records found.</div>');
+                } else {
+                    var maxValue = Math.max.apply(Math, result.map(function (o) { return o.hitPercentage; }));
+
+                    $.each(result, function (index, value) {
+                        var percentage = parseInt((value.hitPercentage * 100) / maxValue);
+                        var html = generateHtml(value.domainName, value.totalHits, percentage);
                         $("#MostQueriedDomainsByYearMonthData").append(html);
-                    }
-                });
+                    });
+                }
             },
             error: function () {
                 $('#MostQueriedDomainsByYearMonthData').append('<div style="text-align:center">No records found.</div>');
@@ -332,8 +335,12 @@
                 if (result.length == 0) {
                     $('#MostQueriedDomainsByYearData').append('<div style="text-align:center">No records found.</div>');
                 } else {
+
+                    var maxValue = Math.max.apply(Math, result.map(function (o) { return o.hitPercentage; }));
+
                     $.each(result, function (index, value) {
-                        var html = generateHtml(value.domainName, value.totalHits, value.hitPercentage);
+                        var percentage = parseInt((value.hitPercentage * 100) / maxValue);
+                        var html = generateHtml(value.domainName, value.totalHits, percentage);
                         $("#MostQueriedDomainsByYearData").append(html);
                     });
                 }
