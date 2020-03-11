@@ -329,22 +329,10 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
-        public ActionResult LeadGenerationReport(string from, string to)
-        {
-            var fromDate = from;
-            var toDate = to;
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
-            {
-                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-            }
-            else
-            {
-                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
-                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
-            }
 
-            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet','bye_intent', 'lost_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
+        private LeadGenerationReportViewModel GenerateLeadGenerationReport(string fromDate, string toDate)
+        {
+            var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent', 'lost_intent', 'scrollbar_intent','link_intent','capabilities_intent','services_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             var overallChatLogs = chatLogs;
 
@@ -428,8 +416,25 @@ namespace IndianBank_ChatBOT.Controllers
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
 
-            var leadGenerationInfos = GetLeadGenerationInfos(vm);
-            UpdateLeadGenerationInfos(leadGenerationInfos);
+            return vm;
+        }
+
+        public ActionResult LeadGenerationReport(string from, string to)
+        {
+            var fromDate = from;
+            var toDate = to;
+            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var vm = GenerateLeadGenerationReport(fromDate, toDate);
 
             return View(vm);
         }
@@ -438,7 +443,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         [HttpPost]
         [Route("ExportLeadGenerationReport")]
-        public IActionResult ExportLeadGenerationReport([FromBody] ReportParams @params)
+        public IActionResult ExportLeadGenerationReport(ReportParams @params)
         {
             var fromDate = @params.From;
             var toDate = @params.To;
@@ -454,17 +459,29 @@ namespace IndianBank_ChatBOT.Controllers
                 toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
             }
 
-            var query = $"select * from \"LeadGenerationInfos\" where \"QueriedOn\" between '{fromDate}' AND '{toDate}'";
+            var vm = GenerateLeadGenerationReport(fromDate, toDate);
 
-            var leadGenerationInfos = _dbContext.LeadGenerationInfos.FromSql(query).ToList();
+            var leadGenerationInfo1 = GetLeadGenerationInfos(vm);
+            UpdateLeadGenerationInfos(leadGenerationInfo1);
 
-            var buffer = new LeadGenerationExportBridge().Export(leadGenerationInfos);
+            var leadGenerationInfos = GetLeadGenerationInfos(fromDate, toDate);
+
+            var buffer = new LeadGenerationExportBridge().Export(leadGenerationInfos,
+                Convert.ToDateTime(@params.From).ToString("dd-MMM-yy"),
+                Convert.ToDateTime(@params.To).ToString("dd-MMM-yy"));
 
             var fileName = @"Lead_Generation_Report-" + @params.From + " to " + @params.To + ".xlsx";
 
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
+        private List<LeadGenerationInfo> GetLeadGenerationInfos(string fromDate, string toDate)
+        {
+            var query = $"select * from \"LeadGenerationInfos\" where \"QueriedOn\" between '{fromDate}' AND '{toDate}' and \"DomainName\" not in  ('about_us_intent','greet', 'bye_intent', 'lost_intent', 'scrollbar_intent','link_intent','capabilities_intent','services_intent')";
+
+            var leadGenerationInfos = _dbContext.LeadGenerationInfos.FromSql(query).ToList();
+            return leadGenerationInfos;
+        }
 
         private void UpdateLeadGenerationInfos(List<LeadGenerationInfo> leadInfos)
         {

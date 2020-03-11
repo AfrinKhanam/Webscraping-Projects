@@ -18,9 +18,8 @@ namespace IndianBank_ChatBOT.ExcelExport
         }
 
         Tuple<string, string, Type>[] reportColumns;
-        public override void WriteData<T>(List<T> exportData)
+        public override void WriteData<T>(List<T> exportData, string from, string to)
         {
-
             DataTable table = new DataTable();
             var columnsList = new List<string>();
             var headerColumnList = new List<string>();
@@ -30,7 +29,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                                                     Tuple.Create("Visitor","Visitor", typeof(string)),
                                                     Tuple.Create("Phone Number","PhoneNumber", typeof(string)),
                                                     Tuple.Create("Queried On", "QueriedOn", typeof(DateTime)),
-                                                    Tuple.Create("Action","Action", typeof(string))
+                                                    Tuple.Create("Action","LeadGenerationAction", typeof(string))
                                                  };
 
             foreach (var item in reportColumns)
@@ -57,6 +56,16 @@ namespace IndianBank_ChatBOT.ExcelExport
             }
 
             IRow sheetRow = null;
+
+            var data = exportData as List<LeadGenerationInfo>;
+
+            var groupedLeadGenerationInfo = data
+                                            .GroupBy(u => u.DomainName)
+                                            .Select(grp => grp.ToList())
+                                            .ToList();
+
+            var totalLeadGenerationQueries = data.Count();
+            var totalUnattendedQueries = data.Where(d => !d.LeadGenerationAction.HasValue).Count();
 
             sheetRow = _sheet.CreateRow(0);
             ICell reportHeaderCell = sheetRow.CreateCell(0);
@@ -94,7 +103,6 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportFromStyle.SetFont(reportFromFont);
 
             reportFromCell.CellStyle = reportFromStyle;
-
 
             //To
             ICell reportToCell = sheetRow.CreateCell(4);
@@ -136,9 +144,13 @@ namespace IndianBank_ChatBOT.ExcelExport
 
             //From Data
             var reportFromDataCell = sheetRow.CreateCell(3);
-            reportFromDataCell.SetCellValue("10-Jan-20");
+            reportFromDataCell.SetCellValue(from);
 
             var reportFromDataStyle = _workbook.CreateCellStyle();
+            reportFromDataStyle.BorderLeft = BorderStyle.Thin;
+            reportFromDataStyle.BorderTop = BorderStyle.Thin;
+            reportFromDataStyle.BorderRight = BorderStyle.Thin;
+            reportFromDataStyle.BorderBottom = BorderStyle.Thin;
 
             var reportFromDataFont = _workbook.CreateFont();
             reportFromDataFont.FontName = "Calibri";
@@ -152,9 +164,13 @@ namespace IndianBank_ChatBOT.ExcelExport
 
             //To Data
             var reportToDataCell = sheetRow.CreateCell(4);
-            reportToDataCell.SetCellValue("21-Feb-20");
+            reportToDataCell.SetCellValue(to);
 
             var reportToDataStyle = _workbook.CreateCellStyle();
+            reportToDataStyle.BorderLeft = BorderStyle.Thin;
+            reportToDataStyle.BorderTop = BorderStyle.Thin;
+            reportToDataStyle.BorderRight = BorderStyle.Thin;
+            reportToDataStyle.BorderBottom = BorderStyle.Thin;
 
             var reportToDataFont = _workbook.CreateFont();
             reportToDataFont.FontName = "Calibri";
@@ -165,7 +181,7 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportToDataStyle.Alignment = HorizontalAlignment.Right;
 
             reportToDataCell.CellStyle = reportToDataStyle;
-            
+
             //Total Lead Header
             sheetRow = _sheet.CreateRow(2);
 
@@ -186,11 +202,17 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportTotalLeadHeaderCell.CellStyle = reportTotalLeadHeaderStyle;
 
             //Total Lead Data
-
             var reportTotalLeadDataCell = sheetRow.CreateCell(4);
-            reportTotalLeadDataCell.SetCellValue("39");
+            reportTotalLeadDataCell.SetCellValue(totalLeadGenerationQueries);
 
             var reportTotalLeadDataStyle = _workbook.CreateCellStyle();
+
+
+            reportTotalLeadDataStyle.BorderLeft = BorderStyle.Thin;
+            reportTotalLeadDataStyle.BorderTop = BorderStyle.Thin;
+            reportTotalLeadDataStyle.BorderRight = BorderStyle.Thin;
+            reportTotalLeadDataStyle.BorderBottom = BorderStyle.Thin;
+
 
             var reportTotalLeadDataFont = _workbook.CreateFont();
             reportTotalLeadDataFont.FontName = "Calibri";
@@ -225,9 +247,14 @@ namespace IndianBank_ChatBOT.ExcelExport
             //Total Unattended Lead Data
 
             var reportTotalUnattendedLeadDataCell = sheetRow.CreateCell(4);
-            reportTotalUnattendedLeadDataCell.SetCellValue("15");
+            reportTotalUnattendedLeadDataCell.SetCellValue(totalUnattendedQueries);
 
             var reportTotalUnattendedLeadDataStyle = _workbook.CreateCellStyle();
+
+            reportTotalUnattendedLeadDataStyle.BorderLeft = BorderStyle.Thin;
+            reportTotalUnattendedLeadDataStyle.BorderTop = BorderStyle.Thin;
+            reportTotalUnattendedLeadDataStyle.BorderRight = BorderStyle.Thin;
+            reportTotalUnattendedLeadDataStyle.BorderBottom = BorderStyle.Thin;
 
             var reportTotalUnattendedLeadDataFont = _workbook.CreateFont();
             reportTotalUnattendedLeadDataFont.FontName = "Calibri";
@@ -239,14 +266,6 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportTotalUnattendedLeadDataStyle.Alignment = HorizontalAlignment.Right;
 
             reportTotalUnattendedLeadDataCell.CellStyle = reportTotalUnattendedLeadDataStyle;
-
-
-            var data = exportData as List<LeadGenerationInfo>;
-
-            var groupedLeadGenerationInfo = data
-                                            .GroupBy(u => u.DomainName)
-                                            .Select(grp => grp.ToList())
-                                            .ToList();
 
             var domainRowIndex = 5;
             var headerRowIndex = 7;
@@ -342,7 +361,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                 reportTotalUnattendedQueriesDataCell.SetCellValue(domainLevelUnattendedQueries);
 
                 var reportTotalUnattendedQueriesDataStyle = _workbook.CreateCellStyle();
-
+  
                 var reportTotalUnattendedQueriesDataFont = _workbook.CreateFont();
                 reportTotalUnattendedQueriesDataFont.FontName = "Calibri";
                 reportTotalUnattendedQueriesDataFont.Boldweight = (short)FontBoldWeight.Bold;
@@ -454,53 +473,11 @@ namespace IndianBank_ChatBOT.ExcelExport
                             }
                         }
                     }
-                    itemIndex = itemIndex + 1;
+                    itemIndex += 1;
                 }
 
                 domainRowIndex = domainRowIndex + 4 + item.Count();
                 headerRowIndex = headerRowIndex + 4 + item.Count();
-            }
-        }
-
-        private void SaveDataIntoExcel(DataTable table, IRow sheetRow, int i)
-        {
-            sheetRow.Height = 400;
-
-            for (int j = 0; j < table.Columns.Count; j++)
-            {
-                ICell Row1 = sheetRow.CreateCell(j);
-
-                string cellvalue = Convert.ToString(table.Rows[i][j]);
-
-                if (string.IsNullOrWhiteSpace(cellvalue))
-                {
-                    Row1.SetCellValue(string.Empty);
-                }
-                else if (_type[j].ToLower() == "string")
-                {
-                    Row1.SetCellValue(cellvalue);
-                }
-                else if (_type[j].ToLower() == "leadgenerationaction")
-                {
-                    Row1.SetCellValue(Enum.GetName(typeof(LeadGenerationAction), Convert.ToInt32(cellvalue)));
-                }
-                else if (_type[j].ToLower() == "int32")
-                {
-                    Row1.SetCellValue(Convert.ToInt32(table.Rows[i][j]));
-                }
-                else if (_type[j].ToLower() == "double")
-                {
-                    Row1.SetCellValue(Convert.ToDouble(table.Rows[i][j]));
-                }
-                else if (_type[j].ToLower() == "datetime")
-                {
-                    Row1.SetCellValue(Convert.ToDateTime
-                        (table.Rows[i][j]).ToString("dd-MMM-yy HH:mm"));
-                }
-                else
-                {
-                    Row1.SetCellValue(string.Empty);
-                }
             }
         }
     }

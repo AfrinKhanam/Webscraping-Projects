@@ -55,6 +55,14 @@
             var tdate = formatDate(to_date, "yyyy-mm-dd");
             window.location.href = "/Report/LeadGenerationReport?from=" + fdate + "&to=" + tdate;
         });
+
+        $('#export_btn').click(function () {
+            var tdate = formatDate(to_date, "yyyy-mm-dd");
+            $("#from").val(formatDate(from_date, "yyyy-mm-dd"));
+            $("#to").val(formatDate(to_date, "yyyy-mm-dd"));
+            debugger;
+            $("#export_btn_submit").click();
+        });
     });
 </script>
 
@@ -85,7 +93,14 @@
         </form>
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button type="button" id="filter_btn" class="btn btn-primary">Filter</button>
+        <button type="button" id="filter_btn" class="btn btn-primary">Filter</button> &nbsp; &nbsp;
+        <button class="btn btn-outline-success" type="button" id="export_btn">Export</button>
+        @using (Html.BeginForm("ExportLeadGenerationReport", "Report"))
+        {
+            @Html.Hidden("from", "")
+            @Html.Hidden("to", "")
+            <button id="export_btn_submit" style="display:none" type="submit">Export Report</button>
+        }
     </div>
 </div>
 
