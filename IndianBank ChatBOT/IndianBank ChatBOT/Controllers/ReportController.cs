@@ -1,4 +1,5 @@
-﻿using IndianBank_ChatBOT.Models;
+﻿using IndianBank_ChatBOT.ExcelExport;
+using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -372,6 +373,7 @@ namespace IndianBank_ChatBOT.Controllers
                 list.GroupBy(item => item.ConversationId)
                                              .Select(group => new ConversationByUser
                                              {
+                                                 UserInfoId = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.Id).FirstOrDefault(),
                                                  ConversationId = group.Key,
                                                  Name = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.Name).FirstOrDefault(),
                                                  PhoneNumber = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.PhoneNumber).FirstOrDefault(),
@@ -426,7 +428,83 @@ namespace IndianBank_ChatBOT.Controllers
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
 
+            var leadGenerationInfos = GetLeadGenerationInfos(vm);
+            UpdateLeadGenerationInfos(leadGenerationInfos);
+
             return View(vm);
+        }
+
+
+
+        [HttpPost]
+        [Route("ExportLeadGenerationReport")]
+        public IActionResult ExportLeadGenerationReport([FromBody] ReportParams @params)
+        {
+            var fromDate = @params.From;
+            var toDate = @params.To;
+
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            var query = $"select * from \"LeadGenerationInfos\" where \"QueriedOn\" between '{fromDate}' AND '{toDate}'";
+
+            var leadGenerationInfos = _dbContext.LeadGenerationInfos.FromSql(query).ToList();
+
+            var buffer = new LeadGenerationExportBridge().Export(leadGenerationInfos);
+
+            var fileName = @"Lead_Generation_Report-" + @params.From + " to " + @params.To + ".xlsx";
+
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+
+        private void UpdateLeadGenerationInfos(List<LeadGenerationInfo> leadInfos)
+        {
+            var conversationIds = leadInfos.Select(l => l.ConversationId).ToList();
+
+            var existingConversations = _dbContext.LeadGenerationInfos.Where(l => conversationIds.Contains(l.ConversationId)).Select(l => l.ConversationId).ToList();
+
+            var uniqueConversations = conversationIds.Except(existingConversations).ToList();
+
+            var actualLeadInfos = leadInfos.Where(li => uniqueConversations.Contains(li.ConversationId)).ToList();
+
+            _dbContext.LeadGenerationInfos.AddRange(actualLeadInfos);
+            _dbContext.SaveChanges();
+        }
+
+        private List<LeadGenerationInfo> GetLeadGenerationInfos(LeadGenerationReportViewModel viewModel)
+        {
+            var vm = viewModel;
+
+            var leadGenerationInfos = new List<LeadGenerationInfo>();
+
+            foreach (var leadGenerationReport in vm.ConversationsByIntent)
+            {
+                foreach (var userConversation in leadGenerationReport.ConversationByUsers)
+                {
+                    var leadInfo = new LeadGenerationInfo
+                    {
+                        Id = 0,
+                        DomainName = leadGenerationReport.Intent,
+                        LeadGenerationAction = null,
+                        PhoneNumber = userConversation.PhoneNumber,
+                        QueriedOn = userConversation.TimeStamp,
+                        UserInfoId = userConversation.UserInfoId,
+                        ConversationId = userConversation.ConversationId,
+                        Visitor = userConversation.Name
+                    };
+                    leadGenerationInfos.Add(leadInfo);
+                }
+            }
+            return leadGenerationInfos;
         }
 
         [HttpPost]

@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200309103100_LeadGenerationInfo")]
+    partial class LeadGenerationInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,17 +79,15 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ConversationId");
-
                     b.Property<string>("DomainName");
 
-                    b.Property<int?>("LeadGenerationAction");
+                    b.Property<int>("LeadGenerationAction");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<DateTime>("QueriedOn");
 
-                    b.Property<int>("UserInfoId");
+                    b.Property<int>("UserInfo");
 
                     b.Property<string>("Visitor");
 

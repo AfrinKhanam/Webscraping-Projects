@@ -17,6 +17,7 @@
     <PackageReference Include="angular-local-storage" Version="0.7.0" />
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="AutoMapper.EF6" Version="2.0.0" />
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     
     <PackageReference Include="MailKit" Version="2.1.4" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.8.1" />
