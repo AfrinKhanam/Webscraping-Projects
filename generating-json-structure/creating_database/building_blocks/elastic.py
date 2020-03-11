@@ -56,11 +56,17 @@ class Elastic():
 
     def document_out_of_content(self, document):
         # --------------------------------------------------------- #
+        print("START---------------------------")
+        print(json.dumps(document,indent=4))
+        print("END---------------------------")
+
         document_list = []
 
         for element in document['subtitle']['elements']:
             for content in element['content']:
                 for text, text_stem in zip(content['text'], content['text_stem']):
+                    print("text is---------> ",text)
+                    print("text stem is------->",text_stem)
                     document_list.append({
                         "document_name"     : self.get_document_name(document),
                         "url"               : self.get_url(document),

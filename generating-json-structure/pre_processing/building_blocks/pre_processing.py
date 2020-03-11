@@ -39,18 +39,19 @@ class PreProcessing():
         # print("elements name is ----------->> ",document['subtitle']['elements'])
          #------------- MAIN TITLE Unnecessary Symbols removal -----------------------------#
         document['main_title'] = self.removeSpecialCharacters(document['main_title'])
-
+        
+        val=[]
         for element in document['subtitle']['elements']:
 
             for _,content in enumerate(element['content']):
 
                 for idx,text in enumerate(content['text']):
-                    val=[]
+                    
                     val.append(text)
-                    print(val)
+                    print("value is--->>",val)
                     # document['subtitle']['elements']['content']=[self.removeSpecialCharacters(text)]
                     #print(document['subtitle']['elements'][0]['content'])
-                    document['subtitle']['elements'][0]['content'][0]['text'] = val
+        document['subtitle']['elements'][0]['content'][0]['text'] = val
                     # contentData=document['subtitle']['elements']['content']
                     # print("idx------------->",idx)
                     # print("content is--------------------------",self.removeSpecialCharacters(text))

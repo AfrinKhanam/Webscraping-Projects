@@ -23,7 +23,7 @@ offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=di
 wish=want=prefered
 look=see=view=lk
 agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
-eligibility=ability= who can=criteria
+eligibility=ability= apply=criteria
 minimum=min
 apply=place=join
 criteria=norms=rule=prototype
@@ -31,7 +31,8 @@ requirement=necessary=recommended=required
 objectives=aim=goal=intention=purpose=information
 interest rate=interest
 margin=edge=border=scope=surplus
-security=safety=protection                 
+security=safety=protection    
+kcc=kisan credit card             
 maximum=max=maxi=highest
 repayment=paying back=compensate=compensation=reimbursement
 permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted

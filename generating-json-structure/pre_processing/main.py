@@ -9,7 +9,7 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         document = json.loads(body, strict=False)
-        print(json.dumps(document, indent=4))
+        # print(json.dumps(document, indent=4))
         #---------------------------------------------------------------#
 
         
@@ -18,8 +18,9 @@ def callback(ch, method, properties, body):
         #---------------------------------------------------------------#
 
         #---------------------------------------------------------------#
-        # print(json.dumps(document, indent=4, sort_keys=True))
+        print(json.dumps(document, indent=4, sort_keys=True))
         rabbitmq_producer.publish(json.dumps(document).encode())
+
         #---------------------------------------------------------------#
 
 

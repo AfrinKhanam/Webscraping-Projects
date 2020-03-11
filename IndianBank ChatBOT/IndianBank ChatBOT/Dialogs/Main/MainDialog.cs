@@ -385,11 +385,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     ScrollBarDialog.DisplayScrollBarMenu(dc, entityName);
                     await dc.EndDialogAsync();
                 }
-                // else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
+                // ELSE IF (ENTITYTYPE == "ABOUTUS_ENTITY" || ENTITYTYPE == "PRODUCT_ENTITY" || ENTITYTYPE == "SERVICES_ENTITY" || ENTITYTYPE == "RATES_ENTITY" || ENTITYTYPE == "CUSTOMERSUPPORT_ENTITY" || ENTITYTYPE == "LINK_ENTITY")
                 // {
-                //     await dc.Context.SendActivityAsync("Display the predefined FAQ's");
-                //     SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
-                //     await dc.EndDialogAsync();
+                //     AWAIT DC.CONTEXT.SENDACTIVITYASYNC("DISPLAY THE PREDEFINED FAQ'S");
+                //     SAMPLEFAQDIALOG.DISPLAYSAMPLEFAQ(DC, ENTITYTYPE, ENTITYNAME);
+                //     AWAIT DC.ENDDIALOGASYNC();
                 // }
                 else
                 {

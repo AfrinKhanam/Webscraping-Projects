@@ -21,18 +21,19 @@ DepositRates="./ManuallyScrapedData/DepositRates.json"
 
 
 json_files = [
-        ib_surabhi_path,
-        ibCollectionPlus,
-        CentralSchemeToProvideInterestSubsidy,
-        CentralizedPensionProcessingSystem,
-        image,
-        ExecutiveDirectorsProfile,
-        EConfirmationOfBankGuarantee,
-        ComplaintsOfficersList,
-        IndianBankMutualFund,
-        ServiceChargesForexRates,
-        LendingRates,InternetBanking,IndPay,
-        SupremeCurrentAccounts,DepositRates
+        # ib_surabhi_path,
+        # ibCollectionPlus,
+        # CentralSchemeToProvideInterestSubsidy,
+        # CentralizedPensionProcessingSystem,
+        # image,
+        # ExecutiveDirectorsProfile,
+        # EConfirmationOfBankGuarantee,
+        # ComplaintsOfficersList,
+        # IndianBankMutualFund,
+        # ServiceChargesForexRates,
+        LendingRates,
+        # InternetBanking,IndPay,
+        # SupremeCurrentAccounts,DepositRates
         ]
 documents = []
 

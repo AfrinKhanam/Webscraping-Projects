@@ -140,6 +140,10 @@ class ESPostProcessing:
         bucket1_subtitle_lengths=[]
         bucket2_subtitle_lengths=[]
 
+        # Remove Prepositions from subtitle (bucket)
+        self.remove_prepositions_from_title(bucketData1,bucketData2)
+
+
         if bucketData1!=[] and bucketData2!=[]:
             documents,docs_length=zip(*bucketData1)
             # print(json.dumps(documents,indent=4))
@@ -162,8 +166,10 @@ class ESPostProcessing:
                 bucket2_docs.append(doc)
                 bucket2_subtitle_lengths.append(matched_subtitle_length)
                 doc['matched_subtitle_words']=list(matched_subtitle_words)
-             # Remove Prepositions from subtitle (bucket)
-            self.remove_prepositions_from_title(bucket1_docs,bucket2_docs)
+
+            #  # Remove Prepositions from subtitle (bucket)
+            # self.remove_prepositions_from_title(bucket1_docs,bucket2_docs)
+
             bucket1_zipped=zip(bucket1_docs,bucket1_subtitle_lengths)
             bucket1_zipped=list(bucket1_zipped)
             bucket1_subtitle_sorted_docs=sorted(bucket1_zipped,key=lambda x: x[1], reverse=True)
@@ -190,6 +196,7 @@ class ESPostProcessing:
             docs=[]
             subtitle_lengths=[]
             documents,docs_length=zip(*bucketData1)
+
             # Remove Prepositions from subtitle (bucket)
             self.remove_prepositions_from_title(bucket1_docs=documents,bucket2_docs=None)
 
@@ -208,19 +215,32 @@ class ESPostProcessing:
             # print("zipped---> ",json.dumps(zipped,indent=4))
             # subtitle_sorted_docs=zipped.sort(key=lambda x: x[1],reverse=True)
 
+            result=False
+            # if all docs main title is same then do sorting else no sorting its like 3 buckets for 3 different docs
+            result=all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title'])) for doc in document['ES_RESULT']['DOCUMENTS'])
+            if result:
+                subtitle_sorted_docs=sorted(zipped,key=lambda x: x[1], reverse=True)
 
+                docs,subtitle_lengths=zip(*subtitle_sorted_docs)
+                print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
+                document['ES_RESULT']['DOCUMENTS']=docs
+                print(json.dumps(docs,indent=4))
+                print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
+                self.club_documents(document)
+                
+            else:
 
-            # subtitle_sorted_docs=sorted(zipped,key=lambda x: x[1], reverse=True)
-            # print("-----------------SORTING BASED ON SUB TITLE---------------------------")
-            # print(json.dumps(subtitle_sorted_docs,indent=4))
-            # print("-----------------END OF SORTING BASED ON SUB TITLE---------------------------")
-            # unzipping the docs
-            docs,subtitle_lengths=zip(*zipped)
-            print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
-            document['ES_RESULT']['DOCUMENTS']=docs
-            print(json.dumps(docs,indent=4))
-            print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
-            self.club_documents(document)
+                # subtitle_sorted_docs=sorted(zipped,key=lambda x: x[1], reverse=True)
+                # print("-----------------SORTING BASED ON SUB TITLE---------------------------")
+                # print(json.dumps(subtitle_sorted_docs,indent=4))
+                # print("-----------------END OF SORTING BASED ON SUB TITLE---------------------------")
+                # unzipping the docs
+                docs,subtitle_lengths=zip(*zipped)
+                print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
+                document['ES_RESULT']['DOCUMENTS']=docs
+                print(json.dumps(docs,indent=4))
+                print("------------START OF SUBTITLE SORTING--------(SAME DOCS OR DIFFERENT DOCS)----------------------") 
+                self.club_documents(document)
 
             # print("-----------------SORTING BASED ON SUB TITLE---------------------------")
         # print(json.dumps(docs,indent=4))
@@ -228,6 +248,7 @@ class ESPostProcessing:
     def club_documents(self,document):
         result=False
         result=all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title']) and doc['stemmed_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_title']) ) for doc in document['ES_RESULT']['DOCUMENTS'])
+        # if all docs main title and subtitle is same
         if result:
             stemmed_value=""
             value=""
@@ -237,42 +258,78 @@ class ESPostProcessing:
             
             document['ES_RESULT']['DOCUMENTS'][0]['value']=value
             document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
-            
+            print("-------------if all docs main title and subtitle is same-----------------")
             print("value is--->",value)
 
             print("stemmed value is-->",stemmed_value)
             print("After Merging the same docs--->",json.dumps(document,indent=4))
+            print("-------------if all docs main title and subtitle is same----(end)-------------")
+
+        # if all docs main title is same but 1 different subtitle
+        elif all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title']) ) for doc in document['ES_RESULT']['DOCUMENTS']):
+            element_list=[doc['stemmed_title'] for doc in document['ES_RESULT']['DOCUMENTS']]
+            print(element_list)
+            duplicates=[]
+            for doc in document['ES_RESULT']['DOCUMENTS']:
+                if element_list.count(doc['stemmed_title'])>1:
+                    duplicates.append(doc)
+            print("meow--> \n ",json.dumps(duplicates,indent=4))
+            print("end of meow")
+            if len(duplicates)!=0:
+                print("duplicates are present---->>")
+                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
+                    value=""
+                    stemmed_value=""
+                    for doc in duplicates:
+                        stemmed_value+=doc['stemmed_value']+"\n"
+                        value+=doc['value']+"\n"
+
+                    document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
+                    document['ES_RESULT']['DOCUMENTS'][0]['value']=value
+                    print("----------if all docs main title is same but 1 different subtitle............")
+                    print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
+                    print("----------if all docs main title is same but 1 different subtitle......(end)......")
+
         else:
-            pass
-            # result=False
-            # result=all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title']) ) for doc in document['ES_RESULT']['DOCUMENTS'])
-            # if True:
-            #     duplicates=[(doc) for doc in document['ES_RESULT']['DOCUMENTS']]
-            #     # duplicates=set(duplicates)
-            #     print("duplicates-->",duplicates)
-                # docs=[]
-                # for idx, doc in enumerate(document['ES_RESULT']['DOCUMENTS']):
-                #    current=doc
-                #    for next in range(len(document['ES_RESULT']['DOCUMENTS'])-1):
-                #        if document['ES_RESULT']['DOCUMENTS'][next+1]['stemmed_title']==current['stemmed_title']:
-                #            docs.append(document['ES_RESULT']['DOCUMENTS'][next+1])
-                #            docs.append(current)
+            # if any 2 docs main title and subtitle is same
+            duplicates=[]
+            for idx,doc in enumerate(document['ES_RESULT']['DOCUMENTS']):
+                print("doc--->",doc['main_title'])
+                if idx==len(document['ES_RESULT']['DOCUMENTS'])-1:
+                    idx=-1
+                    print("entering if statement after reaching end of the list",idx)
+                    
+                if doc['stemmed_main_title']==document['ES_RESULT']['DOCUMENTS'][idx+1]['stemmed_main_title'] and doc['stemmed_title']==document['ES_RESULT']['DOCUMENTS'][idx+1]['stemmed_title']:
+                    print("appending to the list",doc['main_title'],"----",document['ES_RESULT']['DOCUMENTS'][idx+1]['main_title'])
+                    duplicates.append(doc)
+                    duplicates.append(document['ES_RESULT']['DOCUMENTS'][idx+1])
+            print("duplicates--->",duplicates)
+            if len(duplicates)!=0:
+                print("duplicates are present...")
+                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
+                    value=""
+                    stemmed_value=""
+                    for doc in duplicates:
+                        stemmed_value+=doc['stemmed_value']+"\n"
+                        value+=doc['value']+"\n"
+
+                    document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
+                    document['ES_RESULT']['DOCUMENTS'][0]['value']=value
+                    print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE--------->> ")
+                    print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
+                    print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE------(END)--->> ")
+            else:
+                pass
+
+
+              
             
 
+                
 
+            # print(element_list)
+            pass
 
-
-
-
-
-
-  
-
-      
-    
-        
-       
-        
         # print(json.dumps(document,indent=4))
 
     def removeWordFrequency(self,unMatched_words):
