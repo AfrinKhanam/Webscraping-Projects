@@ -3,6 +3,8 @@ education = study
 four = 4
 two = 2 = scooter
 three = 3
+week=7 days
+rfc=resident foreign currency
 vehicle=motor bike = motor cycle = mobike=car=bike
 healthcare=health care
 shareholder=share holder
@@ -76,3 +78,5 @@ Non Resident Indian =NRI
 ib=IB=Indian Bank
 Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
+pos=point of sale
+asba=applications supported by Blocked Amount

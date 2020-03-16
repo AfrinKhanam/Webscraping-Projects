@@ -673,7 +673,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.CORRECT_QUERY}\"");
                         if (jsonObject.WORD_COUNT > 100)
                         {
-                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}");
+                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value} \n\n {jsonObject.DOCUMENTS[0].url}");
                         }
                         else if (jsonObject.WORD_COUNT < 25)
                         {
