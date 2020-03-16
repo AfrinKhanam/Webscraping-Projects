@@ -376,11 +376,11 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-             //window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-             window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+        //window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
+        window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) { 
-               //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
             var styleOptions = {
                 backgroundColor: '',
                 hideUploadButton: true,
@@ -540,8 +540,7 @@
         }
 
         sendFeedback = (feedBack) => {
-        debugger;
-        fetch('http://localhost:7512/Report/UpdateFeedback', {
+        fetch('http://52.172.14.249:7512/Report/UpdateFeedback', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
@@ -572,7 +571,7 @@
         return (
         <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
             <div className="activity">{props.children}</div>
-            <ul className="button-bar"> 
+            <ul className="button-bar">
                 <li>
                     <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
                 </li>
@@ -589,7 +588,6 @@
         const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
         <ActivityWithFeedback { ...props} />
         ));
-        debugger;
         let excludedText = [`Hi! My name is Iva 😃.
         Welcome to Indian Bank.
         I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
@@ -608,10 +606,10 @@
 
         window.ReactDOM.render(
         <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
-        activityMiddleware={activityMiddleware}
-        directLine={directLine}
-        styleOptions={styleOptions}
-        store={store} />,
+                      activityMiddleware={activityMiddleware}
+                      directLine={directLine}
+                      styleOptions={styleOptions}
+                      store={store} />,
         document.getElementById('webchat')
         );
 
@@ -739,63 +737,65 @@
                                         ]
                                 }
                             }
-                        }
+                        };
 
                         var empty_suggestions = { suggestions: [] };
 
                         $.ajax({
-                            url: "http://52.172.14.249:9200/indian-bank-auto-suggestion-v2/_search",
+                            url: "/AutoSuggestion/Suggest",
                             type: "POST",
-                            data: JSON.stringify(dataToPost),
+                            data: JSON.stringify({ "Query": JSON.stringify(dataToPost) }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (result) {
-                                if (result.hits.hits.length < 1) {
-                                    done(empty_suggestions);
-                                    return;
-                                }
-
-                                var suggestionCountToDisplay = 5;
-
-                                var suggestionList = result.hits.hits;
-
-                                if (suggestionList.length < 1) {
-                                    done(empty_suggestions);
-                                    return;
-                                }
-
-                                var curContext = (current_Context || '').toLowerCase();
-
-                                suggestionList = $.map(suggestionList, function (item, i) {
-                                    var src = item._source;
-                                    var itemContext = src.primary_context_and_keyword.split(',', 1)[0].toLowerCase();
-
-                                    return { "value": src.Questions, "data": src.Questions, "context": itemContext };
-                                });
-
-                                /*console.log(curContext);
-                                console.table(suggestionList);*/
-
-                                var contextItems = [];
-                                var alternateItems = [];
-
-                                for (var i = 0; i < suggestionList.length; i++) {
-                                    // If we have 5 items (i.e., suggestionCountToDisplay) to display, then break out of the loop
-                                    if (contextItems.length == suggestionCountToDisplay)
-                                        break;
-
-                                    var item = suggestionList[i];
-
-                                    if ($.trim(item.context).length > 0 && item.context == curContext) {
-                                        contextItems.push(item);
-                                    } else {
-                                        alternateItems.push(item);
+                                if (result != null) {
+                                    if (result.hits.hits.length < 1) {
+                                        done(empty_suggestions);
+                                        return;
                                     }
-                                }
 
-                                done({
-                                    suggestions: contextItems.length > 0 ? contextItems : alternateItems.slice(0, 5)
-                                });
+                                    var suggestionCountToDisplay = 5;
+
+                                    var suggestionList = result.hits.hits;
+
+                                    if (suggestionList.length < 1) {
+                                        done(empty_suggestions);
+                                        return;
+                                    }
+
+                                    var curContext = (current_Context || '').toLowerCase();
+
+                                    suggestionList = $.map(suggestionList, function (item, i) {
+                                        var src = item._source;
+                                        var itemContext = src.primary_context_and_keyword.split(',', 1)[0].toLowerCase();
+
+                                        return { "value": src.Questions, "data": src.Questions, "context": itemContext };
+                                    });
+
+                                    /*console.log(curContext);
+                                    console.table(suggestionList);*/
+
+                                    var contextItems = [];
+                                    var alternateItems = [];
+
+                                    for (var i = 0; i < suggestionList.length; i++) {
+                                        // If we have 5 items (i.e., suggestionCountToDisplay) to display, then break out of the loop
+                                        if (contextItems.length == suggestionCountToDisplay)
+                                            break;
+
+                                        var item = suggestionList[i];
+
+                                        if ($.trim(item.context).length > 0 && item.context == curContext) {
+                                            contextItems.push(item);
+                                        } else {
+                                            alternateItems.push(item);
+                                        }
+                                    }
+
+                                    done({
+                                        suggestions: contextItems.length > 0 ? contextItems : alternateItems.slice(0, 5)
+                                    });
+                                }
                             },
                             error: function () {
                                 //debugger;
@@ -995,7 +995,7 @@
         [data-css-1dgbgmu] {
             color: #ffe8a3 !important
         }
- 
+
 
         .avatar {
             background-color: #ffe8a3 !important;
