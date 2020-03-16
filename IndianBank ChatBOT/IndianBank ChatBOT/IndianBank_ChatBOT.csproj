@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\bootstrap.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AdaptiveCards" Version="1.1.0" />
     <PackageReference Include="angular-local-storage" Version="0.7.0" />
     <PackageReference Include="AutoMapper" Version="8.1.1" />
