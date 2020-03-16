@@ -1,0 +1,31 @@
+﻿@model List<Top10DomainsVisitedViewModel>
+@{
+    var currentMonthText = DateTime.Now.ToString("MMM");
+    var currentYear = DateTime.Now.Year;
+    var currentMonthYearText = currentMonthText + " " + currentYear;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>ChatBOT - Top 10 Domains Visited - @currentYear</h4>
+    </div>
+    <div class="card-body">
+
+        @{
+            var maxValue = Model.Max(i => i.HitPercentage);
+            foreach (var item in Model)
+            {
+                var percentage = Convert.ToInt32((item.HitPercentage * 100) / maxValue);
+                var percentageText = percentage.ToString() + "%;";
+
+                <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">@item.TotalHits</div>
+                    <div class="font-weight-bold mb-1">@item.DomainName</div>
+                    <div class="progress" data-height="3" style="height: 3px;">
+                        <div class="progress-bar" role="progressbar" data-width="@percentageText" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: @percentageText"></div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

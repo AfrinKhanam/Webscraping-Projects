@@ -1,139 +1,101 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>@ViewData["Title"]</title>
-    <script type="text/javascript" src="~/lib//jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- General CSS Files -->
+    <link href="~/lib/stisla/modules/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/stisla/modules/fontawesome/css/all.min.css" rel="stylesheet" />
+
+    <!-- Plugins -->
+    <link href="~/lib/stisla/modules/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
+
+    <!-- Template CSS -->
+    <link href="~/lib/stisla/css/style.css" rel="stylesheet" />
+    <link href="~/lib/stisla/css/components.css" rel="stylesheet" />
+
+
+    <script type="text/javascript" src="~/lib/stisla/modules/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/modules/popper.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/modules/tooltip.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/modules/moment.min.js"></script>
+    <script type="text/javascript" src="~/lib/stisla/js/stisla.js"></script>
+
     <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker_1.3.css" rel="stylesheet" type="text/css" />
     <script src="~/lib/bootstrap-datepicker/bootstrap_datepicker.js"></script>
 </head>
 
-<body class="scroll-enable">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ib-yellow-border">
-           <a class="navbar-brand" asp-area="" asp-controller="Report" asp-action="Index">
-                    <img src="~/lib/images/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="Indian Bank">
-                    Indian Bank - ChatBOT Insights
-                </a>
-                <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="Index">
-                    Dashboards
-                </a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" asp-area="" asp-controller="Synonyms" asp-action="Index">Synonyms <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="StaticFiles" asp-action="Index">
-                    Static Files</a>
-      </li>
-  
-    </ul>
-  </div>
-          
-      
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+<body>
+    <div id="app">
+        <section class="section">
+        </section>
     </div>
 
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                    </ul>
+                </form>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/Dashboard/RealTimeDashboard">ChatBOT Insights</a>
+                    </div>
+                    <div class="sidebar-brand sidebar-brand-sm">
+                        <a href="/Dashboard/RealTimeDashboard">CI</a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Dashboard</li>
+                        <li><a class="nav-link" href="/Dashboard/RealTimeDashboard"><i class="fas fa-chart-pie"></i> <span>Real-time Dashboard</span></a></li>
+                        
+                        <li class="menu-header">Report</li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-table"></i><span>Report</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/Report/FrequentlyAskedQueries">Frequently Asked Queries</a></li>
+                                <li><a class="nav-link" href="/Report/AppUsers">ChatBOT Visitors</a></li>
+                                <li><a class="nav-link" href="/Report/UnAnsweredQueries">Unanswered Queries</a></li>
+                                <li><a class="nav-link" href="/Report/LeadGenerationReport">Lead Generation Report</a></li>
+                                <li><a class="nav-link" href="/Report/UnSatisfiedVisitors">Unsatisfied Visitors</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-header">Utils</li>
+                        <li><a class="nav-link" href="/StaticFiles/Index"><i class="fas fa-file"></i> <span>Static Files</span></a></li>
+                    </ul>
+                </aside>
+            </div>
 
-    @RenderSection("Scripts", required: false)
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    @RenderBody()
+                </section>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2020 <div class="bullet"></div> Design By <a href="http://botaiml.com/">BOT AI ML</a>
+                </div>
+                <div class="footer-right">
+                </div>
+            </footer>
+        </div>
+    </div>
 
-    <style>
-        .scroll-enable {
-            overflow: scroll;
-        }
-
-
-        .color-black {
-            color: black;
-        }
-
-            .color-black.active {
-                /*font-weight:bold;*/
-            }
-
-        .navbar-ib {
-            background-color: #0c4da2
-        }
-
-        .ib-yellow-border {
-            border-bottom: 1px solid #e0a800 !important;
-        }
-
-        .nav-tabs {
-            width: 100%;
-        }
-
-        .example-table td {
-            padding: 30px;
-        }
-
-        .example-table th {
-            padding: 30px;
-        }
-
-        .sub-table {
-            width: 100%;
-            background-color: #00245f;
-            transition: display 0s, opacity 2s linear;
-        }
-
-            .sub-table th {
-                font-size: 14px;
-                color: white;
-            }
-
-            .sub-table td {
-                font-size: 13px;
-            }
-
-        .btn-hover {
-            cursor: pointer !important;
-        }
-
-        .report-heading {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-            .report-heading:hover {
-                color: black;
-            }
-
-        .color-black {
-            color: black;
-        }
-
-        label.date_label {
-            margin-left: 20px;
-        }
-
-        #datepicker_from, #datepicker_to {
-            width: 180px;
-            margin: 0 20px 20px 20px;
-        }
-
-            #datepicker_from, #datepicker_to > span:hover {
-                cursor: pointer;
-            }
-
-        .form-control:disabled, .form-control[readonly] {
-            background-color: transparent;
-            opacity: 1;
-        }
-    </style>
-
+    <!-- General JS Scripts -->
+    <!-- Plugins -->
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script src="~/lib/stisla/js/scripts.js"></script>
+    <script src="~/lib/stisla/js/custom.js"></script>
 </body>
 </html>

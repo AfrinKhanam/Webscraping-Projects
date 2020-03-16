@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Models
 {
-    public class LeadGenerationReportViewModel: ReportParams
+    public class LeadGenerationReportViewModel : ReportParams
     {
         public List<ConversationByIntent> ConversationsByIntent { get; set; }
     }

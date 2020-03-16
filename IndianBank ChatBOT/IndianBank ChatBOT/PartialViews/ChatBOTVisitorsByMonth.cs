@@ -1,0 +1,35 @@
+﻿using IndianBank_ChatBOT.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IndianBank_ChatBOT.PartialViews
+{
+    public class ChatBOTVisitorsByMonth : ViewComponent
+    {
+        private readonly AppSettings _appSettings;
+        private readonly AppDbContext _dbContext;
+        private readonly string _connectionString;
+
+        public ChatBOTVisitorsByMonth(AppDbContext _dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings)
+        {
+            this._dbContext = _dbContext;
+            _appSettings = appsettings.Value;
+            _connectionString = configuration.GetConnectionString("connString");
+        }
+
+        public IViewComponentResult Invoke()
+        {
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+            var query = $"select EXTRACT(day FROM U.\"CreatedOn\"):: int as DayNumber, TO_CHAR(U.\"CreatedOn\", 'Mon') AS MonthText, Count(U.\"Id\"):: int AS Visits from \"UserInfos\" U where extract(YEAR FROM U.\"CreatedOn\") = '{currentYear}' and extract(month from U.\"CreatedOn\") = '{currentMonth}' GROUP BY 1,2 order by EXTRACT(day FROM U.\"CreatedOn\"):: int asc";
+            var vm = _dbContext.VisitorsByMonthViewModels.FromSql(query).ToList();
+            return View("ChatBOTVisitorsByMonth", vm);
+        }
+    }
+}
