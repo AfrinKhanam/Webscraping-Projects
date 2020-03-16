@@ -38,7 +38,6 @@ $(function () {
             $('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
         },
         onHint: function (hint) {
-			debugger;
             $('#autocomplete-ajax-x').val(hint);
         },
         onInvalidateSelection: function() {
