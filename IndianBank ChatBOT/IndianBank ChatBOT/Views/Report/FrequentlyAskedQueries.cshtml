@@ -52,7 +52,11 @@
         $('#filter_btn').click(function () {
             var fdate = formatDate(from_date, "yyyy-mm-dd");
             var tdate = formatDate(to_date, "yyyy-mm-dd");
-            window.location.href = "/Report/FrequentlyAskedQueries?from=" + fdate + "&to=" + tdate;
+
+            $("#from").val(fdate);
+            $("#to").val(tdate);
+
+            $("#submit_btn").click();
         });
     });
 </script>
@@ -67,11 +71,12 @@
         <h1>Frequently Asked Queries</h1>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-        <form class="form-inline" role="form">
+        <form class="form-inline" role="form" action="/report/FrequentlyAskedQueries" method="post">
+            <input type="hidden" id="from" name="from" value="" />
+            <input type="hidden" id="to" name="to" value="" />
             <div class="form-group">
                 <label for="From">From</label>   &nbsp;
                 <div id="datepicker_from" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
-                    @*<span class="input-group-addon" id="addon-event">From </span>*@
                     <input class="form-control" type="text" id="from_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
@@ -81,11 +86,11 @@
             <div class="form-group">
                 <label for="To">To</label>   &nbsp;
                 <div id="datepicker_to" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
-                    @*<span class="input-group-addon" id="addon-event">To </span>*@
                     <input class="form-control" type="text" id="to_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
+            <button type="submit"  style="display:none" id="submit_btn" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
@@ -146,61 +151,61 @@
 
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                            <table class="table table-striped table-md">
-                                <thead>
+                        <table class="table table-striped table-md">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:right">
+                                        S No.
+                                    </th>
+                                    <th>
+                                        Visitor Query
+                                    </th>
+                                    <th style="text-align:right">
+                                        Hits
+                                    </th>
+                                    <th style="text-align:right">
+                                        Positive Feedback
+                                    </th>
+                                    <th style="text-align:right">
+                                        Negetive Feedback
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var index = 0;
+                                }
+                                @foreach (var item in Model.FrequentlyAskedQueries)
+                                {
+                                    {
+                                        index += 1;
+                                    }
                                     <tr>
-                                        <th style="text-align:right">
-                                            S No.
-                                        </th>
-                                        <th>
-                                            Visitor Query
-                                        </th>
-                                        <th style="text-align:right">
-                                            Hits
-                                        </th>
-                                        <th style="text-align:right">
-                                            Positive Feedback
-                                        </th>
-                                        <th style="text-align:right">
-                                            Negetive Feedback
-                                        </th>
+                                        <td style="text-align:right">@index</td>
+                                        <td style="word-break:break-all;">
+                                            @Html.DisplayFor(modelItem => item.Query)
+                                        </td>
+                                        <td style="text-align:right">
+                                            @Html.DisplayFor(modelItem => item.Count)
+                                        </td>
+                                        <td style="text-align:right">
+                                            @Html.DisplayFor(modelItem => item.PositiveFeedback)
+                                        </td>
+                                        <td style="text-align:right">
+                                            @Html.DisplayFor(modelItem => item.NegetiveFeedback)
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        var index = 0;
-                                    }
-                                    @foreach (var item in Model.FrequentlyAskedQueries)
-                                    {
-                                        {
-                                            index += 1;
-                                        }
-                                        <tr>
-                                            <td style="text-align:right">@index</td>
-                                            <td style="word-break:break-all;">
-                                                @Html.DisplayFor(modelItem => item.Query)
-                                            </td>
-                                            <td style="text-align:right">
-                                                @Html.DisplayFor(modelItem => item.Count)
-                                            </td>
-                                            <td style="text-align:right">
-                                                @Html.DisplayFor(modelItem => item.PositiveFeedback)
-                                            </td>
-                                            <td style="text-align:right">
-                                                @Html.DisplayFor(modelItem => item.NegetiveFeedback)
-                                            </td>
-                                        </tr>
-                                    }
+                                }
 
-                                    @if (Model.FrequentlyAskedQueries.Count == 0)
-                                    {
-                                        <tr class="no-data" style="text-align:center">
-                                            <td colspan="5">No data found !</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                @if (Model.FrequentlyAskedQueries.Count == 0)
+                                {
+                                    <tr class="no-data" style="text-align:center">
+                                        <td colspan="5">No data found !</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
