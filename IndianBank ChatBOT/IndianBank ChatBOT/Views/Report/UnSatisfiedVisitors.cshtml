@@ -53,7 +53,11 @@
         $('#filter_btn').click(function () {
             var fdate = formatDate(from_date, "yyyy-mm-dd");
             var tdate = formatDate(to_date, "yyyy-mm-dd");
-            window.location.href = "/Report/UnSatisfiedVisitors?from=" + fdate + "&to=" + tdate;
+
+             $("#from").val(fdate);
+            $("#to").val(tdate);
+
+            $("#submit_btn").click();
         });
     });
 </script>
@@ -63,11 +67,12 @@
         <h1>Unsatisfied Visitors</h1>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-        <form class="form-inline" role="form">
+        <form class="form-inline" role="form" action="/report/UnSatisfiedVisitors" method="post">
+            <input type="hidden" id="from" name="from" value="" />
+            <input type="hidden" id="to" name="to" value="" />
             <div class="form-group">
                 <label for="From">From</label>   &nbsp;
                 <div id="datepicker_from" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
-                    @*<span class="input-group-addon" id="addon-event">From </span>*@
                     <input class="form-control" type="text" id="from_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
@@ -77,11 +82,11 @@
             <div class="form-group">
                 <label for="To">To</label>   &nbsp;
                 <div id="datepicker_to" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
-                    @*<span class="input-group-addon" id="addon-event">To </span>*@
                     <input class="form-control" type="text" id="to_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
+            <button type="submit" style="display:none" id="submit_btn" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">

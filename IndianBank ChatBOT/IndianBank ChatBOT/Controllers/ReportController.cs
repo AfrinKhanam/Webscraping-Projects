@@ -52,11 +52,11 @@ namespace IndianBank_ChatBOT.Controllers
             }
         }
 
-        public ActionResult FrequentlyAskedQueries(string from, string to)
+        private FrequentlyAskedQueriesViewModel GetFrequentlyAskedQueriesReport(ReportParams @params)
         {
-            var fromDate = from;
-            var toDate = to;
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            var fromDate = @params.From;
+            var toDate = @params.To;
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
             {
                 fromDate = DateTime.Now.ToString("yyyy-MM-dd");
                 toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -97,43 +97,49 @@ namespace IndianBank_ChatBOT.Controllers
                 From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
+
+            return vm;
+        }
+
+        [HttpPost]
+        public ActionResult FrequentlyAskedQueries(ReportParams @params)
+        {
+            var vm = GetFrequentlyAskedQueriesReport(@params);
+            return View(vm);
+        }
+
+        public ActionResult FrequentlyAskedQueries(string from, string to)
+        {
+            ReportParams @params = new ReportParams
+            {
+                From = from,
+                To = to
+            };
+
+            var vm = GetFrequentlyAskedQueriesReport(@params);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult AppUsers(ReportParams @params)
+        {
+            var vm = GetChatBotVisitorsViewModelReport(@params);
             return View(vm);
         }
 
         public ActionResult AppUsers(string from, string to)
         {
-            //var fromDateTime = Convert.ToDateTime(from);
-            //var toDateTime = Convert.ToDateTime(to);
+            ReportParams @params = new ReportParams { From = from, To = to };
+            var vm = GetChatBotVisitorsViewModelReport(@params);
+            return View(vm);
+        }
 
-            //var fromDate = from;
-            //var toDate = to;
+        private ChatBotVisitorsViewModel GetChatBotVisitorsViewModelReport(ReportParams @params)
+        {
+            string fromDate = @params.From;
+            string toDate = @params.To;
 
-            //if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
-            //{
-            //    fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-            //    toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-            //}
-            //else
-            //{
-            //    fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
-            //    toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
-            //}
-
-            //var users = _dbContext.UserInfos.Where(u => u.CreatedOn.Date >= fromDateTime.Date && u.CreatedOn.Date <= toDateTime.Date).ToList();
-
-            //var vm = new VisitorsViewModel
-            //{
-            //    UserInfos = users,
-            //    From = Convert.ToDateTime(fromDate).ToString("MM-dd-yyyy"),
-            //    To = Convert.ToDateTime(toDate).AddDays(-1).ToString("MM-dd-yyyy")
-            //};
-
-            //return View(vm);
-
-            var fromDate = from;
-            var toDate = to;
-
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
             {
                 fromDate = DateTime.Now.ToString("yyyy-MM-dd");
                 toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -157,7 +163,7 @@ namespace IndianBank_ChatBOT.Controllers
                 TotalVisits = users.Sum(u => u.NumberOfVisits)
             };
 
-            return View(vm);
+            return vm;
         }
 
         public ActionResult AppVisitors(string from, string to)
@@ -192,9 +198,23 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult UnAnsweredQueries(string from, string to)
         {
-            var fromDate = from;
-            var toDate = to;
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            var @params = new ReportParams { From = from, To = to };
+            var vm = GetUnAnsweredQueriesReport(@params);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult UnAnsweredQueries(ReportParams @params)
+        {
+            var vm = GetUnAnsweredQueriesReport(@params);
+            return View(vm);
+        }
+
+        private UnAnsweredQueriesViewModel GetUnAnsweredQueriesReport(ReportParams @params)
+        {
+            var fromDate = @params.From;
+            var toDate = @params.To;
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
             {
                 fromDate = DateTime.Now.ToString("yyyy-MM-dd");
                 toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -234,14 +254,29 @@ namespace IndianBank_ChatBOT.Controllers
                 From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
-            return View(vm);
+
+            return vm;
         }
 
         public ActionResult UnSatisfiedVisitors(string from, string to)
         {
-            var fromDate = from;
-            var toDate = to;
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
+            var @params = new ReportParams { From = from, To = to };
+            var vm = GetUnSatisfiedVisitorsReport(@params);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult UnSatisfiedVisitors(ReportParams @params)
+        {
+            var vm = GetUnSatisfiedVisitorsReport(@params);
+            return View(vm);
+        }
+
+        private UnSatisfiedVisitorsViewModel GetUnSatisfiedVisitorsReport(ReportParams @params)
+        {
+            var fromDate = @params.From;
+            var toDate = @params.To;
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
             {
                 fromDate = DateTime.Now.ToString("yyyy-MM-dd");
                 toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -299,26 +334,6 @@ namespace IndianBank_ChatBOT.Controllers
                 }
             }
 
-
-            //foreach (var log in chatLogs)
-            //{
-            //    var responses = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).ToList();
-            //    var data = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
-
-            //    if (data != null)
-            //    {
-            //        UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
-            //        {
-            //            Query = data.Text,
-            //            BotResponse = log.Text,
-            //            Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
-            //            PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
-            //            TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
-            //        };
-            //        unAnsweredQueries.Add(unAnsweredQuery);
-            //    }
-            //}
-
             var vm = new UnSatisfiedVisitorsViewModel
             {
                 UnAnsweredQueries = unAnsweredQueries,
@@ -326,12 +341,25 @@ namespace IndianBank_ChatBOT.Controllers
                 To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
             };
 
-            return View(vm);
+            return vm;
         }
 
-
-        private LeadGenerationReportViewModel GenerateLeadGenerationReport(string fromDate, string toDate)
+        private LeadGenerationReportViewModel GenerateLeadGenerationReport(ReportParams @params)
         {
+            var fromDate = @params.From;
+            var toDate = @params.To;
+
+            if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
+            {
+                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
+                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
+            }
+
             var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent', 'lost_intent', 'scrollbar_intent','link_intent','capabilities_intent','services_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
             var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
             var overallChatLogs = chatLogs;
@@ -421,24 +449,17 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult LeadGenerationReport(string from, string to)
         {
-            var fromDate = from;
-            var toDate = to;
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
-            {
-                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-            }
-            else
-            {
-                fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
-                toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
-            }
-
-            var vm = GenerateLeadGenerationReport(fromDate, toDate);
-
+            var @params = new ReportParams { From = from, To = to };
+            var vm = GenerateLeadGenerationReport(@params);
             return View(vm);
         }
 
+        [HttpPost]
+        public ActionResult LeadGenerationReport(ReportParams @params)
+        {
+            var vm = GenerateLeadGenerationReport(@params);
+            return View(vm);
+        }
 
 
         [HttpPost]
@@ -459,7 +480,7 @@ namespace IndianBank_ChatBOT.Controllers
                 toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
             }
 
-            var vm = GenerateLeadGenerationReport(fromDate, toDate);
+            var vm = GenerateLeadGenerationReport(@params);
 
             var leadGenerationInfo1 = GetLeadGenerationInfos(vm);
             UpdateLeadGenerationInfos(leadGenerationInfo1);
