@@ -685,7 +685,6 @@ class ESPostProcessing:
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
             elif re.search(r'(surabhi)', document['PARSED_QUERY_STRING']):
-                print("meow--->")
                 documents = []
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-surabhi/":
@@ -873,23 +872,7 @@ class ESPostProcessing:
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        # if re.search(r'(credit card|debit card)', document['PARSED_QUERY_STRING']):
-        #     documents = []
-        #     if re.search(r'(credit)', document['PARSED_QUERY_STRING']):
-        #         for record in document['ES_RESULT']['DOCUMENTS']:
-        #             if record['url'] == "https://indianbank.in/departments/credit-cards/":
-        #                 documents.append(record)
-        #         print(json.dumps(documents,indent=4))
-        #         documents += document['ES_RESULT']['DOCUMENTS']
-        #         document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        #     else:
-        #         for record in document['ES_RESULT']['DOCUMENTS']:
-        #             if record['url'] == "https://www.indianbank.in/departments/debit-cards/":
-        #                 documents.append(record)
-        #         # print(json.dumps(documents,indent=4))
-        #         documents += document['ES_RESULT']['DOCUMENTS']
-        #         document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
+       
          
         if re.search(r'( gc| gold card scheme )', document['PARSED_QUERY_STRING']):
             documents = []
@@ -1074,7 +1057,7 @@ class ESPostProcessing:
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        if re.search(r'(kcc | kisan credit card)', document['POTENTIAL_QUERY_LIST']):
+        if re.search(r'(kcc | kisan credit card | kisan )', document['POTENTIAL_QUERY_LIST']):
             documents = []
             print("hi")
             for record in document['ES_RESULT']['DOCUMENTS']:
@@ -1084,6 +1067,34 @@ class ESPostProcessing:
 
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(credit card)', document['PARSED_QUERY_STRING']):
+            documents = []
+            if re.search(r'(kcc | kisan credit card | kisan )', document['POTENTIAL_QUERY_LIST']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/rupay-kisan-card/":
+                        documents.append(record)
+                # print(json.dumps(documents,indent=4))
+
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            else:
+                if re.search(r'(credit)', document['PARSED_QUERY_STRING']):
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://indianbank.in/departments/credit-cards/":
+                            documents.append(record)
+                    print(json.dumps(documents,indent=4))
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+                else:
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://www.indianbank.in/departments/debit-cards/":
+                            documents.append(record)
+                    # print(json.dumps(documents,indent=4))
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            
+
             
         if re.search(r'(dri)', document['PARSED_QUERY_STRING']):
             documents = []
@@ -1215,7 +1226,6 @@ class ESPostProcessing:
         if re.search(r'(tractor|tractr|tract)', document['POTENTIAL_QUERY_LIST']):
             documents = []
             if re.search(r'(second hand |use|agriculturist)',document['PARSED_QUERY_STRING']):
-
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/purchase-of-second-hand-pre-used-tractors-by-agriculturists/":
                         documents.append(record)
