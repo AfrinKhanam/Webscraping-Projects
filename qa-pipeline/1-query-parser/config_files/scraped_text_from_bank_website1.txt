@@ -4042,3 +4042,4 @@ ispat
 nigam
 irfc
 ninl
+sme

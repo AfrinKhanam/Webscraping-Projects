@@ -26,3 +26,5 @@ dore:door
 loun:loan
 wanna:want
 secutity:security
+internet:interest
+accepet:accepted

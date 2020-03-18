@@ -116,3 +116,14 @@ class Stemmer():
         document['class_stem'] = self.stem(document['class'])
 
         return document
+
+    def removeSpecialCharacters(self,text):
+        parsed_string = text.replace('-',' ')
+        print("text is------>>  ",parsed_string)
+        return parsed_string
+
+
+
+stem = Stemmer()
+parsed_string = stem.removeSpecialCharacters('OFFICE-INDIAN BANK MUTUAL FUND')
+print( stem.stem(parsed_string))
