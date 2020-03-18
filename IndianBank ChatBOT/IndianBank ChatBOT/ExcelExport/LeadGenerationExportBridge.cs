@@ -68,6 +68,25 @@ namespace IndianBank_ChatBOT.ExcelExport
             var totalUnattendedQueries = data.Where(d => !d.LeadGenerationAction.HasValue).Count();
 
             sheetRow = _sheet.CreateRow(0);
+
+            //Sl No Width
+            _sheet.SetColumnWidth(0, 10 * 256);
+
+            //Domain Width
+            //_sheet.SetColumnWidth(1, 110 * 256);
+
+            ////Phone Number Width
+            //_sheet.SetColumnWidth(2, 100 * 256);
+
+            ////Queried On Width
+            //_sheet.SetColumnWidth(3, 100 * 256);
+
+            //// Action Width
+            //_sheet.SetColumnWidth(4, 50 * 256);
+
+            // TO Width
+            _sheet.SetColumnWidth(5, 10 * 256);
+
             ICell reportHeaderCell = sheetRow.CreateCell(0);
             reportHeaderCell.SetCellValue("Indian Bank - ChatBOT Insights");
 
@@ -90,7 +109,7 @@ namespace IndianBank_ChatBOT.ExcelExport
             _sheet.AddMergedRegion(cra);
 
             //From 
-            ICell reportFromCell = sheetRow.CreateCell(3);
+            ICell reportFromCell = sheetRow.CreateCell(4);
             reportFromCell.SetCellValue("From");
 
             var reportFromStyle = _workbook.CreateCellStyle();
@@ -105,7 +124,7 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportFromCell.CellStyle = reportFromStyle;
 
             //To
-            ICell reportToCell = sheetRow.CreateCell(4);
+            ICell reportToCell = sheetRow.CreateCell(5);
             reportToCell.SetCellValue("To");
 
             var reportToStyle = _workbook.CreateCellStyle();
@@ -143,7 +162,7 @@ namespace IndianBank_ChatBOT.ExcelExport
 
 
             //From Data
-            var reportFromDataCell = sheetRow.CreateCell(3);
+            var reportFromDataCell = sheetRow.CreateCell(4);
             reportFromDataCell.SetCellValue(from);
 
             var reportFromDataStyle = _workbook.CreateCellStyle();
@@ -163,7 +182,8 @@ namespace IndianBank_ChatBOT.ExcelExport
             reportFromDataCell.CellStyle = reportFromDataStyle;
 
             //To Data
-            var reportToDataCell = sheetRow.CreateCell(4);
+            var reportToDataCell = sheetRow.CreateCell(5);
+
             reportToDataCell.SetCellValue(to);
 
             var reportToDataStyle = _workbook.CreateCellStyle();
@@ -201,8 +221,11 @@ namespace IndianBank_ChatBOT.ExcelExport
 
             reportTotalLeadHeaderCell.CellStyle = reportTotalLeadHeaderStyle;
 
+            var cra1 = new NPOI.SS.Util.CellRangeAddress(2, 2, 3, 4);
+            _sheet.AddMergedRegion(cra1);
+
             //Total Lead Data
-            var reportTotalLeadDataCell = sheetRow.CreateCell(4);
+            var reportTotalLeadDataCell = sheetRow.CreateCell(5);
             reportTotalLeadDataCell.SetCellValue(totalLeadGenerationQueries);
 
             var reportTotalLeadDataStyle = _workbook.CreateCellStyle();
@@ -244,9 +267,12 @@ namespace IndianBank_ChatBOT.ExcelExport
 
             reportTotalUnattendedLeadHeaderCell.CellStyle = reportTotalUnattendedLeadHeaderStyle;
 
+            var cra2 = new NPOI.SS.Util.CellRangeAddress(3, 3, 3, 4);
+            _sheet.AddMergedRegion(cra2);
+
             //Total Unattended Lead Data
 
-            var reportTotalUnattendedLeadDataCell = sheetRow.CreateCell(4);
+            var reportTotalUnattendedLeadDataCell = sheetRow.CreateCell(5);
             reportTotalUnattendedLeadDataCell.SetCellValue(totalUnattendedQueries);
 
             var reportTotalUnattendedLeadDataStyle = _workbook.CreateCellStyle();
@@ -293,12 +319,38 @@ namespace IndianBank_ChatBOT.ExcelExport
                 reportDomainNameDataStyle.FillPattern = FillPattern.SolidForeground;
 
                 reportDomainNameDataStyle.SetFont(reportDomainNameDataFont);
-                reportDomainNameDataStyle.Alignment = HorizontalAlignment.Left;
+                reportDomainNameDataStyle.Alignment = HorizontalAlignment.Center;
+                reportDomainNameDataStyle.WrapText = true;
 
                 reportDomainNameDataCell.CellStyle = reportDomainNameDataStyle;
 
+
+
+                var reportDomainNameDataCell1 = dataSheetRow.CreateCell(1);
+                reportDomainNameDataCell1.SetCellValue("");
+
+                var reportDomainNameDataStyle1 = _workbook.CreateCellStyle();
+
+                var reportDomainNameDataFont1 = _workbook.CreateFont();
+                reportDomainNameDataFont1.FontName = "Calibri";
+                reportDomainNameDataFont1.Boldweight = (short)FontBoldWeight.Bold;
+                reportDomainNameDataFont1.FontHeightInPoints = 11;
+
+                reportDomainNameDataStyle1.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.Grey25Percent.Index;
+                reportDomainNameDataStyle1.FillPattern = FillPattern.SolidForeground;
+
+                reportDomainNameDataStyle1.SetFont(reportDomainNameDataFont1);
+                reportDomainNameDataStyle1.Alignment = HorizontalAlignment.Center;
+
+                reportDomainNameDataCell1.CellStyle = reportDomainNameDataStyle1;
+
+
+
+                //var cra3 = new NPOI.SS.Util.CellRangeAddress(domainRowIndex, domainRowIndex, 0, 1);
+                //_sheet.AddMergedRegion(cra3);
+
                 //Total Queries
-                var reportTotalQueriesHeaderCell = dataSheetRow.CreateCell(1);
+                var reportTotalQueriesHeaderCell = dataSheetRow.CreateCell(2);
                 reportTotalQueriesHeaderCell.SetCellValue("Total queries");
 
                 var reportTotalQueriesHeaderStyle = _workbook.CreateCellStyle();
@@ -318,7 +370,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                 reportTotalQueriesHeaderCell.CellStyle = reportTotalQueriesHeaderStyle;
 
                 //Total Queries Data
-                var reportTotalQueriesDataCell = dataSheetRow.CreateCell(2);
+                var reportTotalQueriesDataCell = dataSheetRow.CreateCell(3);
                 reportTotalQueriesDataCell.SetCellValue(domainLevelTotalQueries);
 
                 var reportTotalQueriesDataStyle = _workbook.CreateCellStyle();
@@ -337,7 +389,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                 reportTotalQueriesDataCell.CellStyle = reportTotalQueriesDataStyle;
 
                 //UnAttended Queries
-                var reportTotalUnattendedQueriesHeaderCell = dataSheetRow.CreateCell(3);
+                var reportTotalUnattendedQueriesHeaderCell = dataSheetRow.CreateCell(4);
                 reportTotalUnattendedQueriesHeaderCell.SetCellValue("Unattended queries");
 
                 var reportTotalUnattendedQueriesHeaderStyle = _workbook.CreateCellStyle();
@@ -357,11 +409,11 @@ namespace IndianBank_ChatBOT.ExcelExport
                 reportTotalUnattendedQueriesHeaderCell.CellStyle = reportTotalUnattendedQueriesHeaderStyle;
 
                 //UnAttended Queries Data
-                var reportTotalUnattendedQueriesDataCell = dataSheetRow.CreateCell(4);
+                var reportTotalUnattendedQueriesDataCell = dataSheetRow.CreateCell(5);
                 reportTotalUnattendedQueriesDataCell.SetCellValue(domainLevelUnattendedQueries);
 
                 var reportTotalUnattendedQueriesDataStyle = _workbook.CreateCellStyle();
-  
+
                 var reportTotalUnattendedQueriesDataFont = _workbook.CreateFont();
                 reportTotalUnattendedQueriesDataFont.FontName = "Calibri";
                 reportTotalUnattendedQueriesDataFont.Boldweight = (short)FontBoldWeight.Bold;
@@ -410,13 +462,13 @@ namespace IndianBank_ChatBOT.ExcelExport
                     }
                     // It's heavy, it slows down your Excel if you have large data                
                     _sheet.AutoSizeColumn(i);
+                    GC.Collect();
                 }
 
                 var itemIndex = 0;
                 for (int rowIndex = headerRowIndex + 1; rowIndex <= headerRowIndex + item.Count; rowIndex++)
                 {
                     var itemSheetRow = _sheet.CreateRow(rowIndex);
-
                     for (int columnIndex = 0; columnIndex < reportColumns.Length; columnIndex++)
                     {
                         ICell cell = itemSheetRow.CreateCell(columnIndex);
