@@ -20,12 +20,15 @@ namespace IndianBank_ChatBOT.ExcelExport
         Tuple<string, string, Type>[] reportColumns;
         public override void WriteData<T>(List<T> exportData, string from, string to)
         {
+            const int maxColumnLength = 75;
+            const int fixedColumnHeight = 3 * 256;
+
             DataTable table = new DataTable();
             var columnsList = new List<string>();
             var headerColumnList = new List<string>();
 
             reportColumns = new Tuple<string, string, Type>[] {
-                                                    Tuple.Create("S No.","", typeof(int)),
+                                                    Tuple.Create("SL No.","", typeof(int)),
                                                     Tuple.Create("Visitor","Visitor", typeof(string)),
                                                     Tuple.Create("Phone Number","PhoneNumber", typeof(string)),
                                                     Tuple.Create("Queried On", "QueriedOn", typeof(DateTime)),
@@ -45,7 +48,7 @@ namespace IndianBank_ChatBOT.ExcelExport
             foreach (var item in exportData as List<LeadGenerationInfo>)
             {
                 DataRow row = table.NewRow();
-                row["S No."] = slNo;
+                row["SL No."] = slNo;
                 row["Visitor"] = item.Visitor;
                 row["Phone Number"] = item.PhoneNumber;
                 row["Queried On"] = item.QueriedOn;
@@ -73,16 +76,16 @@ namespace IndianBank_ChatBOT.ExcelExport
             _sheet.SetColumnWidth(0, 10 * 256);
 
             //Domain Width
-            //_sheet.SetColumnWidth(1, 110 * 256);
+            _sheet.SetColumnWidth(1, 60 * 256);
 
-            ////Phone Number Width
-            //_sheet.SetColumnWidth(2, 100 * 256);
+            //Phone Number Width
+            _sheet.SetColumnWidth(2, 17 * 256);
 
-            ////Queried On Width
-            //_sheet.SetColumnWidth(3, 100 * 256);
+            //Queried On Width
+            _sheet.SetColumnWidth(3, 18 * 256);
 
-            //// Action Width
-            //_sheet.SetColumnWidth(4, 50 * 256);
+            // Action Width
+            _sheet.SetColumnWidth(4, 17 * 256);
 
             // TO Width
             _sheet.SetColumnWidth(5, 10 * 256);
@@ -304,6 +307,9 @@ namespace IndianBank_ChatBOT.ExcelExport
 
                 var dataSheetRow = _sheet.CreateRow(domainRowIndex);
 
+                if (domianName.Length > maxColumnLength)
+                    _sheet.GetRow(domainRowIndex).Height = fixedColumnHeight;
+
                 //Domain Name
                 var reportDomainNameDataCell = dataSheetRow.CreateCell(0);
                 reportDomainNameDataCell.SetCellValue(domianName);
@@ -341,13 +347,12 @@ namespace IndianBank_ChatBOT.ExcelExport
 
                 reportDomainNameDataStyle1.SetFont(reportDomainNameDataFont1);
                 reportDomainNameDataStyle1.Alignment = HorizontalAlignment.Center;
+                //reportDomainNameDataStyle1.WrapText = true;
 
                 reportDomainNameDataCell1.CellStyle = reportDomainNameDataStyle1;
 
-
-
-                //var cra3 = new NPOI.SS.Util.CellRangeAddress(domainRowIndex, domainRowIndex, 0, 1);
-                //_sheet.AddMergedRegion(cra3);
+                var cra3 = new NPOI.SS.Util.CellRangeAddress(domainRowIndex, domainRowIndex, 0, 1);
+                _sheet.AddMergedRegion(cra3);
 
                 //Total Queries
                 var reportTotalQueriesHeaderCell = dataSheetRow.CreateCell(2);
@@ -460,9 +465,6 @@ namespace IndianBank_ChatBOT.ExcelExport
                     {
                         cell.CellStyle = headerStyle;
                     }
-                    // It's heavy, it slows down your Excel if you have large data                
-                    _sheet.AutoSizeColumn(i);
-                    GC.Collect();
                 }
 
                 var itemIndex = 0;
@@ -500,6 +502,9 @@ namespace IndianBank_ChatBOT.ExcelExport
                                 }
                                 else if (_type[columnIndex].ToLower() == "string")
                                 {
+                                    if (cellvalue.Length > maxColumnLength)
+                                        _sheet.GetRow(rowIndex).Height = fixedColumnHeight;
+
                                     cell.SetCellValue(cellvalue);
                                 }
                                 else if (_type[columnIndex].ToLower() == "leadgenerationaction")

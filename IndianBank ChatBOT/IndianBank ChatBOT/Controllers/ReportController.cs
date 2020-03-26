@@ -461,9 +461,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
-
         [HttpPost]
-        [Route("ExportLeadGenerationReport")]
         public IActionResult ExportLeadGenerationReport(ReportParams @params)
         {
             var fromDate = @params.From;
