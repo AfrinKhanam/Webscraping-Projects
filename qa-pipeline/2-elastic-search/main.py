@@ -62,7 +62,7 @@ def callback(ch, method, properties, body):
 #---------------------------------------------------------------#
 
 # elastic = Elastic(index='indian-bank-index-v2')
-elastic = Elastic(index='indian-bank-agriculture-v1')
+elastic = Elastic(index='indian-bank-v2.2.1')
 
 # elastic = Elastic(index='indian-bank-index-modified')
 

@@ -26,5 +26,7 @@ dore:door
 loun:loan
 wanna:want
 secutity:security
-internet:interest
 accepet:accepted
+pupose:purpose
+vahaan:vaahan
+debits:debit

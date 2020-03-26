@@ -8,8 +8,6 @@ class ESPostProcessing:
     def __init__(self):
       pass
 
-
-
     def create_regex(self, string):
         # ------------------------------------- #
         word_list = string.split()
@@ -43,10 +41,10 @@ class ESPostProcessing:
         bucket1_len=[]
         bucket2_len=[]
 
-        if documents[0]['stemmed_main_title']==documents[1]['stemmed_main_title'] and documents[0]['stemmed_main_title']==documents[2]['stemmed_main_title']:
+        if documents[0]['stemmed_main_title'].rstrip()==documents[1]['stemmed_main_title'].rstrip() and documents[0]['stemmed_main_title'].rstrip()==documents[2]['stemmed_main_title'].rstrip():
             print("IF ALL DOCS ARE SAME")
             bucketData1,bucketData2=self.SortMainTitle(bucket1=None,bucket2=None,documents=documents,bucket1_len=None,bucket2_len=None,docs_length=docs_length)
-        elif documents[0]['stemmed_main_title']==documents[1]['stemmed_main_title'] or documents[1]['stemmed_main_title']==documents[0]['stemmed_main_title']:
+        elif documents[0]['stemmed_main_title'].rstrip()==documents[1]['stemmed_main_title'].rstrip() or documents[1]['stemmed_main_title'].rstrip()==documents[0]['stemmed_main_title'].rstrip():
             bucket1.append(documents[0])
             bucket1.append(documents[1])
             bucket2.append(documents[2])
@@ -247,23 +245,31 @@ class ESPostProcessing:
         # print("-----------------END OF SORTING BASED ON SUB TITLE---------------------------")
     def club_documents(self,document):
         result=False
-        result=all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title']) and doc['stemmed_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_title']) ) for doc in document['ES_RESULT']['DOCUMENTS'])
+        result=all((doc['stemmed_main_title'].rstrip()== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title'].rstrip()) and doc['stemmed_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_title']) ) for doc in document['ES_RESULT']['DOCUMENTS'])
+        print("result------->>>",result)
         # if all docs main title and subtitle is same
         if result:
-            stemmed_value=""
-            value=""
-            for doc in document['ES_RESULT']['DOCUMENTS']:
-                stemmed_value+= doc['stemmed_value']+"\n"
-                value+= doc['value']+"\n"
-            
-            document['ES_RESULT']['DOCUMENTS'][0]['value']=value
-            document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
-            print("-------------if all docs main title and subtitle is same-----------------")
-            print("value is--->",value)
+            if document['ES_RESULT']['DOCUMENTS'][0]['inner_table_keys']!=[]:
+                print("if all main titles are same..!!")
+                self.create_table_structure(document['ES_RESULT']['DOCUMENTS'])
+            else:
+                stemmed_value="&#8226; "
+                value="&#8226; "
+                for doc in document['ES_RESULT']['DOCUMENTS']:
+                    stemmed_value+= doc['stemmed_value']+"\n &#8226; "
+                    value+= doc['value']+"\n &#8226; "
 
-            print("stemmed value is-->",stemmed_value)
-            print("After Merging the same docs--->",json.dumps(document,indent=4))
-            print("-------------if all docs main title and subtitle is same----(end)-------------")
+                stemmed_value=stemmed_value.rstrip('\n &#8226; ') 
+                value=value.rstrip('\n &#8226; ') 
+                
+                document['ES_RESULT']['DOCUMENTS'][0]['value']=value
+                document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
+                print("-------------if all docs main title and subtitle is same-----------------")
+                print("value is--->",value)
+
+                print("stemmed value is-->",stemmed_value)
+                print("After Merging the same docs--->",json.dumps(document,indent=4))
+                print("-------------if all docs main title and subtitle is same----(end)-------------")
 
         # if all docs main title is same but 1 different subtitle
         elif all((doc['stemmed_main_title']== (document['ES_RESULT']['DOCUMENTS'][0]['stemmed_main_title']) ) for doc in document['ES_RESULT']['DOCUMENTS']):
@@ -277,18 +283,26 @@ class ESPostProcessing:
             print("end of meow")
             if len(duplicates)!=0:
                 print("duplicates are present---->>")
-                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
-                    value=""
-                    stemmed_value=""
-                    for doc in duplicates:
-                        stemmed_value+=doc['stemmed_value']+"\n"
-                        value+=doc['value']+"\n"
 
-                    document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
-                    document['ES_RESULT']['DOCUMENTS'][0]['value']=value
-                    print("----------if all docs main title is same but 1 different subtitle............")
-                    print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
-                    print("----------if all docs main title is same but 1 different subtitle......(end)......")
+                # check if first doc subtitle matches with duplicate list first doc subtitle
+                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
+                    if duplicates[0]['inner_table_keys']!=[]:
+                        self.create_table_structure(duplicates)
+                    else:
+                        value="&#8226; "
+                        stemmed_value="&#8226; "
+                        for doc in duplicates:
+                            stemmed_value+=doc['stemmed_value']+"\n &#8226; "
+                            value+=doc['value']+"\n &#8226; "
+
+                        stemmed_value=stemmed_value.rstrip('\n &#8226; ') 
+                        value=value.rstrip('\n &#8226; ') 
+
+                        document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
+                        document['ES_RESULT']['DOCUMENTS'][0]['value']=value
+                        print("----------if all docs main title is same but 1 different subtitle............")
+                        print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
+                        print("----------if all docs main title is same but 1 different subtitle......(end)......")
 
         else:
             # if any 2 docs main title and subtitle is same
@@ -303,34 +317,37 @@ class ESPostProcessing:
                     print("appending to the list",doc['main_title'],"----",document['ES_RESULT']['DOCUMENTS'][idx+1]['main_title'])
                     duplicates.append(doc)
                     duplicates.append(document['ES_RESULT']['DOCUMENTS'][idx+1])
-            print("duplicates--->",duplicates)
+            # print("duplicates--->",duplicates)
             if len(duplicates)!=0:
                 print("duplicates are present...")
-                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
-                    value=""
-                    stemmed_value=""
-                    for doc in duplicates:
-                        stemmed_value+=doc['stemmed_value']+"\n"
-                        value+=doc['value']+"\n"
 
-                    document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
-                    document['ES_RESULT']['DOCUMENTS'][0]['value']=value
-                    print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE--------->> ")
-                    print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
-                    print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE------(END)--->> ")
+                if duplicates[0]['title']==document['ES_RESULT']['DOCUMENTS'][0]['title']:
+                    if duplicates[0]['inner_table_keys']!=[]:
+                        print("not executed..!!")
+                        self.create_table_structure(duplicates)
+                    else:
+                        print("executing else part......")
+                        value="&#8226; "
+                        stemmed_value="&#8226; "
+                        for doc in duplicates:
+                            stemmed_value+=doc['stemmed_value']+"\n &#8226; "
+                            value+=doc['value']+"\n &#8226; "
+
+                        stemmed_value=stemmed_value.rstrip('\n &#8226; ') 
+                        value=value.rstrip('\n &#8226;')
+                        document['ES_RESULT']['DOCUMENTS'][0]['stemmed_value']=stemmed_value
+                        document['ES_RESULT']['DOCUMENTS'][0]['value']=value
+                        print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE--------->> ")
+                        print(document['ES_RESULT']['DOCUMENTS'][0]['value'])
+                        print("CLUBBING 2 SAME DOCS OF SAME MAIN TITLE AND SUBTITLE------(END)--->> ")
             else:
+                # different docs, with first has table structure
+                if document['ES_RESULT']['DOCUMENTS'][0]['inner_table_keys']!=[]:
+                        print("not executed..!!")
+                        self.create_table_structure(document['ES_RESULT']['DOCUMENTS'])
+
                 pass
 
-
-              
-            
-
-                
-
-            # print(element_list)
-            pass
-
-        # print(json.dumps(document,indent=4))
 
     def removeWordFrequency(self,unMatched_words):
         words=[]
@@ -339,8 +356,55 @@ class ESPostProcessing:
                 words.append(u)
         return words
 
+    def create_table_structure(self,duplicates):
+        inner_table_keys=[]
+        
+        inner_table_values=[]
 
-    
+        print("printing is duplicates---------->>")
+        print(json.dumps(duplicates,indent=4))
+        for index,doc in enumerate(duplicates):
+            # print("doc is-->>",json.dumps(doc,indent=4))
+
+            for key in doc['inner_table_keys']:
+                print("key is ---> ",key)
+                inner_table_keys.append(key)
+            for value in doc['inner_table_values']:
+                inner_table_values.append(value)
+        # inner_table_keys_length=len(inner_table_keys)
+        # inner_table_values_length=len(inner_table_values)
+
+        print("length of inner_table_values is---> ",len(inner_table_values))
+        print(inner_table_keys[0],"---->",inner_table_keys[1])
+
+        # for 2 same docs subtitle is same
+        if len(inner_table_values)==4:
+            print(inner_table_keys,"---")
+            value=f'''{inner_table_keys[0]}---->{inner_table_keys[1]}
+                                {inner_table_values[0]}---->{inner_table_values[1]}
+                                {inner_table_values[2]}---->{inner_table_values[3]}'''
+            print(value)
+            duplicates[0]['value']=value
+        
+        # for 1  docs subtitle 
+        elif len(inner_table_values)==2:
+            value=f'''{inner_table_keys[0]}---->{inner_table_keys[1]}
+                                {inner_table_values[0]}---->{inner_table_values[1]}'''
+            duplicates[0]['value']=value
+            print(value)
+
+        # for 3 docs subtitle is same        
+        elif len(inner_table_values)==6:
+            value=f'''{inner_table_keys[0]}---->{inner_table_keys[1]}
+                                {inner_table_values[0]}---->{inner_table_values[1]}
+                                {inner_table_values[2]}---->{inner_table_values[3]}
+                                {inner_table_values[4]}---->{inner_table_values[5]}'''
+            duplicates[0]['value']=value
+        else:
+            pass
+
+
+
     def remove_prepositions_from_title(self,bucket1_docs,bucket2_docs):
 
         # for idx,doc in enumerate(documents):
