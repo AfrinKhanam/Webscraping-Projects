@@ -669,7 +669,7 @@ class ESPostProcessing:
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
           # I want to open a saving bank account with indian bank?
-        if re.search(r'( save bank | save )', document['PARSED_QUERY_STRING']):
+        if re.search(r'( save bank | save )', document['POTENTIAL_QUERY_LIST']):
             if re.search(r'( basic | deposit account )', document['PARSED_QUERY_STRING']):
                 print("hi")
                 documents = []
@@ -1024,6 +1024,15 @@ class ESPostProcessing:
         #         document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         #-----------------------------------------------------------------------------------------------#
+        if re.search(r'(forex)', document['PARSED_QUERY_STRING']):
+            documents = []
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == "https://indianbank.in/service-charges-forex-rates/":
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        
         if re.search(r'(encash)', document['PARSED_QUERY_STRING']):
             documents = []
             for record in document['ES_RESULT']['DOCUMENTS']:
