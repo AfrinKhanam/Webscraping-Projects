@@ -4,7 +4,8 @@ import json
 import re
 
 class Elastic():
-    def __init__(self, host='localhost', port='9200', index='indian-bank-agriculture-v1', doc_type='_doc'):
+    # indian-bank-agriculture-v1
+    def __init__(self, host='localhost', port='9200', index='indian_bank_services', doc_type='_doc'):
 
     # def __init__(self, host='localhost', port='9200', index='-index-v2', doc_type='_doc'):
     # def __init__(self, host='localhost', port='9200', index='indian-bank-index', doc_type='_doc'):
