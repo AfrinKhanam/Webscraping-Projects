@@ -413,10 +413,13 @@ namespace IndianBank_ChatBOT.Controllers
                     {
                         var botResponses = overallChatLogs.Where(c => c.ReplyToActivityId == replyId).ToList();
                         var botResponseText = new StringBuilder();
+                        var botTimeStamp = botResponses.FirstOrDefault().TimeStamp?.ToString("ddd, dd MMM yyy HH:mm:ss");
+
 
                         for (int i = 0; i <= botResponses.Count - 1; i++)
                         {
                             var text = (string.IsNullOrEmpty(botResponses[i].Text)) ? botResponses[i].MainTitle : botResponses[i].Text;
+
                             botResponseText.Append(text);
                             if (i != botResponses.Count - 1)
                             {
@@ -425,11 +428,14 @@ namespace IndianBank_ChatBOT.Controllers
                         }
 
                         var userResponse = _dbContext.ChatLogs.Where(c => c.ActivityId == replyId).FirstOrDefault();
+                        var userTimeStamp = userResponse.TimeStamp?.ToString("ddd, dd MMM yyy HH:mm:ss");
                         var turnConversation = new TurnConversation
                         {
                             ActivityId = replyId,
                             BotResponse = botResponseText.ToString(),
                             UserQuery = userResponse == null ? string.Empty : userResponse.Text,
+                            BotTimeStamp = botTimeStamp,
+                            UserTimeStamp = userTimeStamp
                         };
                         turnConversations.Add(turnConversation);
                     }
@@ -437,6 +443,7 @@ namespace IndianBank_ChatBOT.Controllers
                 }
             }
 
+            conversationByIntent = conversationByIntent.OrderByDescending(conv => conv.ConversationByUsers.Sum(c => c.TurnConversations.Count)).ToList();
             var vm = new LeadGenerationReportViewModel
             {
                 ConversationsByIntent = conversationByIntent,
