@@ -5,6 +5,8 @@
 }
 
 <script type="text/javascript">
+    var chatHistory = [];
+
     function formatDate(date, type) {
         var current_datetime, formatted_date;
         switch (type) {
@@ -21,7 +23,116 @@
         return formatted_date;
     }
 
-    $(function () {
+    function toggleExpand(e) {
+        var element = $('#' + e);
+        if (element.hasClass("fa-plus-square")) {
+            element.removeClass("fa-plus-square").addClass("fa-minus-square");
+        } else {
+            element.removeClass("fa-minus-square").addClass("fa-plus-square");
+        };
+    }
+
+    function onCollapseHandler(e) {
+        var id = this.id + "-icon"
+        var element = $('#' + id);
+        if (element.hasClass("fa-plus-square")) {} else {
+            element.removeClass("fa-minus-square").addClass("fa-plus-square");
+        };
+    }
+
+    function onExpandHandler() {
+        var id = this.id + "-icon"
+        var element = $('#' + id);
+        if (element.hasClass("fa-minus-square")) {} else {
+            element.removeClass("fa-plus-square").addClass("fa-minus-square");
+        };
+    }
+
+    function renderChatHistory(chatLog) {
+        var chats = [];
+        chatLog.data.forEach(function(log, index) {
+            if (log.userQuery) {
+                chats.push({
+                    text: log.userQuery,
+                    position: 'right',
+                    time: log.userTimeStamp
+                });
+            }
+            if (log.botResponse) {
+                chats.push({
+                    text: log.botResponse,
+                    position: 'left',
+                    time: log.botTimeStamp
+                });
+            }
+        });
+
+        setTimeout(function() {
+            for (var i = 0; i < chats.length; i++) {
+                var type = 'text';
+                if (chats[i].typing != undefined) type = 'typing';
+                $.chatCtrl('#' + 'chatbox-' + chatLog.id, {
+                    text: (chats[i].text != undefined ? chats[i].text : ''),
+                    picture: (chats[i].position == 'left' ? '/botAvatar.png' : '/lib/stisla/img/avatar/avatar-1.png'),
+                    position: 'chat-' + chats[i].position,
+                    type: type,
+                    time: chats[i].time
+                });
+            }
+
+            if ($(".chat-content").length) {
+                $(".chat-content").niceScroll({
+                    cursoropacitymin: .3,
+                    cursoropacitymax: .8,
+                });
+                $('.chat-content').getNiceScroll(0).doScrollTop($('.chat-content').height());
+            }
+        }, 100);
+    }
+
+    function openChatHistoryModal(e, userName, visitedOn) {
+        var elementId = e.id;
+        var classList = $(e).attr('class').split(' ').filter(cls => cls.startsWith("trigger--fire-modal"));
+
+        if (classList.length != 2) {
+            var id = "chatbox-" + elementId;
+            var body = '<div class="col-12 col-sm-6 col-lg-12">' +
+                '<div class="card chat-box" id="' + id + '">' +
+                '<div class="card-header">' +
+                '<div class="article-category"><a style="font-weight: bold; color: #6777ef;">Chat with ' + userName + '</a> <div class="bullet"></div> <a style="color: #6777ef;">' + visitedOn + '</a></div>' +
+                '</div>' +
+                '<div class="card-body chat-content">' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+            $("#" + elementId).fireModal({
+                size: "modal-lg",
+                title: "Chat Log",
+                body: body
+            });
+
+            var chatLog = chatHistory.find(chat => chat.id == elementId);
+
+            renderChatHistory(chatLog);
+        }
+
+        setTimeout(function() {
+            if ($(".chat-content").length) {
+                $(".chat-content").each(function(index, element) {
+                    console.log(element);
+                    $(element).niceScroll({
+                        cursoropacitymin: .3,
+                        cursoropacitymax: .8,
+                    });
+                    $(element).getNiceScroll(0).doScrollTop($(element).height());
+                    $(element).css('overflow', 'scroll').css('overflow', 'hidden');
+                });
+            }
+        }, 500);
+    }
+
+    $(function() {
         var from_date = '@Model.From';
         var to_date = '@Model.To';
 
@@ -38,19 +149,19 @@
             todayHighlight: true
         }).datepicker('update', formatDate(to_date, "mm-dd-yyyy"));
 
-       $("#from_date_input").change(function () {
+        $("#from_date_input").change(function() {
             from_date = formatDate(this.value, "mm-dd-yyyy");
             var startDate = new Date(this.value);
             $('#datepicker_to').datepicker('setStartDate', startDate);
         });
 
-        $("#to_date_input").change(function () {
+        $("#to_date_input").change(function() {
             to_date = formatDate(this.value, "mm-dd-yyyy");
-             var toDate = new Date(this.value);
-             $('#datepicker_from').datepicker('setEndDate', toDate);
+            var toDate = new Date(this.value);
+            $('#datepicker_from').datepicker('setEndDate', toDate);
         });
 
-        $('#filter_btn').click(function () {
+        $('#filter_btn').click(function() {
             var fdate = formatDate(from_date, "yyyy-mm-dd");
             var tdate = formatDate(to_date, "yyyy-mm-dd");
 
@@ -60,13 +171,15 @@
             $("#submit_btn").click();
         });
 
-        $('#export_btn').click(function () {
-    debugger;
+        $('#export_btn').click(function() {
             var tdate = formatDate(to_date, "yyyy-mm-dd");
             $(".from").val(formatDate(from_date, "yyyy-mm-dd"));
             $(".to").val(formatDate(to_date, "yyyy-mm-dd"));
             $("#export_btn_submit").click();
         });
+
+        $("[id$=LeadGeneration-collapse]").on('hidden.bs.collapse', onCollapseHandler);
+        $("[id$=LeadGeneration-collapse]").on('shown.bs.collapse', onExpandHandler);
     });
 </script>
 
@@ -106,12 +219,6 @@
             <input class="to" name="to" type="hidden" value="">
             <button id="export_btn_submit" style="display:none" type="submit">Export Report</button>
         </form>
-        @*@using (Html.BeginForm("", "Report"))
-            {
-                <input id="from" class="from" name="from" type="hidden" value="">
-                <input id="to" class="to" name="from" type="hidden" value="">
-                <button id="export_btn_submit" style="display:none" type="submit">Export Report</button>
-            }*@
     </div>
 </div>
 
@@ -142,148 +249,89 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
 
-                <div class="card-body p-0">
+                    @{
+                        var headerIndex = 0;
+                        var headerId = "";
+                        var data_targetWithHash = "";
+                        var data_targetWithOutHash = "";
+                        var id = "";
+                        var iconId = "";
+                    }
+
                     <div id="accordion">
-                        @{
-                            var headerIndex = 0;
-                            var headerId = "";
-                            var data_target = "";
-                            var id = "";
-                        }
                         @foreach (var item in Model.ConversationsByIntent)
                         {
                             {
                                 var uniqueNumber = Guid.NewGuid().ToString();
                                 headerIndex = headerIndex + 1;
                                 headerId = "heading" + uniqueNumber;
-                                data_target = "#collapse" + uniqueNumber;
+                                data_targetWithOutHash = "collapse-" + uniqueNumber + "LeadGeneration-collapse";
+                                data_targetWithHash = "#" + data_targetWithOutHash;
                                 id = "collapse" + uniqueNumber;
+                                iconId = data_targetWithOutHash + "-icon";
                             }
-
-                            <div class="card">
-                                <div class="card-header" id="@headerId">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link report-heading" data-toggle="collapse" data-target="@data_target" aria-expanded="true" aria-controls="@id">
-                                            @item.Intent
-                                        </button>
-                                    </h5>
+                            <div class="accordion">
+                                <div style="cursor: pointer;" class="accordion-header collapsed" onclick="toggleExpand('@iconId');" role="button" data-toggle="collapse" data-target="@data_targetWithHash" aria-expanded="false">
+                                    <h4>@item.Intent (@item.ConversationByUsers.Sum(i => i.TurnConversations.Count)) <i id="@iconId" title="click to expand" class="fa fa-plus-square float-right" aria-hidden="true"></i></h4>
                                 </div>
-
-                                <div id="@id" class="collapse show" aria-labelledby="@headerId" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <table class="table">
+                                <div class="accordion-body collapse" id="@data_targetWithOutHash" data-parent="#accordion" style="">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        #
-                                                    </th>
-                                                    <th>
-                                                        Visitor Name
-                                                    </th>
-                                                    <th>
-                                                        Visitor Phone Number
-                                                    </th>
-                                                    <th>
-                                                        Number of queries
-                                                    </th>
-                                                    <th>
-                                                        Visited On
-                                                    </th>
-                                                    <th>
-                                                        Action
-                                                    </th>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Visitor Name</th>
+                                                    <th scope="col">Visitor Phone Number</th>
+                                                    <th scope="col">Number of queries</th>
+                                                    <th scope="col">Visited On</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
 
                                             @{
                                                 int index = 0;
                                                 int ChatLogs = 0;
-                                                var groupdata_target = "";
-                                                var groupId = "";
                                                 var visitedOn = "";
-                                                var groupdata_collepes_parent_parent = "";
-                                                var groupdata_collepes_parent_parent_target = "";
-                                            }
+                                                var uniqueNumber_Chat = "";
 
+                                            }
                                             <tbody>
                                                 @foreach (var user in item.ConversationByUsers)
                                                 {
                                                     {
-                                                        var uniqueNumber = Guid.NewGuid().ToString();
+                                                        uniqueNumber_Chat = Guid.NewGuid().ToString();
                                                         index = index + 1;
                                                         visitedOn = user.TimeStamp.ToString("ddd, dd MMM yyy HH:mm:ss");
                                                         ChatLogs = user.TurnConversations.Count();
-                                                        groupdata_target = "#group-of-rows-" + uniqueNumber;
-                                                        groupId = "group-of-rows-" + uniqueNumber;
-                                                        groupdata_collepes_parent_parent_target = "#collepes-parent-" + uniqueNumber;
-                                                        groupdata_collepes_parent_parent = "collepes-parent-" + uniqueNumber;
                                                     }
-
-                                                    <tr id="@groupdata_collepes_parent_parent" class="clickable" data-toggle="collapse" data-target="@groupdata_target" aria-expanded="false" aria-controls="@groupId">
+                                                    <tr>
                                                         <td>@index</td>
                                                         <td>@Html.DisplayFor(modelItem => user.Name)</td>
                                                         <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
                                                         <td>@ChatLogs</td>
                                                         <td>@visitedOn</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-light btn-hover">View</button>
-                                                            <i class="fa fa-plus " aria-hidden="true"></i>
+                                                            <script type="text/javascript">
+
+                                                                var chatLog = {};
+                                                                chatLog.id = '@uniqueNumber_Chat';
+                                                                chatLog.data = @Html.Raw(Json.Serialize(user.TurnConversations));
+                                                                chatHistory.push(chatLog);
+                                                            </script>
+
+                                                            <button id="@uniqueNumber_Chat" onclick="openChatHistoryModal(this, '@user.Name', '@visitedOn')" class="btn btn-primary trigger--fire-modal-@uniqueNumber_Chat">View Chat</button>
                                                         </td>
                                                     </tr>
-
-
-
-                                                    <tr>
-                                                        <td colspan="6">
-                                                            <table id="@groupId" class="table table-bordered example-table sub-table collapse " data-parent="@groupdata_collepes_parent_parent_target">
-                                                                <thead>
-                                                                    <tr><th>S. No.</th><th>Visitor Query</th><th>Bot Response</th> </tr>
-                                                                </thead>
-
-                                                                <tbody>
-                                                                    @{
-                                                                        var childRowIndex = 0;
-                                                                        var TurnConversations = new List<TurnConversation>();
-                                                                        TurnConversations = user.TurnConversations;
-                                                                    }
-
-                                                                    @foreach (var data in TurnConversations)
-                                                                    {
-                                                                        {
-                                                                            childRowIndex = childRowIndex + 1;
-                                                                        }
-                                                                        <tr class="table-info">
-                                                                            <td>@childRowIndex</td>
-                                                                            <td>@data.UserQuery</td>
-                                                                            <td><p style="white-space: pre-line">@Html.Raw(data.BotResponse)</p></td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-
-                                                        </td>
-                                                    </tr>
-
                                                 }
                                             </tbody>
                                         </table>
-
-
-
                                     </div>
                                 </div>
                             </div>
                         }
                     </div>
-
-                    @if (Model.ConversationsByIntent.Count == 0)
-                    {
-
-                        <div id="accordion" style="text-align:center">
-                            No data found !
-                        </div>
-                    }
                 </div>
             </div>
         </div>
