@@ -86,6 +86,10 @@
                     cursoropacitymax: .8,
                 });
                 $('.chat-content').getNiceScroll(0).doScrollTop($('.chat-content').height());
+
+                $(".chat-text").each(function(index, element) {
+                    $(element).css('white-space', 'pre');
+                });
             }
         }, 100);
     }
@@ -132,6 +136,34 @@
         }, 500);
     }
 
+    function updateLeadGenerationAction(ele, id) {
+        var chatLog = chatHistory.find(chat => chat.id == id);
+        var selectedActionId = ele.value == 0 ? null : Number(ele.value);
+
+        $.ajax({
+            url: "/report/UpdateLeadGenerationAction",
+            type: "POST",
+            data: {
+                id: chatLog.leadGenerationInfo.id,
+                LeadGenerationActionId: selectedActionId
+            },
+            success: function(html) {
+                iziToast.success({
+                    title: 'Done!',
+                    position: 'topRight',
+                    message: 'Action updated successfully.',
+                });
+            },
+            error: function(err) {
+                iziToast.error({
+                    title: 'Error!',
+                    position: 'topRight',
+                    message: 'Failed to update the Action.',
+                });
+            }
+        });
+    }
+
     $(function() {
         var from_date = '@Model.From';
         var to_date = '@Model.To';
@@ -172,7 +204,6 @@
         });
 
         $('#export_btn').click(function() {
-            var tdate = formatDate(to_date, "yyyy-mm-dd");
             $(".from").val(formatDate(from_date, "yyyy-mm-dd"));
             $(".to").val(formatDate(to_date, "yyyy-mm-dd"));
             $("#export_btn_submit").click();
@@ -287,6 +318,7 @@
                                                     <th scope="col">Number of queries</th>
                                                     <th scope="col">Visited On</th>
                                                     <th scope="col">Action</th>
+                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
 
@@ -313,11 +345,39 @@
                                                         <td>@ChatLogs</td>
                                                         <td>@visitedOn</td>
                                                         <td>
-                                                            <script type="text/javascript">
+                                                            <select onchange="updateLeadGenerationAction(this, '@uniqueNumber_Chat')" class="form-control form-control-sm">
+                                                                <option value="0">Select Action</option>
+                                                                @if (Model.LeadGenerationActions.Count == 0)
+                                                                {
+                                                                    <p>Please define actions</p>
+                                                                }
 
+                                                                @foreach (var action in Model.LeadGenerationActions)
+                                                                {
+                                                                    if (user.LeadGenerationInfo != null)
+                                                                    {
+                                                                        if (user.LeadGenerationInfo.LeadGenerationActionId == action.Id)
+                                                                        {
+                                                                            <option value="@action.Id" selected>@action.Name</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@action.Id">@action.Name</option>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@action.Id">@action.Name</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <script type="text/javascript">
                                                                 var chatLog = {};
                                                                 chatLog.id = '@uniqueNumber_Chat';
-                                                                chatLog.data = @Html.Raw(Json.Serialize(user.TurnConversations));
+                                                                chatLog.data = @Json.Serialize(user.TurnConversations);
+                                                                chatLog.leadGenerationInfo = @Json.Serialize(user.LeadGenerationInfo);
                                                                 chatHistory.push(chatLog);
                                                             </script>
 

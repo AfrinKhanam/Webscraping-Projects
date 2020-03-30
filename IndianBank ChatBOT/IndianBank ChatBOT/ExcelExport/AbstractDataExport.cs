@@ -1,4 +1,5 @@
-﻿using NPOI.SS.UserModel;
+﻿using IndianBank_ChatBOT.Models;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace IndianBank_ChatBOT.ExcelExport
 {
     public interface IAbstractDataExport
     {
-        byte[] Export<T>(List<T> exportData, string from, string to, string sheetName);
+        byte[] Export<T>(List<T> exportData, List<LeadGenerationAction> actions, string from, string to, string sheetName);
     }
 
     public abstract class AbstractDataExport : IAbstractDataExport
@@ -23,14 +24,14 @@ namespace IndianBank_ChatBOT.ExcelExport
         protected ISheet _sheet;
         private const string DefaultSheetName = "Sheet1";
 
-        public byte[] Export<T>(List<T> exportData, string from, string to, string sheetName = DefaultSheetName)
+        public byte[] Export<T>(List<T> exportData, List<LeadGenerationAction> actions, string from, string to, string sheetName = DefaultSheetName)
         {
             _sheetName = sheetName;
 
             _workbook = new XSSFWorkbook();
             _sheet = _workbook.CreateSheet(_sheetName);
 
-            WriteData(exportData, from, to);
+            WriteData(exportData, actions, from, to);
 
             using (var memoryStream = new MemoryStream())
             {
@@ -44,7 +45,7 @@ namespace IndianBank_ChatBOT.ExcelExport
         /// Generic Definition to handle all types of List
         /// </summary>
         /// <param name="exportData"></param>
-        public abstract void WriteData<T>(List<T> exportData, string from, string to);
+        public abstract void WriteData<T>(List<T> exportData, List<LeadGenerationAction> actions, string from, string to);
 
     }
 }

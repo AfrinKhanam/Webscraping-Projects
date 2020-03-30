@@ -30,6 +30,7 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<StaticPage> StaticPages { get; set; }
         public DbSet<SynonymWord> SynonymWords { get; set; }
         public DbSet<LeadGenerationInfo> LeadGenerationInfos { get; set; }
+        public DbSet<LeadGenerationAction> LeadGenerationActions { get; set; }
         
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
         public DbQuery<UnAnsweredQueries> UnAnsweredQueries { get; set; }

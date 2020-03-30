@@ -376,6 +376,8 @@ namespace IndianBank_ChatBOT.Controllers
 
             var userInfo = _dbContext.UserInfos.Where(u => conversationIds.Contains(u.ConversationId)).ToList();
 
+            var leadGenerationInfos = _dbContext.LeadGenerationInfos.Where(lgi => conversationIds.Contains(lgi.ConversationId)).ToList();
+
             conversationList = conversationList.FindAll(a => a.All(b => b.RasaIntent != null && b.RasaIntent != "")).ToList();
 
             foreach (var list in conversationList)
@@ -394,9 +396,11 @@ namespace IndianBank_ChatBOT.Controllers
                                                  Name = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.Name).FirstOrDefault(),
                                                  PhoneNumber = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.PhoneNumber).FirstOrDefault(),
                                                  TimeStamp = userInfo.Where(u => u.ConversationId == group.Key).Select(u => u.CreatedOn).FirstOrDefault(),
-                                                 ChatLogs = group.ToList()
-                                             })
-                                             .ToList();
+                                                 ChatLogs = group.ToList(),
+                                                 LeadGenerationInfo = leadGenerationInfos.FirstOrDefault(lgi => lgi.ConversationId == group.Key && lgi.DomainName == cbi.Intent)
+                                             }).
+                                             OrderByDescending(o => o.LeadGenerationInfo?.LeadGenerationActionId == null).ToList();
+
                 cbi.ConversationByUsers = li;
                 conversationByIntent.Add(cbi);
             }
@@ -457,14 +461,18 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult LeadGenerationReport(string from, string to)
         {
             var @params = new ReportParams { From = from, To = to };
+            var leadGenerationActions = _dbContext.LeadGenerationActions.ToList();
             var vm = GenerateLeadGenerationReport(@params);
+            vm.LeadGenerationActions = leadGenerationActions;
             return View(vm);
         }
 
         [HttpPost]
         public ActionResult LeadGenerationReport(ReportParams @params)
         {
+            var leadGenerationActions = _dbContext.LeadGenerationActions.ToList();
             var vm = GenerateLeadGenerationReport(@params);
+            vm.LeadGenerationActions = leadGenerationActions;
             return View(vm);
         }
 
@@ -492,7 +500,9 @@ namespace IndianBank_ChatBOT.Controllers
 
             var leadGenerationInfos = GetLeadGenerationInfos(fromDate, toDate);
 
-            var buffer = new LeadGenerationExportBridge().Export(leadGenerationInfos,
+            var actions = _dbContext.LeadGenerationActions.ToList();
+
+            var buffer = new LeadGenerationExportBridge().Export(leadGenerationInfos, actions,
                 Convert.ToDateTime(@params.From).ToString("dd-MMM-yy"),
                 Convert.ToDateTime(@params.To).ToString("dd-MMM-yy"));
 
@@ -537,7 +547,7 @@ namespace IndianBank_ChatBOT.Controllers
                     {
                         Id = 0,
                         DomainName = leadGenerationReport.Intent,
-                        LeadGenerationAction = null,
+                        LeadGenerationActionId = null,
                         PhoneNumber = userConversation.PhoneNumber,
                         QueriedOn = userConversation.TimeStamp,
                         UserInfoId = userConversation.UserInfoId,
@@ -564,6 +574,29 @@ namespace IndianBank_ChatBOT.Controllers
                 }
                 else
                     return NotFound($"Activity with the Id {activityFeedback.ActivityId} not found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateLeadGenerationAction(LeadGenerationActionViewModel vm)
+        {
+            try
+            {
+                var lead = _dbContext.LeadGenerationInfos.Where(lgi => lgi.Id == vm.Id).FirstOrDefault();
+                if (lead != null)
+                {
+                    lead.LeadGenerationActionId = vm.LeadGenerationActionId;
+                    _dbContext.LeadGenerationInfos.Update(lead);
+                    _dbContext.SaveChanges();
+                }
+                else
+                    return NotFound($"Lead with the Id {vm.Id} not found!");
             }
             catch (Exception ex)
             {

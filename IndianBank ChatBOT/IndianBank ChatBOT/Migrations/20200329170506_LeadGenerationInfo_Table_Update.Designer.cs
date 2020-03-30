@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200329170506_LeadGenerationInfo_Table_Update")]
+    partial class LeadGenerationInfo_Table_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,20 +72,6 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChatLogs");
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.LeadGenerationAction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LeadGenerationActions");
                 });
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.LeadGenerationInfo", b =>
