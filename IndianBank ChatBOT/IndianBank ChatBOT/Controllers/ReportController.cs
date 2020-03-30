@@ -463,7 +463,12 @@ namespace IndianBank_ChatBOT.Controllers
             var @params = new ReportParams { From = from, To = to };
             var leadGenerationActions = _dbContext.LeadGenerationActions.ToList();
             var vm = GenerateLeadGenerationReport(@params);
+            var leadGenerationInfos = GetLeadGenerationInfos(vm);
+
+            UpdateLeadGenerationInfos(leadGenerationInfos);
+            vm = GenerateLeadGenerationReport(@params);
             vm.LeadGenerationActions = leadGenerationActions;
+
             return View(vm);
         }
 
@@ -472,6 +477,10 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var leadGenerationActions = _dbContext.LeadGenerationActions.ToList();
             var vm = GenerateLeadGenerationReport(@params);
+            var leadGenerationInfos = GetLeadGenerationInfos(vm);
+
+            UpdateLeadGenerationInfos(leadGenerationInfos);
+            vm = GenerateLeadGenerationReport(@params);
             vm.LeadGenerationActions = leadGenerationActions;
             return View(vm);
         }
