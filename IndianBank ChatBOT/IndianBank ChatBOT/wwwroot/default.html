@@ -376,26 +376,50 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-        // window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/v3/directline', webSocket: false });
+        //// window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
-            var styleOptions = {
-                backgroundColor: '',
-                hideUploadButton: true,
-                botAvatarInitials: 'BOT',
-                botAvatarImage: './botAvatar.png',
-                botAvatarBackgroundColor: '#ffe8a3'
-            };
+        //if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        //    //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
+        //    var styleOptions = {
+        //        backgroundColor: '',
+        //        hideUploadButton: true,
+        //        botAvatarInitials: 'BOT',
+        //        botAvatarImage: './botAvatar.png',
+        //        botAvatarBackgroundColor: '#ffe8a3'
+        //    };
 
-            window.WebChat.renderWebChat({
-                directLine: directLine,
-                userID: 'IndianBank_ChatBOT',
-                styleOptions: styleOptions,
-                resize: 'detect'
-            }, document.getElementById('webchat'));
-        }
+        //    window.WebChat.renderWebChat({
+        //        directLine: directLine,
+        //        userID: 'IndianBank_ChatBOT',
+        //        styleOptions: styleOptions,
+        //        resize: 'detect'
+        //    }, document.getElementById('webchat'));
+        //}
+        window.directLine = null;
+
+        var userId = "User-" + parseInt(Math.random() * 1000000);
+        var userName = userId;
+        fetch('http://localhost:3000/v3/directline/tokens/generate', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: userId, }),
+        })
+            .then(res => res.json())
+            .then(res => {
+                window.directLine = window.WebChat.createDirectLine({
+                    domain: "http://localhost:3000/v3/directline",
+                    token: res.token,
+                });
+                window.WebChat.renderWebChat({
+                    directLine: window.directLine,
+                    userID: userId,
+                    username: userName,
+                    locale: 'en-US',
+                }, document.getElementById('webchat'));
+            });
     </script>
 
 
@@ -565,24 +589,11 @@
         this.sendFeedback(1);
         }
 
-        render() {
-        const { props } = this;
-
-        return (
-        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
-            <div className="activity">{props.children}</div>
-            <ul className="button-bar">
-                <li>
-                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
-                </li>
-                <li>
-                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
-                </li>
-            </ul>
-
-        </div>
-        );
-        }
+        checkDirectLine = () =>
+        {
+        if (!window.directLine) {
+        setTimeout(this.checkDirectLine, 100);
+        return;
         }
 
         const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
@@ -602,25 +613,40 @@
         return next(card);
         }
         };
-
+        })().catch(err => console.error(err));
+        }
 
         window.ReactDOM.render(
-        <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
-                      activityMiddleware={activityMiddleware}
+        <ReactWebChat activityMiddleware={activityMiddleware}
                       directLine={directLine}
                       styleOptions={styleOptions}
                       store={store} />,
         document.getElementById('webchat')
         );
-
         document.querySelector('#webchat > *').focus();
-        })().catch(err => console.error(err));
+        }
+
+        render() {
+        const { props } = this;
+
+        return (
+        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
+            <div className="activity">{props.children}</div>
+            <ul className="button-bar">
+                <li>
+                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
+                </li>
+                <li>
+                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
+                </li>
+            </ul>
+
+        </div>
+        );
+        this.checkDirectLine();
+        }
         }
     </script>
-
-
-
-
 
     <style>
         html,
