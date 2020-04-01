@@ -376,7 +376,7 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-
+        window.directLine = null;
         var userId ="User-"+ parseInt(Math.random()* 1000000);
         var userName = userId;
         var directLineTokenGenerationUrl = "http://localhost:3000/v3/directline/tokens/generate";
@@ -707,7 +707,7 @@
                 locale: "en-US",
                 timestamp: new Date()
             };
-            directLine.postActivity(activity).subscribe(function () {
+            window.directLine.postActivity(activity).subscribe(function () {
                 console.log("message sent...");
             });
             // getCustomBotResponse(message);
@@ -727,7 +727,7 @@
                 locale: "en-US",
                 timestamp: new Date()
             };
-            directLine.postActivity(activity).subscribe(function () {
+            window.directLine.postActivity(activity).subscribe(function () {
                 console.log("message sent...");
             });
             // getCustomBotResponse(message);
