@@ -376,53 +376,45 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/v3/directline', webSocket: false });
-        //// window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
 
-        //if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-        //    //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
-        //    var styleOptions = {
-        //        backgroundColor: '',
-        //        hideUploadButton: true,
-        //        botAvatarInitials: 'BOT',
-        //        botAvatarImage: './botAvatar.png',
-        //        botAvatarBackgroundColor: '#ffe8a3'
-        //    };
-
-        //    window.WebChat.renderWebChat({
-        //        directLine: directLine,
-        //        userID: 'IndianBank_ChatBOT',
-        //        styleOptions: styleOptions,
-        //        resize: 'detect'
-        //    }, document.getElementById('webchat'));
-        //}
-        window.directLine = null;
-
-        var userId = "User-" + parseInt(Math.random() * 1000000);
+        var userId ="User-"+ parseInt(Math.random()* 1000000);
         var userName = userId;
-        fetch('http://localhost:3000/v3/directline/tokens/generate', {
+        var directLineTokenGenerationUrl = "http://localhost:3000/v3/directline/tokens/generate";
+        //var directLineTokenGenerationUrl = "http://52.172.14.249:3000/v3/directline/tokens/generate";
+
+        var directLineConversationUrl = "http://localhost:3000/v3/directline";
+        //var directLineConversationUrl = "http://52.172.14.249:3000/v3/directline";
+
+        fetch(directLineTokenGenerationUrl, { 
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
+            headers:{
+                "Content-Type":"application/json",
             },
             body: JSON.stringify({ userId: userId, }),
         })
-            .then(res => res.json())
+        .then(res => res.json())
             .then(res => {
-                window.directLine = window.WebChat.createDirectLine({
-                    domain: "http://localhost:3000/v3/directline",
-                    token: res.token,
-                });
-                window.WebChat.renderWebChat({
-                    directLine: window.directLine,
-                    userID: userId,
-                    username: userName,
-                    locale: 'en-US',
-                }, document.getElementById('webchat'));
-            });
+                window.directLine = window.WebChat.createDirectLine({ domain: directLineConversationUrl, token: res.token, webSocket: true });
+                 if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+            var styleOptions = {
+                backgroundColor: '',
+                hideUploadButton: true,
+                botAvatarInitials: 'BOT',
+                botAvatarImage: './botAvatar.png',
+                botAvatarBackgroundColor: '#ffe8a3'
+            };
+
+            window.WebChat.renderWebChat({
+                directLine: window.directLine,
+                userID: userId,
+                username: userName,
+                locale: 'en-US',
+                styleOptions: styleOptions,
+                resize: 'detect'
+            }, document.getElementById('webchat'));
+        }
+        });
     </script>
-
-
 
     <script type="text/babel">
         if(!(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))){
@@ -589,43 +581,6 @@
         this.sendFeedback(1);
         }
 
-        checkDirectLine = () =>
-        {
-        if (!window.directLine) {
-        setTimeout(this.checkDirectLine, 100);
-        return;
-        }
-
-        const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
-        <ActivityWithFeedback { ...props} />
-        ));
-        let excludedText = [`Hi! My name is Iva 😃.
-        Welcome to Indian Bank.
-        I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
-        const activityMiddleware = () => next => card => {
-        if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) {
-        return children => (
-        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
-            {next(card)(children)}
-        </ConnectedActivityWithFeedback>
-        );
-        } else {
-        return next(card);
-        }
-        };
-        })().catch(err => console.error(err));
-        }
-
-        window.ReactDOM.render(
-        <ReactWebChat activityMiddleware={activityMiddleware}
-                      directLine={directLine}
-                      styleOptions={styleOptions}
-                      store={store} />,
-        document.getElementById('webchat')
-        );
-        document.querySelector('#webchat > *').focus();
-        }
-
         render() {
         const { props } = this;
 
@@ -643,10 +598,59 @@
 
         </div>
         );
-        this.checkDirectLine();
         }
+        }
+
+        const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
+        <ActivityWithFeedback { ...props} />
+        ));
+        let excludedText = [`Hi! My name is Iva 😃.
+        Welcome to Indian Bank.
+        I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
+
+        const checkDirectLine = function()
+        {
+
+        if (!window.directLine) {
+        setTimeout(checkDirectLine, 100);
+        return;
+        }
+
+        console.log('chatbot initialized');
+        window.ReactDOM.render(
+        <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
+                      activityMiddleware={activityMiddleware}
+                      directLine={window.directLine}
+                      styleOptions={styleOptions}
+                      store={store} />,
+        document.getElementById('webchat')
+        );
+
+        document.querySelector('#webchat > *').focus();
+        }
+
+        const activityMiddleware = () => next => card => {
+        if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) {
+        return children => (
+        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
+            {next(card)(children)}
+        </ConnectedActivityWithFeedback>
+        );
+        } else {
+        return next(card);
+        }
+        };
+
+        setTimeout(function(){
+        checkDirectLine();}, 100);
+
+        })().catch(err => console.error(err));
         }
     </script>
+
+
+
+
 
     <style>
         html,
