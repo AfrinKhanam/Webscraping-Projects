@@ -18,7 +18,7 @@ namespace IndianBank_ChatBOT.ExcelExport
         }
 
         Tuple<string, string, Type>[] reportColumns;
-        public override void WriteData<T>(List<T> exportData, string from, string to)
+        public override void WriteData<T>(List<T> exportData, List<LeadGenerationAction> actions, string from, string to)
         {
             const int maxColumnLength = 75;
             const int fixedColumnHeight = 3 * 256;
@@ -32,7 +32,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                                                     Tuple.Create("Visitor","Visitor", typeof(string)),
                                                     Tuple.Create("Phone Number","PhoneNumber", typeof(string)),
                                                     Tuple.Create("Queried On", "QueriedOn", typeof(DateTime)),
-                                                    Tuple.Create("Action","LeadGenerationAction", typeof(string))
+                                                    Tuple.Create("Action","LeadGenerationActionId", typeof(int))
                                                  };
 
             foreach (var item in reportColumns)
@@ -52,7 +52,8 @@ namespace IndianBank_ChatBOT.ExcelExport
                 row["Visitor"] = item.Visitor;
                 row["Phone Number"] = item.PhoneNumber;
                 row["Queried On"] = item.QueriedOn;
-                row["Action"] = item.LeadGenerationAction;
+                //ToDo
+                row["Action"] = item.LeadGenerationActionId == null ? (object)DBNull.Value : item.LeadGenerationActionId.Value;
 
                 slNo += 1;
                 table.Rows.Add(row);
@@ -68,7 +69,7 @@ namespace IndianBank_ChatBOT.ExcelExport
                                             .ToList();
 
             var totalLeadGenerationQueries = data.Count();
-            var totalUnattendedQueries = data.Where(d => !d.LeadGenerationAction.HasValue).Count();
+            var totalUnattendedQueries = data.Where(d => !d.LeadGenerationActionId.HasValue).Count();
 
             sheetRow = _sheet.CreateRow(0);
 
@@ -303,7 +304,7 @@ namespace IndianBank_ChatBOT.ExcelExport
             {
                 var domianName = item.FirstOrDefault().DomainName;
                 var domainLevelTotalQueries = item.Count();
-                var domainLevelUnattendedQueries = item.Where(l => !l.LeadGenerationAction.HasValue).Count();
+                var domainLevelUnattendedQueries = item.Where(l => !l.LeadGenerationActionId.HasValue).Count();
 
                 var dataSheetRow = _sheet.CreateRow(domainRowIndex);
 
@@ -507,13 +508,18 @@ namespace IndianBank_ChatBOT.ExcelExport
 
                                     cell.SetCellValue(cellvalue);
                                 }
-                                else if (_type[columnIndex].ToLower() == "leadgenerationaction")
-                                {
-                                    cell.SetCellValue(Enum.GetName(typeof(LeadGenerationAction), Convert.ToInt32(cellvalue)));
-                                }
                                 else if (_type[columnIndex].ToLower() == "int32")
                                 {
-                                    cell.SetCellValue(Convert.ToInt32(cellvalue));
+                                    if (itemObject.Name == "LeadGenerationActionId")
+                                    {
+                                        var cv = Convert.ToInt32(cellvalue);
+                                        var action = actions.FirstOrDefault(i => i.Id == cv)?.Name;
+                                        cell.SetCellValue(action);
+                                    }
+                                    else
+                                    {
+                                        cell.SetCellValue(Convert.ToInt32(cellvalue));
+                                    }
                                 }
                                 else if (_type[columnIndex].ToLower() == "double")
                                 {

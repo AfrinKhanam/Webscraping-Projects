@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200329170506_LeadGenerationInfo_Table_Update")]
+    partial class LeadGenerationInfo_Table_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("Relational:Sequence:.LeadGenerationAction_Id_Sequence", "'LeadGenerationAction_Id_Sequence', '', '5', '1', '', '', 'Int64', 'False'");
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.ChatLog", b =>
                 {
@@ -71,47 +72,6 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChatLogs");
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.LeadGenerationAction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("nextval('\"LeadGenerationAction_Id_Sequence\"')");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LeadGenerationActions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Seen",
-                            Name = "Seen"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Ignore",
-                            Name = "Ignore"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Qualified",
-                            Name = "Qualified"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "ActedUpon",
-                            Name = "ActedUpon"
-                        });
                 });
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.LeadGenerationInfo", b =>

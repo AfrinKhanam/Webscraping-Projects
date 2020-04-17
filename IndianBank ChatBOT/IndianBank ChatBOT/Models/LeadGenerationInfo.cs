@@ -17,14 +17,6 @@ namespace IndianBank_ChatBOT.Models
         public string DomainName { get; set; }  
         public int UserInfoId { get; set; }
         public string ConversationId { get; set; }
-        public LeadGenerationAction? LeadGenerationAction { get; set; }
-    }
-
-    public enum LeadGenerationAction
-    {
-        Ignore,
-        Seen,
-        ActedUpon,
-        Qualified
+        public int? LeadGenerationActionId { get; set; }
     }
 }

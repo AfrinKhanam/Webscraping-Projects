@@ -13,6 +13,7 @@ namespace IndianBank_ChatBOT.Models
         public string PhoneNumber { get; set; }
         public DateTime TimeStamp { get; set; }
         public List<ChatLog> ChatLogs { get; set; }
+        public LeadGenerationInfo LeadGenerationInfo { get; set; }
         public List<TurnConversation> TurnConversations { get; set; }
     }
 }
