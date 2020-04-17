@@ -33,6 +33,7 @@ class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
     def main_title(self, document):
         main_title = self.dom.find(document['html']['main_title']['tag'], attrs={"class" : document['html']['main_title']['class']})
+        # print("main title is----> ",main_title)
         document['html']['main_title']['text'] = main_title.get_text()
         return document
     #-----------------------------------------------------------------#

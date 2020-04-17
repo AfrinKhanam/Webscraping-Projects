@@ -334,10 +334,31 @@ class ESPostProcessing:
             print(json.dumps(documents,indent=4))
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        
 
+        
+        # What are the Salient features of Indian Bank ATM/Debit cards?
+        if re.search(r'(ATM/Debit cards)', document['QUERY_STRING']):
+            print("hii")
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://www.indianbank.in/departments/atm-debit-cards/':
+                    print("hmmm")
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        
+         # For what purposes can the remittance be made via Money Gram
+        if re.search(r'(money gram)', document['PARSED_QUERY_STRING']):
+            print("hii")
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://www.indianbank.in/departments/money-gram/':
+                    print("hmmm")
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         # What are the transactions possible using Ind Netbanking
-        if re.search(r'(xpress money)', document['PARSED_QUERY_STRING']):
+        if re.search(r'(xpress money|inward remitt)', document['PARSED_QUERY_STRING']):
             print("hii")
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/xpress-money-inward-remittance-money-transfer-service-scheme/':
@@ -502,7 +523,7 @@ class ESPostProcessing:
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        if re.search(r'(pos)', document['QUERY_STRING']):
+        if re.search(r'( pos )', document['QUERY_STRING']):
             documents=[]
             if re.search(r'(cash po)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
@@ -1247,6 +1268,7 @@ class ESPostProcessing:
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(credit card)', document['PARSED_QUERY_STRING']):
+            print("heeeeeeeeeeee")
             documents = []
             if re.search(r'(kcc | kisan credit card | kisan )', document['POTENTIAL_QUERY_LIST']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
@@ -1257,8 +1279,8 @@ class ESPostProcessing:
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
+                documents = []
                 if re.search(r'(surabhi)', document['PARSED_QUERY_STRING']):
-                    documents = []
                     if re.search(r'()', document['POTENTIAL_QUERY_LIST']):
                         for record in document['ES_RESULT']['DOCUMENTS']:
                             if record['url'] == "https://www.indianbank.in/departments/ib-surabhi/":
@@ -1266,12 +1288,14 @@ class ESPostProcessing:
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
-                    documents += document['ES_RESULT']['DOCUMENTS']
-                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                     for record in document['ES_RESULT']['DOCUMENTS']:
-                        if record['url'] == "https://indianbank.in/departments/credit-cards/":
+                        # https://indianbank.in/departments/credit-cards/
+                        # https://www.indianbank.in/departments/credit-card/
+                        if record['url'] == "https://www.indianbank.in/departments/credit-card/":
+                            print("00000000000000000000000000000")
                             documents.append(record)
                     print(json.dumps(documents,indent=4))
+                    print("9999999999999999999999999999")
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 

@@ -26,7 +26,7 @@ offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=di
 wish=want=prefered
 look=see=view=lk
 agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
-eligibility=ability= apply=criteria
+eligibility=ability= apply=criteria=can
 minimum=min
 apply=place=join
 criteria=norms=rule=prototype
@@ -61,7 +61,7 @@ targets=goals
 harvest=golden harvest scheme=ghs=gh scheme
 Jewel loan=Agricultural Jewel Loan=AGL=AGL
 get=have=take=receive=earn
-categories=types=list=group
+categories=types=list=group=features
 repayment=paying back=compensation
 prepayment=advance payment
 policy=procedure=plan=method
@@ -80,3 +80,6 @@ Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
 pos=point of sale
 asba=applications supported by Blocked Amount
+customer=beneficiary
+limit=revolving credit
+coverage=period of cover
