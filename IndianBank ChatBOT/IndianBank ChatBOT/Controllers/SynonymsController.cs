@@ -28,7 +28,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult Index()
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 

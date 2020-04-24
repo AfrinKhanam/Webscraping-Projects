@@ -160,9 +160,14 @@ namespace IndianBank_ChatBOT
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
+
             //app.UseHttpContext();
             app.UseDefaultFiles()
                .UseStaticFiles()
+               .UseXfo(xfo => xfo.SameOrigin())
                .UseBotFramework();
             app.UseMvc(routes =>
             {
