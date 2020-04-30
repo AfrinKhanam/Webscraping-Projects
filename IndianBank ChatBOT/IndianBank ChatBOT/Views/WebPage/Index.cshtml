@@ -1,0 +1,90 @@
+﻿@model List<WebPage>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="section-header">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <h1>Web Pages</h1>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+        <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("AddNew", "WebPage")'" >Add New Web Page</button>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pages</h4>
+                    <div class="card-stats">
+                        <div class="card-stats-items">
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Total Web Pages</div>
+                                <div class="card-stats-item-count">@Model.Count()</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-md">
+                            <tbody>
+                                <tr>
+                                    <th style="text-align:right">
+                                        S No.
+                                    </th>
+                                    <th>
+                                        Page Name
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Url
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                                @{
+                                    var index = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    {
+                                        index += 1;
+                                    }
+                                    <tr>
+                                        <td style="text-align:right">@index</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PageName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Url)
+                                        </td>
+                                    </tr>
+                                }
+                                @if (Model.Count == 0)
+                                {
+                                    <tr class="no-data" style="text-align:center">
+                                        <td colspan="5">No data found !</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
