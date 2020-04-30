@@ -12,7 +12,7 @@ using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    //[Route("[controller]")]
+    [Route("[controller]")]
     public class WebPageController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -23,27 +23,29 @@ namespace IndianBank_ChatBOT.Controllers
         }
 
         [HttpGet]
+        [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebPages.ToList();
+            var webPages = _dbContext.WebPages.OrderBy(p=>p.PageName).ToList();
             return View(webPages);
         }
 
-
         [HttpGet]
+        [Route(nameof(AddNew))]
         public ActionResult AddNew()
         {
-             var webPage = new WebPage();
+            var webPage = new WebPage();
             return View(webPage);
         }
 
         [HttpPost]
-        public ActionResult AddNew([FromBody]WebPage webPage)
+        [Route(nameof(AddNew))]
+        public ActionResult AddNew(WebPage webPage)
         {
             _dbContext.WebPages.Add(webPage);
             _dbContext.SaveChanges();
 
-            ViewBag.InsertFAQStatus = "New Web Page is added successfully.";
+            ViewBag.insertWebPageStatus = "New Web Page is added successfully.";
             ModelState.Clear();
 
             return View();
@@ -51,17 +53,60 @@ namespace IndianBank_ChatBOT.Controllers
 
 
         [HttpGet]
+        [Route(nameof(Edit))]
         public ActionResult Edit(int pageId)
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
-            return Ok(Synonyms);
+            var webPage = _dbContext.WebPages.Find(pageId);
+            return View(webPage);
+        }
+
+        [HttpPost]
+        [Route(nameof(Edit))]
+        public ActionResult Edit(WebPage webPage)
+        {
+            _dbContext.WebPages.Update(webPage);
+            _dbContext.SaveChanges();
+
+            ViewBag.editWebPageStatus = "Web Page is updates successfully.";
+            ModelState.Clear();
+
+            return View(webPage);
+        }
+
+
+        [HttpDelete]
+        [Route(nameof(DeleteById))]
+        public IActionResult DeleteById(int pageId)
+        {
+            if (pageId != 0)
+            {
+                var webpage = _dbContext.WebPages.FirstOrDefault(w => w.Id == pageId);
+                if (webpage != null)
+                {
+                    _dbContext.WebPages.Remove(webpage);
+                    _dbContext.SaveChanges();
+                    return Ok();
+                }
+            }
+            return NotFound($"Web Page with the id {pageId} not found!");
+        }
+
+        // Below APIs for RabbitMQ
+
+        [HttpGet]
+        [Route(nameof(GetAllPages))]
+        public IActionResult GetAllPages()
+        {
+            var webPages = _dbContext.WebPages.ToList();
+            return Ok(webPages);
         }
 
         [HttpGet]
-        public ActionResult Edit([FromBody]WebPage webPage)
+        [Route(nameof(GetPageById))]
+        public IActionResult GetPageById(int pageId)
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
-            return Ok(Synonyms);
+            var webPage = _dbContext.WebPages.Find(pageId);
+            return Ok(webPage);
         }
     }
 }

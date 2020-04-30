@@ -1,18 +1,11 @@
-﻿@model List<WebPage>
+﻿@model List<WebPageScrapeRequest>
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <h1>Web Pages</h1>
-    </div>
-
-    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-
-    </div>
-    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("AddNew", "WebPage")'">Add New Web Page</button>
+        <h1>Web Pages Scrape Requests</h1>
     </div>
 </div>
 
@@ -25,7 +18,7 @@
                     <div class="card-stats">
                         <div class="card-stats-items">
                             <div class="card-stats-item">
-                                <div class="card-stats-item-label">Total Web Pages</div>
+                                <div class="card-stats-item-label">Total Requests</div>
                                 <div class="card-stats-item-count">@Model.Count()</div>
                             </div>
                         </div>
@@ -50,7 +43,10 @@
                                         Url
                                     </th>
                                     <th>
-                                        Action
+                                        Requested On
+                                    </th>
+                                    <th>
+                                        Status
                                     </th>
                                 </tr>
                                 @{
@@ -64,18 +60,42 @@
                                     <tr>
                                         <td style="text-align:right">@index</td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PageName)
+                                            @Html.DisplayFor(modelItem => item.WebPage.PageName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
+                                            @Html.DisplayFor(modelItem => item.WebPage.Description)
                                         </td>
                                         <td>
-                                            <a target="_blank" href="@item.Url">@item.Url</a>
+                                            @Html.DisplayFor(modelItem => item.WebPage.Url)
                                         </td>
-                                        <td width="30%">
-                                            <button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-warning toggle-modal-addWebScrapeRequest">Request Rescrape</button>
+                                        <td>
+                                            @{
+                                                var requestedDate = item.RequestedDate.ToString("dd-MMM-yyyy");
+                                            }
+                                            @requestedDate
+                                        </td>
+                                        <td>
+                                            @{
+                                                var status = item.GetEnumDescription();
+                                                var statusClass = "badge-warning";
+                                                switch (item.ScrapeStatus)
+                                                {
+                                                    case ScrapeStatus.YetToScrape:
+                                                        statusClass = "badge-warning";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeSuccess:
+                                                        statusClass = "badge-success";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeFailed:
+                                                        statusClass = "badge-danger";
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+
+                                            }
+                                            <div class="badge @statusClass">@status</div>
+
                                         </td>
                                     </tr>
                                 }
@@ -99,36 +119,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.toggle-modal-deleteWebPageModal').fireModal({
-            title: 'Delete Web Page',
+            title: 'Delete Synonym Word',
             body: 'Are you sure you want to delete this Web Page?',
             buttons: [
                 {
                     text: 'Delete',
                     class: 'btn btn-outline-danger',
                     handler: deleteWebPage
-                },
-                {
-                    text: 'No',
-                    class: 'btn btn-outline-secondary',
-                    handler: function (current_modal) {
-                        $.destroyModal(current_modal);
-                    }
-                }
-            ]
-        });
-
-        var body = '<div class="alert alert-warning">' +
-            '<b> Note!</b> Rescrape can only be done in the case where your page content is changed with the same structure.' +
-            '</div >';
-
-        $('.toggle-modal-addWebScrapeRequest').fireModal({
-            title: 'Request for Web Page Rescrape',
-            body: body + '<b>Are you sure you want to rescrape this Web Page?</b>',
-            buttons: [
-                {
-                    text: 'Rescrape',
-                    class: 'btn btn-outline-warning',
-                    handler: addWebScrapeRequest
                 },
                 {
                     text: 'No',
@@ -176,31 +173,4 @@
         });
     }
 
-    function addWebScrapeRequest() {
-        var id = $('#currentWebPageId').val();
-
-        var request = $.ajax({
-            url: "/WebPageScrapeRequest/AddNewRequest?pageId=" + id,
-            type: "POST"
-        });
-
-        request.done(function (response) {
-            iziToast.success({
-                title: 'Done!',
-                position: 'topRight',
-                message: 'Web page rescrape request is done successfully.',
-            });
-            setTimeout(function () { window.location.reload(); }, 1000);
-        });
-
-        request.fail(function (jqXHR, textStatus) {
-            request.fail(function (jqXHR, textStatus) {
-                iziToast.error({
-                    title: 'Error!',
-                    position: 'topRight',
-                    message: 'Failed to add request for Web Page Rescrape.',
-                });
-            });
-        });
-    }
 </script>

@@ -1,6 +1,8 @@
-﻿using Microsoft.Graph;
+﻿using IndianBank_ChatBOT.Utils;
+using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -20,12 +22,20 @@ namespace IndianBank_ChatBOT.Models
         public int WebPageId { get; set; }
 
         public virtual WebPage WebPage { get; set; }
+
+        public string GetEnumDescription()
+        {
+            return ScrapeStatus.GetEnumDescription();
+        }
     }
 
     public enum ScrapeStatus
     {
+        [Description("Yet to scrape")]
         YetToScrape,
+        [Description("Successfully Scraped")]
         ScrapeSuccess,
+        [Description("Failed to scrape")]
         ScrapeFailed
     }
 }

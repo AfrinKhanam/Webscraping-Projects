@@ -15,45 +15,8 @@
     </div>
 </div>
 
-
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.PageName)
-            @Html.EditorFor(model => model.PageName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PageName, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description)
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Url)
-            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
-        </div>
-
-        <input type="submit" value="Create" class="btn btn-default" />
-    }
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-
-    @section scripts
-    {
-        <partial name="_ValidationScriptsPartial" />
-    }*@
-
-
-
-
 @{
     ViewData["Title"] = "Add New Web Page";
-    //string insertFAQStatus = TempData["InsertFAQStatus"] as string;
     string insertWebPageStatus = ViewBag.InsertWebPageStatus as string;
 
     if (string.IsNullOrEmpty(insertWebPageStatus))
@@ -84,14 +47,10 @@
                         <h4>Add New Web Page</h4>
                     </div>
                     <div class="card-body">
-                        @*<div class="alert alert-info">
-                                <b>Note!</b> Not all browsers support HTML5 type input.
-                            </div>*@
                         <div class="form-group">
                             <label>Page Name</label>
                             @Html.TextBoxFor(m => m.PageName, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.PageName, "", new { @class = "text-danger" })
-
                         </div>
 
                         <div class="form-group">
@@ -102,50 +61,19 @@
 
                         <div class="form-group">
                             <label>Page Url</label>
-
                             @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
-
                         </div>
                     </div>
                     <div class="card-footer text-right">
                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
                         <button class="btn btn-secondary" type="reset">Reset</button>
-                        <button class="btn btn-secondary" type="reset">Back To List</button>
+                        <button type="button" class='btn btn-secondary' onclick='location.href="@Url.Action("Index", "WebPage")"'>Back To List</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
-
-@*<div class="row">
-        <div class="col-md-4">
-            @using (Html.BeginForm("AddNew", "WebPage", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.PageName, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.PageName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.PageName, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "control-label" })
-                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Url, new { @class = "control-label" })
-                    @Html.TextAreaFor(m => m.Url, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
-                </div>
-                <input class="btn btn-primary" type="submit" value="Add New" />
-            }
-        </div>
-    </div>*@
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
