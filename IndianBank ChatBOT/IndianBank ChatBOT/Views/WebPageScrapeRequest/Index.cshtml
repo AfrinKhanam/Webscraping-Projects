@@ -5,7 +5,7 @@
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <h1>Web Pages Scrape Requests</h1>
+        <h1>Web Page Scrape Requests</h1>
     </div>
 </div>
 
@@ -20,6 +20,21 @@
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Total Requests</div>
                                 <div class="card-stats-item-count">@Model.Count()</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Pending Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Successful Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Failed Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed)</div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +81,7 @@
                                             @Html.DisplayFor(modelItem => item.WebPage.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.WebPage.Url)
+                                            <a target="_blank" href="@item.WebPage.Url">@item.WebPage.Url</a>
                                         </td>
                                         <td>
                                             @{
