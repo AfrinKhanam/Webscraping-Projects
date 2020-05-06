@@ -181,7 +181,7 @@ namespace IndianBank_ChatBOT
             app.UseXfo(options => options.Deny());
             app.UseCsp(opts => opts
             .BlockAllMixedContent()
-            .FrameAncestors(s => s.Self())
+            .FrameAncestors(s => s.None())
             );
 
 
