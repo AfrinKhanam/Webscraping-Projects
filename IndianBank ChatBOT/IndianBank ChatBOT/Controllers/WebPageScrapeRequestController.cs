@@ -38,6 +38,7 @@ namespace IndianBank_ChatBOT.Controllers
         public IActionResult GetAllPendingRequests()
         {
             var requests = _dbContext.WebPageScrapeRequests
+                                     .Include(w=>w.WebPage)
                                      .Where(r => r.ScrapeStatus == ScrapeStatus.YetToScrape)
                                      .ToList();
             return Ok(requests);

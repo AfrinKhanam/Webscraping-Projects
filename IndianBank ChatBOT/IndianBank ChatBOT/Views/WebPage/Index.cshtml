@@ -12,7 +12,7 @@
 
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("AddNew", "WebPage")'">Add New Web Page</button>
+        @*<button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("AddNew", "WebPage")'">Add New Web Page</button>*@
     </div>
 </div>
 
@@ -73,8 +73,8 @@
                                             <a target="_blank" href="@item.Url">@item.Url</a>
                                         </td>
                                         <td width="30%">
-                                            <button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>
+                                            @*<button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
+                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>*@
                                             <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-warning toggle-modal-addWebScrapeRequest">Request Rescrape</button>
                                         </td>
                                     </tr>
