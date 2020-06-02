@@ -1,0 +1,80 @@
+{
+    "url": "https://www.ujjivansfb.in/list-recovery-agents",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "List of Recovery Agents",
+    "subtitle": {
+        "element": [
+            {
+                "text": "Region",
+                "content": [
+                    {
+                        "text": [
+                            "North"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Code",
+                "content": [
+                    {
+                        "text": [
+                            "40848"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Stark Force Private ltd"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Jitender Deswal"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Mobile No",
+                "content": [
+                    {
+                        "table": [
+                            "\n9829330653\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Email Id",
+                "content": [
+                    {
+                        "text": [
+                            "stark.force@gmail.com"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Address",
+                "contents": [
+                    {
+                        "text": [
+                            "B47 Arjunpuri 11 IMLI Phatak Jaipur Rajasthan - 302006"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

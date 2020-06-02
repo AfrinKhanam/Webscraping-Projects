@@ -1,0 +1,392 @@
+{
+    "url": "https://www.ujjivansfb.in/faq",
+    "domain": "Home",
+    "class": "Customer Care",
+    "main_title": "Frequently Asked Questions (Mobile Banking)",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "What is Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nUjjivan Mobile Banking is an application that allows anytime anywhere access to banking services on your mobile phone.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "In how many languages is Ujjivan Mobile Banking available?",
+                "content": [
+                    {
+                        "text": [
+                            "\nUjjivan Mobile Banking is available in English, Hindi, Kannada, Tamil and Bengali.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How do I change language in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nIn the pre-login screen, click on \u201cLanguage\u201d and select either English or Hindi.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Who can use Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nAny Ujjivan customer having a savings and/or current account with a valid debit card and mobile number registered with the Bank can use Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Which operating systems will support Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nAndroid phones with version 5.0 and above\nApple phones with iOS 7.0 and above\n\n\n",
+                            ""
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I navigate \u201cback\u201d in an iPhone?",
+                "content": [
+                    {
+                        "text": [
+                            "\nIn an iPhone, swipe your screen from \u201cleft to right\u201d to navigate to a previous screen.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Are there any charges for using Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nUjjivan Mobile Banking is free of charge for its customers. You can download and use this application without any charges levied by the Bank. Your telecom service operator and/or internet service provider may levy charges for SMS and/or GPRS and /or internet used. Please contact your operator for details.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How should I register for Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nWhile opening an account\nAt Bank branch\nAt ATM\nThrough Phone banking\n\n\n",
+                            ""
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How long will the Bank take to activate my Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nThe Bank will activate your Ujjivan Mobile Banking within 3 working days, provided you meet all requirements set by the Bank.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is a Customer ID?",
+                "content": [
+                    {
+                        "text": [
+                            "\nA Customer ID is a unique identity given to you by the Bank for using Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is mPIN?",
+                "content": [
+                    {
+                        "text": [
+                            "\nmPIN is your Mobile Pin Identification Number used for logging in to Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is OTP?",
+                "content": [
+                    {
+                        "text": [
+                            "\nOTP refers to One Time Password that will be sent to your registered mobile number.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I set a new mPIN for Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo set a new mPIN, your mobile number must be registered with the Bank for Ujjivan Mobile Banking. Once registered, click on \u201cNew Registration\u201d in the pre-login screen and fill the required details (Customer ID, Date of birth and registered mobile number); enter the OTP sent to your mobile number registered with the Bank and set security questions to generate your mPIN.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I change my mPIN?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo change your mPIN, login to Ujjivan Mobile Banking and click on \u201cChange mPIN\u201d from Settings option located in the vertical slider menu.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What should I do if I forget my mPIN?",
+                "content": [
+                    {
+                        "text": [
+                            "\nIf you forget your mPIN, click on \u201cForgot mPIN\u201d in the pre-login screen of the Ujjivan Mobile Banking. Fill in the required details (Customer ID, Date of birth and registered mobile number); enter the OTP sent to your mobile number registered with the Bank. Answer the security questions set by you during registration and reset your mPIN.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "I have lost my mobile phone in which Ujjivan Mobile Banking was installed. What should I do?",
+                "content": [
+                    {
+                        "text": [
+                            "\nIf you have lost your phone in which Ujjivan Mobile Banking was installed, please call Ujjivan Phone Banking number 1800-208-2121 or visit the nearest Bank branch immediately.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is a debit card hotlist?",
+                "content": [
+                    {
+                        "text": [
+                            "\nA debit card hotlist is a list of debit cards that are permanently disabled by the Bank upon your request. Such cards are reported stolen, canceled and/or compromised in some way.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "I have lost my debit card. Can I hotlist my debit card using Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYes, you can hotlist your debit card using Ujjivan Mobile Banking by selecting \u201cDebit card hotlisting\u201dfrom \u201cDebit Card\u201d option under \u201cServices\u201d located in the vertical slider menu.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How should I discontinue Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo discontinue Ujjivan Mobile Banking, please contact the Bank branch to fill a Mobile Banking de-registration form.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Where can I read the terms and conditions of Ujjivan Bank Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nPlease click the following link for terms and conditions related to Ujjivan Mobile Banking (hyperlink)\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is \u201cMy Accounts\u201d?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\u201cMy Accounts\u201d is a summary of all your accounts with the Bank.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What accounts are visible in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nSavings Account\nCurrent Account\nFixed Deposit Account\nRecurring Deposit Account\nLoan\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I check my transaction details using Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nClick on Savings or Current account and select the account number for transaction details\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is E-passbook?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\u201cE-passbook\u201d in Ujjivan Mobile Banking will display your transaction historyof the selected account for the past 6 months.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Can I open a Fixed Deposit or Recurring Deposit using Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYes, you can open a Fixed Deposit or Recurring Deposit account using Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Can I open more than one Fixed Deposit or Recurring Deposit accounts using Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYes, you can open more than one Fixed Deposit or Recurring Deposit accounts using Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "If I open a Fixed Deposit or Recurring Deposit at the Bank branch, will that be visible in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYes, all your accounts opened at the Bank branch will be visible in Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What are the different money transfer options available in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nMoney transfer to My Accounts (linked accounts)\nMoney Transfer to Other Ujjivan Accounts\nIMPS (Immediate Payment Service)\nNEFT (National Electronic Fund Transfer)\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Who is a payee or beneficiary?",
+                "content": [
+                    {
+                        "text": [
+                            "\nA payee or beneficiary is a person who receives money.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What can I do if my transaction fails or the beneficiary does not receive money?",
+                "content": [
+                    {
+                        "text": [
+                            "\nIf you transaction fails or the beneficiary does not receive money, please note the transaction ID and contact Ujjivan Phone banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Can I transfer money without adding anew payee or beneficiary?",
+                "content": [
+                    {
+                        "text": [
+                            "\nNo, adding a new payee or beneficiary is mandatory for transferring moneyusing Ujjivan Mobile Banking.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How do I add a new payee or beneficiary in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nAfter logging in, click on \u201cMoney Transfer\u201d option on the home screen or in the vertical slider menu\nClick on \u201cManage beneficiary \u201cand choose \u201cAdd beneficiary\u201d\nSelect the type of Money Transfer to fill details\nEnter the OTP sent to your mobile number registered with the Bank\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "If I add a new payee or beneficiary in Ujjivan Mobile Banking, will that be available in Ujjivan Net Banking as well?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYes, any new payee or beneficiary added in Ujjivan Mobile Banking will also be available in Ujjivan Net Banking as well.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is a favourite transaction?",
+                "content": [
+                    {
+                        "text": [
+                            "\nA favourite transaction is a feature you can use to add your most frequent transactions and use it for quick and easy access.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How many favourite transactions can I add?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYou can add up to 10 favourite transactions and use it for quick and easy access.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I delete/remove a favourite transaction?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo delete a favourite transaction, select \u201cManage Favorites\u201d from the Settings option menu located in the vertical slider menu.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What are the other services offered in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nServices offered by Ujjivan Mobile Banking are as follows:\nCheque services\n\nRequest cheque book\nStop payment of cheque\nCheque status enquiry\n\nDebit card services\n\nRequest debit card\nDebit card status\nDebit card hot-listing\n\nNew Account Request\n\nSavings Account\nCurrent Account\nFixed Deposit\nRecurring Deposit\nLoan\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I control my Money Transfer limit in Ujjivan Mobile Banking?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo control your Money Transfer limit, Click on \u2018Manage Limit\u2019 in the \u2018Settings\u2019 option located in the vertical slider Menu.\n"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

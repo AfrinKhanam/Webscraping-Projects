@@ -4043,3 +4043,5 @@ nigam
 irfc
 ninl
 sme
+sms
+atm

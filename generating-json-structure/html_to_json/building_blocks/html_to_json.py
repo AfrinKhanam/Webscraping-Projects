@@ -24,7 +24,6 @@ class HtmlToJson(Subtitle, PostProcessing):
             raise('INVALID SOURCE IS DEFINED')
 
 
-
         self.dom = BeautifulSoup(html, features="html5lib")
     #-----------------------------------------------------------------#
 

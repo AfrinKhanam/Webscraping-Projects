@@ -1,0 +1,30 @@
+{
+    "url": "https://www.ujjivansfb.in/customer-guideline",
+    "domain": "Home",
+    "class": "Customer Care",
+    "main_title": "Customer Guidelines",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Customer Guidelines for disputes related to “Failed Electronic Transactions",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.ujjivansfb.in/pdf/Customer_guidelines_for_disputes_related_to_failed_Electronic_transactions.pdf"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Customer Guidelines for disputes related to “Unauthorised Transactions",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.ujjivansfb.in/pdf/Customer_guidelines_for_disputes_related_to_Unauthorised_Transactions.pdf"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

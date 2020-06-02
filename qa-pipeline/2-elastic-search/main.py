@@ -60,9 +60,13 @@ def callback(ch, method, properties, body):
         return
 
 #---------------------------------------------------------------#
-
+# webscrape
+# elasticsearch_demo
 # elastic = Elastic(index='indian-bank-index-v2')
-elastic = Elastic(index='webscrape')
+# webscrape
+# indian_bank_database
+# ujjivan_bank_database
+elastic = Elastic(index='indian_bank_database')
 
 # elastic = Elastic(index='indian-bank-index-modified')
 
@@ -92,6 +96,6 @@ rabbitmq_producer = RabbitmqProducerPipe(
 )
 '''
 
-print('Service is up and running...... [2-elasticsearch]')
+print('Service is up and running...... [2-elasticsearch]webscrape')
 rabbimq_consumer.start_consuming()
 #---------------------------------------------------------------#

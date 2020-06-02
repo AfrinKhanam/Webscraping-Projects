@@ -19,6 +19,7 @@ IndPay="./ManuallyScrapedData/IndPay.json"
 SupremeCurrentAccounts="./ManuallyScrapedData/SupremeCurrentAccounts.json"
 DepositRates="./ManuallyScrapedData/DepositRates.json"
 ujjivanBank="./ManuallyScrapedData/ujjivansfb_in_corporate_salary_account.json"
+demo="./ManuallyScrapedData/demo.json"
 
 json_files = [
         # ib_surabhi_path,
@@ -30,10 +31,9 @@ json_files = [
         # EConfirmationOfBankGuarantee,
         # ComplaintsOfficersList,
         # IndianBankMutualFund,
-        # ServiceChargesForexRates,
+        ServiceChargesForexRates,
 
-        LendingRates,
-
+        # LendingRates,
         # InternetBanking,IndPay,
         # SupremeCurrentAccounts,DepositRates
         # ujjivanBank

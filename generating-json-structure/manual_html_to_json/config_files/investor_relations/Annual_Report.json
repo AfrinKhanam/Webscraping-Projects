@@ -1,0 +1,40 @@
+{
+    "url": "https://www.ujjivansfb.in/annual-report",
+    "domain": "Home",
+    "class": "Investor Relations",
+    "main_title": "Annual Report",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Annual Report 2016-17",
+                "content": [
+                    {
+                        "text":[
+                                 "https://ujjivansfb.in/pdf/Ujjivan_Annual_Report_2017.pdf"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Annual Report 2017-18",
+                "content": [
+                    {
+                        "text":[
+                                 "https://ujjivansfb.in/pdf/Ujjivan_Annual_Report_FY_17_18.pdf"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Annual Report 2018-19",
+                "content": [
+                    {
+                        "text":[
+                                 "https://ujjivansfb.in/pdf/Ujjivan_AR_2018-19.pdf"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

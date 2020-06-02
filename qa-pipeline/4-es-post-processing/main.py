@@ -21,12 +21,11 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         if len(document['ES_RESULT']['DOCUMENTS']) != 0:
-            es_post_processing.MainTitlePrioritization(document)
-            # es_post_processing.priortising_document_subTitle(unMatched_words,document)
-            # es_post_processing.priortising_document(document)
-            # es_post_processing.remove_unwanted_words(document)
-            # es_post_processing.get_image(document)
-            # es_post_processing.give_high_weightage_to_document(document)
+            # es_post_processing.MainTitlePrioritization(document)
+            document,bucket1,bucket2,bucket3 = es_post_processing.main_title_prioritization(document)
+            es_post_processing.subtitle_prioritization(bucket1,bucket2,bucket3,document)
+
+
         #---------------------------------------------------------------#
 
         #---------------------------------------------------------------#

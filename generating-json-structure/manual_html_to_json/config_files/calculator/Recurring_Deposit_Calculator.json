@@ -1,0 +1,20 @@
+{
+    "url": "https://netbanking.ujjivansfb.in/Ujjivan/",
+    "domain": "Home",
+    "class": "Calculator",
+    "main_title": "Recurring Deposit Calculator",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "https://netbanking.ujjivansfb.in/Ujjivan/"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

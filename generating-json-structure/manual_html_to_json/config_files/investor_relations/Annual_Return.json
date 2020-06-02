@@ -1,0 +1,30 @@
+{
+    "url": "https://www.ujjivansfb.in/annual-return",
+    "domain": "Home",
+    "class": "Investor Relations",
+    "main_title": "Annual Return",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Annual Return 2017-18",
+                "content": [
+                    {
+                        "text":[
+                             "https://ujjivansfb.in/pdf/Annual_Return_MGT-7_FY_2017-18.pdf"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Annual Return 2018-19",
+                "content": [
+                    {
+                        "text":[
+                                "https://ujjivansfb.in/pdf/MGT-7-Annual_Return_Financial_Year_2018_19.pdf"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

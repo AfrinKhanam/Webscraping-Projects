@@ -1,0 +1,49 @@
+{
+    "url": "https://www.ujjivansfb.in/investor-contacts",
+    "domain": "Home",
+    "class": "Investor Relations",
+    "main_title": "Investor Contacts",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Institutional Investors Contact:",
+                "content": [
+                    {
+                        "text": [
+                            "Institutional Investors/Analysts can contact us oninvestorrelations@ujjivan.comfor any queries."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Retail Shareholders Contact:",
+                "content": [
+                    {
+                        "text": [
+                            "Name:Mr. Chanchal Kumar",
+                            "Designation:Company Secretary and Compliance Officer",
+                            "Address:Grape Garden,No. 27, 3rd 'A' Cross, 18th Main,6th Block, Koramangala,Bengaluru 560 095",
+                            "Email:investorrelations@ujjivan.com",
+                            "Tel. No:+ 91 80 40712121",
+                            "Fax. No:+91 80 41468700",
+                            "Website:http://ujjivansfb.in"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Registrar and Transfer Agent",
+                "content": [
+                    {
+                        "text": [
+                            "Company:KFin Technologies Limited",
+                            "Address:Corporate Registry,Karvy Selenium, Tower- B,Plot No. 31 & 32,,Financial District,Nanakramguda,Serilingampally Mandal,Hyderabad-500032, India.",
+                            "Email:einward.ris@karvy.com",
+                            "Tel. No:18003454001"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

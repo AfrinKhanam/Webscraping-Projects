@@ -10,12 +10,12 @@ healthcare=health care
 shareholder=share holder
 jewel=gold
 gcs=gold card scheme
-profit
+profit=gain
 doorstep=door step
 award=accolades
 mediclaim=medi claim
 beyond reach=cannot affort=can't afford
-managing directo==md
+managing director==md
 ceo=chief executive officer
 neft=n e f t
 fd=fixed deposit
@@ -34,7 +34,7 @@ requirement=necessary=recommended=required
 objectives=aim=goal=intention=purpose=information
 interest rate=interest
 margin=edge=border=scope=surplus
-security=safety=protection    
+security=safety=protection=collateral   
 kcc=kisan credit card             
 maximum=max=maxi=highest
 repayment=paying back=compensate=compensation=reimbursement
@@ -82,4 +82,3 @@ pos=point of sale
 asba=applications supported by Blocked Amount
 customer=beneficiary
 limit=revolving credit
-coverage=period of cover

@@ -144,10 +144,11 @@ e_confirmation_bank_guarantee = email + 'e_confirmation_bank_guarantee.json'
 # ----------------------------------------------------------- #
 
 json_files = [
+    './config_files/hindi_config_files/agriculture.json'
     # agriculture_config_file,
     # personal_config_file,
 
-    msme_config_file,
+    # msme_config_file
 
     # education_config_file,
     # saving_config_file,

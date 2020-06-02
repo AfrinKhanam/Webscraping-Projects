@@ -1,0 +1,25 @@
+{
+    "url": "https://www.ujjivansfb.in/nri-deposits#nro-fixed-deposits",
+    "domain": "NRI",
+    "class": "Products",
+    "main_title": " Ujjivan Bank NRO Fixed Deposits",
+    "subtitle": {
+        "elements": [
+            {
+                "text": " Features:",
+                "content": [
+                    {
+                        "text": [
+                            " Minimum amount - `5,000 and in multiples of `1000 thereof.",
+                            " Fixed Deposits can be opened for a minimum period of 7 days to a maximum of 10 years.",
+                            " Interest payment options - monthly, quarterly, half yearly and at Maturity (Discounted interest rate for monthly interest payout option).",
+                            " Premature Closure and Partial Withdrawal facility allowed.",
+                            " The rate of interest paid for fixed deposits will vary according to tenure and amount.",
+                            " Interest Rates"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

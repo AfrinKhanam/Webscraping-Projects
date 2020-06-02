@@ -1,0 +1,94 @@
+{
+    "url": "https://www.ujjivansfb.in/locate-us",
+    "domain": "Home",
+    "class": "Support",
+    "main_title": "Locate Us",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Registered office",
+                "content": [
+                    {
+                        "text": [
+                            "Plot No. 2364/ 8, Khampur Raya Village, Shadi Kampur, Main Patel Road, New Delhi - 110 008, India",
+                            "Tel:+91 11 30432121Fax:+91 11 30432111"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Head Office and South Regional Office",
+                "content": [
+                    {
+                        "text": [
+                            "Grape Garden, No. 27, 3rd \u2018A\u2019 Cross, 18th Main, 6th Block, Koramangala, Bengaluru - 560 095, Karnataka.",
+                            "Tel:+91 80 40712121Fax:+91 80 41468700"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "East Regional Office",
+                "content": [
+                    {
+                        "text": [
+                            "Rishi tech Park, 4th Floor, Premises No. 02-0360, Plot No DH-6/2, Action area ID, New Town, Kolkata-700160.",
+                            "Tel:+91 33 40452121Fax:+91 33 40452120"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "West Regional Office",
+                "content": [
+                    {
+                        "text": [
+                            "7th Floor, Almonte IT Park, Landmark \u2013 Besides Reliance Smart, Kharadi, Pune, Maharashtra 411014."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "North Regional Office",
+                "content": [
+                    {
+                        "text": [
+                            "D-7, Vyapar Marg, Block D, Sector 3, Noida, Uttar Pradesh - 201301",
+                            "Tel:0120-6262121"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Locate Your Nearest Branches ",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.ujjivansfb.in/locate-us-branches"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Locate Your Nearest ATM",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.ujjivansfb.in/locate-us-atm"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Locate Your Nearest Cash Deposits",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.ujjivansfb.in/locate-us-cash-deposit-machines"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

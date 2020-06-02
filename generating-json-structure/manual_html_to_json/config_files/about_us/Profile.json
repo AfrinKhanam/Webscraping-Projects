@@ -1,0 +1,43 @@
+{
+    "url": "https://www.ujjivansfb.in/about-us",
+    "domain": "Home",
+    "class": "About Us",
+    "main_title": "Profile",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "About Us",
+                "content": [
+                    {
+                        "text": [
+                             "Ujjivan Small Finance Bank Limited is a mass market focused bank in India, catering to financially unserved and underserved segments and committed to building financial inclusion in the country. Our Promoter, Ujjivan Financial Services Limited (UFSL) commenced operations as an NBFC in 2005 with the mission to provide a full range of financial services to the \u2018economically active poor' who were not adequately served by financial institutions. On 7, October, 2015, UFSL received RBI In-Principle Approval to set up a Small Finance Bank(SFB), following which it incorporated Ujjivan Small Finance Bank Limited as a wholly-owned subsidiary. UFSL, subsequent to obtaining RBI Final Approval on November 11, 2016 to establish and carry on business as an SFB, transferred its business undertaking comprising of its lending and financing business to our Bank, which commenced its operations from 1, February, 2017. We are a \u2018scheduled bank' included in the Second Schedule to the Reserve Bank of India Act, 1934.",
+                            "Ujjivan Small Finance Bank has a diversified portfolio with branches spread across 24 states and union and a customer base of 4.9 million as of September 30, 2019. Apart from the network of branches, ATMs and Automated Cash Recyclers, we have a phone banking unit that services customers in nine languages, a mobile banking application that is accessible in five languages as well as internet banking facility for individual and corporate customers. Our focus is to use technology as an enabler for our customers that allows us to customize and deliver products and services to suit their needs."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text":"Value and Culture",
+                "content": [
+                    {
+                        "text": [
+                            "Our qualitative factors and strengths are as follows:",
+                         
+                            "Customer's choice institution",
+                            "Integrity in all dealings",
+                            "Provide responsible finance",
+                            "Fair with suppliers and service partners",
+                            "Compliance with laws, regulations and code of conduct",
+                            "Best place to work",
+                            "Professionalism and Teamwork",
+                            "Respected in the community",
+                              
+                               
+                            "Through strategic partnership with Parinaam Foundation for the formulation and implementation of financial literacy programs such as Diksha+, and other community centric initiatives, we aim to raise the level of financial awareness of our customers and develop a deeper connect with the community."
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
