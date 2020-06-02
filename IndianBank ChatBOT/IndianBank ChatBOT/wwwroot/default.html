@@ -742,12 +742,13 @@
                         var empty_suggestions = { suggestions: [] };
 
                         $.ajax({
-                            url: "/AutoSuggestion/Suggest",
+                            url: "http://52.172.14.249:9200/indian-bank-auto-suggestion-v2/_search",
                             type: "POST",
-                            data: JSON.stringify({ "Query": JSON.stringify(dataToPost) }),
+                            data: JSON.stringify(dataToPost),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (result) {
+                                debugger;
                                 if (result != null) {
                                     if (result.hits.hits.length < 1) {
                                         done(empty_suggestions);
@@ -798,6 +799,7 @@
                                 }
                             },
                             error: function () {
+                                debugger;
                                 //debugger;
                             },
                             processData: false

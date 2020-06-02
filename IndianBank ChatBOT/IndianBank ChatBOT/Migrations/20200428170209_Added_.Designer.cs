@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200428170209_Added_")]
+    partial class Added_
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,11 +211,9 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("PageName")
-                        .IsRequired();
+                    b.Property<string>("PageName");
 
-                    b.Property<string>("Url")
-                        .IsRequired();
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 
@@ -225,17 +225,13 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CompletedDate");
-
-                    b.Property<DateTime>("RequestedDate");
+                    b.Property<string>("MyProperty");
 
                     b.Property<int>("ScrapeStatus");
 
-                    b.Property<int>("WebPageId");
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("WebPageId");
 
                     b.ToTable("WebPageScrapeRequests");
                 });
@@ -245,14 +241,6 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasOne("IndianBank_ChatBOT.Models.Synonym", "Synonym")
                         .WithMany("SynonymWords")
                         .HasForeignKey("SynonymId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageScrapeRequest", b =>
-                {
-                    b.HasOne("IndianBank_ChatBOT.Models.WebPage", "WebPage")
-                        .WithMany()
-                        .HasForeignKey("WebPageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

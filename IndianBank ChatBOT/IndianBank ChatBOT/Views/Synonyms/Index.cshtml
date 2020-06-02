@@ -18,7 +18,7 @@
 <input id="wordDeleteId" type="hidden" value="" />
 <input id="deleteSynonymWordId" type="hidden" value="" />
 
-<table class="table css-serial">
+<table class="table css-serial table-bordered">
     <thead>
         <tr>
             <th>
@@ -60,7 +60,7 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 @sw.Name
-                                <button class="toggle-modal-deleteSynonymWordModal close" onclick="updateDeleteSynonymWordId('@sw.Id')" type="button" class="close">
+                                <button class="toggle-modal-deleteSynonymWordModal close" onclick="updateDeleteSynonymWordId('@sw.Id')" type="button">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </li>
