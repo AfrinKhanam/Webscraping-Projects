@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
           Cache-Control:public;>
 <html lang="en">
 
@@ -742,13 +742,12 @@
                         var empty_suggestions = { suggestions: [] };
 
                         $.ajax({
-                            url: "http://52.172.14.249:9200/indian-bank-auto-suggestion-v2/_search",
+                            url: "/AutoSuggestion/Suggest",
                             type: "POST",
-                            data: JSON.stringify(dataToPost),
+                            data: JSON.stringify({ "Query": JSON.stringify(dataToPost) }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (result) {
-                                debugger;
                                 if (result != null) {
                                     if (result.hits.hits.length < 1) {
                                         done(empty_suggestions);
@@ -799,7 +798,6 @@
                                 }
                             },
                             error: function () {
-                                debugger;
                                 //debugger;
                             },
                             processData: false
