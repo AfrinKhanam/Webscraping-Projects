@@ -55,7 +55,7 @@ namespace IndianBank_ChatBOT.Controllers
                     return Ok(null);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return Ok(null);
             }

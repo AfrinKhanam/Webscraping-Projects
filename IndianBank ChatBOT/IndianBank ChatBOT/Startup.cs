@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.Linq;
 using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Builder;
@@ -14,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;

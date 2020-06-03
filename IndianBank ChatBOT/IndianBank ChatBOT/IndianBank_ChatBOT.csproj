@@ -6,6 +6,10 @@
     <UserSecretsId>534d1e5d-0951-46f9-b4e3-77f22c379edd</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;EF1000</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="starter-pack-rasa-nlu\**" />
     <Content Remove="starter-pack-rasa-nlu\**" />
@@ -19,15 +23,9 @@
 
   <ItemGroup>
     <PackageReference Include="AdaptiveCards" Version="1.1.0" />
-    <PackageReference Include="angular-local-storage" Version="0.7.0" />
-    <PackageReference Include="AutoMapper" Version="8.1.1" />
-    <PackageReference Include="AutoMapper.EF6" Version="2.0.0" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     
     <PackageReference Include="MailKit" Version="2.1.4" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.8.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="2.8.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.ContentModerator" Version="2.0.0" />
@@ -38,7 +36,6 @@
     <PackageReference Include="Microsoft.Bot.Builder.ApplicationInsights" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.2.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.History" Version="3.20.1" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.ApplicationInsights.Core" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bot.Builder.TemplateManager" Version="4.2.0" />
