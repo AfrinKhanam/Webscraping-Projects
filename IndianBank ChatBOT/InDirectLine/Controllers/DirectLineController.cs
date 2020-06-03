@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Itminus.InDirectLine.Core.Utils;
+using Microsoft.Bot.Connector;
 
 namespace Itminus.InDirectLine.Core.Controllers{
 
@@ -144,7 +145,7 @@ namespace Itminus.InDirectLine.Core.Controllers{
 
             // create a Id for activity
             activity.Id = Guid.NewGuid().ToString();
-            activity.ChannelId = InDirectLineDefaults.ChannelId;
+            activity.ChannelId = Channels.Directline;
             activity.ServiceUrl = this._inDirectlineSettings.ServiceUrl;
             activity.Conversation = new ConversationAccount{
                 Id = conversationId,

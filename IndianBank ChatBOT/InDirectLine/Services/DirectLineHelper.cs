@@ -9,6 +9,7 @@ using Itminus.InDirectLine.Core.Utils;
 using System.Threading.Tasks;
 using System.Net;
 using Itminus.InDirectLine.Core.Models;
+using Microsoft.Bot.Connector;
 
 namespace Itminus.InDirectLine.Core.Services
 {
@@ -74,7 +75,7 @@ namespace Itminus.InDirectLine.Core.Services
 
             var activity = new Activity{
                 Type =  ActivityTypes.ConversationUpdate,
-                ChannelId = InDirectLineDefaults.ChannelId,
+                ChannelId = Channels.Directline,
                 ServiceUrl = serviceUrl,
                 Conversation = new ConversationAccount{ Id = conversationId, },
                 Id= Guid.NewGuid().ToString(),
@@ -99,7 +100,7 @@ namespace Itminus.InDirectLine.Core.Services
         {
             var activity = new Activity{
                 Type = ActivityTypes.Message,
-                ChannelId = InDirectLineDefaults.ChannelId,
+                ChannelId = Channels.Directline,
                 ServiceUrl = serviceUrl,
                 Conversation = new ConversationAccount{ Id = conversationId, },
                 From = new ChannelAccount{

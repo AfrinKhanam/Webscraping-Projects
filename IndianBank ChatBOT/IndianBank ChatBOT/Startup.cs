@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace IndianBank_ChatBOT
 {
@@ -34,7 +36,7 @@ namespace IndianBank_ChatBOT
 
         #region methods
 
-        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public Startup(IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             _isProduction = env.IsProduction();
             _loggerFactory = loggerFactory;
@@ -56,23 +58,33 @@ namespace IndianBank_ChatBOT
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
             var appSettings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettings);
+            
             // Load the connected services from .bot file.
             var botFilePath = Configuration.GetSection("botFilePath")?.Value;
             var botFileSecret = Configuration.GetSection("botFileSecret")?.Value;
             var botConfig = BotConfiguration.Load(botFilePath, botFileSecret);
             services.AddSingleton(sp => botConfig ?? throw new InvalidOperationException($"The .bot config file could not be loaded."));
+
             // Initializes your bot service clients and adds a singleton that your Bot can access through dependency injection.
             var connectedServices = new BotServices(botConfig)
             {
                 Configuration = Configuration
             };
+            
             services.AddSingleton(sp => connectedServices);
+            
             // Initialize Bot State
             var dataStore = new MemoryStorage();
             var userState = new UserState(dataStore);
             var conversationState = new ConversationState(dataStore);
+            
             services.AddSingleton(dataStore);
             services.AddSingleton(userState);
             services.AddSingleton(conversationState);
@@ -86,13 +98,13 @@ namespace IndianBank_ChatBOT
                 .AllowAnyHeader());
             });
 
-            services.AddMvc()
-                   .AddJsonOptions(o =>
-                   {
-                       o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                       o.SerializerSettings.Formatting = Formatting.Indented;
-                       o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-                   });
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(o =>
+                    {
+                        o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                        o.SerializerSettings.Formatting = Formatting.Indented;
+                        o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                    });
             //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
             //services.AddTransient<LogDataContext, LogDataContext>();
 
@@ -100,7 +112,12 @@ namespace IndianBank_ChatBOT
             services.AddTransient<AppDbContext, AppDbContext>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+#pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
             connectedServices.ServiceProvider = services.BuildServiceProvider();
+
+#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
             services.AddBot<IndianBank_ChatBOT>(options =>
             {
@@ -147,13 +164,14 @@ namespace IndianBank_ChatBOT
         /// </summary>
         /// <param name="app">Application Builder.</param>
         /// <param name="env">Hosting Environment.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Configure Application Insights
             _loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);
 
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpContext();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -166,8 +184,8 @@ namespace IndianBank_ChatBOT
             app.UseDefaultFiles()
                .UseStaticFiles()
                //.UseXfo(xfo => xfo.SameOrigin())
-               .UseBotFramework();
-
+               .UseBotFramework()
+               .UseRouting();
 
             //Security headers
             app.UseHsts(hsts => hsts.MaxAge(hours: 8).IncludeSubdomains());
@@ -181,11 +199,13 @@ namespace IndianBank_ChatBOT
             );
 
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Faq}/{action=Display}");
+                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Faq}/{action=Display}");
             });
 
             app.UseStaticFiles(new StaticFileOptions

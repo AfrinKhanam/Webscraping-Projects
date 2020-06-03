@@ -49,15 +49,28 @@ namespace Itminus.InDirectLine.Core.Services
         public Task<ActivitySet> GetActivitySetAsync(string conversationId,int watermark)
         {
             var exists = _history.TryGetValue(conversationId,out var conversation);
-            if(!exists){
-                return null;
+
+            ActivitySet result = null;
+
+            if (exists)
+            {
+                var _activities = conversation?.Skip(watermark).ToList();
+                var count = _activities == null ? 0 : _activities.Count();
+                result = new ActivitySet
+                {
+                    Activities = _activities ?? new List<Activity>(),
+                    Watermark = watermark + count,
+                };
             }
-            var _activities = conversation?.Skip(watermark).ToList();
-            var count = _activities== null ? 0 : _activities.Count();
-            var result = new ActivitySet{
-                Activities = _activities ?? new List<Activity>(),
-                Watermark =  watermark + count,
-            };
+            else
+            {
+                result = new ActivitySet
+                {
+                    Activities = new List<Activity>(),
+                    Watermark = watermark
+                };
+            }
+
             return Task.FromResult(result);
         }
     }

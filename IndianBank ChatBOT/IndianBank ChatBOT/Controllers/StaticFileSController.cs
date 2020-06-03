@@ -22,9 +22,9 @@ namespace IndianBank_ChatBOT.Controllers
         private readonly AppSettings _appSettings;
         private readonly AppDbContext _dbContext;
         private readonly string _connectionString;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public StaticFilesController(AppDbContext dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings, IHostingEnvironment hostingEnvironment)
+        public StaticFilesController(AppDbContext dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings, IWebHostEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
             _appSettings = appsettings.Value;

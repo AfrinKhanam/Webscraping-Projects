@@ -27,6 +27,7 @@ namespace Itminus.InDirectLine.Core.Services
             this._connectionManager = connectionManager;
             this._helper = helper;
         }
+
         public virtual Task PrepareActivity(Activity activity)
         {
             activity.Id = Guid.NewGuid().ToString();

@@ -16,26 +16,31 @@ namespace Itminus.InDirectLine.Core.Services.IDirectLineConnections
         }
 
         public WebSocket WebSocket { get; }
+
         public TaskCompletionSource<object> Tcs { get; }
 
-        public bool Avaiable
+        public bool Available
         {
-            get {
+            get
+            {
                 return this.WebSocket.State == WebSocketState.Open
                     || this.WebSocket.State == WebSocketState.Connecting
                     ;
             }
         }
 
-        public async Task CloseAsync(object status,string reason)
+        public async Task CloseAsync(object status, string reason)
         {
-            if(status is WebSocketCloseStatus s){
+            if (status is WebSocketCloseStatus s)
+            {
                 await this.WebSocket.CloseAsync(
                     s,
                     reason,
                     CancellationToken.None
                 );
-            }else{
+            }
+            else
+            {
                 await this.WebSocket.CloseAsync(
                     WebSocketCloseStatus.Empty,
                     reason,
@@ -45,21 +50,23 @@ namespace Itminus.InDirectLine.Core.Services.IDirectLineConnections
             this.Tcs.SetResult(status);
         }
 
-        public async Task<(bool,ArraySegment<byte>)> ReceiveAsync()
+        public async Task<(bool, ArraySegment<byte>)> ReceiveAsync()
         {
-            var buffer = new byte[1024*4];
-            var seg= new ArraySegment<byte>(buffer);
+            var buffer = new byte[1024 * 4];
+            var seg = new ArraySegment<byte>(buffer);
             var result = await this.WebSocket.ReceiveAsync(seg, CancellationToken.None);
-            if (!result.CloseStatus.HasValue) {
-                return (true,seg);
+            if (!result.CloseStatus.HasValue)
+            {
+                return (true, seg);
             }
-            else {
+            else
+            {
                 await this.WebSocket.CloseAsync(
                     result.CloseStatus.Value,
                     result.CloseStatusDescription,
                     CancellationToken.None
                 );
-                return (false,seg);
+                return (false, seg);
             }
         }
 
