@@ -1,0 +1,80 @@
+﻿@model WebPage
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+<div class="section-header">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <h1>Edit Web Page</h1>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+    </div>
+</div>
+
+@{
+    ViewData["Title"] = "Edit New Web Page";
+    string editWebPageStatus = ViewBag.editWebPageStatus as string;
+
+    if (string.IsNullOrEmpty(editWebPageStatus))
+    {
+        editWebPageStatus = string.Empty;
+    }
+}
+
+@if (!string.IsNullOrEmpty(editWebPageStatus))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success.</strong> @editWebPageStatus
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@using (Html.BeginForm("Edit", "WebPage", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Edit New Web Page - @Model.PageName</h4>
+                    </div>
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Page Name</label>
+                            @Html.TextBoxFor(m => m.PageName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.PageName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Page Url</label>
+                            @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-primary mr-1" type="submit">Update</button>
+                        <button class="btn btn-secondary" type="reset">Reset</button>
+                        <button type="button" class='btn btn-secondary' onclick='location.href="@Url.Action("Index", "WebPage")"'>Back To List</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

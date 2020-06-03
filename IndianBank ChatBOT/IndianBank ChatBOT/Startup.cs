@@ -124,12 +124,14 @@ namespace IndianBank_ChatBOT
                 options.OnTurnError = async (context, exception) =>
                 {
                     var activity = context.Activity;
-                    BotChatActivityLogger.UpdateRaSaData("bye_intent", 0, "");
+                    BotChatActivityLogger.UpdateRaSaData(exception.Message, 0, "");
                     BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                     BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
                     await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
-                  //  await context.SendActivityAsync("Error occured..!!.");
-                     await context.SendActivityAsync(exception.GetBaseException().ToString());
+                    //  await context.SendActivityAsync("Error occured..!!.");
+                    await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.	");
+                    //  await context.SendActivityAsync(exception.Message);
+
                 };
 
 
@@ -160,10 +162,29 @@ namespace IndianBank_ChatBOT
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseXContentTypeOptions();
+            //app.UseReferrerPolicy(opts => opts.NoReferrer());
+
             //app.UseHttpContext();
             app.UseDefaultFiles()
                .UseStaticFiles()
+               //.UseXfo(xfo => xfo.SameOrigin())
                .UseBotFramework();
+
+
+            //Security headers
+            app.UseHsts(hsts => hsts.MaxAge(hours: 8).IncludeSubdomains());
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
+            app.UseXXssProtection(options => options.EnabledWithBlockMode());
+            app.UseXfo(options => options.Deny());
+            app.UseCsp(opts => opts
+            .BlockAllMixedContent()
+            .FrameAncestors(s => s.None())
+            );
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -12,6 +12,7 @@ ps = PorterStemmer()
 def new_string(text_string,limit):
     newstring=[]
     new_s = [(a, list(b)) for a, b in itertools.groupby(text_string)]
+    # print(f'new_s is {new_s}')
     for a, b in new_s:
 
         if len(b)>limit:
@@ -21,6 +22,7 @@ def new_string(text_string,limit):
             string="".join(b)
         newstring.append(string)
     newstring="".join(newstring)
+    # print(f'newstring is--->{newstring}')
     return newstring
 
 def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
@@ -252,6 +254,7 @@ def w_autocorrect(query_string):
 
     query_string = new_string(query_string,2)
     query_string = str(query_string).lower()
+    print(f"query_string {query_string}")
     word_list    = query_string.split()
 
     auto_correct_string = ''

@@ -1,0 +1,56 @@
+{
+            "url": "https://www.ujjivansfb.in/rural-deposits",
+            "domain": "Rural",
+            "class": "Products",
+            "main_title": "DEPOSITS",
+            "subtitle": {
+                "elements": [
+                    {
+                        "text": "Ujjivan Bank Tax Saver Fixed Deposits",
+                        "content": [
+                            {
+                                "text": [
+                                    " Save on your taxes by availing tax exemption under Section 80C of Income Tax Act, 1961.",
+                                    " Minimum `1000 and Maximum of `1,50,000 for a 5 year lock-in-period.",
+                                    " Eligibility: For Residents and HUF (Hindu Undivided Family).",
+                                    " Interest Payment Options Quarterly , Monthly (Discounted) and at Maturity."
+                                ]
+                            }
+                        ]
+                    },
+		     {
+                        "text": "Ujjivan Bank Regular Recurring Deposits",
+                        "content": [
+                            {
+                                "text": [
+                                    " Minimum amount - `100 and in multiples of `100 thereof.",
+                                    " Tenure - 6 months to 10 years.",
+                                    " Interest calculated quarterly and paid at Maturity only.",
+                                    " Premature Closure facility allowed.",
+                                    " Can be opened at Centre meetings branch, mobile banking and Net Banking.",
+                                    " Customers can fund the Recurring Deposits across any branch irrespective of whether he/she has an account with that branch.",
+                                    " 0.5% additional rate for Senior Citizens."
+                                ]
+                            }
+                        ]
+                    },
+		    {
+                        "text": "Ujjivan Bank Regular Fixed Deposits",
+                        "content": [
+                            {
+                                "text": [
+                                    " Minimum amount - `1,000 and in multiples of `100 thereof.",
+                                    " Fixed Deposits can be opened for a minimum period of 7 days to a maximum of 10 years.",
+                                    " Interest payment options - monthly, quarterly, half yearly, annually and at Maturity (Discounted interest rate for monthly interest payout option).",
+                                    " Premature Closure and Partial Withdrawal facility allowed.",
+                                    " Can be opened at Centre meetings.",
+                                    " The rate of interest paid for fixed deposits will vary according to tenure and amount.",
+                                    " 0.5% additional rate for senior citizens."
+                                ]
+                            }
+                        ]
+                    }
+		    
+                ]
+            }
+        }

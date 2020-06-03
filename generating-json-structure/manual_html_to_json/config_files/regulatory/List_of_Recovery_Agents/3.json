@@ -1,0 +1,80 @@
+{
+    "url": "https://www.ujjivansfb.in/list-recovery-agents",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "List of Recovery Agents",
+    "subtitle": {
+        "element": [
+            {
+                "text": "Region",
+                "content": [
+                    {
+                        "text": [
+                            "South"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Code",
+                "content": [
+                    {
+                        "text": [
+                            "29812"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Sana Associates"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Santhosh BC"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Mobile No",
+                "content": [
+                    {
+                        "table": [
+                            "\n9945590902\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Email Id",
+                "content": [
+                    {
+                        "text": [
+                            "sana.ujjivan@gmail.com"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Address",
+                "contents": [
+                    {
+                        "text": [
+                            "19th Main, 2nd Block, Rajajinagar, Bengaluru- 560010"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

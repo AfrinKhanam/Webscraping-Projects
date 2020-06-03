@@ -1,0 +1,80 @@
+{
+    "url": "https://www.ujjivansfb.in/list-recovery-agents",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "List of Recovery Agents",
+    "subtitle": {
+        "element": [
+            {
+                "text": "Region",
+                "content": [
+                    {
+                        "text": [
+                            "North"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Code",
+                "content": [
+                    {
+                        "text": [
+                            "40847"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Shiv Shakti Associates"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Dushyanta Sharma"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Mobile No",
+                "content": [
+                    {
+                        "table": [
+                            "\n8958333388\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Email Id",
+                "content": [
+                    {
+                        "text": [
+                            "shivassociates27@yahoo.in"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Address",
+                "contents": [
+                    {
+                        "text": [
+                            "274/6 Shastri Nagar Near Meenakshi Public School Garh Road Meerut - 250004"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

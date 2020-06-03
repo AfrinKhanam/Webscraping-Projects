@@ -1,4 +1,27 @@
 {
+
+	"https://www.indianbank.in/departments/ib-doctor-plus/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	
 	"https://www.indianbank.in/departments/ib-vidhya-mandir/" : {
 		"page_hierarchy" : {
 			"domain" : "loan",
@@ -45,28 +68,7 @@
 	},
 
 
-	"https://www.indianbank.in/departments/ib-doctor-plus/" : {
-		"post_processing" : true,
-		"page_hierarchy" : {
-			"domain" : "loan",
-			"class" : "msme"
-		},
 
-		"subtitle_pattern" : null,
-		"html" : {
-			"main_title" : {
-				"tag" : "h1",
-				"class" : "contentTitle wow bounceInRight"
-			},
-
-			"main_content" : {
-				"tag" : "div",
-				"class" : "wow zoomIn"
-			}
-
-
-		}
-	},
 
 
 	"https://www.indianbank.in/departments/ib-contractors/" : {
@@ -93,7 +95,6 @@
 
 
 	"https://www.indianbank.in/departments/ib-tradewell/" : {
-		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "msme"
@@ -208,7 +209,6 @@
 
 
 	"https://www.indianbank.in/departments/ind-sme-e-vaahan/" : {
-		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
 			"class" : "msme"

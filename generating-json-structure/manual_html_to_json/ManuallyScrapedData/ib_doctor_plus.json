@@ -1,0 +1,93 @@
+{
+    "document_name": "IB Doctor Plus",
+    "url": "https://www.indianbank.in/departments/47556/",
+    "domain": "loan",
+    "class": "msme",
+    "sub_class": "",
+    "main_title": "IB Doctor Plus",
+    "subtitle": {
+        "html_tag": "<h5 class=\"dummy\"></h5>",
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Particulars",
+                                "value": [
+                                    "Guidelines"
+                                ]
+                            },
+                            {
+                                "key": "Target Group",
+                                "value": [
+                                    "Individuals / registered partnership firm / Limited Company / Trust etc. Micro, Small & Medium Enterprises (MSME) – Service Enterprises.",
+                                    "Key promoters or their spouse should be qualified medical practitioners, with satisfactory track record.",
+                                    "Passed out students from various streams (Medicine, Dental etc.) planning to set up their diagnostic centre / clinics in India.  To be eligible for this, the student must have completed the course in MBBS / BDS / BAMS / BUMS from recognised / approved college."
+
+                                ]
+                            },
+                            {
+                                "key": "Purpose",
+                                "value": [
+                                    "Working Capital requirements, For Purchase/ Construction of Hospital / To set up clinic, clinic cum residence, nursing home (Allopathi, Homeopathy, Ayurvedic etc.), Machinery / Equipments etc.",
+                                    "Second hand machinery should not be considered for financing."
+                                ]
+                            },
+                            {
+                                "key": "Types of Facility",
+                                "value": [
+                                    "Fund Based: Working Capital / Term Loan",
+                                    "Non-Fund Based: LC"
+                                ]
+                            },
+                            {
+                                "key": "Loan Amount",
+                                "value": [
+                                    "Minimum Loan Amount: Rs.1.00 Lakh",
+                                    "Maximum: No Ceiling",
+                                    "For fresh passed out students – Maximum exposure is Rs.2.00 Crores"
+                                ]
+                            },
+                            {
+                                "key": "Margin (Promoter\u2019s contribution)",
+                                "value": [
+                                    "OCC – 20%",
+                                    "Term Loan- 25%"
+                                ]
+                            },
+                            {
+                                "key": "Security",
+                                "value": [
+                                    "Primary Security : Hypothecation of assets created out of loan amount.",
+                                    "Collateral Security :",
+                                    "For MSEs:",
+                                    "Ø  Should be covered under CGTMSE. No Collateral Security / Third party guarantee to be obtained (or)",
+                                    "Primary Security is held in the form of immovable properties with 100% coverage.",
+                                    "Ø  If Primary security is held in the form of immovable properties with less than 100% coverage, CGTMSE with Hybrid security to be obtained.",
+                                    "For Medium Enterprises, Security coverage should be at a minimum of 100% in the form of immovable properties (Primary + Collateral Security)."
+                                ]
+                            },
+                            {
+                                "key": "Repayment terms",
+                                "value": [
+                                    "Maximum 120 months including moratorium of upto 12 months or stabilization of cash flows from the project whichever is earlier."
+                                ]
+                            },
+                            {
+                                "key": "Processing & other charges",
+                                "value": [
+                                    "Processing Charges:\u00a0 Upto Rs 5 lac: Nil for first time borrowers",
+                                    "Above Rs 5 lac: 0.30% on loan amount.",
+                                    "All other charges are at Card Rate."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

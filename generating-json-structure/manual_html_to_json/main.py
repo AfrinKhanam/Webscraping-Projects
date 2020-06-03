@@ -19,23 +19,23 @@ IndPay="./ManuallyScrapedData/IndPay.json"
 SupremeCurrentAccounts="./ManuallyScrapedData/SupremeCurrentAccounts.json"
 DepositRates="./ManuallyScrapedData/DepositRates.json"
 ujjivanBank="./ManuallyScrapedData/ujjivansfb_in_corporate_salary_account.json"
+demo="./ManuallyScrapedData/demo.json"
 
 json_files = [
-        ib_surabhi_path,
-        ibCollectionPlus,
-        CentralSchemeToProvideInterestSubsidy,
-        CentralizedPensionProcessingSystem,
-        image,
-        ExecutiveDirectorsProfile,
-        EConfirmationOfBankGuarantee,
-        ComplaintsOfficersList,
-        IndianBankMutualFund,
+        # ib_surabhi_path,
+        # ibCollectionPlus,
+        # CentralSchemeToProvideInterestSubsidy,
+        # CentralizedPensionProcessingSystem,
+        # image,
+        # ExecutiveDirectorsProfile,
+        # EConfirmationOfBankGuarantee,
+        # ComplaintsOfficersList,
+        # IndianBankMutualFund,
         ServiceChargesForexRates,
 
-        LendingRates,
-
-        InternetBanking,IndPay,
-        SupremeCurrentAccounts,DepositRates
+        # LendingRates,
+        # InternetBanking,IndPay,
+        # SupremeCurrentAccounts,DepositRates
         # ujjivanBank
         ]
 documents = []

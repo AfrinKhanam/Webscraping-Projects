@@ -1,0 +1,20 @@
+{
+    "url": "https://www.ujjivansfb.in/v1/mission",
+    "domain": "Home",
+    "class": "About Us",
+    "main_title": "Mission & Vision",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Mission",
+                "content": [
+                    {
+                        "text": [
+                            "To provide financial services to the unserved and underserved customers and transform to a mass market bank"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

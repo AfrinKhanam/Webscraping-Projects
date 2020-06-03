@@ -1,0 +1,50 @@
+{
+    "url": "https://www.ujjivansfb.in/life-events-based-banking-services",
+    "domain": "Personal",
+    "class": "Products",
+    "main_title": "LIFE EVENTS BASED BANKING SERVICES",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Special Assistance during Unforeseen Events",
+                "content": [
+                    {
+                        "text": ""
+                    }
+                ]
+            },
+            {
+                "text": "Operation of accounts",
+                "content": [
+                    {
+                        "text": [
+                            "When you are unwell and cannot visit the branch due to physical disability, we will assist by visiting your doorstep and fulfil financial requirements.We will also assist in adding a Mandate Holder to your account; he/she can make hassle free transactions on your behalf."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Settlement of Claims - We work hard and strive to provide financial security to our loved ones. We always worry about how to secure our loved ones future so that they do not face any problems in terms of financial security even after us. Settlement of Claims is very easy with Ujjivan Bank as we have a simple process and our staff will assist claimants at every step.",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Settlement of Claims for accounts with Nominee / Survivorship",
+                                "value": [
+                                    "With the Nominee / Survivorship, claim settlement is made very easy with simple documentation"
+                                ]
+                            },
+                            {
+                                "key": "Settlement of claims for accounts without Nominee / Survivorship",
+                                "value": [
+                                    "We will assist and guide on documentation to ensure hassle free settlement of claims"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "url": "https://www.ujjivansfb.in/list-recovery-agents",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "List of Recovery Agents",
+    "subtitle": {
+        "element": [
+            {
+                "text": "Region",
+                "content": [
+                    {
+                        "text": [
+                            "East"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Code",
+                "content": [
+                    {
+                        "text": [
+                            "41012"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Name",
+                "content": [
+                    {
+                        "text": [
+                            "AS Collection"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Shyamal Saha  Amit Debnath"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Mobile No",
+                "content": [
+                    {
+                        "table": [
+                            "\n8250286938\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Email Id",
+                "content": [
+                    {
+                        "text": [
+                            "ascollection.ujjivan@gmail.com"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Address",
+                "contents": [
+                    {
+                        "text": [
+                            "C/O Suniti Nandi Pritilata Road 1 No. Dabgram Colony Near Kuti Mill, Rabindra sarani Dist-Darjeeling, Siliguri WB- 734006"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

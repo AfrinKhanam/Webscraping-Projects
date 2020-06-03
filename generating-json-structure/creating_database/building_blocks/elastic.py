@@ -5,7 +5,12 @@ import re
 
 class Elastic():
     # indian-bank-agriculture-v1
-    def __init__(self, host='localhost', port='9200', index='indian_bank_services', doc_type='_doc'):
+    #webscrape
+    # elasticsearch_demo
+    # indian-bank-hindi
+    # indian_bank_database
+    # ujjivan_bank_database
+    def __init__(self, host='localhost', port='9200', index='indian_bank_database', doc_type='_doc'):
 
     # def __init__(self, host='localhost', port='9200', index='-index-v2', doc_type='_doc'):
     # def __init__(self, host='localhost', port='9200', index='indian-bank-index', doc_type='_doc'):
@@ -35,6 +40,8 @@ class Elastic():
 
     def get_document_name(self, document):
         return document['document_name']
+        # return document['main_title']
+
 
     def get_url(self, document):
         return document['url']

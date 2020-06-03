@@ -25,12 +25,13 @@ class QueryParser:
         f = open('./config_files/synonyms.txt', 'r')
         content = f.read()
         self.synonyms_repo = content.split('\n')
-        print("synonyms------------->\n",self.synonyms_repo[0])
+        # print("synonyms------------->\n",self.synonyms_repo[0])
         f.close()
 
         # Creating list of synonyms words
         for idx, record in enumerate(self.synonyms_repo):
             self.synonyms_repo[idx] = re.split(r'=+', record)
+        # print(f"synonyms repo--->{self.synonyms_repo}")
 
         # Stemming words
         synonyms_repo = []
@@ -91,6 +92,7 @@ class QueryParser:
         # preprocessedQuery= self.remove_hyphen(query_string)
         # print("after removing hyphen------> ",preprocessedQuery)
         query_string = self.remove_unwanted_charater(query_string)
+        print(f'after removing unwanted characters {query_string}')
        
         #print("unwanted charater removed :: ", query_string)
         #--------------------------------------------------------------------#
@@ -101,7 +103,7 @@ class QueryParser:
 
         try:
             auto_correct_string = w_autocorrect(query_string)
-            #print('Autocorrected query :: ' , auto_correct_string)
+            print('Autocorrected query :: ' , auto_correct_string)
         except:
             #print('!!!!!!!!!!!!!!!! unable to do autocorrect')
             auto_correct_string = query_string
@@ -134,6 +136,7 @@ class QueryParser:
     def remove_unwanted_charater(self, string):
         string = re.sub('(\?|@|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', ' ', string)
         string = re.sub('\.', ' ', string)
+        string = re.sub('/', ' ', string)
         return string
 
 
@@ -165,25 +168,33 @@ class QueryParser:
         stop_words = set(stopwords.words('english'))
 
         stop_word = stop_words.remove('what')
+        stop_word = stop_words.remove('can')
+
 
         word_tokens = word_tokenize(query_string)
         #---------------------------------------------#
 
         #---------------------------------------------#
+        print(f'word_tokens --> {word_tokens}')
         stemmed_list=[]
         for w in word_tokens:
             stemmed_list.append(self.ps.stem(w))
 
         stemmed_string= " ".join(stemmed_list)
         word_tokens = word_tokenize(stemmed_string)
+        print(f'stemmed word tokens --{word_tokens}')
         #---------------------------------------------#
 
         #----------------------------------------------------------------------------------#
         filtered_sentence = []
 
         filtered_sentence_stemming = [w for w in word_tokens if not w in self.bag_of_words]
+        print(f'filtered_sentence_stemming ---> {filtered_sentence_stemming}')
         filtered_sentence = [w for w in filtered_sentence_stemming if not w in stop_words]
+        print(f'filtered_sentence ---> {filtered_sentence}')
+        
         parsed_query_string = " ".join(filtered_sentence)
+        # print(f'parsed_query_string --> {parsed_query_string}')
         #----------------------------------------------------------------------------------#
 
         return parsed_query_string

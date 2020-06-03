@@ -202,11 +202,57 @@ namespace IndianBank_ChatBOT.Migrations
                     b.ToTable("UserInfos");
                 });
 
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("PageName")
+                        .IsRequired();
+
+                    b.Property<string>("Url")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WebPages");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageScrapeRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("CompletedDate");
+
+                    b.Property<DateTime>("RequestedDate");
+
+                    b.Property<int>("ScrapeStatus");
+
+                    b.Property<int>("WebPageId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WebPageId");
+
+                    b.ToTable("WebPageScrapeRequests");
+                });
+
             modelBuilder.Entity("IndianBank_ChatBOT.Models.SynonymWord", b =>
                 {
                     b.HasOne("IndianBank_ChatBOT.Models.Synonym", "Synonym")
                         .WithMany("SynonymWords")
                         .HasForeignKey("SynonymId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageScrapeRequest", b =>
+                {
+                    b.HasOne("IndianBank_ChatBOT.Models.WebPage", "WebPage")
+                        .WithMany()
+                        .HasForeignKey("WebPageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -1,0 +1,70 @@
+{
+    "url": "https://www.ujjivansfb.in/faq",
+    "domain": "Home",
+    "class": "Customer Care",
+    "main_title": "Frequently Asked Questions (Digital Account)",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Who all are eligible to open the account?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\nUjjivan Digital Accounts can be opened as long as\n\n\n\na. You are an Indian citizen\n\n\nb. Have a valid PAN and Aadhaar number\n\n\nc. Have a valid mobile number linked to your Aadhaar\n\n\nd. You are above 18 years of age\n\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Can I open an account without providing my Aadhaar?",
+                "content": [
+                    {
+                        "text": [
+                            "\nTo open a Digital Account, you need to share your Aadhaar  PAN details. In case you do not wish to share your Aadhaar information, you can visit your nearest Ujjivan Bank and open any account from our range of products.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "What is a FATCA declaration and is it mandatory to declare it?",
+                "content": [
+                    {
+                        "text": [
+                            "\nFATCA stands for the Foreign Account Tax Compliance Act. The RBI requires us to collect a FATCA declaration from every customer who opens a savings bank account with us.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Can I open a joint account through this channel?",
+                "content": [
+                    {
+                        "text": [
+                            "\nDigital Account is intended only for one user and cannot be held jointly.\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How should I book an appointment for full KYC?",
+                "content": [
+                    {
+                        "text": [
+                            "\nYou can fix an appointment to complete the full KYC through the following means -\n\n\nWhile opening an account (online)\n\n\nThrough Internet and Mobile Banking\n\n\nThrough Phone Banking\n\n\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "How can I fund my savings Account?",
+                "content": [
+                    {
+                        "text": [
+                            "\n\n\nYou can add your Ujjivan Savings Account as a beneficiary in your other bank account using Account Number and IFSC and transfer funds to Ujjivan Bank Account via IMPS or NEFT\n\n\nYou can visit any UPI app on your smart phone and transfer the funds using A/C+IFSC\n\n\nAlternatively, you can visit your nearest Ujjivan Small Finance Bank branch to deposit cheque of any other bank account.\n\n\n"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

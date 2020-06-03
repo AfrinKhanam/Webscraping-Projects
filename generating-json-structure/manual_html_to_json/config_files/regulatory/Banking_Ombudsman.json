@@ -1,0 +1,20 @@
+{
+    "url": "https://www.rbi.org.in/Scripts/AboutUsDisplay.aspx?pg=BankingOmbudsmen.htm",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "Banking Ombudsman",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.rbi.org.in/Scripts/AboutUsDisplay.aspx?pg=BankingOmbudsmen.htm"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "url": "https://www.ujjivansfb.in/social-media",
+    "domain": "Home",
+    "class": "Ujjivan Newsroom",
+    "main_title": "Social Media Presence",
+    "subtitle": {
+        "elements": [
+            {
+                "text": "Facebook",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.facebook.com/UjjivanSmallFinanceBankLimited/"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Twitter",
+                "content": [
+                    {
+                        "text": [
+                            "https://twitter.com/UjjivanSFB"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Linkedin",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.linkedin.com/company/ujjivan-financial-services"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "You Tube",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.youtube.com/channel/UCGxpBfqmy-rO5LfOX6dkDMQ"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Instagram",
+                "content": [
+                    {
+                        "text": [
+                            "https://www.instagram.com/ujjivanbank/"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

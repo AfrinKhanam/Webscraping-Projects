@@ -1,0 +1,191 @@
+﻿@model List<WebPageScrapeRequest>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="section-header">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <h1>Web Page Scrape Requests</h1>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pages</h4>
+                    <div class="card-stats">
+                        <div class="card-stats-items">
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Total Requests</div>
+                                <div class="card-stats-item-count">@Model.Count()</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Pending Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Successful Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Failed Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-md">
+                            <tbody>
+                                <tr>
+                                    <th style="text-align:right">
+                                        S No.
+                                    </th>
+                                    <th>
+                                        Page Name
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Url
+                                    </th>
+                                    <th>
+                                        Requested On
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                </tr>
+                                @{
+                                    var index = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    {
+                                        index += 1;
+                                    }
+                                    <tr>
+                                        <td style="text-align:right">@index</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WebPage.PageName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WebPage.Description)
+                                        </td>
+                                        <td>
+                                            <a target="_blank" href="@item.WebPage.Url">@item.WebPage.Url</a>
+                                        </td>
+                                        <td>
+                                            @{
+                                                var requestedDate = item.RequestedDate.ToString("dd-MMM-yyyy");
+                                            }
+                                            @requestedDate
+                                        </td>
+                                        <td>
+                                            @{
+                                                var status = item.GetEnumDescription();
+                                                var statusClass = "badge-warning";
+                                                switch (item.ScrapeStatus)
+                                                {
+                                                    case ScrapeStatus.YetToScrape:
+                                                        statusClass = "badge-warning";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeSuccess:
+                                                        statusClass = "badge-success";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeFailed:
+                                                        statusClass = "badge-danger";
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+
+                                            }
+                                            <div class="badge @statusClass">@status</div>
+
+                                        </td>
+                                    </tr>
+                                }
+                                @if (Model.Count == 0)
+                                {
+                                    <tr class="no-data" style="text-align:center">
+                                        <td colspan="5">No data found !</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="currentWebPageId" type="hidden" value="" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.toggle-modal-deleteWebPageModal').fireModal({
+            title: 'Delete Synonym Word',
+            body: 'Are you sure you want to delete this Web Page?',
+            buttons: [
+                {
+                    text: 'Delete',
+                    class: 'btn btn-outline-danger',
+                    handler: deleteWebPage
+                },
+                {
+                    text: 'No',
+                    class: 'btn btn-outline-secondary',
+                    handler: function (current_modal) {
+                        $.destroyModal(current_modal);
+                    }
+                }
+            ]
+        });
+    });
+
+    var synonymDetails = {};
+    var wordDetails = {};
+
+    function setcurrentWebPageId(id) {
+        $('#currentWebPageId').val(id);
+    }
+
+    function deleteWebPage() {
+        var id = $('#currentWebPageId').val();
+
+        var request = $.ajax({
+            url: "/WebPage/DeleteById?pageId=" + id,
+            type: "DELETE"
+        });
+
+        request.done(function (response) {
+            iziToast.success({
+                title: 'Done!',
+                position: 'topRight',
+                message: 'Web page deleted successfully.',
+            });
+            setTimeout(function () { window.location.reload(); }, 1000);
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            request.fail(function (jqXHR, textStatus) {
+                iziToast.error({
+                    title: 'Error!',
+                    position: 'topRight',
+                    message: 'Failed to delete Web Page.',
+                });
+            });
+        });
+    }
+
+</script>

@@ -1,7 +1,6 @@
 Details
 know
 Why
-Can
 does
 Get
 where
@@ -16,7 +15,6 @@ need
 was
 has
 able
-application
 android
 many
 make

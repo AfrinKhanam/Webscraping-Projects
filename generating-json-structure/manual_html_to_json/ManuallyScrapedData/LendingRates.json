@@ -9,31 +9,463 @@
         "html_tag": "<h3>.*</h3>",
         "elements": [
             {
-                "text": "",
+                "text": "MCLR w.e.f 03.05.2020",
                 "content": [
                     {
                         "text": [
-                            "MCLR w.e.f. 03122019",
-                            "Base Rate is 9.45 % p. a. with effect from 07.05.2017",
-                            "Benchmark Prime Lending Rate is 14.20 % p. a. with effect from 08.06.2015",
-                            "Interest Rates on Personal Segment Loan Products ",
-                            "Personal Segment Loan – REPO linked interest rates (incl. Festival Offer) & Fixed rates wef 01.11.2019",
-                            "Min Max Mean ROI for quarter ended 30092019",
-                            "INTEREST RATES FOR MSME LOANS w.e.f. 08-03-2019",
-                            "Interest rate on Agricultural Products",
-                            "Based on Base Rate",
-                            "Based on BPLR",
-                            "All agricultural loans and Agri Structured Products / Schemes, Coffee and tea growers loans, Poultry advances, Farm Mechanization advances, Post Harvest Financing, Gramin Mahila Sowhbagya Scheme (GMSS), Non priority Jewel loans including secured OD against Gold Ornaments, Non Priority staff Jewel loans, Grihalakshmi (Housing Loan to SHG Members), Financing Micro Finance Institutions, SHG Bank Linkage Programme etc.",
-                            "Interest rate range of contracted loans for the quarter ended March 2018",
-                            "Interest rate on Export Credit in Foreign Currency",
-                            "Pre-shipment Credit, Post-shipment Credit, Export Credit Not Otherwise Specified (ECNOS)",
-                            "Interest rate on Rupee Export Credit",
-                            "Pre-shipment Credit, Post-shipment Credit"
-
+                            "Base Rate is 9.15 % p. a. with effect from 01.04.2020",
+                            "Benchmark Prime Lending Rate is 13.40 % p. a. with effect from 01.04.2020"
                         ]
                     }
                 ]
+            },
+            {
+                "text": "Interest Rates on Personal Segment Loan Products ",
+                "content": [
+                    {
+                        "text": [
+                            "Personal Segment Loan – REPO, MCLR linked interest rates & Fixed rates wef 01/04/2020"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "REPO BASED RATE OF INTEREST FOR MSME WEF 01 04 2020 ",
+                "content": [
+                    {
+                        "text": [
+                            "REPO BASED RATE OF INTEREST FOR MSME WEF 01 04 2020"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Interest rate on Agricultural Products ",
+                "content": [
+                    {
+                        "text": [
+                            "Based on Base Rate \n Based on BPLR   ",
+                            "Interest rate range of contracted loans for the quarter ended March 2018",
+                            "All agricultural loans and Agri Structured Products / Schemes, Coffee and tea growers loans, Poultry advances, Farm Mechanization advances, Post Harvest Financing, Gramin Mahila Sowhbagya Scheme (GMSS), Non priority Jewel loans including secured OD against Gold Ornaments, Non Priority staff Jewel loans, Grihalakshmi (Housing Loan to SHG Members), Financing Micro Finance Institutions, SHG Bank Linkage Programme etc."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Interest Rate On Export Credit In Foreign Currency ",
+                "content": [
+                    {
+                        "text": [
+                            "RBI vide their circular has advised Banks on their decision to deregulate the interest rate on Export Credit in Foreign Currency. Accordingly our Bank is permitted to determine the interest rates on export credit. The rate of interest is determined on a case to case basis depending on the ruling market rate."
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Interest Rate For Products Relate To Rupee Export Credi: For export credit products, appropriate MCLR should be chosen based on the tenor of the product. Interest rate for respective products will be based on the appropriate MCLR and spread as given below.",
+                "content": [
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Pre-shipment Credit - Up to 360 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Pre-shipment Credit - Up to 360 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 1.85%"
+                                ]
+                            },
+                            {
+                                "key": "Pre-shipment Credit - Up to 360 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Pre-shipment Credit - Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Pre-shipment Credit - Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Pre-shipment Credit - Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Post-shipment Credit - Demand Bills for transit period",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Demand Bills for transit period",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Demand Bills for transit period",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 180 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 180 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 180 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 365 days for exporters under the Gold Card",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 365 days for exporters under the Gold Card",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Up to 365 days for exporters under the Gold Card",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Incentive Receivables from Government covered by ECGC Guarantee up to 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Undrawn Balances up to 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Undrawn Balances up to 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Undrawn Balances up to 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Retention Money for supplies portion only payable within one year from the date of shipment",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Retention Money for supplies portion only payable within one year from the date of shipment",
+                                "value": [
+                                    "Spread \n Business Strategy \n 0.85%"
+                                ]
+                            },
+                            {
+                                "key": "Post-shipment Credit - Usance Bill Against Retention Money for supplies portion only payable within one year from the date of shipment",
+                                "value": [
+                                    "Spread \n Total Spread \n 2.40%"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit beyond 360 days if adjusted out of export proceeds",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit beyond 360 days if adjusted out of export proceeds",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.85%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit beyond 360 days if adjusted out of export proceeds",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit adjusted out of domestic funds",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit adjusted out of domestic funds",
+                                "value": [
+                                    "Spread \n Business Strategy \n 4.85%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Packing Credit adjusted out of domestic funds",
+                                "value": [
+                                    "Spread \n Total Spread \n 6.40%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.85%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Business Strategy \n 4.85%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Total Spread \n 6.40%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - All other export credit not otherwise specified- Pre-shipment",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.55%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - All other export credit not otherwise specified- Pre-shipment",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.85%"
+                                ]
+                            },
+                            {
+                                "key": "Export Credit Not otherwise Specified - All other export credit not otherwise specified- Pre-shipment",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text": "",
+                        "table": [
+                            {
+                                "key": "Overdue Export Bills - First 15 days from the Normal Transit Period or Notional Due Date",
+                                "value": [
+                                    "Spread \n Risk Premium - \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - First 15 days from the Normal Transit Period or Notional Due Date",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - First 15 days from the Normal Transit Period or Notional Due Date",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Beyond 15 days from the Normal Transit Period or Notional Due Date / ADOVEXBIR and other overdue post shipment receivables",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Beyond 15 days from the Normal Transit Period or Notional Due Date / ADOVEXBIR and other overdue post shipment receivables",
+                                "value": [
+                                    "Spread \n Business Strategy \n 5.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Beyond 15 days from the Normal Transit Period or Notional Due Date / ADOVEXBIR and other overdue post shipment receivables",
+                                "value": [
+                                    "Spread \n Total Spread \n 7.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Incentive Receivables from Government covered by ECGC Guarantee beyond 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Business Strategy \n 4.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - If not eligible for incentive from the first day of advance",
+                                "value": [
+                                    "Spread \n Total Spread \n 6.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Undrawn Balances beyond 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Undrawn Balances beyond 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Undrawn Balances beyond 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Retention Money for supplies portion only payable within one year from the date of shipment beyond 90 days",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Retention Money for supplies portion only payable within one year from the date of shipment beyond 90 days",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Against Retention Money for supplies portion only payable within one year from the date of shipment beyond 90 days",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Deferred Credit for period beyond 180 days with or without refinance from EXIM Bank",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Deferred Credit for period beyond 180 days with or without refinance from EXIM Bank",
+                                "value": [
+                                    "Spread \n Business Strategy \n 3.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - Deferred Credit for period beyond 180 days with or without refinance from EXIM Bank",
+                                "value": [
+                                    "Spread \n Total Spread \n 5.40%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - TOD / Defaulted Guarantees / Bp Returned Unpaid / Advance Bills (Inland / Import)",
+                                "value": [
+                                    "Spread \n Risk Premium \n 1.95%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - TOD / Defaulted Guarantees / Bp Returned Unpaid / Advance Bills (Inland / Import)",
+                                "value": [
+                                    "Spread \n Business Strategy \n 5.45%"
+                                ]
+                            },
+                            {
+                                "key": "Overdue Export Bills - TOD / Defaulted Guarantees / Bp Returned Unpaid / Advance Bills (Inland / Import)",
+                                "value": [
+                                    "Spread \n Total Spread \n 7.40%"
+                                ]
+                            }
+                        ]
+                    }
+
+                ]
             }
+            
         ]
     }
 }

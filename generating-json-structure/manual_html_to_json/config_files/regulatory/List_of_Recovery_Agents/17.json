@@ -1,0 +1,80 @@
+{
+    "url": "https://www.ujjivansfb.in/list-recovery-agents",
+    "domain": "Home",
+    "class": "Regulatory",
+    "main_title": "List of Recovery Agents",
+    "subtitle": {
+        "element": [
+            {
+                "text": "Region",
+                "content": [
+                    {
+                        "text": [
+                            "North"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Code",
+                "content": [
+                    {
+                        "text": [
+                            "31508"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Vendor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Citi Collections Indis Pvt Ltd"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Name",
+                "content": [
+                    {
+                        "text": [
+                            "Satish Goswami"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Proprietor Mobile No",
+                "content": [
+                    {
+                        "table": [
+                            "\n8287089739\n"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Email Id",
+                "content": [
+                    {
+                        "text": [
+                            "indusind.cci@gmail.com"
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Address",
+                "contents": [
+                    {
+                        "text": [
+                            "A-44, Chander Nagar, Janakpuri, New Delhi - 110058"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
