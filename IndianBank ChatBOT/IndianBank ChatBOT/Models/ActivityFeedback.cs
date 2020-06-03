@@ -7,7 +7,7 @@ namespace IndianBank_ChatBOT.Models
 {
     public class ActivityFeedback
     {
-        public string ActivityId { get; set; }
+        public Guid ActivityId { get; set; }
         public ResonseFeedback ResonseFeedback { get; set; }
     }
 }
