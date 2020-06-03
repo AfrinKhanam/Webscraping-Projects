@@ -19,9 +19,6 @@ namespace Itminus.InDirectLine.Core.Services
         private readonly HttpClient _httpClient;
         private readonly IConversationHistoryStore _history;
 
-
-
-
         /// <summary>
         /// Get the url of Bot Services Message EndPoint
         /// </summary>
@@ -31,9 +28,9 @@ namespace Itminus.InDirectLine.Core.Services
             return this._settings.BotEndpoint;
         }
 
-        public DirectLineHelper(IOptions<InDirectLineSettings> settings , IHttpClientFactory clientFactory, IConversationHistoryStore history)
+        public DirectLineHelper(IOptions<InDirectLineSettings> settings, IHttpClientFactory clientFactory, IConversationHistoryStore history)
         {
-            this._settings = settings?.Value?? throw new Exception($"the {nameof(settings)} must not be null!");
+            this._settings = settings?.Value ?? throw new Exception($"the {nameof(settings)} must not be null!");
             this._httpClient = clientFactory.CreateClient();
             this._history = history;
         }
@@ -41,48 +38,54 @@ namespace Itminus.InDirectLine.Core.Services
 
         internal async Task<CreateNewConversationResult> CreateNewConversationWithId(string userId, string conversationId)
         {
-            if(string.IsNullOrEmpty(userId)){
-                throw new ArgumentNullException(nameof(userId)); 
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
             }
-            if(string.IsNullOrEmpty(conversationId)) {
+            if (string.IsNullOrEmpty(conversationId))
+            {
                 throw new ArgumentNullException(nameof(conversationId));
             }
             var membersAdded = new List<ChannelAccount>{
                 new ChannelAccount{ Id = userId},
             };
-            var MembersRemoved = new List<ChannelAccount>{};
-            var activity= CreateNewConversationUpdateActivity(conversationId,membersAdded,MembersRemoved);
+            var MembersRemoved = new List<ChannelAccount> { };
+            var activity = CreateNewConversationUpdateActivity(conversationId, membersAdded, MembersRemoved);
             // persist this conversation to history store
             await this._history.CreateConversationIfNotExistsAsync(activity.Conversation.Id);
 
             var botMessageEndpointUrl = GetBotMessageEndpointUrl();
-            var resp = await _httpClient.SendJsonAsync(botMessageEndpointUrl,activity);
-            return new CreateNewConversationResult{
+            var resp = await _httpClient.SendJsonAsync(botMessageEndpointUrl, activity);
+            return new CreateNewConversationResult
+            {
                 Activity = activity,
                 StatusCode = resp.StatusCode,
             };
         }
 
-        internal class CreateNewConversationResult{
-            public IConversationUpdateActivity Activity {get;set;}
-            public HttpStatusCode StatusCode{get;set;}
+        internal class CreateNewConversationResult
+        {
+            public IConversationUpdateActivity Activity { get; set; }
+            public HttpStatusCode StatusCode { get; set; }
         }
 
         private IConversationUpdateActivity CreateNewConversationUpdateActivity(string conversationId, IList<ChannelAccount> membersAdded, IList<ChannelAccount> MembersRemoved)
         {
-            conversationId = string.IsNullOrEmpty(conversationId)? Guid.NewGuid().ToString(): conversationId;
-            var serviceUrl  = this._settings.ServiceUrl;
+            conversationId = string.IsNullOrEmpty(conversationId) ? Guid.NewGuid().ToString() : conversationId;
+            var serviceUrl = this._settings.ServiceUrl;
 
-            var activity = new Activity{
-                Type =  ActivityTypes.ConversationUpdate,
+            var activity = new Activity
+            {
+                Type = ActivityTypes.ConversationUpdate,
                 ChannelId = Channels.Directline,
                 ServiceUrl = serviceUrl,
-                Conversation = new ConversationAccount{ Id = conversationId, },
-                Id= Guid.NewGuid().ToString(),
-                MembersAdded= membersAdded,
-                MembersRemoved= MembersRemoved,
-                From = new ChannelAccount { 
-                    Id = "offline-directline", 
+                Conversation = new ConversationAccount { Id = conversationId, },
+                Id = Guid.NewGuid().ToString(),
+                MembersAdded = membersAdded,
+                MembersRemoved = MembersRemoved,
+                From = new ChannelAccount
+                {
+                    Id = "offline-directline",
                     Name = "Offline Directline Server"
                 },
                 Recipient = BotChannelAccount,
@@ -91,22 +94,25 @@ namespace Itminus.InDirectLine.Core.Services
             return activity.AsConversationUpdateActivity();
         }
 
-        internal ChannelAccount BotChannelAccount {get;set;} = new ChannelAccount{
-            Id = "InDirectLine.Bot",
-            Name = "InDirectLine Bot",
+        internal ChannelAccount BotChannelAccount { get; set; } = new ChannelAccount
+        {
+            Id = "DirectlineBot",
+            Name = "Directline Bot",
         };
 
-        public IMessageActivity CreateAttachmentActivity(string serviceUrl, string conversationId,string userId ,IList<Attachment> attachments )
+        public IMessageActivity CreateAttachmentActivity(string serviceUrl, string conversationId, string userId, IList<Attachment> attachments)
         {
-            var activity = new Activity{
+            var activity = new Activity
+            {
                 Type = ActivityTypes.Message,
                 ChannelId = Channels.Directline,
                 ServiceUrl = serviceUrl,
-                Conversation = new ConversationAccount{ Id = conversationId, },
-                From = new ChannelAccount{
+                Conversation = new ConversationAccount { Id = conversationId, },
+                From = new ChannelAccount
+                {
                     Id = userId,
                 },
-                Id= Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Attachments = attachments,
             };
             return activity.AsMessageActivity();
@@ -122,8 +128,8 @@ namespace Itminus.InDirectLine.Core.Services
         {
             await _history.AddActivityAsync(conversationId, activity);
             var botMessageEndpointUrl = GetBotMessageEndpointUrl();
-            var resp = await this._httpClient.SendJsonAsync(botMessageEndpointUrl,activity);
-            var content=await resp.Content.ReadAsStringAsync();
+            var resp = await this._httpClient.SendJsonAsync(botMessageEndpointUrl, activity);
+            var content = await resp.Content.ReadAsStringAsync();
             return resp.StatusCode;
         }
 
@@ -134,7 +140,7 @@ namespace Itminus.InDirectLine.Core.Services
 
         public async Task<ActivitySet> GetActivitySetFromConversationHistoryAsync(string conversationId, int watermark)
         {
-            var res = await this._history.GetActivitySetAsync(conversationId,watermark);
+            var res = await this._history.GetActivitySetAsync(conversationId, watermark);
             return res;
         }
     }

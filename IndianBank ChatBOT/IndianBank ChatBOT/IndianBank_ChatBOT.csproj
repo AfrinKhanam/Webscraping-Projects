@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <UserSecretsId>534d1e5d-0951-46f9-b4e3-77f22c379edd</UserSecretsId>
+    <Authors>Integra Micro Systems Pvt. Ltd.</Authors>
+    <Product>K-BOT</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

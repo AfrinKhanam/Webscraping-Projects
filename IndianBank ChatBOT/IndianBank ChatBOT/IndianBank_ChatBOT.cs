@@ -64,7 +64,7 @@ namespace IndianBank_ChatBOT
 
             if (dc.ActiveDialog != null)
             {
-                var result = await dc.ContinueDialogAsync();
+                await dc.ContinueDialogAsync();
             }
             else
             {
