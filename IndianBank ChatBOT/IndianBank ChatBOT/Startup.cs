@@ -166,9 +166,6 @@ namespace IndianBank_ChatBOT
         /// <param name="env">Hosting Environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Configure Application Insights
-            _loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);
-
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpContext();
 

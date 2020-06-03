@@ -1,4 +1,13 @@
-﻿using IndianBank_ChatBOT.Dialogs.EMI;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Dialogs.EMI;
 using IndianBank_ChatBOT.Dialogs.Loans;
 using IndianBank_ChatBOT.Dialogs.Onboarding;
 using IndianBank_ChatBOT.Dialogs.Shared;
@@ -15,16 +24,6 @@ using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 
 using ServiceStack.Redis;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.IO;
-using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {

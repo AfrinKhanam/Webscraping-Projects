@@ -51,6 +51,7 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<WebPage> WebPages { get; set; }
 
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
+
         public DbQuery<UnAnsweredQueries> UnAnsweredQueries { get; set; }
 
         public DbQuery<Top10DomainsVisitedViewModel> Top10DomainsVisitedViewModels { get; set; }
@@ -61,6 +62,7 @@ namespace IndianBank_ChatBOT.Models
 
         public DbQuery<VisitorsByMonthViewModel> VisitorsByMonthViewModels { get; set; }
     }
+
     internal static class MyExtensions
     {
         public static void SeedWithSequence<TEntity>(
