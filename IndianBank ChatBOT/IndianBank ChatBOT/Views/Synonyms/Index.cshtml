@@ -50,11 +50,6 @@
                     @Html.DisplayFor(modelItem => item.Word)
                 </td>
                 <td>
-                    @*@{
-                            var wordCSV = String.Join(",", item.SynonymWords.Select(a => a.Name).ToList());
-                            <input data-custom="dt" type="text" value="@wordCSV" placeholder="type new synonym" data-role="tagsinput" class="tag" />
-
-                        }*@
                     @foreach (var sw in item.SynonymWords)
                     {
                         <ul class="list-group">

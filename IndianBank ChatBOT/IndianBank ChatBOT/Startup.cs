@@ -65,7 +65,7 @@ namespace IndianBank_ChatBOT
 
             var appSettings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettings);
-            
+
             // Load the connected services from .bot file.
             var botFilePath = Configuration.GetSection("botFilePath")?.Value;
             var botFileSecret = Configuration.GetSection("botFileSecret")?.Value;
@@ -77,14 +77,14 @@ namespace IndianBank_ChatBOT
             {
                 Configuration = Configuration
             };
-            
+
             services.AddSingleton(sp => connectedServices);
-            
+
             // Initialize Bot State
             var dataStore = new MemoryStorage();
             var userState = new UserState(dataStore);
             var conversationState = new ConversationState(dataStore);
-            
+
             services.AddSingleton(dataStore);
             services.AddSingleton(userState);
             services.AddSingleton(conversationState);
@@ -105,6 +105,7 @@ namespace IndianBank_ChatBOT
                         o.SerializerSettings.Formatting = Formatting.Indented;
                         o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                     });
+
             //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
             //services.AddTransient<LogDataContext, LogDataContext>();
 
@@ -169,9 +170,13 @@ namespace IndianBank_ChatBOT
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpContext();
 
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
             }
 
             //app.UseXContentTypeOptions();
@@ -200,9 +205,6 @@ namespace IndianBank_ChatBOT
             {
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "{controller=Faq}/{action=Display}");
             });
 
             app.UseStaticFiles(new StaticFileOptions

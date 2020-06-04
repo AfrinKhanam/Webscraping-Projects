@@ -10,7 +10,6 @@
         var from_date = '@Model.From';
         var to_date = '@Model.To';
 
-
         $("#datepicker_from").datepicker({
             autoclose: true,
             todayHighlight: true
@@ -55,7 +54,7 @@
             <input type="hidden" id="to" name="to" value="" />
             <div class="form-group">
                 <label for="From">From</label>   &nbsp;
-                <div id="datepicker_from" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
+                <div id="datepicker_from" class="input-group date" data-date-format="dd-mm-yyyy" data-date-end-date="0d">
                     @*<span class="input-group-addon" id="addon-event">From </span>*@
                     <input class="form-control" type="text" id="from_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -65,7 +64,7 @@
             &nbsp;
             <div class="form-group">
                 <label for="To">To</label>   &nbsp;
-                <div id="datepicker_to" class="input-group date" data-date-format="mm-dd-yyyy" data-date-end-date="0d">
+                <div id="datepicker_to" class="input-group date" data-date-format="dd-mm-yyyy" data-date-end-date="0d">
                     @*<span class="input-group-addon" id="addon-event">To </span>*@
                     <input class="form-control" type="text" id="to_date_input" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>

@@ -16,13 +16,11 @@ namespace IndianBank_ChatBOT.Controllers
     //[Route("[controller]")]
     public class ReportController : Controller
     {
-        private readonly AppSettings _appSettings;
         private readonly AppDbContext _dbContext;
 
-        public ReportController(AppDbContext _dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings)
+        public ReportController(AppDbContext _dbContext)
         {
             this._dbContext = _dbContext;
-            _appSettings = appsettings.Value;
         }
 
         [HttpGet]
@@ -34,7 +32,7 @@ namespace IndianBank_ChatBOT.Controllers
         [HttpPost]
         public ActionResult FrequentlyAskedQueries(ReportParams @params)
         {
-            if(!IsValidReportParams(@params))
+            if (!IsValidReportParams(@params))
             {
                 return View("_InvalidInputError");
             }
@@ -174,7 +172,7 @@ namespace IndianBank_ChatBOT.Controllers
             {
                 return View("_InvalidInputError");
             }
-            
+
             var fromDate = @params.From;
             var toDate = @params.To;
 

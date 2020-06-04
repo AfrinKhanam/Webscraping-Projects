@@ -1,0 +1,449 @@
+﻿
+@model ChatBotSettings
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+          Cache-Control:public;>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
+    <META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+    <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Indian Bank Bot</title>
+
+    <!--Links for slider-->
+    <link rel="stylesheet" href="content/bootstrap/css/bootstrap.min.css">
+    <script src="content/js/jquery_3.1.4.js"></script>
+    <script src="content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="content/js/jquery-ui.js"></script>
+    <!--Ends-->
+
+    <link href="~/content/css/chatbot.css" rel="stylesheet" />
+
+    <!--React Libraries-->
+    <script src="content/webchat/babel.min.js" charset="utf-8"></script>
+    <script src="content/webchat/react.development.js"></script>
+    <script src="content/webchat/react-dom.development.js"></script>
+    <script src="content/webchat/react-redux.min.js"></script>
+    <script src="content/webchat/index.js"></script>
+    <!--React Libraries ends-->
+    <!--Auto Suggesion-->
+    <script type="text/javascript" src="scripts/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mockjax.js"></script>
+    <script type="text/javascript" src="scripts/jquery.autocomplete.js"></script>
+
+</head>
+
+<body>
+    <div id="webchat" role="main"></div>
+    <!--New Slder Starts-->
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-md-12">
+            <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel" style="position:absolute;bottom:40px;left:0px;width:100%;height: 50px;background-color: rgba(255,255,255,0.90);margin-top: -5px;padding-top:8px">
+
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <button onclick="sendSuggestedMenuMessage('about us')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            About Us
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('product')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Products
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                    </div>
+
+                    <div class="item">
+                        <button onclick="sendSuggestedMenuMessage('product')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Products
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('links')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Links
+                        </button>
+                    </div>
+
+                    <div class="item">
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('links')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Links
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('rates')" type="button" style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);" class="btn btn-xs btn-outline-primary">
+                            Rates
+                        </button>
+
+                    </div>
+                </div>
+
+
+                <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                </a>
+                <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--New Slider Ends-->
+
+    <script src="content/js/webchat-es5.js"></script>
+
+    <script type="text/javascript">
+        window.directLine = null;
+        var userId = "User-" + parseInt(Math.random() * 1000000);
+        var userName = userId;
+        debugger;
+        var directLineTokenGenerationUrl = "@Model.DirectLineTokenGenerationUrl";
+        //var directLineTokenGenerationUrl = "http://52.172.14.249:3000/v3/directline/tokens/generate";
+
+        var directLineConversationUrl = "@Model.DirectLineConversationUrl";
+        //var directLineConversationUrl = "http://52.172.14.249:3000/v3/directline";
+
+        fetch(directLineTokenGenerationUrl, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId: userId,
+            }),
+        })
+            .then(res => res.json())
+            .then(res => {
+                window.directLine = window.WebChat.createDirectLine({
+                    domain: directLineConversationUrl,
+                    token: res.token,
+                    webSocket: true
+                });
+                if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+                    var styleOptions = {
+                        backgroundColor: '',
+                        hideUploadButton: true,
+                        botAvatarInitials: 'BOT',
+                        botAvatarImage: '~/botAvatar.png',
+                        botAvatarBackgroundColor: '#ffe8a3'
+                    };
+
+                    window.WebChat.renderWebChat({
+                        directLine: window.directLine,
+                        userID: userId,
+                        username: userName,
+                        locale: 'en-US',
+                        styleOptions: styleOptions,
+                        resize: 'detect'
+                    }, document.getElementById('webchat'));
+                }
+            });
+    </script>
+
+    @*<script type="text/babel">
+        if(!(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))){ (async function () { 'use strict'; const { connectToWebChat, ReactWebChat } = window.WebChat; const { css } = window.Glamor; const styleOptions = { backgroundColor: '', hideUploadButton: true, botAvatarInitials:
+        'BOT', botAvatarImage: './botAvatar.png', botAvatarBackgroundColor: '#e2aa42ad' }; const ACTIVITY_WITH_FEEDBACK_CSS = css({ minHeight: 60, position: 'relative', '& > .activity': { paddingLeft: 0 }, '& > .button-bar': { paddingLeft: 50, listStyleType:
+        'none', margin: '0 0 0 10px', position: 'relative', '& > li': { display: 'inline-block' }, '& > li > button': { background: 'White', border: 'solid 0px #E6E6E6', marginBottom: 2, padding: '2px 5px 5px', '&:hover': { opacity: 0.50, cursor: 'pointer',
+        } } } }); const ATTACHMENT_FEEDBACK = css({ padding: 10, margin: 0, textAlign: 'left', minHeight: 20, position: 'relative', '& > button': { fontFamily: '"Calibri", "Helvetica Neue", "Arial", "sans-serif"', padding: '2px 10px', margin: '3px 3px',
+        fontSize: '16px', color: 'black', background: '#f1f0f0', borderRadius: '5px', weight: '400', '&:hover': { opacity: 0.50, cursor: 'pointer', } } }); window.current_Context = ""; const store = window.WebChat.createStore(); class IntegraHeroCard
+        extends React.Component { sendMessageButton = (e) => { return store.dispatch({ type: 'WEB_CHAT/SEND_MESSAGE', payload: { text: e } }); } render() { const { props } = this; const items = [] for (const button of props.buttons) { items.push(
+        <button onClick={() => this.sendMessageButton(button.value)} key={button.title}>{button.title}</button>) } return (
+        <div className={ATTACHMENT_FEEDBACK}>
+            {items}
+        </div>
+        ); } } const attachmentMiddleware = () => next => card => { switch (card.attachment.contentType) { case 'application/vnd.microsoft.card.hero': { console.log(card.attachment.contentType) console.log(card.attachment) console.log(card) return (
+        <IntegraHeroCard buttons={card.attachment.content.buttons} /> ); } default: return next(card); } }; const REACTION_DISABLED = css({ enabled: false }); const REACTION_SELECTED = css({ backgroundColor: 'red' }); class ActivityWithFeedback extends React.Component { constructor () { super(); this.state = {
+        upvote_class: '', downvote_class: '', disabled: false }; } sendFeedback = (feedBack) => { fetch('/Report/UpdateFeedback', { method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', }, body: JSON.stringify({
+        ActivityId: this.props.replyId, ResonseFeedback: feedBack, }) }) } handleDownvoteButton = () => { this.setState({ upvote_class: 'feedback-done', downvote_class: 'reaction-downvote feedback-done', disabled: 'disabled' }); this.sendFeedback(-1);
+        } handleUpvoteButton = () => { this.setState({ upvote_class: 'reaction-upvote feedback-done ', downvote_class: 'feedback-done', disabled: 'disabled' }); this.sendFeedback(1); } render() { const { props } = this; return (
+        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
+            <div className="activity">{props.children}</div>
+            <ul className="button-bar">
+                <li>
+                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="Satisfied with BOT's response"></span></button>
+                </li>
+                <li>
+                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied with BOT's response"></span></button>
+                </li>
+            </ul>
+
+        </div>
+        ); } } const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
+        <ActivityWithFeedback { ...props} /> )); let excludedText = [`Hi! My name is Iva 😃. Welcome to Indian Bank. I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"]; const checkDirectLine = function() { if
+        (!window.directLine) { setTimeout(checkDirectLine, 100); return; } console.log('chatbot initialized'); window.ReactDOM.render(
+        <ReactWebChat // attachmentMiddleware={attachmentMiddleware} activityMiddleware={activityMiddleware} directLine={window.directLine} styleOptions={styleOptions} store={store} />, document.getElementById('webchat') ); document.querySelector('#webchat > *').focus(); } const activityMiddleware = () => next => card => { if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) { return children
+        => (
+        <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
+            {next(card)(children)}
+        </ConnectedActivityWithFeedback>
+        ); } else { return next(card); } }; setTimeout(function(){ checkDirectLine();}, 100); })().catch(err => console.error(err)); }
+    </script>*@
+
+
+
+    <script>
+        window.current_Context = "undefined";
+
+        onSendButtonClick = function (e) {
+            //Get
+            var inputValue = $('#autocomplete-ajax').val();
+            //sendMessage
+            sendUserInputMessage(inputValue);
+            //Set
+            $('#autocomplete-ajax').val('');
+        }
+
+        sendUserInputMessage = function (e) {
+            var activity = {
+                text: e,
+                textFormat: "plain",
+                channelData: [{
+                    "context": window.current_Context
+                }],
+                type: "message",
+                channelId: "webchat",
+                from: {
+                    id: "IndianBank_ChatBOT",
+                    role: "user"
+                },
+                locale: "en-US",
+                timestamp: new Date()
+            };
+            window.directLine.postActivity(activity).subscribe(function () {
+                console.log("message sent...");
+            });
+            // getCustomBotResponse(message);
+        }
+
+        function sendSuggestedMenuMessage(message) {
+            var activity = {
+                text: message,
+                textFormat: "plain",
+                channelData: [{
+                    "context": window.current_Context
+                }],
+                type: "message",
+                channelId: "webchat",
+                from: {
+                    id: "IndianBank_ChatBOT",
+                    role: "user"
+                },
+                locale: "en-US",
+                timestamp: new Date()
+            };
+            window.directLine.postActivity(activity).subscribe(function () {
+                console.log("message sent...");
+            });
+        }
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("div.main").hide();
+                var element = '<div class="main css-16qahhi css-qn8ts8 css-1g3yky9 css-1fe8kfc"><input id="autocomplete-ajax" aria-label="Type your message" placeholder="Type your message" type="text" value=""><div><button onclick="onSendButtonClick()" class="css-115fwte" title="Send" type="button"><img src="/send-icon.png" style="width: 53%;"></button></div></div>';
+                $(element).insertAfter($("div.main"));
+
+                $('#autocomplete-ajax').autocomplete({
+                    orientation: 'top',
+                    // params - additional parameters to pass with the request, optional
+                    lookup: function (query, done) {
+
+                        var q = query.split(" ").length > 2 ? {
+                            match: {
+                                "Questions": query
+                            }
+                        } : {
+                                match_phrase: {
+                                    "Questions": query
+                                }
+                            };
+
+                        var dataToPost = {
+                            "from": 0,
+                            "size": 200,
+                            "query": {
+                                "bool": {
+                                    "should": [
+                                        q
+                                        //{ "" + queryType + "": { "Questions": query } },
+                                        //  { "match": { "primary_context_and_keyword": window.current_Context } }
+                                    ]
+                                }
+                            }
+                        };
+
+                        var empty_suggestions = {
+                            suggestions: []
+                        };
+
+                        $.ajax({
+                            url: "/AutoSuggestion/Suggest",
+                            type: "POST",
+                            data: JSON.stringify({
+                                "Query": JSON.stringify(dataToPost)
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result != null) {
+                                    if (result.hits.hits.length < 1) {
+                                        done(empty_suggestions);
+                                        return;
+                                    }
+
+                                    var suggestionCountToDisplay = 5;
+
+                                    var suggestionList = result.hits.hits;
+
+                                    if (suggestionList.length < 1) {
+                                        done(empty_suggestions);
+                                        return;
+                                    }
+
+                                    var curContext = (current_Context || '').toLowerCase();
+
+                                    suggestionList = $.map(suggestionList, function (item, i) {
+                                        var src = item._source;
+                                        var itemContext = src.primary_context_and_keyword.split(',', 1)[0].toLowerCase();
+
+                                        return {
+                                            "value": src.Questions,
+                                            "data": src.Questions,
+                                            "context": itemContext
+                                        };
+                                    });
+
+                                    var contextItems = [];
+                                    var alternateItems = [];
+
+                                    for (var i = 0; i < suggestionList.length; i++) {
+                                        // If we have 5 items (i.e., suggestionCountToDisplay) to display, then break out of the loop
+                                        if (contextItems.length == suggestionCountToDisplay)
+                                            break;
+
+                                        var item = suggestionList[i];
+
+                                        if ($.trim(item.context).length > 0 && item.context == curContext) {
+                                            contextItems.push(item);
+                                        } else {
+                                            alternateItems.push(item);
+                                        }
+                                    }
+
+                                    done({
+                                        suggestions: contextItems.length > 0 ? contextItems : alternateItems.slice(0, 5)
+                                    });
+                                }
+                            },
+                            error: function () {
+                                //debugger;
+                            },
+                            processData: false
+                        });
+                    },
+                    // deferRequestBy - number of miliseconds to defer ajax request, default: 0
+                    deferRequestBy: 0,
+                    // ajaxSettings - any additional ajax settings that configure the jQuery Ajax request,
+                    // see: from: http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings
+                    // END ajax settings
+                    // BEGIN general configuration settings
+                    // noCache - boolean value indicating whether to cache suggestion results, default: false
+                    noCache: false,
+                    // delimiter - string or RegExp, that splits input value and takes last part to as query for suggestions, useful when for example you need to fill list of comma separated values
+                    // delimiter: ??,
+
+                    // minChars - minimum number of characters required to trigger autosuggest, default: 1
+                    minChars: 2,
+
+                    // triggerSelectOnValidInput - boolean value indicating if select should be triggered if it matches suggestion, default: true
+                    triggerSelectOnValidInput: true,
+
+                    // preventBadQueries - boolean value indicating if it should prevent future ajax requests for queries with the same root if no results were returned, e.g. if Jam returns no suggestions, it will not fire for any future query that starts with Jam, default: true
+                    preventBadQueries: true,
+
+                    // autoSelectFirst - if set to true, first item will be selected when showing suggestions, default false
+                    autoSelectFirst: false,
+                    // BEGIN event handlers
+
+                    // onSearchStart: function (params) {}
+                    // called before ajax request, 'this' is bound to input element
+                    onSearchStart: function (params, e) {
+
+                    },
+                    // onSearchComplete: function (query, suggestions) {}
+                    // called after ajax response is processed, 'this' is bound to input element, suggestions is an array containing the results
+                    onSearchComplete: function (query, suggestions) {
+                        window.suggested_items = suggestions;
+                        //window.current_Context = suggestions[0].current_Context;
+                        //console.table(suggestions);
+                    },
+
+                    // onSelect: function (suggestion) {}
+                    // callback function invoked when user selects suggestion from the list, 'this' inside callback refers to input HtmlElement
+                    onSelect: function (suggestion) {
+                        //debugger;
+                        console.log("OLD CONTEXT:::::: " + window.current_Context);
+                        window.current_Context = suggestion.context;
+                        console.log("NEW CONTEXT:::: " + window.current_Context);
+
+                        //console.table(window.formattedResult.suggestions);
+                        sendUserInputMessage(suggestion.value);
+                        this.value = '';
+                        window.formattedResult = {
+                            suggestions: []
+                        };
+                    },
+
+                    // onSearchError: function (query, jqXHR, textStatus, errorThrown)
+                    // {} called if ajax request fails, 'this' is bound to input element
+                    onSearchError: function (query, jqXHR, textStatus, errorThrown) {
+
+                    },
+
+                    // onHide: function (container) {}
+                    // called before container will be hidden
+                    onHide: function (container) {
+
+                    },
+
+                    onHint: function (hint) {
+
+                    },
+                    onInvalidateSelection: function () {
+
+                    }
+                }).bind("keypress", function (event) {
+                    if (event.which == 13 && window.suggested_items) {
+                        console.log("OLD CONTEXT:::::: " + window.current_Context);
+                        if (window.suggested_items.length > 0)
+                            window.current_Context = window.suggested_items[0].context;
+                        else
+                            window.current_Context = "";
+
+                        console.log("NEW CONTEXT:::: " + window.current_Context);
+                    }
+                });
+
+                $("#autocomplete-ajax").keyup(function (event) {
+                    if (event.keyCode === 13) {
+                        sendUserInputMessage(event.target.value);
+                        this.value = '';
+                        window.formattedResult = {
+                            suggestions: []
+                        };
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
+
