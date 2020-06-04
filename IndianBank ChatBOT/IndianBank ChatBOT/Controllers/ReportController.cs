@@ -1,15 +1,11 @@
-﻿using System;
+﻿using IndianBank_ChatBOT.ExcelExport;
+using IndianBank_ChatBOT.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using IndianBank_ChatBOT.ExcelExport;
-using IndianBank_ChatBOT.Models;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {

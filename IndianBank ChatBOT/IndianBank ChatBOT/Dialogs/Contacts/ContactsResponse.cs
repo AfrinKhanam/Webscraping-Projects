@@ -2,11 +2,8 @@
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Contacts
 {
@@ -41,7 +38,7 @@ namespace IndianBank_ChatBOT.Dialogs.Contacts
             }
         };
 
-        public static Dictionary<string,ContactData> keyValuePairs = new Dictionary<string, ContactData>
+        public static Dictionary<string, ContactData> keyValuePairs = new Dictionary<string, ContactData>
         {
             //Contacts Menu Items
             {"quick contact",new ContactData{ContactDataTitle="Quick Contacts",ContactDataText="To get the contact details. Click on Read More",ContactDataLink=ContactResponseLinks.QuickContacts,ContactDataImagePath=Path.Combine(".",@"Resources\contacts\QuickContacts", "quick_contacts.PNG")} },

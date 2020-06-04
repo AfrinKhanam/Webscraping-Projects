@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-
-using IndianBank_ChatBOT.Models;
-
+﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -33,7 +31,7 @@ namespace IndianBank_ChatBOT.Controllers
         public IActionResult GetAllPendingRequests()
         {
             var requests = _dbContext.WebPageScrapeRequests
-                                     .Include(w=>w.WebPage)
+                                     .Include(w => w.WebPage)
                                      .Where(r => r.ScrapeStatus == ScrapeStatus.YetToScrape)
                                      .ToList();
             return Ok(requests);

@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Threading;
-using System.Threading.Tasks;
 using IndianBank_ChatBOT.Extensions;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Shared
 {
@@ -47,7 +47,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                             //    // DialogInstance dc=innerDc.ActiveDialog;
 
                             //}
-                             var result = await innerDc.ContinueDialogAsync();
+                            var result = await innerDc.ContinueDialogAsync();
                             switch (result.Status)
                             {
 

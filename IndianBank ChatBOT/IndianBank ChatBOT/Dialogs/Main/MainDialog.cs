@@ -1,4 +1,17 @@
-﻿using System;
+﻿using IndianBank_ChatBOT.Dialogs.EMI;
+using IndianBank_ChatBOT.Dialogs.Loans;
+using IndianBank_ChatBOT.Dialogs.Onboarding;
+using IndianBank_ChatBOT.Dialogs.Shared;
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
+using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Schema;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RabbitMQ.Client;
+using ServiceStack.Redis;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,24 +19,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-
-using IndianBank_ChatBOT.Dialogs.EMI;
-using IndianBank_ChatBOT.Dialogs.Loans;
-using IndianBank_ChatBOT.Dialogs.Onboarding;
-using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
-
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Schema;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-using RabbitMQ.Client;
-
-using ServiceStack.Redis;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -229,9 +224,9 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <param name="userState">State of the user.</param>
         /// <exception cref="ArgumentNullException">services</exception>
 
-        private static  AppSettings appSettings;
+        private static AppSettings appSettings;
 
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState,AppSettings appsettings)
+        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings)
             : base(nameof(MainDialog))
         {
             appSettings = appsettings;
@@ -240,7 +235,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             _conversationState = conversationState;
             _userState = userState;
             AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
-            AddDialog(new OnBoardingFormDialog(_services, conversationState, userState,appsettings));
+            AddDialog(new OnBoardingFormDialog(_services, conversationState, userState, appsettings));
             AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
         }
 
@@ -341,7 +336,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
                     {
-                       
+
                         await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
                     }
                     else if (generalIntent == "small_talks_intent")
@@ -716,7 +711,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             // "guest"/"guest" by default, limited to localhost connections
 
             factory.UserName = appSettings.RabbitmqUsername;
-            factory.Password = appSettings.RabbitmqPassword; 
+            factory.Password = appSettings.RabbitmqPassword;
             factory.VirtualHost = appSettings.RabbitmqVirtualHost;
             factory.HostName = appSettings.RabbitmqHostName;
             factory.HostName = "localhost";
@@ -739,7 +734,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             model.BasicPublish("queryExchange", "query", properties, messageBuffer);
             Console.WriteLine("Message Sent");
 
-           // string host = "ashutosh-redis";
+            // string host = "ashutosh-redis";
             string host = "localhost";
 
             int count = 0;

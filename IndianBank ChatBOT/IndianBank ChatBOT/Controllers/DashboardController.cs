@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using IndianBank_ChatBOT.Models;
-
+﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -33,7 +31,7 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult RealTimeDashboard()
         {
             int currentMonth = DateTime.Now.Month;
-            int lastMonth = DateTime.Now.Month - 1; 
+            int lastMonth = DateTime.Now.Month - 1;
             int currentYear = DateTime.Now.Year;
             int lastYear = DateTime.Now.Year - 1;
             var today = DateTime.Now;

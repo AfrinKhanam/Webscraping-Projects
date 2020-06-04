@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29411.138
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndianBank_ChatBOT", "IndianBank ChatBOT\IndianBank_ChatBOT.csproj", "{038B4AA5-37DF-42C5-90F1-E68E8558C535}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InDirectLine", "InDirectLine\InDirectLine.csproj", "{580F3BAC-7446-4BB5-9763-D43BCFB35B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectLineServer", "DirectLineServer\DirectLineServer.csproj", "{580F3BAC-7446-4BB5-9763-D43BCFB35B5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,22 +1,9 @@
 ﻿using IndianBank_ChatBOT.Dialogs.Main;
 using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Middleware;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Microsoft.Bot.Schema;
-using Microsoft.Extensions.Options;
-using Microsoft.Recognizers.Text;
-using Microsoft.Recognizers.Text.Number
-    ;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,18 +33,18 @@ namespace IndianBank_ChatBOT.Dialogs.EMI
             };
 
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
-            AddDialog(new TextPrompt(DialogIds.AskforPrincipalAmount,ValidatePrincipalAmount));
+            AddDialog(new TextPrompt(DialogIds.AskforPrincipalAmount, ValidatePrincipalAmount));
             AddDialog(new TextPrompt(DialogIds.AskDuration));
             //AddDialog(new TextPrompt(DialogIds.CalculateEMI));
 
 
         }
-      
+
         public async Task<DialogTurnResult> AskforPrincipalAmount(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-           
+
             var prompt = MessageFactory.Text("Please Enter Your Loan Amount");
-        
+
             return await stepContext.PromptAsync(DialogIds.AskforPrincipalAmount, new PromptOptions
             {
                 Prompt = prompt,
@@ -94,19 +81,19 @@ namespace IndianBank_ChatBOT.Dialogs.EMI
             }, cancellationToken);
 
         }
-       
+
 
         public async Task<DialogTurnResult> CalculateEMI(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-          
+
             stepContext.Values["Duration"] = stepContext.Result;
-            string duration=stepContext.Result as string;
+            string duration = stepContext.Result as string;
             int.TryParse(duration, out int timePeriod);
             //var  pricipalAmount1 = stepContext.Values["PrincipalAmount"];
             string pricipalAmount = Convert.ToString(stepContext.Values["PrincipalAmount"]);
             long.TryParse(pricipalAmount, out long principalAmt);
             //double Rate = 12;
-            
+
             ////double negNumberMonths = 0 - numberMonths;
             ////double month = Rate * principalAmt * numberMonths / 100;
             //double monthlyPayment = principalAmt * Rate * Math.Pow(1 + Rate, timePeriod) / (Math.Pow(1 + Rate, timePeriod) - 1);

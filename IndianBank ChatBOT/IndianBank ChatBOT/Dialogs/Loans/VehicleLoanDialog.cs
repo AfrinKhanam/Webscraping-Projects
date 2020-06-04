@@ -1,19 +1,17 @@
-﻿using System;
+﻿using IndianBank_ChatBOT.Dialogs.Main;
+using IndianBank_ChatBOT.Dialogs.Shared;
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
+using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Choices;
+using Microsoft.Bot.Schema;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-
-using IndianBank_ChatBOT.Dialogs.Main;
-using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
-
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Microsoft.Bot.Schema;
 
 namespace IndianBank_ChatBOT.Dialogs.Loans
 {
@@ -50,13 +48,13 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new ChoicePrompt(DialogIds.AskVehicleLoanType));
             AddDialog(new ChoicePrompt(DialogIds.AskOccupationType));
-            AddDialog(new TextPrompt(DialogIds.AskMonthlySalary,ValidateMonthlySalary));
+            AddDialog(new TextPrompt(DialogIds.AskMonthlySalary, ValidateMonthlySalary));
             AddDialog(new ChoicePrompt(DialogIds.AskLoanFor));
             AddDialog(new ChoicePrompt(DialogIds.DisplayVehicleLoanForm));
 
             AddDialog(new TextPrompt(DialogIds.AskApplicantName));
             AddDialog(new TextPrompt(DialogIds.AskApplicantMobileNumber, ValidateMobileNumberAsync));
-           // AddDialog(new TextPrompt(DialogIds.AskApplicantEmailID,ValidateEmailAsync));
+            // AddDialog(new TextPrompt(DialogIds.AskApplicantEmailID,ValidateEmailAsync));
 
             WaterfallStep[] applyVehicleLoanForSelf = new WaterfallStep[]
             {
@@ -99,7 +97,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
                    new Choice { Value = "Four Wheeler Loan",Synonyms=new List<string>{ "4 wheeler", "four wheeler", "car", "truck", "motor vehicle", "4 wheel", "4 w", "four  wheeler", "4", "four","jeep","bus","motor car","van" } }
                 }
             }, cancellationToken);
-           
+
         }
 
         private async Task<DialogTurnResult> AskOccupationType(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -176,21 +174,21 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             }
         }
 
-        private async Task<DialogTurnResult> AskLoanFor(WaterfallStepContext stepContext,CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> AskLoanFor(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            int monthlyGrossIncome =(int) stepContext.Context.TurnState["MonthlyGrossSalary"];
+            int monthlyGrossIncome = (int)stepContext.Context.TurnState["MonthlyGrossSalary"];
             var prompt = MessageFactory.Text("Are you applying loan for.");
             if (monthlyGrossIncome >= 20000)
             {
-                return await stepContext.PromptAsync(DialogIds.AskLoanFor,new PromptOptions
+                return await stepContext.PromptAsync(DialogIds.AskLoanFor, new PromptOptions
                 {
-                    Prompt= prompt,
+                    Prompt = prompt,
                     Choices = new List<Choice>
                 {
                    new Choice { Value = "Self",Synonyms=new List<string>{"myself","me","i" } },
                    new Choice { Value = "Others",Synonyms=new List<string>{ "my friend", "my colleague", "my relative"} }
                 }
-                },cancellationToken);
+                }, cancellationToken);
             }
             else
             {
@@ -208,10 +206,10 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             {
                 LoanFor = Convert.ToString(loanApplicant),
                 Name = info.Name,
-             //   Email = info.Email,
+                //   Email = info.Email,
                 Mobile = info.Mobile,
                 LoanType = stepContext.Values["LoanType"] as string
-               
+
             };
 
             stepContext.Values["LoanFor"] = loanApplicant;
@@ -224,18 +222,18 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             {
                 // var info = stepContext.Options as VehicleLoanDetails;
                 return await stepContext.ContinueDialogAsync();
-               
+
             }
 
         }
 
-        private async Task<DialogTurnResult> AskApplicantName(WaterfallStepContext stepContext,CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> AskApplicantName(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var prompt = MessageFactory.Text("Please enter applicant name.");
             return await stepContext.PromptAsync(DialogIds.AskApplicantName, new PromptOptions
             {
                 Prompt = prompt,
-            },cancellationToken);
+            }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> AskApplicantMobileNumber(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -305,11 +303,11 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             stepContext.Values["ApplicantMobileNumber"] = stepContext.Result;
             VehicleLoanDetails vehicleLoanDetails = new VehicleLoanDetails
             {
-                Name= Convert.ToString(stepContext.Values["ApplicantName"]),
-                Mobile= Convert.ToString(stepContext.Values["ApplicantMobileNumber"]),
-               // Email= Convert.ToString(stepContext.Values["ApplicantEmailID"]),
-                LoanFor= Convert.ToString(stepContext.Values["LoanFor"]),
-                LoanType= Convert.ToString(stepContext.Values["LoanType"])
+                Name = Convert.ToString(stepContext.Values["ApplicantName"]),
+                Mobile = Convert.ToString(stepContext.Values["ApplicantMobileNumber"]),
+                // Email= Convert.ToString(stepContext.Values["ApplicantEmailID"]),
+                LoanFor = Convert.ToString(stepContext.Values["LoanFor"]),
+                LoanType = Convert.ToString(stepContext.Values["LoanType"])
             };
             return await stepContext.ReplaceDialogAsync(DialogIds.ApplyVehicleLoanForSelf, vehicleLoanDetails, cancellationToken);
         }
@@ -330,7 +328,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             string applicantEmailID = stepContext.Result as string;
             stepContext.Values["ApplicantEmailID"] = stepContext.Result;
             var info = stepContext.Options as VehicleLoanDetails;
-            
+
             var prompt = MessageFactory.Text(" Please enter the area where you reside in.");
             return await stepContext.PromptAsync(DialogIds.AskApplicantArea, new PromptOptions
             {
@@ -375,7 +373,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             {
                 return true;
             }
-         
+
         }
 
         private async Task<DialogTurnResult> AskApplicantState(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -418,22 +416,22 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             stepContext.Values["ApplicantBranch"] = stepContext.Result;
             VehicleLoanDetails vehicleLoanDetails = new VehicleLoanDetails
             {
-            Name = info.Name,
-            Mobile = info.Mobile,
-            LoanFor = info.LoanFor,
-            LoanType = info.LoanType,
-            Email = Convert.ToString(stepContext.Values["ApplicantEmailID"]),
-            Area = Convert.ToString(stepContext.Values["ApplicantArea"]),
-            Address = Convert.ToString(stepContext.Values["ApplicantAddress"]),
-            LoanAmount = Convert.ToString(stepContext.Values["applicantLoanAmount"]),
-            State = Convert.ToString(stepContext.Values["ApplicantState"]),
-            City = Convert.ToString(stepContext.Values["ApplicantCity"]),
-            Branch = Convert.ToString(stepContext.Values["ApplicantBranch"]),
-            
+                Name = info.Name,
+                Mobile = info.Mobile,
+                LoanFor = info.LoanFor,
+                LoanType = info.LoanType,
+                Email = Convert.ToString(stepContext.Values["ApplicantEmailID"]),
+                Area = Convert.ToString(stepContext.Values["ApplicantArea"]),
+                Address = Convert.ToString(stepContext.Values["ApplicantAddress"]),
+                LoanAmount = Convert.ToString(stepContext.Values["applicantLoanAmount"]),
+                State = Convert.ToString(stepContext.Values["ApplicantState"]),
+                City = Convert.ToString(stepContext.Values["ApplicantCity"]),
+                Branch = Convert.ToString(stepContext.Values["ApplicantBranch"]),
+
 
             };
-           
-           
+
+
             //Sending an Welcome Email to applicant
             if (!string.IsNullOrEmpty(vehicleLoanDetails.Email))
             {
@@ -469,7 +467,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
             switch (intent)
             {
                 case "Cancel":
-                     await dc.Context.SendActivityAsync("meow");
+                    await dc.Context.SendActivityAsync("meow");
                     return InterruptionStatus.Interrupted;
                 case "down_payment_amount":
                     await dc.Context.SendActivityAsync("* 15% for New Vehicle.\n * 40% for used vehicle (Four wheeler).");

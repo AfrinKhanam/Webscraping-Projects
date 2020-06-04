@@ -1,12 +1,8 @@
-using IndianBank_ChatBOT.Dialogs.Loans;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -25,23 +21,28 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForAboutUs.Actions);
                         break;
                     }
-                case ScrollbarEntities.Products: {
+                case ScrollbarEntities.Products:
+                    {
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForProduct.Actions);
                         break;
                     }
-                case ScrollbarEntities.Services: {
+                case ScrollbarEntities.Services:
+                    {
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForServices.Actions);
                         break;
                     }
-                case ScrollbarEntities.Rates:{
+                case ScrollbarEntities.Rates:
+                    {
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForRates.Actions);
                         break;
                     }
-                case ScrollbarEntities.Contacts: {
+                case ScrollbarEntities.Contacts:
+                    {
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForContacts.Actions);
                         break;
                     }
-                case ScrollbarEntities.Links: {
+                case ScrollbarEntities.Links:
+                    {
                         BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForLinks.Actions);
                         break;
                     }

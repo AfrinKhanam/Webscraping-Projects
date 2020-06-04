@@ -1,10 +1,7 @@
 ﻿using IndianBank_ChatBOT.Models;
 using Microsoft.Bot.Builder;
-using Microsoft.Bot.Configuration;
 using Microsoft.Bot.Schema;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

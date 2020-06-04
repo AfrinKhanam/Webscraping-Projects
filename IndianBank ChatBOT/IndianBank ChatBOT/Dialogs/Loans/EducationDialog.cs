@@ -1,8 +1,6 @@
 ﻿using Microsoft.Bot.Builder;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Loans
 {
@@ -60,7 +58,7 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
                                 await _loanResponder.ReplyWith(turnContext, LoansResponses.LoanResponseIds.BuildLoansCard, _loanData);
                                 break;
                             }
-                        
+
                         default:
                             {
                                 await turnContext.SendActivityAsync("Sorry, I didn't understand. Please try with different query");

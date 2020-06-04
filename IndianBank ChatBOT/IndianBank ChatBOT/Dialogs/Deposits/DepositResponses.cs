@@ -1,13 +1,9 @@
-﻿using IndianBank_ChatBOT.Dialogs.Main.Resources;
-using IndianBank_ChatBOT.Dialogs.Shared;
+﻿using IndianBank_ChatBOT.Dialogs.Shared;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Deposits
 {
@@ -223,31 +219,31 @@ namespace IndianBank_ChatBOT.Dialogs.Deposits
         public class DepositResponseLinks
         {
             //savings bank account url constants
-            public const string SavingsBank                = "https://www.indianbank.in/departments/savings-bank/#!";
-            public const string IbCorpSbPayrollPackage     = "https://www.indianbank.in/departments/ib-corp-sb-payroll-package-scheme-for-salaried-class/#!";
-            public const string VikasSavingsKhata          = "https://www.indianbank.in/departments/vikas-savings-khata-a-no-frills-savings-bank-account/#!";
-            public const string IbSmartKid                 = "https://www.indianbank.in/departments/ib-smart-kid/#!";
-            public const string SavingsTermsAndConditions  = "https://www.indianbank.in/departments/important-terms-and-conditions/#!";
-            public const string SbPlatinum                 = "https://www.indianbank.in/departments/sb-platinum/#!";
-            public const string IbSurabhi                  = "https://www.indianbank.in/departments/ib-surabhi/#!";
+            public const string SavingsBank = "https://www.indianbank.in/departments/savings-bank/#!";
+            public const string IbCorpSbPayrollPackage = "https://www.indianbank.in/departments/ib-corp-sb-payroll-package-scheme-for-salaried-class/#!";
+            public const string VikasSavingsKhata = "https://www.indianbank.in/departments/vikas-savings-khata-a-no-frills-savings-bank-account/#!";
+            public const string IbSmartKid = "https://www.indianbank.in/departments/ib-smart-kid/#!";
+            public const string SavingsTermsAndConditions = "https://www.indianbank.in/departments/important-terms-and-conditions/#!";
+            public const string SbPlatinum = "https://www.indianbank.in/departments/sb-platinum/#!";
+            public const string IbSurabhi = "https://www.indianbank.in/departments/ib-surabhi/#!";
 
             // current A/C url constants
-            public const string CurrentAccount             = "https://www.indianbank.in/departments/current-account/#!";
-            public const string FreedomCurrentAccount      = "https://www.indianbank.in/departments/ib-i-freedom-current-account/#!";
-            public const string CurrentTermsAndConditions  = "https://www.indianbank.in/departments/important-terms-and-conditions-2/#!";
+            public const string CurrentAccount = "https://www.indianbank.in/departments/current-account/#!";
+            public const string FreedomCurrentAccount = "https://www.indianbank.in/departments/ib-i-freedom-current-account/#!";
+            public const string CurrentTermsAndConditions = "https://www.indianbank.in/departments/important-terms-and-conditions-2/#!";
             public const string PremiumCurrentAccount = "https://www.indianbank.in/departments/premium-current-account/#!";
 
             //term deposit url constants
-            public const string FacilityDeposit                 = "https://www.indianbank.in/departments/facility-deposit/#!";
-            public const string CapitalGains                    = "https://www.indianbank.in/departments/capital-gains/#!";
-            public const string TermConditionsOfTermDeposit     = "https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/#!";
-            public const string DepositSchemeForSeniorCitizens  = "https://www.indianbank.in/departments/deposit-scheme-for-senior-citizens/#!";
-            public const string RecurringDeposit                = "https://www.indianbank.in/departments/recurring-deposit/#!";
-            public const string IbTaxSaverScheme                = "https://www.indianbank.in/departments/ib-tax-saver-scheme/#!";
-            public const string InsuredRecurringDeposit         = "https://www.indianbank.in/departments/insured-recurring-deposit/#!";
-            public const string ReInvestmentPlan                = "https://www.indianbank.in/departments/re-investment-plan/#!";
-            public const string FixedDeposit                    = "https://www.indianbank.in/departments/fixed-deposit/#!";
-            public const string VariableRecurringDeposit        = "https://www.indianbank.in/departments/variable-recurring-deposit/#!";
+            public const string FacilityDeposit = "https://www.indianbank.in/departments/facility-deposit/#!";
+            public const string CapitalGains = "https://www.indianbank.in/departments/capital-gains/#!";
+            public const string TermConditionsOfTermDeposit = "https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/#!";
+            public const string DepositSchemeForSeniorCitizens = "https://www.indianbank.in/departments/deposit-scheme-for-senior-citizens/#!";
+            public const string RecurringDeposit = "https://www.indianbank.in/departments/recurring-deposit/#!";
+            public const string IbTaxSaverScheme = "https://www.indianbank.in/departments/ib-tax-saver-scheme/#!";
+            public const string InsuredRecurringDeposit = "https://www.indianbank.in/departments/insured-recurring-deposit/#!";
+            public const string ReInvestmentPlan = "https://www.indianbank.in/departments/re-investment-plan/#!";
+            public const string FixedDeposit = "https://www.indianbank.in/departments/fixed-deposit/#!";
+            public const string VariableRecurringDeposit = "https://www.indianbank.in/departments/variable-recurring-deposit/#!";
 
             //nri accounts entities constants
             public const string ForeignCurrencyForReturningIndians = "https://www.indianbank.in/departments/resident-foreign-currency-account-for-returning-indians/#!";

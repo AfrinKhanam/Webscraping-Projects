@@ -1,17 +1,12 @@
-﻿using IndianBank_ChatBOT.Dialogs.Loans;
-using Microsoft.Bot.Builder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Bot.Builder;
 
 namespace IndianBank_ChatBOT.Dialogs.Loans
 {
     public class AgricultureDialog
     {
-            private static LoansResponses _loansResponses = new LoansResponses();
-            static LoansResponses.LoanData loanData = new LoansResponses.LoanData();
-        public static async void BuildAgricultureSubMenuCard(ITurnContext turnContext,string EntityName)
+        private static LoansResponses _loansResponses = new LoansResponses();
+        static LoansResponses.LoanData loanData = new LoansResponses.LoanData();
+        public static async void BuildAgricultureSubMenuCard(ITurnContext turnContext, string EntityName)
         {
             switch (EntityName)
             {

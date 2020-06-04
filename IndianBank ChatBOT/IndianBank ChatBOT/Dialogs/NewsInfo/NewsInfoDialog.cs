@@ -1,25 +1,22 @@
-﻿using IndianBank_ChatBOT.Dialogs.Main;
-using Microsoft.Bot.Builder;
-using System;
+﻿using Microsoft.Bot.Builder;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.NewsInfo
 {
     public class NewsInfoDialog
     {
         private static NewsInfoResponses _newsInfoResponder = new NewsInfoResponses();
-        private static NewsInfoResponses.NewsInfoData _newsInfoData=new NewsInfoResponses.NewsInfoData();
+        private static NewsInfoResponses.NewsInfoData _newsInfoData = new NewsInfoResponses.NewsInfoData();
 
         public static async void NewsInfoSubMenuCard(ITurnContext turnContext, RecognizerResult result)
         {
 
             string EntityType = string.Empty;
             string EntityName = string.Empty;
-            
 
-        List<string> entityTypes = new List<string>
+
+            List<string> entityTypes = new List<string>
             {
                 "news_info_entity",
                 "customer_corner_entity",
@@ -44,8 +41,8 @@ namespace IndianBank_ChatBOT.Dialogs.NewsInfo
                 {
                     case NewsInfoEntities.Notifications:
                         {
-                            _newsInfoData=NewsInfoResponses.getNewsInfoData(EntityName);
-                            await _newsInfoResponder.ReplyWith(turnContext,NewsInfoResponses.ResponseIds.BuildNewsInfoCard, _newsInfoData);
+                            _newsInfoData = NewsInfoResponses.getNewsInfoData(EntityName);
+                            await _newsInfoResponder.ReplyWith(turnContext, NewsInfoResponses.ResponseIds.BuildNewsInfoCard, _newsInfoData);
                             break;
                         }
                     case NewsInfoEntities.NewsLetter:
@@ -484,7 +481,7 @@ namespace IndianBank_ChatBOT.Dialogs.NewsInfo
             }
         }
 
-       
+
 
     }
 }

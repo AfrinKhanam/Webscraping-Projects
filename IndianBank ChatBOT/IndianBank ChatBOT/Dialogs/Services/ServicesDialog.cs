@@ -2,9 +2,7 @@
 using Microsoft.Bot.Builder;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Services
 {
@@ -14,8 +12,8 @@ namespace IndianBank_ChatBOT.Dialogs.Services
 
         private static ServicesResponses _serviceResponder = new ServicesResponses();
         private static MainResponses _responder = new MainResponses();
-        public static ServicesResponses.ServicesData _servicesData = new ServicesResponses.ServicesData(); 
-        
+        public static ServicesResponses.ServicesData _servicesData = new ServicesResponses.ServicesData();
+
         #endregion
 
         #region Methods
@@ -29,7 +27,7 @@ namespace IndianBank_ChatBOT.Dialogs.Services
         {
             try
             {
-                
+
                 string entityName = string.Empty;
                 string entityType = string.Empty;
                 List<string> entityTypes = new List<string>

@@ -1,8 +1,6 @@
-﻿using System.Linq;
-
-using IndianBank_ChatBOT.Models;
-
+﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -20,7 +18,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebPages.OrderBy(p=>p.PageName).ToList();
+            var webPages = _dbContext.WebPages.OrderBy(p => p.PageName).ToList();
             return View(webPages);
         }
 

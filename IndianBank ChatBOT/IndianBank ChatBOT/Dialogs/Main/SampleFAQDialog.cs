@@ -1,12 +1,8 @@
-using IndianBank_ChatBOT.Dialogs.Loans;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -154,7 +150,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             BuildFAQMenu(dialogContext, SampleFAQResponse.SuggestedActionsForServiceChargesFAQs.Actions);
                             break;
                         }
-                    
+
                     default:
                         await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
                         break;

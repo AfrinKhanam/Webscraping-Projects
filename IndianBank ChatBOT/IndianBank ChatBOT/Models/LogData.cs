@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace IndianBank_ChatBOT.Models
 {
@@ -22,7 +18,7 @@ namespace IndianBank_ChatBOT.Models
         public string FromName { get; set; }
         public string RecipientId { get; set; }
         public string RecipientName { get; set; }
-        public string  Text { get; set; }
+        public string Text { get; set; }
         public string RasaIntent { get; set; }
         public double RasaScore { get; set; }
         public string RasaEntities { get; set; }

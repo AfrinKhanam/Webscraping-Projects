@@ -1,10 +1,8 @@
 ﻿using IndianBank_ChatBOT.Dialogs.Main;
 using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Contacts
 {
@@ -54,7 +52,7 @@ namespace IndianBank_ChatBOT.Dialogs.Contacts
                         case ContactEntities.QuickContacts:
                             {
                                 _contactsData = getContactData(ContactEntities.QuickContacts);
-                                await _contactsResponder.ReplyWith(turnContext, ContactsResponse.ContactResponseIds.QuickContactsDisplay,_contactsData);
+                                await _contactsResponder.ReplyWith(turnContext, ContactsResponse.ContactResponseIds.QuickContactsDisplay, _contactsData);
                                 break;
                             }
                         case ContactEntities.CustomerSupport:

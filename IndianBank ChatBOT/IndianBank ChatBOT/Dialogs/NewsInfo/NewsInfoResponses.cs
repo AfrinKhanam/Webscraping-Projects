@@ -2,11 +2,8 @@
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.NewsInfo
 {
@@ -238,7 +235,7 @@ namespace IndianBank_ChatBOT.Dialogs.NewsInfo
             public const string RelatedInfoMenuCardDisplay = "relatedInfoMenuCardDisplay";
             public const string CodesPolicyDisclosuresMenuCardDisplay = "codesPolicyDisclosuresMenuCardDisplay";
             public const string ChartersSchemesMenuCardDisplay = "chartersSchemesMenuCardDisplay";
-            
+
             //last submenu display
             public const string BuildNewsInfoCard = "BuildNewsInfoCard";
         }

@@ -280,7 +280,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
+
         public static SuggestedActions SuggestedActionsForLendingRatesFAQs
         {
             get
@@ -294,7 +294,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
+
         public static SuggestedActions SuggestedActionsForServiceChargesFAQs
         {
             get
@@ -308,7 +308,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
+
         #endregion
 
         #region ContactsFAQs
@@ -326,7 +326,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
+
         public static SuggestedActions SuggestedActionsForEmailIDFAQs
         {
             get
@@ -345,8 +345,8 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
 
         #region LinksFAQs
 
-        
-        
+
+
         public static SuggestedActions SuggestedActionsForOnlineServicesFAQs
         {
             get
@@ -360,9 +360,9 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
-       
-        
+
+
+
         public static SuggestedActions SuggestedActionsForRelatedSitesFAQs
         {
             get
@@ -375,9 +375,9 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
-        
-        
+
+
+
         public static SuggestedActions SuggestedActionsForAlliancesFAQs
         {
             get
@@ -390,8 +390,8 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 });
             }
         }
-        
-            
+
+
         #endregion
 
     }

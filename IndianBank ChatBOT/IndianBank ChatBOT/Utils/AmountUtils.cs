@@ -1,11 +1,6 @@
 ﻿using Microsoft.Recognizers.Text;
 using Microsoft.Recognizers.Text.Number;
-using Microsoft.Recognizers.Text.NumberWithUnit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Utils
 {
@@ -53,7 +48,7 @@ namespace IndianBank_ChatBOT.Utils
                         amountEntered = unitsVal;
                 }
 
-                if (amountEntered !=0)
+                if (amountEntered != 0)
                 {
                     return amountEntered;
                 }
