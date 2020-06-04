@@ -248,6 +248,7 @@ body {
 .reaction-selected {
     background-color: red;
 }
+
 html,
 body {
     height: 100%
@@ -293,6 +294,7 @@ body {
 [data-css-2p02md] > .content > .webchat__row.attachment > .bubble {
     min-width: 0px;
     max-width: max-content;
+    background-color: #dbeafd;
 }
 
 .css-mhj5i1.from-user {

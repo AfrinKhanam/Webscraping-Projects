@@ -7,7 +7,6 @@ namespace IndianBank_ChatBOT.Models
 {
     public class ChatBotSettings
     {
-        public string DirectLineTokenGenerationUrl { get; set; }
-        public string DirectLineConversationUrl { get; set; }
+        public string DirectLineBaseUrl { get; set; }
     }
 }

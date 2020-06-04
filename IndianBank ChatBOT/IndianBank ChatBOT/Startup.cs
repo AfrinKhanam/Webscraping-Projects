@@ -18,6 +18,7 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using ServiceStack.Text;
 
 namespace IndianBank_ChatBOT
 {
@@ -29,6 +30,7 @@ namespace IndianBank_ChatBOT
         #region properties
         private ILoggerFactory _loggerFactory;
         private bool _isProduction = false;
+
         public IConfiguration Configuration { get; }
 
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -98,13 +100,27 @@ namespace IndianBank_ChatBOT
                 .AllowAnyHeader());
             });
 
-            services.AddControllersWithViews()
-                    .AddNewtonsoftJson(o =>
-                    {
-                        o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                        o.SerializerSettings.Formatting = Formatting.Indented;
-                        o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-                    });
+            if (_isProduction)
+            {
+                services.AddControllersWithViews()
+                        .AddNewtonsoftJson(o =>
+                        {
+                            o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                            o.SerializerSettings.Formatting = Formatting.Indented;
+                            o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                        });
+            }
+            else
+            {
+                services.AddControllersWithViews()
+                        .AddRazorRuntimeCompilation()
+                        .AddNewtonsoftJson(o =>
+                        {
+                            o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                            o.SerializerSettings.Formatting = Formatting.Indented;
+                            o.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                        });
+            }
 
             //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
             //services.AddTransient<LogDataContext, LogDataContext>();
@@ -197,7 +213,7 @@ namespace IndianBank_ChatBOT
             app.UseXfo(options => options.Deny());
             app.UseCsp(opts => opts
             .BlockAllMixedContent()
-            .FrameAncestors(s => s.None())
+            .FrameAncestors(s => s.Self())
             );
 
 

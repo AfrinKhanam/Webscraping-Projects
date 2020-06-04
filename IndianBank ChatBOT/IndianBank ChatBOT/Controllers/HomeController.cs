@@ -22,8 +22,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var chatBotSettings = new ChatBotSettings
             {
-                DirectLineConversationUrl = _appSettings.DirectLineConversationUrl,
-                DirectLineTokenGenerationUrl = _appSettings.DirectLineTokenGenerationUrl
+                DirectLineBaseUrl = _appSettings.DirectLineBaseUrl
             };
             return View(chatBotSettings);
         }

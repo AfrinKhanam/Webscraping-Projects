@@ -30,6 +30,8 @@
     <PackageReference Include="MailKit" Version="2.7.0" />
     
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
     <PackageReference Include="Microsoft.Bot.Builder" Version="4.9.3" />
     <PackageReference Include="Microsoft.Bot.Builder.AI.Luis" Version="4.9.3" />
     <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.9.3" />
@@ -69,9 +71,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\WebScrapingStaticFiles\" />
     <Folder Include="wwwroot\WebScrapingStaticFiles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\ChatBOT\.picasa.ini" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 

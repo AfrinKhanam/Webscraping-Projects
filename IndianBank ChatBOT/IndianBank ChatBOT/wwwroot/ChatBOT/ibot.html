@@ -4,40 +4,41 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <script src="lib/jquery-min.js"></script>
-    <script src="lib/jquery-ui.js"></script>
+    <script src="../lib/stisla/modules/jquery.min.js"></script>
+    <script src="../lib/stisla/modules/jquery-ui/jquery-ui.min.js"></script>
 
     <style type="text/css">
         @font-face {
             font-family: classic robot;
             src: url("./font/Classic_Robot.otf") format("opentype");
         }
-        
+
         @font-face {
             font-family: classic robot;
             font-style: italic;
             src: url("./font/Classic_Robot_Italic.otf") format("opentype");
         }
-        
+
         @font-face {
             font-family: classic robot;
             font-style: italic;
             font-weight: bold;
             src: url("./font/Classic_Robot_Bold_Italic.otf") format("opentype");
         }
-        
+
         @font-face {
             font-family: classic robot;
             font-weight: bold;
             src: url("./font/Classic_Robot_Bold.otf") format("opentype");
         }
-        
-        body {}
-        
+
+        body {
+        }
+
         body {
             /* font-family:'classic robot' !important; */
         }
-        
+
         .chatbox-pos {
             position: fixed;
             bottom: 80px;
@@ -45,16 +46,16 @@
             z-index: 99999;
             padding: 0;
         }
-        
-        .chatbox-pos body {
-            background-color: yellow;
-        }
+
+            .chatbox-pos body {
+                background-color: yellow;
+            }
         /* #chat,
         #chat:after,
         .chatbox {
             transition: all .4s ease-in-out
         } */
-        
+
         #chat,
         #close-chat,
         #reload-chat,
@@ -68,21 +69,21 @@
             height: 16px;
             line-height: 16px
         }
-        
+
         #chat,
         #close-chat,
         #reload-chat,
         .chatbox {
             border: 0px solid #FF7A00
         }
-        
-        #chat:after,
-        #chat:before {
-            position: absolute;
-            border-style: solid;
-            content: ""
-        }
-        
+
+            #chat:after,
+            #chat:before {
+                position: absolute;
+                border-style: solid;
+                content: ""
+            }
+
         .chatbox {
             position: fixed;
             bottom: 8px;
@@ -93,7 +94,7 @@
             padding: 28px 10px 10px;
             z-index: 100000
         }
-        
+
         #close-chat {
             position: absolute;
             top: 17px;
@@ -104,7 +105,7 @@
             background: #fefefe;
             z-index: 2
         }
-        
+
         #reload-chat {
             position: absolute;
             top: 17px;
@@ -115,7 +116,7 @@
             background: #fefefe;
             z-index: 2
         }
-        
+
         #minim-chat,
         #maxi-chat {
             position: absolute;
@@ -127,7 +128,7 @@
             cursor: pointer;
             z-index: 1
         }
-        
+
         .minim-button {
             position: absolute;
             top: 2px;
@@ -137,7 +138,7 @@
             width: 20px;
             background: #fefefe
         }
-        
+
         .maxi-button {
             position: absolute;
             top: 2px;
@@ -147,14 +148,14 @@
             width: 20px;
             background: #fefefe;
         }
-        
+
         .chat-text {
             position: absolute;
             top: 5px;
             left: 10px;
             font-size: 16px;
         }
-        
+
         #chat {
             width: 40px;
             border-radius: 3px;
@@ -162,39 +163,39 @@
             -webkit-transform: translateZ(0);
             transform: translateZ(0)
         }
-        
-        #chat:before {
-            border-width: 10px 11px 0 0;
-            border-color: #A8A8A8 transparent transparent;
-            left: 7px;
-            bottom: -10px
-        }
-        
-        #chat:after {
-            border-width: 9px 8px 0 0;
-            border-color: #fff transparent transparent;
-            left: 8px;
-            bottom: -8px
-        }
-        
-        #chat:hover {
-            /* background: #f5cb42;*/
-            -webkit-animation-name: hvr-pulse-grow;
-            animation-name: hvr-pulse-grow;
-            -webkit-animation-duration: .3s;
-            animation-duration: .3s;
-            -webkit-animation-timing-function: linear;
-            animation-timing-function: linear;
-            -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-            animation-direction: alternate
-        }
-        
-        #chat:hover:after {
-            border-color: #ddd transparent transparent !important
-        }
-        
+
+            #chat:before {
+                border-width: 10px 11px 0 0;
+                border-color: #A8A8A8 transparent transparent;
+                left: 7px;
+                bottom: -10px
+            }
+
+            #chat:after {
+                border-width: 9px 8px 0 0;
+                border-color: #fff transparent transparent;
+                left: 8px;
+                bottom: -8px
+            }
+
+            #chat:hover {
+                /* background: #f5cb42;*/
+                -webkit-animation-name: hvr-pulse-grow;
+                animation-name: hvr-pulse-grow;
+                -webkit-animation-duration: .3s;
+                animation-duration: .3s;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                -webkit-animation-direction: alternate;
+                animation-direction: alternate
+            }
+
+                #chat:hover:after {
+                    border-color: #ddd transparent transparent !important
+                }
+
         .animated-chat {
             -webkit-animation-duration: 1s;
             animation-duration: 1s;
@@ -203,67 +204,63 @@
             -webkit-animation-timing-function: ease-in;
             animation-timing-function: ease-in
         }
-        
+
         @-webkit-keyframes tada {
             0% {
                 -webkit-transform: scale(1)
             }
-            10%,
-            20% {
+
+            10%, 20% {
                 -webkit-transform: scale(.9)rotate(-3deg)
             }
-            30%,
-            50%,
-            70%,
-            90% {
+
+            30%, 50%, 70%, 90% {
                 -webkit-transform: scale(1.1)rotate(3deg)
             }
-            40%,
-            60%,
-            80% {
+
+            40%, 60%, 80% {
                 -webkit-transform: scale(1.1)rotate(-3deg)
             }
+
             100% {
                 -webkit-transform: scale(1)rotate(0)
             }
         }
-        
+
         @keyframes tada {
             0% {
                 transform: scale(1)
             }
-            10%,
-            20% {
+
+            10%, 20% {
                 transform: scale(.9)rotate(-3deg)
             }
-            30%,
-            50%,
-            70%,
-            90% {
+
+            30%, 50%, 70%, 90% {
                 transform: scale(1.1)rotate(3deg)
             }
-            40%,
-            60%,
-            80% {
+
+            40%, 60%, 80% {
                 transform: scale(1.1)rotate(-3deg)
             }
+
             100% {
                 transform: scale(1)rotate(0)
             }
         }
-        
+
         .tada {
             -webkit-animation-name: tada;
             animation-name: tada
         }
-        
+
         @-webkit-keyframes hvr-pulse-grow {
             to {
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1)
             }
         }
-        
+
         @keyframes hvr-pulse-grow {
             to {
                 -webkit-transform: scale(1.1);
@@ -271,7 +268,7 @@
             }
         }
         /**Style edited **/
-        
+
         #chat {
             background-color: transparent;
             /* #e0a800;*/
@@ -289,73 +286,73 @@
             z-index: 99999;
             padding: 0;
         }
-        
+
         .chatbox {
             padding-left: 0px;
             border-radius: 6px 6px 6px 6px;
         }
-        
+
         #chat::after {
             border-width: 0px 0px 0 0;
             border-color: transparent transparent transparent;
             left: 0px;
             bottom: 0px;
         }
-        
+
         #close-chat {
             border: 0 solid white;
             background: transparent;
         }
-        
+
         #reload-chat {
             border: 0 solid white;
             background: transparent;
         }
-        
+
         #minim-chat {
             border: 0 solid white;
         }
-        
+
         .wc-message-groups {
             padding-left: 0px;
             padding-right: 0px;
         }
-        
+
         #chat::before {
             border-color: transparent transparent transparent;
         }
-        
+
         #chatbox {
             /*   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 50px rgba(0, 0, 0, 0.24);*/
             /*box-shadow: 0 2px 5px rgba(12, 77, 162, 0.09), 0 4px 50px rgba(224, 168, 0, 0.40);*/
             box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
             border: none;
         }
-        
+
         .close-button-wraper {
             width: 100%;
             height: 35px;
         }
-        
+
         .bot-title-left {
             margin-left: 15px;
             margin-top: 15px;
             color: white;
         }
-        
+
         .bot-logo-wraper {
             display: inline-block;
             height: 100%;
             width: auto;
         }
         /*Style for pop up starts*/
-        
+
         .bot-logo-wraper {
             display: inline-block;
             height: 100%;
             width: auto;
         }
-        
+
         #chatbox-popup-top {
             position: absolute;
             bottom: 80px;
@@ -370,38 +367,40 @@
             -webkit-animation: mover 1s infinite alternate;
             animation: mover 1s infinite alternate;
         }
-        
-        #chatbox-popup-top:after {
-            content: '';
-            position: absolute;
-            right: 55px;
-            top: 49px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid #d9d9d9;
-            clear: both;
-        }
-        
+
+            #chatbox-popup-top:after {
+                content: '';
+                position: absolute;
+                right: 55px;
+                top: 49px;
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-top: 8px solid #d9d9d9;
+                clear: both;
+            }
+
         @-webkit-keyframes mover {
             0% {
                 transform: translateY(0);
             }
+
             100% {
                 transform: translateY(-10px);
             }
         }
-        
+
         @keyframes mover {
             0% {
                 transform: translateY(0);
             }
+
             100% {
                 transform: translateY(-10px);
             }
         }
-        
+
         #chatbox-popup-top span {
             font-family: 'OpenSans-Regular', sans-serif;
             color: black;
@@ -413,7 +412,7 @@
             border-radius: 5px;
             box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
         }
-        
+
         #chatbox-popup-bottom {
             font-family: 'OpenSans-Regular', sans-serif;
             position: absolute;
@@ -425,24 +424,25 @@
         }
         /*Style for pop up ends*/
         /*Stylr for Text glow Starts*/
-        
+
         .glow {
             -webkit-animation: glow 1s ease-in-out infinite alternate;
             -moz-animation: glow 1s ease-in-out infinite alternate;
             animation: glow 1s ease-in-out infinite alternate;
         }
-        
+
         @keyframes glow {
             from {
                 text-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
                 ;
             }
+
             to {
                 text-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
                 ;
             }
         }
-        
+
         .chatbot-title {
             width: 270px;
             margin: auto;
@@ -451,11 +451,11 @@
             padding-top: 16px;
             padding-left: 5px;
         }
-        
-        .chatbot-title:hover {
-            cursor: move;
-        }
-        
+
+            .chatbot-title:hover {
+                cursor: move;
+            }
+
         .chatbot-inner-image {
             box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
             border-radius: 50%;
@@ -471,11 +471,11 @@
             border-radius: 50%;
             background-color: white;
         }
-        
-        .chatbot-inner-image:hover {
-            background-color: #ffe8a3;
-            transition: background-color 1s ease;
-        }
+
+            .chatbot-inner-image:hover {
+                background-color: #ffe8a3;
+                transition: background-color 1s ease;
+            }
     </style>
 
 </head>
@@ -508,17 +508,12 @@
                 <b style="color:white; font-family: 'classic robot';">ADYA</b>
                 <div id="reload-chat" onclick="reloadChatbox()" title="Restart Chat" style="color:white;margin-right:7px">&#x21bb;</div>
                 <div id="close-chat" onclick="closeChatbox()" title="Close Chat Window" style="color:white;margin-right:7px">&times;</div>
-
             </div>
-
-
-
         </div>
-        <!--http://52.172.14.249:7512-->
+        
         <iframe id="ibotWindow" src="http://localhost:7512" scrolling="auto" frameborder="0" style="position:absolute;bottom:0px;left:0px;border:0; margin:0; padding: 0;height:550px;width:100%;padding-bottom:0px">
         </iframe>
     </div>
-
 
     <!--*************************************************  Chat Box Ends  ****************************************************-->
     <style>
@@ -533,9 +528,6 @@
             background-position: center center;
         }
     </style>
-
-
-
 
     <script>
         function loadChatbox() {

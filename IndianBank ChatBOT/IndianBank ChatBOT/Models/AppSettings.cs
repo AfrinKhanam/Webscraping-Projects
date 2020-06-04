@@ -16,7 +16,6 @@ namespace IndianBank_ChatBOT.Models
         public string RabbitmqVirtualHost { get; set; }
         public string RabbitmqHostName { get; set; }
         public string AutoSuggestionUrl { get; set; }
-        public string DirectLineTokenGenerationUrl { get; set; }
-        public string DirectLineConversationUrl { get; set; }
+        public string DirectLineBaseUrl { get; set; }
     }
 }   
