@@ -5,56 +5,38 @@
 }
 
 <script type="text/javascript">
-    function formatDate(date, type) {
-        var current_datetime, formatted_date;
-        switch (type) {
-            case "mm-dd-yyyy":
-                current_datetime = new Date(date);
-                formatted_date = (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "-" + current_datetime.getFullYear();
-                break;
-            case "yyyy-mm-dd":
-                current_datetime = new Date(date);
-                formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-                break;
-            default:
-        }
-        return formatted_date;
-    }
 
     $(function () {
         var from_date = '@Model.From';
         var to_date = '@Model.To';
 
-        from_date = from_date.split("-")[1] + "-" + from_date.split("-")[0] + "-" + from_date.split("-")[2];
-        to_date = to_date.split("-")[1] + "-" + to_date.split("-")[0] + "-" + to_date.split("-")[2];
-
         $("#datepicker_from").datepicker({
             autoclose: true,
             todayHighlight: true
-        }).datepicker('update', formatDate(from_date, "mm-dd-yyyy"));
+        }).datepicker('update', formatDate(from_date, "dd-mm-yyyy"));
 
         $("#datepicker_to").datepicker({
             autoclose: true,
             todayHighlight: true
-        }).datepicker('update', formatDate(to_date, "mm-dd-yyyy"));
+        }).datepicker('update', formatDate(to_date, "dd-mm-yyyy"));
 
         $("#from_date_input").change(function () {
-            from_date = formatDate(this.value, "mm-dd-yyyy");
-            var startDate = new Date(this.value);
+            from_date = formatDate(this.value, "dd-mm-yyyy");
+            var startDate = convertToDateObject(this.value);
             $('#datepicker_to').datepicker('setStartDate', startDate);
         });
 
         $("#to_date_input").change(function () {
-            to_date = formatDate(this.value, "mm-dd-yyyy");
-             var toDate = new Date(this.value);
-             $('#datepicker_from').datepicker('setEndDate', toDate);
+            to_date = formatDate(this.value, "dd-mm-yyyy");
+            var toDate = convertToDateObject(this.value);
+            $('#datepicker_from').datepicker('setEndDate', toDate);
         });
 
         $('#filter_btn').click(function () {
             var fdate = formatDate(from_date, "yyyy-mm-dd");
             var tdate = formatDate(to_date, "yyyy-mm-dd");
 
-             $("#from").val(fdate);
+            $("#from").val(fdate);
             $("#to").val(tdate);
 
             $("#submit_btn").click();
