@@ -376,11 +376,26 @@
     <script src="content/js/webchat-es5.js"></script>
 
     <script type="text/javascript">
-        window.directLine = window.WebChat.createDirectLine({ domain: 'http://localhost:3000/directline', webSocket: false });
-        // window.directLine = window.WebChat.createDirectLine({ domain: 'http://52.172.14.249:3000/directline', webSocket: false });
+        window.directLine = null;
+        var userId ="User-"+ parseInt(Math.random()* 1000000);
+        var userName = userId;
+        var directLineTokenGenerationUrl = "http://localhost:3000/v3/directline/tokens/generate";
+        //var directLineTokenGenerationUrl = "http://52.172.14.249:3000/v3/directline/tokens/generate";
 
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            //const directLine = window.WebChat.createDirectLine({ secret: 'H6RatvarZDg.AFRrEQHUbzj5cDIsmqXoIrehouhcl3J75F6qaDvUkxU' });
+        var directLineConversationUrl = "http://localhost:3000/v3/directline";
+        //var directLineConversationUrl = "http://52.172.14.249:3000/v3/directline";
+
+        fetch(directLineTokenGenerationUrl, { 
+            method: 'POST',
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({ userId: userId, }),
+        })
+        .then(res => res.json())
+            .then(res => {
+                window.directLine = window.WebChat.createDirectLine({ domain: directLineConversationUrl, token: res.token, webSocket: true });
+                 if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
             var styleOptions = {
                 backgroundColor: '',
                 hideUploadButton: true,
@@ -390,15 +405,16 @@
             };
 
             window.WebChat.renderWebChat({
-                directLine: directLine,
-                userID: 'IndianBank_ChatBOT',
+                directLine: window.directLine,
+                userID: userId,
+                username: userName,
+                locale: 'en-US',
                 styleOptions: styleOptions,
                 resize: 'detect'
             }, document.getElementById('webchat'));
         }
+        });
     </script>
-
-
 
     <script type="text/babel">
         if(!(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))){
@@ -591,6 +607,28 @@
         let excludedText = [`Hi! My name is Iva 😃.
         Welcome to Indian Bank.
         I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
+
+        const checkDirectLine = function()
+        {
+
+        if (!window.directLine) {
+        setTimeout(checkDirectLine, 100);
+        return;
+        }
+
+        console.log('chatbot initialized');
+        window.ReactDOM.render(
+        <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
+                      activityMiddleware={activityMiddleware}
+                      directLine={window.directLine}
+                      styleOptions={styleOptions}
+                      store={store} />,
+        document.getElementById('webchat')
+        );
+
+        document.querySelector('#webchat > *').focus();
+        }
+
         const activityMiddleware = () => next => card => {
         if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text) ) {
         return children => (
@@ -603,17 +641,9 @@
         }
         };
 
+        setTimeout(function(){
+        checkDirectLine();}, 100);
 
-        window.ReactDOM.render(
-        <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
-                      activityMiddleware={activityMiddleware}
-                      directLine={directLine}
-                      styleOptions={styleOptions}
-                      store={store} />,
-        document.getElementById('webchat')
-        );
-
-        document.querySelector('#webchat > *').focus();
         })().catch(err => console.error(err));
         }
     </script>
@@ -677,7 +707,7 @@
                 locale: "en-US",
                 timestamp: new Date()
             };
-            directLine.postActivity(activity).subscribe(function () {
+            window.directLine.postActivity(activity).subscribe(function () {
                 console.log("message sent...");
             });
             // getCustomBotResponse(message);
@@ -697,7 +727,7 @@
                 locale: "en-US",
                 timestamp: new Date()
             };
-            directLine.postActivity(activity).subscribe(function () {
+            window.directLine.postActivity(activity).subscribe(function () {
                 console.log("message sent...");
             });
             // getCustomBotResponse(message);

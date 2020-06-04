@@ -1,17 +1,15 @@
-﻿using IndianBank_ChatBOT.ExcelExport;
-using IndianBank_ChatBOT.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.Graph;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+
+using IndianBank_ChatBOT.ExcelExport;
+using IndianBank_ChatBOT.Models;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -105,7 +103,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList();
 
             var vm = new ChatBotVisitorsViewModel
             {
@@ -313,7 +311,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var query = $"select * from \"ChatLogs\" where \"ReplyToActivityId\" is not null and \"ResonseFeedback\" = -1 and \"IsOnBoardingMessage\" is null and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
-            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
 
             var conversationIds = chatLogs.Select(c => c.ConversationId).Distinct().ToList();
 
@@ -393,7 +391,7 @@ namespace IndianBank_ChatBOT.Controllers
             }
 
             var query = $"select * from \"ChatLogs\" where \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent', 'lost_intent', 'scrollbar_intent','link_intent','capabilities_intent','services_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
-            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
             var overallChatLogs = chatLogs;
 
             chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
@@ -513,7 +511,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var query = $"select * from \"LeadGenerationInfos\" where \"QueriedOn\" between '{fromDate}' AND '{toDate}' and \"DomainName\" not in  ('about_us_intent','greet', 'bye_intent', 'lost_intent', 'scrollbar_intent','link_intent','capabilities_intent','services_intent')";
 
-            var leadGenerationInfos = _dbContext.LeadGenerationInfos.FromSql(query).ToList();
+            var leadGenerationInfos = _dbContext.LeadGenerationInfos.FromSqlRaw(query).ToList();
             return leadGenerationInfos;
         }
 
@@ -613,7 +611,7 @@ namespace IndianBank_ChatBOT.Controllers
             //var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
             var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\" asc";
 
-            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
             chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
             var frequentlyAskedQueries = chatLogs.GroupBy(item => item.Text)
                                              .Select(c => new FrequentlyAskedQueries
@@ -668,7 +666,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.NumberOfVisits).ThenByDescending(u => u.NumberOfQueries).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.NumberOfVisits).ThenByDescending(u => u.NumberOfQueries).ToList();
 
             var vm = new ChatBotVisitorsViewModel
             {
@@ -707,7 +705,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
-            var chatLogs = _dbContext.ChatLogs.FromSql(query).ToList();
+            var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
 
             var conversationIds = chatLogs.Select(c => c.ConversationId).Distinct().ToList();
 

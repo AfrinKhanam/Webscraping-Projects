@@ -1,15 +1,13 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Dialogs.Main;
+using IndianBank_ChatBOT.Models;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using IndianBank_ChatBOT.Dialogs.Main;
-using IndianBank_ChatBOT.Dialogs.Loans;
-using IndianBank_ChatBOT.Models;
 using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT
@@ -64,7 +62,7 @@ namespace IndianBank_ChatBOT
 
             if (dc.ActiveDialog != null)
             {
-                var result = await dc.ContinueDialogAsync();
+                await dc.ContinueDialogAsync();
             }
             else
             {

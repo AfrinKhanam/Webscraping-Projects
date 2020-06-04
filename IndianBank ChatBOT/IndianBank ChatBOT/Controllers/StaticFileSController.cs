@@ -1,18 +1,19 @@
-﻿using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Azure.Documents;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -22,9 +23,9 @@ namespace IndianBank_ChatBOT.Controllers
         private readonly AppSettings _appSettings;
         private readonly AppDbContext _dbContext;
         private readonly string _connectionString;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public StaticFilesController(AppDbContext dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings, IHostingEnvironment hostingEnvironment)
+        public StaticFilesController(AppDbContext dbContext, IConfiguration configuration, IOptions<AppSettings> appsettings, IWebHostEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
             _appSettings = appsettings.Value;
