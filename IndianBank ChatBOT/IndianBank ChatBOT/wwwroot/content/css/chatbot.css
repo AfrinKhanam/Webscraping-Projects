@@ -297,6 +297,10 @@ body {
     background-color: #dbeafd;
 }
 
+.webchat__row.attachment > .bubble {
+    background-color: #dbeafd !important;
+}
+
 .css-mhj5i1.from-user {
     background-color: #d3f7d9 !important;
     color: black;

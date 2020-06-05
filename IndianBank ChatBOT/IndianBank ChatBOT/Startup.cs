@@ -209,12 +209,11 @@ namespace IndianBank_ChatBOT
             app.UseXContentTypeOptions();
             app.UseReferrerPolicy(opts => opts.NoReferrer());
             app.UseXXssProtection(options => options.EnabledWithBlockMode());
-            app.UseXfo(options => options.Deny());
+            app.UseXfo(options => options.SameOrigin());
             app.UseCsp(opts => opts
             .BlockAllMixedContent()
             .FrameAncestors(s => s.Self())
             );
-
 
             app.UseEndpoints(endpoints =>
             {
