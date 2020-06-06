@@ -66,6 +66,19 @@ namespace DirectLine
             app.UseDirectLineCors();
 
             app.UseRouting();
+
+            //Security headers
+            app.UseHsts(hsts => hsts.MaxAge(hours: 8).IncludeSubdomains());
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
+            app.UseXXssProtection(options => options.EnabledWithBlockMode());
+            app.UseXfo(options => options.SameOrigin());
+            app.UseCsp(opts => opts
+            .BlockAllMixedContent()
+            .FrameAncestors(s => s.Self())
+            );
+
+
             app.UseAuthentication();
             app.UseAuthorization();
 
