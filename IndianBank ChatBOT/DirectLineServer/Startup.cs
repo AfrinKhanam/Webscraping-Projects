@@ -78,6 +78,25 @@ namespace DirectLine
             .FrameAncestors(s => s.Self())
             );
 
+            app.Use((context, next) => {
+                context.Response.Headers.Add("Feature-Policy", new[]
+                {
+                    "geolocation 'none'",
+                    "midi 'none'",
+                    "notifications 'none'",
+                    "push 'none'",
+                    "sync-xhr '*'",
+                    "microphone 'none'",
+                    "camera 'none'",
+                    "magnetometer 'none'",
+                    "gyroscope 'none'",
+                    "speaker 'self'",
+                    "vibrate 'none'",
+                    "fullscreen 'self'",
+                    "payment 'none'"
+                });
+                return next.Invoke();
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
