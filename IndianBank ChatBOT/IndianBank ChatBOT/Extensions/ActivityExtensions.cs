@@ -1,7 +1,5 @@
 ﻿using Microsoft.Bot.Connector;
 using Microsoft.Bot.Schema;
-using System;
-using System.Linq;
 
 namespace IndianBank_ChatBOT.Extensions
 {
@@ -31,7 +29,7 @@ namespace IndianBank_ChatBOT.Extensions
                             // When bot is added to the conversation (triggers start only once per conversation)
                             //if (activity.MembersAdded.Any(m => m.Id == activity.Recipient.Id))
                             //{
-                                return true;
+                            return true;
                             //}
                         }
 

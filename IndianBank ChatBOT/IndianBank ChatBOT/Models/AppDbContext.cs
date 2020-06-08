@@ -1,12 +1,9 @@
-﻿using IndianBank_ChatBOT.ViewModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Models
 {
@@ -38,6 +35,10 @@ namespace IndianBank_ChatBOT.Models
                 new LeadGenerationAction { Id = 3, Name = "Qualified", Description = "Qualified" },
                 new LeadGenerationAction { Id = 4, Name = "ActedUpon", Description = "ActedUpon" }
             );
+
+            modelBuilder.Entity<StaticPage>()
+                   .Property(e => e.CreatedOn)
+                   .HasDefaultValue(DateTime.Now);
         }
 
         public DbSet<ChatLog> ChatLogs { get; set; }
@@ -51,6 +52,7 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<WebPage> WebPages { get; set; }
 
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
+
         public DbQuery<UnAnsweredQueries> UnAnsweredQueries { get; set; }
 
         public DbQuery<Top10DomainsVisitedViewModel> Top10DomainsVisitedViewModels { get; set; }
@@ -61,6 +63,7 @@ namespace IndianBank_ChatBOT.Models
 
         public DbQuery<VisitorsByMonthViewModel> VisitorsByMonthViewModels { get; set; }
     }
+
     internal static class MyExtensions
     {
         public static void SeedWithSequence<TEntity>(

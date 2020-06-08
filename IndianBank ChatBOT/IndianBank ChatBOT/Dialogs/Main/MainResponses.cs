@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
 using IndianBank_ChatBOT.Dialogs.Main.Resources;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -154,7 +152,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             var path = Path.Combine(".", "Resources", "welcomecard.json");
             var cardAttachment = CreateAdaptiveCardAttachment(path);
             var response = MessageFactory.Attachment(cardAttachment);
-           // context.SendActivityAsync(response);
+            // context.SendActivityAsync(response);
             return response;
         }
         //private static object BuildEmiCalculatorCard(ITurnContext context, dynamic data)
@@ -200,14 +198,14 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             public const string BuildWelcomeMenuCard = "buildWelcomeMenuCard";
             public const string ServicesMenuCardDisplay = "servicesMenuCardDisplay";
             public const string RatesMenuCardDisplay = "ratesMenuCardDisplay";
-           // public const string NewsOrInfoMenuCardDisplay = "newsOrInfoMenuCardDisplay";
+            // public const string NewsOrInfoMenuCardDisplay = "newsOrInfoMenuCardDisplay";
             //public const string CustomerCornerMenuCardDisplay = "customerCornerMenuCardDisplay";
             //public const string RelatedInfoMenuCardDisplay = "relatedInfoMenuCardDisplay";
             //public const string CodesPolicyDisclosuresMenuCardDisplay = "codesPolicyDisclosuresMenuCardDisplay";
             //public const string ChartersSchemesMenuCardDisplay = "chartersSchemesMenuCardDisplay";
             public const string ContactsMenuCardDisplay = "contactsMenuCardDisplay";
             public const string Cancelled = "cancelled";
-          //  public const string BuildEmiCalculatorCard = "buildEmiCalculatorCard";
+            //  public const string BuildEmiCalculatorCard = "buildEmiCalculatorCard";
             public const string Completed = "completed";
             public const string Confused = "confused";
             public const string Greeting = "greeting";

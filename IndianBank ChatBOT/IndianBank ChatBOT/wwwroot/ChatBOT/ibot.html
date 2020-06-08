@@ -4,48 +4,40 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
-
-       <script src="lib/jquery-min.js"></script>
-    <script src="lib/jquery-ui.js"></script>
-
-
+    <script src="../lib/stisla/modules/jquery.min.js"></script>
+    <script src="../lib/stisla/modules/jquery-ui/jquery-ui.min.js"></script>
 
     <style type="text/css">
- @font-face {
-    font-family: classic robot; 
-    src: url("./font/Classic_Robot.otf") format("opentype");
-}
+        @font-face {
+            font-family: classic robot;
+            src: url("./font/Classic_Robot.otf") format("opentype");
+        }
 
-@font-face {
-    font-family: classic robot;
-	font-style:italic;
-    src: url("./font/Classic_Robot_Italic.otf") format("opentype");
-}
+        @font-face {
+            font-family: classic robot;
+            font-style: italic;
+            src: url("./font/Classic_Robot_Italic.otf") format("opentype");
+        }
 
-@font-face {
-    font-family: classic robot;
-	font-style:italic;
-	font-weight:bold;
-    src: url("./font/Classic_Robot_Bold_Italic.otf") format("opentype");
-}
+        @font-face {
+            font-family: classic robot;
+            font-style: italic;
+            font-weight: bold;
+            src: url("./font/Classic_Robot_Bold_Italic.otf") format("opentype");
+        }
 
-@font-face {
-    font-family: classic robot;
-	font-weight:bold;
-    src: url("./font/Classic_Robot_Bold.otf") format("opentype");
-}
- 
-body{
+        @font-face {
+            font-family: classic robot;
+            font-weight: bold;
+            src: url("./font/Classic_Robot_Bold.otf") format("opentype");
+        }
 
-}
+        body {
+        }
 
-
-
-    body{
-        /* font-family:'classic robot' !important; */
-    }
+        body {
+            /* font-family:'classic robot' !important; */
+        }
 
         .chatbox-pos {
             position: fixed;
@@ -58,7 +50,6 @@ body{
             .chatbox-pos body {
                 background-color: yellow;
             }
-
         /* #chat,
         #chat:after,
         .chatbox {
@@ -276,7 +267,6 @@ body{
                 transform: scale(1.1)
             }
         }
-
         /**Style edited **/
 
         #chat {
@@ -355,8 +345,6 @@ body{
             height: 100%;
             width: auto;
         }
-
-
         /*Style for pop up starts*/
 
         .bot-logo-wraper {
@@ -379,7 +367,6 @@ body{
             -webkit-animation: mover 1s infinite alternate;
             animation: mover 1s infinite alternate;
         }
-
 
             #chatbox-popup-top:after {
                 content: '';
@@ -426,8 +413,6 @@ body{
             box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 12px;
         }
 
-
-
         #chatbox-popup-bottom {
             font-family: 'OpenSans-Regular', sans-serif;
             position: absolute;
@@ -437,11 +422,9 @@ body{
             text-align: center;
             line-height: 0px;
         }
-
         /*Style for pop up ends*/
-
-
         /*Stylr for Text glow Starts*/
+
         .glow {
             -webkit-animation: glow 1s ease-in-out infinite alternate;
             -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -466,7 +449,7 @@ body{
             display: inline-block;
             font-size: 15px;
             padding-top: 16px;
-            padding-left:5px;
+            padding-left: 5px;
         }
 
             .chatbot-title:hover {
@@ -499,51 +482,43 @@ body{
 
 <body>
     <!-- <div class="chatbox-pos"> -->
-        <!--############################################# Chat Icon Starts ######################################################-->
-        <div id="chat" class="animated-chat tada"  >
-            <!-- <div id="chatbox-popup-top"><b><span>Ask Me ! </span></b></div> -->
-            <img class="chatbot-inner-image" src="./ib2.png" >
-            <div id="chatbox-popup-bottom"><span class="glow" style="color:black"><b style="font-family: 'classic robot';">Ask me</b></span></div>
-        </div>
-<!-- 
+    <!--############################################# Chat Icon Starts ######################################################-->
+    <div id="chat" class="animated-chat tada">
+        <!-- <div id="chatbox-popup-top"><b><span>Ask Me ! </span></b></div> -->
+        <img class="chatbot-inner-image" src="./ib2.png">
+        <div id="chatbox-popup-bottom"><span class="glow" style="color:black"><b
+                    style="font-family: 'classic robot';">Ask me</b></span></div>
+    </div>
+    <!-- 
     </div> -->
     <!--############################################### Chat Icon Ends #######################################################-->
 
     <!--***********************************************  Chat Box starts *****************************************************-->
 
-    <div class="chatbox" id="chatbox" 
-        style="border:none;border-radius:11px;width: 420px;background:rgb(12, 77, 162) ; height: 600px;padding-right:0px;padding-bottom:0;max-width:100%;padding-top:0px;overflow: hidden; padding: 0;border-radius:8px">
+    <div class="chatbox" id="chatbox" style="border:none;border-radius:11px;width: 420px;background:rgb(12, 77, 162) ; height: 600px;padding-right:0px;padding-bottom:0;max-width:100%;padding-top:0px;overflow: hidden; padding: 0;border-radius:8px">
         <!--<span class="chat-text">Indian Bank virtual assistent</span>-->
 
         <div class="close-button-wraper" style="height:50px">
-            <div style="width:50px;height:50px;float:left;">          
+            <div style="width:50px;height:50px;float:left;">
                 <div class="bot-title-left" style="margin-top:7px;height:35px">
                     <img src="./ib2.png" style="height:100%;width:auto;background-color:#ffe8a3;border-radius:50%" />
                 </div>
             </div>
             <div class="chatbot-title">
                 <b style="color:white; font-family: 'classic robot';">ADYA</b>
-                <div id="reload-chat" onclick="reloadChatbox()" title="Restart Chat"
-                    style="color:white;margin-right:7px">&#x21bb;</div>
-                <div id="close-chat" onclick="closeChatbox()" title="Close Chat Window"
-                    style="color:white;margin-right:7px">&times;</div>
-
+                <div id="reload-chat" onclick="reloadChatbox()" title="Restart Chat" style="color:white;margin-right:7px">&#x21bb;</div>
+                <div id="close-chat" onclick="closeChatbox()" title="Close Chat Window" style="color:white;margin-right:7px">&times;</div>
             </div>
-
-
-
         </div>
-        <!--http://52.172.14.249:7512-->
-        <iframe id="ibotWindow" src="http://localhost:7512" scrolling="auto" frameborder="0"
-            style="position:absolute;bottom:0px;left:0px;border:0; margin:0; padding: 0;height:550px;width:100%;padding-bottom:0px">
+        
+        <iframe id="ibotWindow" src="http://localhost:7512" scrolling="auto" frameborder="0" style="position:absolute;bottom:0px;left:0px;border:0; margin:0; padding: 0;height:550px;width:100%;padding-bottom:0px">
         </iframe>
     </div>
-
 
     <!--*************************************************  Chat Box Ends  ****************************************************-->
     <style>
         body {
-           /* background-image: url('Untitled.jpg');*/
+            /* background-image: url('Untitled.jpg');*/
             background-position: 50% 50%;
             background-repeat: no-repeat;
             background-position: 10% 10%;
@@ -554,21 +529,24 @@ body{
         }
     </style>
 
- 
-
-
-<script>
+    <script>
         function loadChatbox() {
-                var e = document.getElementById("chatbox");
-                e.style.margin = "0";
-                e.style.display = "block"
-                var f = document.getElementById("chat");
-                var t = f.style.right;
-                console.log("id chat position: Right " + t)
-                f.style.display = "none";
-            }
+            var e = document.getElementById("chatbox");
+            e.style.margin = "0";
+            e.style.display = "block"
+            var f = document.getElementById("chat");
+            var t = f.style.right;
+            console.log("id chat position: Right " + t)
+            f.style.display = "none";
+        }
 
-        function closeChatbox() {  var e = document.getElementById("chatbox"); e.style.display = "none"; var f = document.getElementById("chat"); f.style.display = "block"  }
+        function closeChatbox() {
+            var e = document.getElementById("chatbox");
+            e.style.display = "none";
+            var f = document.getElementById("chat");
+            f.style.display = "block"
+        }
+
         function reloadChatbox() {
             //		var result = confirm("Do you really want to restart the conversation?");
             //if (result) {
@@ -577,41 +555,41 @@ body{
             //} 
         }
 
-    var dragCheck = false; 
-    $(function () {
-        var chatIcon = $("#chat"); 
-        chatIcon.draggable({         
-            start: function () {
-                dragCheck = true; 
-            },
-            stop: function () { 
-                dragCheck = false;                 
-            },
-            containment: "window" 
-        }); 
+        var dragCheck = false;
+        $(function() {
+            var chatIcon = $("#chat");
+            chatIcon.draggable({
+                start: function() {
+                    dragCheck = true;
+                },
+                stop: function() {
+                    dragCheck = false;
+                },
+                containment: "window"
+            });
 
-     //   chatIcon.draggable({ containment: "window" });
+            //   chatIcon.draggable({ containment: "window" });
 
-        //{axis: "x" }
-    });
-
-
-    $(function () {
-        var chatBox = $("#chatbox"); 
-        chatBox.draggable({      
-            containment: "window"
+            //{axis: "x" }
         });
-      // chatBox.draggable();
-      
-        //{axis: "x" }
-    });
 
-    // Then instead of using click use mouseup, and on mouseup only fire if the flag is set to false
-    $('#chat') .bind('mouseup', function(){ 
-          if(dragCheck == false){
-            loadChatbox();
-          }
-    }); 
+
+        $(function() {
+            var chatBox = $("#chatbox");
+            chatBox.draggable({
+                containment: "window"
+            });
+            // chatBox.draggable();
+
+            //{axis: "x" }
+        });
+
+        // Then instead of using click use mouseup, and on mouseup only fire if the flag is set to false
+        $('#chat').bind('mouseup', function() {
+            if (dragCheck == false) {
+                loadChatbox();
+            }
+        });
     </script>
 </body>
 

@@ -1,16 +1,12 @@
-﻿using IndianBank_ChatBOT.Dialogs.Shared;
-using Microsoft.Bot.Builder;
+﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Rates
 {
-    public class RatesResponses: TemplateManager
+    public class RatesResponses : TemplateManager
     {
         #region Properties
 
@@ -47,7 +43,7 @@ namespace IndianBank_ChatBOT.Dialogs.Rates
 
         #region Methods
 
-        public static IMessageActivity BuildrateCardDisplay(ITurnContext turnContext,RatesData data)
+        public static IMessageActivity BuildrateCardDisplay(ITurnContext turnContext, RatesData data)
         {
             var attachment = new HeroCard()
             {
@@ -79,7 +75,7 @@ namespace IndianBank_ChatBOT.Dialogs.Rates
         {
             // Constants
             public const string RatesCardDisplay = "buildRatesCardDisplay";
-            
+
         }
 
         public class RateResponseLinks

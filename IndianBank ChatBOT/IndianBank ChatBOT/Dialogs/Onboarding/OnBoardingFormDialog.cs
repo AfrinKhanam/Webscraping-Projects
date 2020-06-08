@@ -1,18 +1,10 @@
 ﻿using IndianBank_ChatBOT.Dialogs.Main;
 using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Middleware;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Microsoft.Bot.Schema;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -30,14 +22,10 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 
         private readonly AppSettings _appSettings;
 
-        // public static string ApplicantName = string.Empty;
-        // public static string ApplicantEmailID = string.Empty;
-        // public static string ApplicantPhoneNumber = string.Empty;
-
-        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState,AppSettings appsettings) : base(services, nameof(OnBoardingFormDialog))
+        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings) : base(services, nameof(OnBoardingFormDialog))
         {
 
-            _appSettings=appsettings;
+            _appSettings = appsettings;
             InitialDialogId = nameof(OnBoardingFormDialog);
 
             _services = services ?? throw new ArgumentNullException(nameof(services));
@@ -47,17 +35,13 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             var steps = new WaterfallStep[]
           {
                 AskforName,
-             //   AskEmailId,
                 AskPhoneNo,
                EndOnboardingDialog
            };
 
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new TextPrompt(DialogIds.AskforName, ValidateNameAsync));
-            // AddDialog(new TextPrompt(DialogIds.AskEmailId, ValidateEmailAsync));
             AddDialog(new TextPrompt(DialogIds.AskPhoneNo, ValidateMobileNumberAsync));
-
-
         }
 
         private async Task<bool> ValidateNameAsync(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
@@ -90,19 +74,6 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             return true;
         }
 
-        //private async Task<bool> ValidateEmailAsync(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
-        //{
-        //    var email = pc.Recognized.Value;
-
-        //    if (!Regex.IsMatch(email, "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
-        //    {
-        //        await pc.Context.SendActivityAsync("Invalid Email ID.\n Please enter valid Email ID");
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
-
         public async Task<DialogTurnResult> AskforName(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var prompt = MessageFactory.Text("Please enter your name to get me started");
@@ -111,23 +82,10 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             {
                 Prompt = prompt,
             }, cancellationToken);
-
         }
-        //public async Task<DialogTurnResult> AskEmailId(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        //{
-        //    string userName = stepContext.Result as string;
-        //    stepContext.Values["UserName"] = stepContext.Result;
-        //    OnBoardingFormDialog.ApplicantName = userName;
-        //    var prompt = MessageFactory.Text("Please Enter Your Email Id");
 
-        //    return await stepContext.PromptAsync(DialogIds.AskEmailId, new PromptOptions
-        //    {
-        //        Prompt = prompt,
-        //    }, cancellationToken);
-
-        //}
         public async Task<DialogTurnResult> AskPhoneNo(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {   
+        {
             string userName = stepContext.Result as string;
             stepContext.Values["UserName"] = stepContext.Result;
             string ApplicantName = userName.First().ToString().ToUpper() + userName.Substring(1);
@@ -137,11 +95,9 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             {
                 Prompt = prompt,
             }, cancellationToken);
-            // return await stepContext.EndDialogAsync();
-
         }
 
-                public async Task<DialogTurnResult> EndOnboardingDialog(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        public async Task<DialogTurnResult> EndOnboardingDialog(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             string userPhoneNumber = stepContext.Result as string;
             stepContext.Values["UserPhoneNumber"] = stepContext.Result;
@@ -179,7 +135,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
                     Console.WriteLine(ex);
                 }
             }
-            
+
             BotChatActivityLogger.UpdateOnBoardingMessageFlag(stepContext.Context.Activity.Conversation.Id);
 
             return await stepContext.EndDialogAsync();
@@ -188,7 +144,6 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         public class DialogIds
         {
             public const string AskforName = "AskforName";
-            // public const string AskEmailId = "AskEmailId";
             public const string AskPhoneNo = "AskPhoneNo";
             public const string EndOnboardingDialog = "EndOnboardingDialog";
         }

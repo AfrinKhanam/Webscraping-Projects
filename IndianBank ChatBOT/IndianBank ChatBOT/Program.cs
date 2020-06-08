@@ -3,7 +3,6 @@
 
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace IndianBank_ChatBOT
 {
@@ -25,7 +24,7 @@ namespace IndianBank_ChatBOT
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>() // Note: Application Insights is added in Startup.  Disabling is also handled there.
-		.UseUrls("http://0.0.0.0:7512")
-		.Build();
+        .UseUrls("http://0.0.0.0:7512")
+        .Build();
     }
 }

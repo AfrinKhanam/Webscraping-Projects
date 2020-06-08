@@ -1,0 +1,124 @@
+﻿
+@model ChatBotSettings
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+          Cache-Control:public;>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
+    <META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+    <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Indian Bank Bot</title>
+
+    <!--Links for slider-->
+    <link href="~/content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/css/chatbot.css" rel="stylesheet" />
+
+    <script src="~/lib/stisla/modules/jquery.min.js"></script>
+    <script src="content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/stisla/modules/jquery-ui/jquery-ui.min.js"></script>
+
+    <!--Ends-->
+    <!--React Libraries-->
+    <script src="content/webchat/babel.min.js" charset="utf-8"></script>
+    <script src="content/webchat/react.development.js"></script>
+    <script src="content/webchat/react-dom.development.js"></script>
+    <script src="content/webchat/react-redux.min.js"></script>
+    <script src="content/webchat/index.js"></script>
+    <!--React Libraries ends-->
+    <!--Auto Suggesion-->
+    <script type="text/javascript" src="scripts/jquery.mockjax.js"></script>
+    <script type="text/javascript" src="scripts/jquery.autocomplete.js"></script>
+</head>
+
+<body>
+    <div id="webchat" role="main"></div>
+
+    <!--New Slider Starts-->
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-md-12">
+            <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel"
+                 style="position:absolute;bottom:40px;left:0px;width:100%;height: 50px;background-color: rgba(255,255,255,0.90);margin-top: -5px;padding-top:8px">
+
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <button onclick="sendSuggestedMenuMessage('about us')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            About Us
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('product')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Products
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                    </div>
+
+                    <div class="item">
+                        <button onclick="sendSuggestedMenuMessage('product')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Products
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('links')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Links
+                        </button>
+                    </div>
+
+                    <div class="item">
+                        <button onclick="sendSuggestedMenuMessage('services')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Services
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('links')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Links
+                        </button>
+                        <button onclick="sendSuggestedMenuMessage('rates')" type="button"
+                                style="border-radius: 30px;margin-left: 6%;border-color: rgb(12, 77, 162);margin-top: 3px;background-color: white;color: rgb(12, 77, 162);"
+                                class="btn btn-xs btn-outline-primary">
+                            Rates
+                        </button>
+
+                    </div>
+                </div>
+
+                <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                </a>
+                <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--New Slider Ends-->
+
+    <script src="~/content/js/webchat-es5.js"></script>
+    <script src="~/content/webchat/CustomisedWebChat.js" type="text/babel">
+    </script>
+    <script src="~/content/webchat/bot.js"></script>
+    <script type="text/javascript">initializeBot('@Model.DirectLineBaseUrl');</script>
+</body>
+</html>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IndianBank_ChatBOT.Models
+﻿namespace IndianBank_ChatBOT.Models
 {
     public class AppSettings
     {
@@ -16,5 +11,6 @@ namespace IndianBank_ChatBOT.Models
         public string RabbitmqVirtualHost { get; set; }
         public string RabbitmqHostName { get; set; }
         public string AutoSuggestionUrl { get; set; }
+        public string DirectLineBaseUrl { get; set; }
     }
 }

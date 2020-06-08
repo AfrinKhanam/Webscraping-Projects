@@ -1,15 +1,8 @@
 ﻿using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.Graph;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -38,7 +31,7 @@ namespace IndianBank_ChatBOT.Controllers
         public IActionResult GetAllPendingRequests()
         {
             var requests = _dbContext.WebPageScrapeRequests
-                                     .Include(w=>w.WebPage)
+                                     .Include(w => w.WebPage)
                                      .Where(r => r.ScrapeStatus == ScrapeStatus.YetToScrape)
                                      .ToList();
             return Ok(requests);
@@ -65,9 +58,15 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(UpdateStatus))]
         public IActionResult UpdateStatus(WebPageScrapeRequest vm)
         {
-            _dbContext.WebPageScrapeRequests.Update(vm);
-            _dbContext.SaveChanges();
-            return Ok();
+            var page = _dbContext.WebPageScrapeRequests.FirstOrDefault(p => p.Id == vm.Id);
+            if (page != null)
+            {
+                _dbContext.WebPageScrapeRequests.Update(vm);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+
+            return NotFound($"Page with the Id {vm.Id} is not found");
         }
     }
 }

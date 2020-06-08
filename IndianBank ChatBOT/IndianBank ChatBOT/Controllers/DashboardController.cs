@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -33,7 +31,7 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult RealTimeDashboard()
         {
             int currentMonth = DateTime.Now.Month;
-            int lastMonth = DateTime.Now.Month - 1; 
+            int lastMonth = DateTime.Now.Month - 1;
             int currentYear = DateTime.Now.Year;
             int lastYear = DateTime.Now.Year - 1;
             var today = DateTime.Now;
@@ -65,7 +63,7 @@ namespace IndianBank_ChatBOT.Controllers
             var fromDate = from.ToString("yyyy-MM-dd");
             var toDate = to.AddDays(1).ToString("yyyy-MM-dd");
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
             return users;
         }
 
@@ -73,7 +71,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries, Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and extract(year from C.\"TimeStamp\") = '{toYear}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
 
             return users;
         }
@@ -82,7 +80,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries, Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and extract(year from C.\"TimeStamp\") = '{toYear}' and extract(month from C.\"TimeStamp\") = '{toMonth}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
 
             return users;
         }
@@ -92,7 +90,7 @@ namespace IndianBank_ChatBOT.Controllers
             var fromDate = from.ToString("yyyy-MM-dd");
             var toDate = to.AddDays(1).ToString("yyyy-MM-dd");
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries, Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is not null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' and C.\"ResonseFeedback\" = -1 group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
             return users;
         }
 
@@ -100,7 +98,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries, Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is not null and coalesce(C.\"Text\", '') != '' and extract(year from C.\"TimeStamp\") = '{toYear}' and C.\"ResonseFeedback\" = -1 group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
 
             return users;
         }
@@ -109,7 +107,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries, Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is not null and coalesce(C.\"Text\", '') != '' and extract(year from C.\"TimeStamp\") = '{toYear}' and extract(month from C.\"TimeStamp\") = '{toMonth}' and C.\"ResonseFeedback\" = -1 group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
 
-            var users = _dbContext.ChatBotVisitorDetails.FromSql(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
+            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList().OrderByDescending(u => u.LastVisited).ToList();
 
             return users;
         }
@@ -119,7 +117,7 @@ namespace IndianBank_ChatBOT.Controllers
             int currentYear = DateTime.Now.Year;
             int currentMonth = DateTime.Now.Month;
             var query = $"SELECT C.\"RasaIntent\" AS DomainName, Count(C.\"ActivityId\") AS TotalHits , TRUNC(((Count(C.\"ActivityId\") / Sum(Count(C.\"ActivityId\")) OVER ())*100),2) AS HitPercentage FROM \"ChatLogs\" C WHERE C.\"ReplyToActivityId\" IS NOT NULL AND C.\"RasaIntent\" NOT IN ('about_us_intent', 'greet', 'bye_intent', 'link_intent', 'services_intent', 'scrollbar_intent') AND COALESCE(C.\"RasaIntent\", '') != '' AND extract(YEAR FROM C.\"TimeStamp\") = '{currentYear}' AND extract(month from C.\"TimeStamp\") = '{currentMonth}' GROUP BY C.\"RasaIntent\" ORDER BY Count(C.\"ActivityId\") DESC limit 3";
-            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSql(query).ToList();
+            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSqlRaw(query).ToList();
             return Ok(vm);
         }
 
@@ -127,7 +125,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             int currentYear = DateTime.Now.Year;
             var query = $"SELECT C.\"RasaIntent\" AS DomainName, Count(C.\"ActivityId\") AS TotalHits , TRUNC(((Count(C.\"ActivityId\") / Sum(Count(C.\"ActivityId\")) OVER ())*100),2) AS HitPercentage FROM \"ChatLogs\" C WHERE C.\"ReplyToActivityId\" IS NOT NULL AND C.\"RasaIntent\" NOT IN ('about_us_intent', 'greet', 'bye_intent', 'link_intent', 'services_intent', 'scrollbar_intent') AND COALESCE(C.\"RasaIntent\", '') != '' AND extract(YEAR FROM C.\"TimeStamp\") = '{currentYear}' GROUP BY C.\"RasaIntent\" ORDER BY Count(C.\"ActivityId\") DESC limit 3";
-            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSql(query).ToList();
+            var vm = _dbContext.Top10DomainsVisitedViewModels.FromSqlRaw(query).ToList();
             return Ok(vm);
         }
     }

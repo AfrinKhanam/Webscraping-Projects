@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -55,7 +53,7 @@ namespace IndianBank_ChatBOT.Controllers
                     return Ok(null);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return Ok(null);
             }

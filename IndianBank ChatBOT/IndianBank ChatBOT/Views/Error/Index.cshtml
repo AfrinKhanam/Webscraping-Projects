@@ -1,0 +1,29 @@
+﻿@model Guid
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="section-header">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <h1>Application Error</h1>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Error</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                        <p>An error has occurred while processing your request!</p>
+                        <p>Error Number: @Model</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

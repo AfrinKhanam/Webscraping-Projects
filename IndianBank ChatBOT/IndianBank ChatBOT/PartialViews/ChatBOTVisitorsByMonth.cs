@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.PartialViews
 {
@@ -28,7 +26,7 @@ namespace IndianBank_ChatBOT.PartialViews
             int currentYear = DateTime.Now.Year;
             int currentMonth = DateTime.Now.Month;
             var query = $"select EXTRACT(day FROM U.\"CreatedOn\"):: int as DayNumber, TO_CHAR(U.\"CreatedOn\", 'Mon') AS MonthText, Count(U.\"Id\"):: int AS Visits from \"UserInfos\" U where extract(YEAR FROM U.\"CreatedOn\") = '{currentYear}' and extract(month from U.\"CreatedOn\") = '{currentMonth}' GROUP BY 1,2 order by EXTRACT(day FROM U.\"CreatedOn\"):: int asc";
-            var vm = _dbContext.VisitorsByMonthViewModels.FromSql(query).ToList();
+            var vm = _dbContext.VisitorsByMonthViewModels.FromSqlRaw(query).ToList();
             return View("ChatBOTVisitorsByMonth", vm);
         }
     }

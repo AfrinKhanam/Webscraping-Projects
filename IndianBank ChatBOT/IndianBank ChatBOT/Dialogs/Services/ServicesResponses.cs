@@ -2,11 +2,8 @@
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Services
 {
@@ -165,31 +162,31 @@ namespace IndianBank_ChatBOT.Dialogs.Services
 
         public class PremiumServicesResponseLinks
         {
-            public const string MCAPaymentLink              = "https://www.indianbank.in/departments/mca-payment/#!";
-            public const string MoneyGramLink               = "https://www.indianbank.in/departments/money-gram/#!";
-            public const string ATMDebitCardsLink           = "https://www.indianbank.in/departments/atm-debit-cards/#!";
-            public const string IndMobileBankingLink        = "https://www.indianbank.in/departments/ind-mobile-banking/#!";
-            public const string IndNetBankingLink           = "https://www.indianbank.in/departments/ind-netbanking/#!";
-            public const string CreditCardsLink             = "https://www.indianbank.in/departments/credit-cards/#!";
-            public const string XpressMoneyLink             = "https://www.indianbank.in/departments/xpress-money-inward-remittance-money-transfer-service-scheme/#!";
-            public const string NEFTLink                    = "https://www.indianbank.in/departments/n-e-f-t/#!";
-            public const string IndJetRemitLink             = "https://www.indianbank.in/departments/ind-jet-remit-rtgs/#!";
+            public const string MCAPaymentLink = "https://www.indianbank.in/departments/mca-payment/#!";
+            public const string MoneyGramLink = "https://www.indianbank.in/departments/money-gram/#!";
+            public const string ATMDebitCardsLink = "https://www.indianbank.in/departments/atm-debit-cards/#!";
+            public const string IndMobileBankingLink = "https://www.indianbank.in/departments/ind-mobile-banking/#!";
+            public const string IndNetBankingLink = "https://www.indianbank.in/departments/ind-netbanking/#!";
+            public const string CreditCardsLink = "https://www.indianbank.in/departments/credit-cards/#!";
+            public const string XpressMoneyLink = "https://www.indianbank.in/departments/xpress-money-inward-remittance-money-transfer-service-scheme/#!";
+            public const string NEFTLink = "https://www.indianbank.in/departments/n-e-f-t/#!";
+            public const string IndJetRemitLink = "https://www.indianbank.in/departments/ind-jet-remit-rtgs/#!";
             public const string MulticityChequeFacilityLink = "https://www.indianbank.in/departments/multicity-cheque-facility/#!";
         }
 
         public class InsuranceServicesResponseLinks
         {
             public const string IBVidyarthiSurakshaLink = "https://www.indianbank.in/departments/ib-vidyarthi-suraksha-with-pnb-metlife/#!";
-            public const string IBHomeSecurityLink      = "https://www.indianbank.in/departments/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/#!";
+            public const string IBHomeSecurityLink = "https://www.indianbank.in/departments/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/#!";
             public const string UniversalHealthCareLink = "https://www.indianbank.in/departments/universal-health-care-launched-in-association-with-uiic-ltd/#!";
             public const string JanaShreeBimaYojanaLink = "https://www.indianbank.in/departments/jana-shree-bima-yojana-launched-in-association-with-lic/#!";
-            public const string NewIBJeevanVidyaLink    = "https://www.indianbank.in/departments/new-ib-jeevan-vidya-2/#!";
-            public const string IBJeevanKalyanLink      = "https://www.indianbank.in/departments/ib-jeevan-kalyan/#!";
-            public const string IBVarishthaLink         = "https://www.indianbank.in/departments/ib-varishtha/#!";
-            public const string ArogyaRakshaLink        = "https://www.indianbank.in/departments/arogya-raksha/#!";
-            public const string IBChhatraLink           = "https://www.indianbank.in/departments/ib-chhatra/#!";
-            public const string IBGrihaJeevanLink       = "https://www.indianbank.in/departments/ib-griha-jeevan-group-insurance-scheme-for-mortgage-borrowers-launched-in-association-with-lic/#!";
-            public const string IBYatraSurakshaLink     = "https://www.indianbank.in/departments/ib-yatra-suraksha-with-uiic-ltd/#!";
+            public const string NewIBJeevanVidyaLink = "https://www.indianbank.in/departments/new-ib-jeevan-vidya-2/#!";
+            public const string IBJeevanKalyanLink = "https://www.indianbank.in/departments/ib-jeevan-kalyan/#!";
+            public const string IBVarishthaLink = "https://www.indianbank.in/departments/ib-varishtha/#!";
+            public const string ArogyaRakshaLink = "https://www.indianbank.in/departments/arogya-raksha/#!";
+            public const string IBChhatraLink = "https://www.indianbank.in/departments/ib-chhatra/#!";
+            public const string IBGrihaJeevanLink = "https://www.indianbank.in/departments/ib-griha-jeevan-group-insurance-scheme-for-mortgage-borrowers-launched-in-association-with-lic/#!";
+            public const string IBYatraSurakshaLink = "https://www.indianbank.in/departments/ib-yatra-suraksha-with-uiic-ltd/#!";
         }
 
         public class ServicesData
@@ -203,5 +200,5 @@ namespace IndianBank_ChatBOT.Dialogs.Services
         #endregion
 
     }
-    
+
 }

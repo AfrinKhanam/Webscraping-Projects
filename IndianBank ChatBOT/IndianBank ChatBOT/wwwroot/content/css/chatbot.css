@@ -1,0 +1,503 @@
+.card {
+    border-radius: 0px !important;
+}
+
+    .card ul {
+        padding-left: inherit;
+    }
+
+    .card li {
+        list-style-type: none;
+        height: 100px;
+    }
+
+        .card li:hover {
+            cursor: pointer;
+        }
+
+.chat-menu__item-icon {
+    height: 100px;
+    width: auto;
+    border-radius: 50px;
+}
+
+.img-before-menu {
+    width: 30%;
+    padding-left: 0px;
+    padding-top: 16px;
+}
+
+    .img-before-menu img {
+        height: 75px;
+        border-radius: 50px;
+        float: left;
+        border: 5px solid #0078ca;
+    }
+
+.menu-text {
+    width: 60%;
+    padding-top: 40px
+}
+
+.img-after-menu {
+    width: 10%;
+    padding-top: 40px;
+    padding-left: 0
+}
+
+.menu-right-icon {
+    height: 75px;
+    width: 10%;
+    float: left;
+    padding-top: 40px
+}
+
+    .menu-right-icon img {
+        height: 18px;
+        width: auto
+    }
+
+#custom-commands-menu-container {
+    background-color: white;
+}
+
+
+.multi-item-carousel .carousel-inner > .item {
+    transition: 100ms ease-in-out left;
+}
+
+.multi-item-carousel .carousel-inner .active.left {
+    left: -33%;
+}
+
+.multi-item-carousel .carousel-inner .active.right {
+    left: 33%;
+}
+
+.multi-item-carousel .carousel-inner .next {
+    left: 33%;
+}
+
+.multi-item-carousel .carousel-inner .prev {
+    left: -33%;
+}
+
+@@media all and (transform-3d), (-webkit-transform-3d) {
+    .multi-item-carousel .carousel-inner > .item {
+        transition: 100ms ease-in-out left;
+        transition: 100ms ease-in-out all;
+        backface-visibility: visible;
+        transform: none !important;
+    }
+}
+
+.multi-item-carousel .carouse-control.left,
+.multi-item-carousel .carouse-control.right {
+    background-image: none;
+}
+
+body {
+    background: #333;
+    color: #ddd;
+}
+
+h1 {
+    color: white;
+    font-size: 2.25em;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    text-shadow: 0px 2px 0px #000000;
+}
+/**Reduce size of bot container**/
+
+.css-y1c0xs,
+[data-css-y1c0xs] {
+    height: 90%;
+}
+/*Make slider button 3 per item group*/
+
+.btn-group-xs > .btn,
+.btn-xs {
+    margin: 1px 5px auto !important;
+    width: 22.33%;
+}
+/*slider button group*/
+
+.carousel-inner > .item {
+    padding: 0 9% !important;
+}
+/*slider button padding */
+
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 6px 5px;
+    width: 29.33%;
+}
+/*Slider next previous button width*/
+
+.carousel-control {
+    width: 9%;
+}
+
+    .carousel-control a {
+        color: #337ab7;
+    }
+
+    .carousel-control.right {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.5) 100%);
+    }
+
+    .carousel-control.left {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.5) 100%);
+    }
+
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.6em;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.autocomplete-suggestions {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    background: #FFF;
+    cursor: default;
+    overflow: auto;
+    -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    max-height: 400px;
+    width: 410px !important;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+    .autocomplete-suggestion::before {
+        content: "";
+        background: url('../../search.png');
+        background-repeat: repeat;
+        background-size: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-width: 55px;
+        border: 20px solid transparent;
+        border-top-width: 20px;
+        border-right-width: 20px;
+        border-bottom-width: 20px;
+        border-left-width: 20px;
+        border-width: 0;
+        border-right-width: 0px;
+        border-right-width: 20px;
+    }
+
+.autocomplete-no-suggestion {
+    padding: 2px 5px;
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: bold;
+    color: #000;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
+.autocomplete-suggestions {
+    border: none;
+    box-shadow: none;
+}
+/* .autocomplete-suggestions {
+
+        border: none;
+        background:gray;
+        -webkit-box-shadow:none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width:100% !important;
+
+        } */
+
+.reaction-disabled {
+    enabled: false;
+}
+
+.reaction-selected {
+    background-color: red;
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0
+}
+
+#webchat,
+#webchat > * {
+    height: calc(100% - 1px);
+    width: 100%;
+}
+
+#customInputBar {
+    width: 100%;
+}
+
+.autocomplete-suggestion {
+    padding: 5px;
+    color: black;
+}
+
+    .autocomplete-suggestion:hover {
+        cursor: pointer;
+    }
+
+.css-990gl9 {
+    background-color: transparent !important;
+}
+
+body {
+    background-image: url('../../watermark.jpg') !important;
+    background-position: 50% 50%;
+    background-repeat: repeat;
+    background-position: 10% 10%;
+    background-attachment: fixed;
+}
+/*To make menu righ side display*/
+
+.css-2p02md > .content > .webchat__row.attachment > .bubble,
+[data-css-2p02md] > .content > .webchat__row.attachment > .bubble {
+    min-width: 0px;
+    max-width: max-content;
+    background-color: #dbeafd;
+}
+
+.webchat__row > .bubble {
+    background-color: #dbeafd !important;
+    border-radius: 15px !important;
+    border-top-right-radius: 3px !important;
+    border: 0px solid rgb(230, 230, 230) !important;
+}
+
+.css-mhj5i1.from-user {
+    background-color: #d3f7d9 !important;
+    color: black;
+    border-radius: 15px;
+    border-top-right-radius: 3px;
+    border: 0px solid rgb(230, 230, 230);
+}
+
+.css-mhj5i1:not(.from-user),
+[data-css-mhj5i1]:not(.from-user) {
+    border-radius: 15px;
+    border-top-left-radius: 3px;
+    /*  background-color: #f1f0f0;*/
+    background-color: #dbeafd;
+    border: 0px solid rgb(230, 230, 230);
+}
+
+.ac-container {
+    padding-top: 1px !important;
+    padding-bottom: 10px !important;
+}
+/*To hide extra div after each button in attachement*/
+
+.ac-actionSet {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+}
+
+    .ac-actionSet > div {
+        display: none
+    }
+/*Making attachement button inline*/
+
+.ac-pushButton {
+    flex: auto !important;
+    min-width: min-content;
+    flex-basis: auto !important;
+    flex-grow: 1 !important;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    width: max-content;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    border-radius: 6px;
+    font-weight: normal !important;
+}
+
+.ac-actionSet > .ac-pushButton {
+    background-color: #fff5d9;
+    color: black !important;
+    /*border: 1px solid #ccc !important;*/
+    border: 1px solid #1000ff !important;
+}
+    /*To make pointer on menu botton on hover over*/
+
+    .ac-actionSet > .ac-pushButton:hover {
+        cursor: pointer !important;
+        background-color: #FFFFFF !important;
+        color: #0c4da2 !important;
+    }
+
+.ac-pushButton > div {
+    white-space: normal !important;
+}
+/*Avatar Backgeround color*/
+
+.css-1dgbgmu,
+[data-css-1dgbgmu] {
+    color: #ffe8a3 !important
+}
+
+.avatar {
+    background-color: #ffe8a3 !important;
+}
+/* New Message Button bottom Position*/
+
+.css-1m1alj7,
+[data-css-1m1alj7] {
+    bottom: 55px !important;
+}
+/*Slider first stage menu button*/
+
+.css-1mt1yn6 > button,
+[data-css-1mt1yn6] > button {
+    font-family: "Calibri", "Helvetica Neue", "Arial", "sans-serif";
+    padding: 2px 10px;
+    margin: 3px 3px;
+    font-size: 16px;
+    color: black;
+    background: #f1f0f0;
+    background-color: rgb(241, 240, 240);
+    border-radius: 5px;
+    weight: 400px;
+    min-width: min-content;
+    flex-basis: auto !important;
+    flex-grow: 1 !important;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    width: max-content;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    border-radius: 6px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #1000ff !important;
+    background-color: #fff5d9;
+    color: black !important;
+    border: 1px solid #ccc !important;
+    border: 1px solid#1000ff !important;
+}
+
+.css-1mt1yn6,
+[data-css-1mt1yn6] {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    padding-right: 4px;
+}
+
+.autocomplete-suggestion {
+    padding: 5px;
+    color: #0c4da2;
+    white-space: normal !important;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: bold;
+    color: #0c4da2;
+}
+
+.css-1g3yky9 > input,
+[data-css-1g3yky9] > input {
+    width: 90%;
+}
+
+.css-16qahhi > div,
+[data-css-16qahhi] > div,
+.css-16qahhi input,
+[data-css-16qahhi] input {
+    flex: none !important;
+}
+
+.css-1882x3w > .main,
+[data-css-1882x3w] > .main {
+    padding-bottom: 5px;
+}
+
+.css-115fwte svg,
+[data-css-115fwte] svg :hover {
+    fill: rgb(12, 77, 162);
+}
+/*Reaction buttons Styling*/
+
+.button-bar li {
+    color: green !important;
+}
+
+    .button-bar li:not(:first-child):hover {
+        color: red !important;
+    }
+
+    .button-bar li:hover {
+        color: green !important;
+    }
+
+    .button-bar li:not(:first-child) {
+        color: red !important;
+    }
+
+.reaction-downvote {
+    background-color: red !important;
+    border-radius: 17px;
+    color: white !important;
+}
+
+.reaction-upvote {
+    background-color: green !important;
+    border-radius: 17px;
+    color: white !important;
+}
+
+.feedback-done {
+    /* display: none;  */
+}
+
+/**Reduce size of bot container**/
+.css-y1c0xs,
+[data-css-y1c0xs] {
+    height: 90%;
+}
+
+li.css-1qyo5rb:last-child {
+    margin-bottom: 25px !important;
+}
