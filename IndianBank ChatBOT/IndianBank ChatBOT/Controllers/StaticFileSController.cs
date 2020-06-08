@@ -82,7 +82,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult Index()
         {
-            var files = _dbContext.StaticPages.ToList();
+            var files = _dbContext.StaticPages.OrderByDescending(f => f.CreatedOn).ToList();
             return View(files);
         }
 
