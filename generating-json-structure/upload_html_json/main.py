@@ -63,7 +63,6 @@ def scrape_static_file():
             update_scrape_status(static_file_status)    
             
     except Exception as e:
-        print(static_page_id)
         static_file_status = {"id": static_page_id,"createdOn": datetime.now(),"scrapeStatus": 2}
         update_scrape_status(static_file_status) 
 

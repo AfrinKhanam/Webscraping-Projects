@@ -228,14 +228,16 @@ namespace IndianBank_ChatBOT.Controllers
         [HttpPut]
         public IActionResult UpdateStatus(StaticPage vm)
         {
-            var staticFile = _dbContext.WebPageScrapeRequests.FirstOrDefault(s => s.Id == vm.Id);
+            var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == vm.Id);
+            // var staticFile = _dbContext.WebPageScrapeRequests.FirstOrDefault(s => s.Id == vm.Id);
             if (staticFile != null)
             {
-                _dbContext.StaticPages.Update(vm);
+                staticFile.ScrapeStatus = vm.ScrapeStatus;
+                staticFile.CreatedOn = vm.CreatedOn;
+                _dbContext.StaticPages.Update(staticFile);
                 _dbContext.SaveChanges();
                 return Ok();
             }
-
             return NotFound($"Static Page with the Id {vm.Id} is not found");
         }
     }
