@@ -58,9 +58,15 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(UpdateStatus))]
         public IActionResult UpdateStatus(WebPageScrapeRequest vm)
         {
-            _dbContext.WebPageScrapeRequests.Update(vm);
-            _dbContext.SaveChanges();
-            return Ok();
+            var page = _dbContext.WebPageScrapeRequests.FirstOrDefault(p => p.Id == vm.Id);
+            if (page != null)
+            {
+                _dbContext.WebPageScrapeRequests.Update(vm);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+
+            return NotFound($"Page with the Id {vm.Id} is not found");
         }
     }
 }

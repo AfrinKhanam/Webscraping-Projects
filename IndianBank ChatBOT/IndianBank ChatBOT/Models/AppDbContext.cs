@@ -35,6 +35,10 @@ namespace IndianBank_ChatBOT.Models
                 new LeadGenerationAction { Id = 3, Name = "Qualified", Description = "Qualified" },
                 new LeadGenerationAction { Id = 4, Name = "ActedUpon", Description = "ActedUpon" }
             );
+
+            modelBuilder.Entity<StaticPage>()
+                   .Property(e => e.CreatedOn)
+                   .HasDefaultValue(DateTime.Now);
         }
 
         public DbSet<ChatLog> ChatLogs { get; set; }

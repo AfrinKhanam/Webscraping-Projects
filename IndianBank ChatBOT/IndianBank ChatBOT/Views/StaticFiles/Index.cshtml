@@ -11,7 +11,7 @@
 <script type="text/javascript">
 
     function viewStaticFile(url) {
-        window.open(decodeURIComponent(url), '_blank');
+        window.open(url, '_blank');
     }
 
     function resetFileuploadForm() {
@@ -94,8 +94,7 @@
         var fileId = $('#deleteFileId').val();
         var pageConfig = je.getValue();
 
-        var urlPath = decodeURIComponent($('#EncodedFilePath').val());
-        urlPath = urlPath.replace(/\\/g, "/");
+        var urlPath = $('#EncodedFilePath').val();
 
         var obj = {};
         obj[urlPath] = pageConfig;
@@ -318,6 +317,12 @@
                                         File
                                     </th>
                                     <th>
+                                        Created On
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
                                         Actions
                                     </th>
                                 </tr>
@@ -337,11 +342,38 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.FileName)
                                             </td>
-                                            <td width="25%">
-                                                <button onclick="setFileDeleteId('@item.Id', '@item.EncodedPageUrl'); launchModal('@item.Id'); getPageConfigById();" class="btn btn-sm btn-outline-primary @className">Page Config</button>
+                                            <td>
+                                                @{
+                                                    var createdDate = item.CreatedOn.ToString("dd-MMM-yyyy");
+                                                }
+                                                @createdDate
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var status = item.GetEnumDescription();
+                                                    var statusClass = "badge-warning";
+                                                    switch (item.ScrapeStatus)
+                                                    {
+                                                        case ScrapeStatus.YetToScrape:
+                                                            statusClass = "badge-warning";
+                                                            break;
+                                                        case ScrapeStatus.ScrapeSuccess:
+                                                            statusClass = "badge-success";
+                                                            break;
+                                                        case ScrapeStatus.ScrapeFailed:
+                                                            statusClass = "badge-danger";
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
 
-                                                @*<button onclick="setFileDeleteId('@item.Id', '@item.EncodedPageUrl'); getPageConfigById()" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#setupPageConfigModel">Page Config</button>*@
-                                                <button onclick='viewStaticFile("@item.EncodedPageUrl")' class="btn btn-sm btn-outline-primary">View</button>
+                                                }
+                                                <div class="badge @statusClass">@status</div>
+
+                                            </td>
+                                            <td width="25%">
+                                                <button onclick="setFileDeleteId('@item.Id', '@item.PageUrl'); launchModal('@item.Id'); getPageConfigById();" class="btn btn-sm btn-outline-primary @className">Page Config</button>
+                                                <button onclick='viewStaticFile("@item.PageUrl")' class="btn btn-sm btn-outline-primary">View</button>
                                                 <button onclick="setFileDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteStaticFileModal">Delete</button>
                                             </td>
                                         </tr>

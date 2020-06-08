@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200608092656_StaticPageModelChages")]
+    partial class StaticPageModelChages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,24 +222,14 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 6, 8, 22, 23, 14, 377, DateTimeKind.Local).AddTicks(8883));
-
-                    b.Property<string>("FileData")
-                        .HasColumnType("text");
-
                     b.Property<string>("FileName")
                         .HasColumnType("text");
 
-                    b.Property<string>("FileType")
-                        .HasColumnType("text");
+                    b.Property<string>("Html")
+                        .HasColumnType("text")
+                        .HasMaxLength(2147483647);
 
                     b.Property<string>("PageConfig")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PageUrl")
                         .HasColumnType("text");
 
                     b.Property<int>("ScrapeStatus")
