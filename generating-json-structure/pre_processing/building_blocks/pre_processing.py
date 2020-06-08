@@ -16,6 +16,7 @@ class PreProcessing():
     def removeSpecialCharacters(self,string):
         string = re.sub('(\?|@|/|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', ' ', string)
         string = re.sub('\.', ' ', string)
+        string = re.sub(':', ' ', string)
         string = (string.replace('[',' ')).replace(']',' ')
         return string
 

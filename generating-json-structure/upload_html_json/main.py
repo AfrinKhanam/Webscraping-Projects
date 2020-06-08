@@ -5,73 +5,81 @@ import sys
 import os
 import requests 
 import time
+from datetime import datetime
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 
-def main():
-    # if os.path.exists(os.path.abspath(os.pardir)+"/upload_html_json/config_files/uploadedHtml.json"):
-    #     os.remove(os.path.abspath(os.pardir)+"/upload_html_json/config_files/uploadedHtml.json")
-    urls="http://localhost:7512/StaticFiles/GetAllStaticFileInfoAsText"
-    ROOT_DIR = os.path.abspath(os.pardir)
+def get_static_file_info():
+    
+    url="http://localhost:7512/StaticFiles/GetAllStaticFileInfoAsText"
+    
     try:
-        response=requests.get(url=urls)
+        response=requests.get(url=url)
         data=response.json()
-        #print("data is ---->> ",data)
-
         print(json.dumps(data, indent=4))
         if data !=None:
-            with open(ROOT_DIR+"/upload_html_json/config_files/uploadedHtml.json","w+") as file:
+            with open("./config_files/uploadedHtml.json","w+") as file:
                 json.dump(data,file,indent=4)
                 file.close()
     except Exception as e:
-        print("exception occurred..!!",e)
-    # finally:
-    #     file.close()
+        print(e.args)
 
-    uploadedHtmlPath="./config_files/uploadedHtml.json"
+def scrape_static_file():
+    uploadedHtmlPath = "./config_files/uploadedHtml.json"
+    static_page_id = None
     documents = []
-    with open(uploadedHtmlPath, "r") as file:
-        url_list = json.loads(file.read())
-        # print("url_list--------->",url_list,"\n")
-        for url in url_list:
-            # print("url--------->",url_list[url],"\n")
-            document = url_list[url]
-            # print("document--------->",document,"\n")
+    try:
+        with open(uploadedHtmlPath, "r") as file:
+            url_list = json.loads(file.read())
+            for url in url_list:
+                document = url_list[url]
+                document['url'] = url
+                document['filename'] = path + url.split('/')[-2] + '/index.html'
+                documents.append(document)
 
-            document['url'] = url
-            # print("document['url']--------->",document['url'],"\n")
+        for document in documents:
 
-            document['filename'] = path + url.split('/')[-2] + '/index.html'
-            documents.append(document)
+            static_page_id = document['url'].split("=")[1]
 
-    print("----------->>",documents)
+            html_to_json = HtmlToJson(document, source='web')
+            html_to_json.main_title(document)
+            html_to_json.get_url(document)
+            html_to_json.get_document_name(document)
+            html_to_json.subtitles(document)
+            html_to_json.content(document)
+            html_to_json.post_processing(document)
+            html_to_json.frame_json(document)
+            print(json.dumps(document['html_to_json'], indent=4))
+            
+            rabbitmq_producer = RabbitmqProducerPipe(
+            publish_exchange="nlpEx",
+            routing_key="nlp",
+            queue_name='nlpQueue',
+            host="localhost")
+            
+            rabbitmq_producer.publish(json.dumps(document['html_to_json']).encode())
+            
+            static_file_status = {"id": static_page_id,"createdOn": datetime.now(),"scrapeStatus": 1}
+            update_scrape_status(static_file_status)    
+            
+    except Exception as e:
+        print(static_page_id)
+        static_file_status = {"id": static_page_id,"createdOn": datetime.now(),"scrapeStatus": 2}
+        update_scrape_status(static_file_status) 
 
-    for document in documents:
-        #---------------------------------------------------------------#
-        # try:
-        # print('---------------------------------------------------\n')
-        print("filename :: ", document['filename'])
-        print("url :: ", document['url'])
+def update_scrape_status(params):
+    try:
+        requests.put('http://localhost:7512/StaticFiles/UpdateStatus', data=(params))
+    except Exception as e:
+        print(e.args)
 
-        html_to_json = HtmlToJson(document, source='web')
-        html_to_json.main_title(document)
-        html_to_json.get_url(document)
-        html_to_json.get_document_name(document)
-        html_to_json.subtitles(document)
-        html_to_json.content(document)
-        html_to_json.post_processing(document)
-        html_to_json.frame_json(document)
-        print(json.dumps(document['html_to_json'], indent=4))
-        
-        rabbitmq_producer = RabbitmqProducerPipe(
-        publish_exchange="nlpEx",
-        routing_key="nlp",
-        queue_name='nlpQueue',
-        host="localhost")
-        
-        rabbitmq_producer.publish(json.dumps(document['html_to_json']).encode())
+def main():
+    #get static files configurations
+    get_static_file_info()
 
-
+    #scrape the static files
+    scrape_static_file()
+   
 if __name__ == "__main__":
     while True:
         main()
