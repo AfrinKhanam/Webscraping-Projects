@@ -10,8 +10,9 @@
         },
         body: JSON.stringify({ userId: userId, }),
     })
-        .then(res => res.json())
-        .then(res => {
+    
+        .then(function(res) {return res.json()})
+        .then(function(res){
             window.directLine = window.WebChat.createDirectLine({
                 domain: directLineUrl + '/v3/directline',
                 token: res.token,
