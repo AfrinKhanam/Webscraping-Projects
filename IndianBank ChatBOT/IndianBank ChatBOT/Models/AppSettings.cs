@@ -12,5 +12,6 @@
         public string RabbitmqHostName { get; set; }
         public string AutoSuggestionUrl { get; set; }
         public string DirectLineBaseUrl { get; set; }
+        public string ChatBotBackEndUIEndPoint { get; set; }
     }
 }

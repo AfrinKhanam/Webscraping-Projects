@@ -5,6 +5,7 @@ using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,12 @@ namespace IndianBank_ChatBOT.Controllers
     public class StaticFilesController : Controller
     {
         private readonly AppDbContext _dbContext;
+        private readonly AppSettings _appSettings;
 
-        public StaticFilesController(AppDbContext dbContext)
+        public StaticFilesController(AppDbContext dbContext, IOptions<AppSettings> appsettings)
         {
             _dbContext = dbContext;
+            _appSettings = appsettings.Value;
         }
 
         public IActionResult GetPageConfigById(int id)
@@ -173,7 +176,7 @@ namespace IndianBank_ChatBOT.Controllers
                     _dbContext.StaticPages.Add(staticPage);
                     _dbContext.SaveChanges();
 
-                    var appBaseUrl = AppHttpContext.AppBaseUrl;
+                    var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
 
                     var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
                     var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;

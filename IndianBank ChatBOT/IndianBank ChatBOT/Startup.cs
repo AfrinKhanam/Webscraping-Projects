@@ -183,7 +183,6 @@ namespace IndianBank_ChatBOT
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseHttpContext();
 
             if (!env.IsDevelopment())
             {
