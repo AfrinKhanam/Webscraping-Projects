@@ -427,30 +427,93 @@ class ESPostProcessing:
             print(json.dumps(documents,indent=4))
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        
-        
-        #-----------------------------------------------------------------------------------------------#
-        
-        if re.search(r'( mobil bank)', document['PARSED_QUERY_STRING']):
-            print("hii")
+
+        if re.search(r'(sb student govt scholarship & sb debit|sb student govt scholarship sb debit)', document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == 'https://www.indianbank.in/departments/ind-mobile-banking/':
-                    print("hmmm")
+                if record['url'] == 'https://indianbank.in/departments/sb-for-students-under-govt-scholarship-sb-for-dbt/':
                     documents.append(record)
             print(json.dumps(documents,indent=4))
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        # What are the transactions possible using Ind Netbanking
-        if re.search(r'(netbank)', document['PARSED_QUERY_STRING']):
-            print("hii")
+        if re.search(r'(sb central state govern consular offic & india pfm|sb central state govern consular offic and india pfm)', document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == 'https://www.indianbank.in/departments/ind-netbanking/':
-                    print("hmmm")
+                if record['url'] == 'https://indianbank.in/departments/48601/':
                     documents.append(record)
             print(json.dumps(documents,indent=4))
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(mact sb)', document['PARSED_QUERY_STRING']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://indianbank.in/departments/mact-sb/':
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        
+        #-----------------------------------------------------------------------------------------------#
+        #-------------------------------------CURRENT ACCOUNT----------------------------------------------------------#
+        if re.search(r'(comfort domest nre)', document['PARSED_QUERY_STRING']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        #-----------------------------------------------------------------------------------------------#
+        #-----------------------------------TERM DEPOSITS------------------------------------------------------------#
+        if re.search(r'(short term deposit)', document['PARSED_QUERY_STRING']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://indianbank.in/departments/short-term-deposits/':
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        
+        if re.search(r'(macad|motor accid claim tribun deposit)', document['PARSED_QUERY_STRING']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://indianbank.in/departments/motor-accident-claim-tribunal-depositmacad-scheme/':
+                    documents.append(record)
+            print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+        #-----------------------------------------------------------------------------------------------#
+         
+        if re.search(r'( mobil bank)', document['PARSED_QUERY_STRING']):
+            print("mobile banking...!!")
+            if re.search(r'(comfort domest nre)', document['PARSED_QUERY_STRING']):
+                print("comfort...!!")
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
+                        documents.append(record)
+                print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            else:
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == 'https://www.indianbank.in/departments/ind-mobile-banking/':
+                        documents.append(record)
+                print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        # What are the transactions possible using Ind Netbanking
+        if re.search(r'(netbank|net bank)', document['PARSED_QUERY_STRING']):
+            if re.search(r'(comfort domest nre)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
+                        documents.append(record)
+                print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            else:
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == 'https://www.indianbank.in/departments/ind-netbanking/':
+                        documents.append(record)
+                print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         
         if re.search(r'(joint liabil group|jlg)', document['PARSED_QUERY_STRING']):
             print("hii")

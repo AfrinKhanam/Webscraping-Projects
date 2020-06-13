@@ -81,3 +81,5 @@ different=distinct=dissimilar=separate=many
 pos=point of sale
 asba=applications supported by Blocked Amount
 jlg=Joint Liability Group
+MACAD=Motor Accident Claim Tribunal Deposit
+tenure=tenor
