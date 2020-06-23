@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -68,47 +69,7 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = GetChatBotVisitorsViewModelReport(@params);
             return View(vm);
         }
-
-        //todo
-        [HttpGet]
-        public ActionResult AppVisitors(string from, string to)
-        {
-            var fromDate = from;
-            var toDate = to;
-
-            if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
-            {
-                fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-                toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-            }
-            else
-            {
-                if (IsValidDate(fromDate) && IsValidDate(toDate))
-                {
-                    fromDate = Convert.ToDateTime(fromDate).ToString("yyyy-MM-dd");
-                    toDate = Convert.ToDateTime(toDate).AddDays(1).ToString("yyyy-MM-dd");
-                }
-                else
-                {
-                    fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-                    toDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-                }
-            }
-
-            var query = $"select Visitor, PhoneNumber, Sum(NumberOfQueriesAsked) as NumberOfQueries , Sum(NumberOfVisits) as NumberOfVisits, Max(LastVisit) as LastVisited from (select Visitor, PhoneNumber, LastVisit, Sum(CountOfConversation) as NumberOfQueriesAsked, Count(ConversationId) as NumberOfVisits from (select U.\"Name\" as Visitor, U.\"PhoneNumber\" as PhoneNumber, Count(U.\"Id\") as CountOfConversation, C.\"ConversationId\" as ConversationId, Max(C.\"TimeStamp\") as LastVisit from \"ChatLogs\" C inner join \"UserInfos\" U on C.\"ConversationId\" = U.\"ConversationId\" where C.\"IsOnBoardingMessage\" is null and C.\"ReplyToActivityId\" is null and coalesce(C.\"Text\", '') != '' and \"TimeStamp\" between '{fromDate}' AND '{toDate}' group by U.\"Name\", U.\"PhoneNumber\", C.\"ConversationId\") as tmp group by tmp.Visitor, tmp.PhoneNumber, tmp.LastVisit) as queryResult group by queryResult.Visitor, queryResult.PhoneNumber";
-
-            var users = _dbContext.ChatBotVisitorDetails.FromSqlRaw(query).ToList();
-
-            var vm = new ChatBotVisitorsViewModel
-            {
-                ChatBotVisitorDetails = users,
-                From = Convert.ToDateTime(fromDate).ToString("dd-MMM-yyyy"),
-                To = Convert.ToDateTime(toDate).AddDays(-1).ToString("dd-MMM-yyyy")
-            };
-
-            return View(vm);
-        }
-
+       
         [HttpGet]
         public ActionResult UnAnsweredQueries()
         {
@@ -259,7 +220,6 @@ namespace IndianBank_ChatBOT.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex);
-                throw;
             }
             return Ok();
         }
@@ -272,12 +232,23 @@ namespace IndianBank_ChatBOT.Controllers
             }
             else
             {
-                if (IsValidDate(@params.From) && IsValidDate(@params.To))
+                //Checkes for the Date in the format xxxx-xx-xx
+                var regex = new Regex(@"^\d{4}-\d{1,2}-\d{1,2}$"); 
+                var isValidFrom = regex.Matches(@params.From).Count() == 1;
+                var isValidTo = regex.Matches(@params.To).Count() == 1;
+
+                if(isValidFrom && isValidTo)
                 {
-                    return true;
+                    if (IsValidDate(@params.From) && IsValidDate(@params.To))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
-
             return false;
         }
 

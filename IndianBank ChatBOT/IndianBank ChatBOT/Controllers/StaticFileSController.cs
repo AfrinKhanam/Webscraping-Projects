@@ -106,12 +106,18 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var staticFile = _dbContext.StaticPages.FirstOrDefault(file => file.Id == staticFileId);
 
-            if (staticFile != null && !string.IsNullOrWhiteSpace(staticFile.FileData))
+            if (staticFile != null)
             {
-                return Content(ToBase64Decode(staticFile.FileData), "text/html");
+                if (!string.IsNullOrWhiteSpace(staticFile.FileData))
+                    return Content(ToBase64Decode(staticFile.FileData), "text/html");
             }
+            var result = new ContentResult
+            {
+                StatusCode = 404,
+                Content = "Page not found!"
+            };
 
-            return null;
+            return result;
         }
 
         [HttpPost]
@@ -125,6 +131,20 @@ namespace IndianBank_ChatBOT.Controllers
                 return File(bytes, "text/html", staticFile.FileName);
             }
             return NotFound($"File with the Id {staticFileId} is not found");
+        }
+
+        private bool IsFileHasDangerousContent(string fileContent)
+        {
+            string[] suspiciousContents = _appSettings.StaticFileSuspiciousContentsCSV.Split(',');
+
+            foreach (string x in suspiciousContents)
+            {
+                if (fileContent.Contains(x))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         [HttpPost]
@@ -173,18 +193,29 @@ namespace IndianBank_ChatBOT.Controllers
                         staticPage.FileData = Convert.ToBase64String(target.ToArray());
                     }
 
-                    _dbContext.StaticPages.Add(staticPage);
-                    _dbContext.SaveChanges();
+                    var content = Content(ToBase64Decode(staticPage.FileData), "text/html");
+                    
+                    var isSafeFile = IsFileHasDangerousContent(content.Content);
 
-                    var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
+                    if (isSafeFile)
+                    {
+                        _dbContext.StaticPages.Add(staticPage);
+                        _dbContext.SaveChanges();
 
-                    var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
-                    var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
-                    staticFile.PageUrl = staticFileContentUrl;
-                    _dbContext.StaticPages.Update(staticFile);
-                    _dbContext.SaveChanges();
+                        var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
 
-                    return Ok("File uploaded successfully ");
+                        var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
+                        var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
+                        staticFile.PageUrl = staticFileContentUrl;
+                        _dbContext.StaticPages.Update(staticFile);
+                        _dbContext.SaveChanges();
+
+                        return Ok("File uploaded successfully ");
+                    }
+                    else
+                    {
+                        return BadRequest("Suspicious file content found.! Please upload a plain HTML");
+                    }
                 }
             }
             return BadRequest("Invalid Input");
