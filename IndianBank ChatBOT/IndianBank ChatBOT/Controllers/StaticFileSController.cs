@@ -108,8 +108,11 @@ namespace IndianBank_ChatBOT.Controllers
 
             if (staticFile != null)
             {
+                var htmlSanitizer = new HtmlSanitizer();
+                var sanitizedHtml = htmlSanitizer.Sanitize(ToBase64Decode(staticFile.FileData));
+
                 if (!string.IsNullOrWhiteSpace(staticFile.FileData))
-                    return Content(ToBase64Decode(staticFile.FileData), "text/html");
+                    return Content(sanitizedHtml, "text/html");
             }
             var result = new ContentResult
             {
@@ -193,24 +196,36 @@ namespace IndianBank_ChatBOT.Controllers
                         staticPage.FileData = Convert.ToBase64String(target.ToArray());
                     }
 
-                    var content = Content(ToBase64Decode(staticPage.FileData), "text/html");
-                    
-                    var isSafeFile = IsFileHasDangerousContent(content.Content);
+                    var contentResult = Content(ToBase64Decode(staticPage.FileData), "text/html");
+
+                    var isSafeFile = IsFileHasDangerousContent(contentResult.Content);
 
                     if (isSafeFile)
                     {
-                        _dbContext.StaticPages.Add(staticPage);
-                        _dbContext.SaveChanges();
+                        try
+                        {
+                            var htmlSanitizer = new HtmlSanitizer();
+                            var sanitizedHtml = htmlSanitizer.Sanitize(contentResult.Content);
 
-                        var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
+                            staticPage.FileData = EncodeToBase64(sanitizedHtml);
 
-                        var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
-                        var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
-                        staticFile.PageUrl = staticFileContentUrl;
-                        _dbContext.StaticPages.Update(staticFile);
-                        _dbContext.SaveChanges();
+                            _dbContext.StaticPages.Add(staticPage);
+                            _dbContext.SaveChanges();
 
-                        return Ok("File uploaded successfully ");
+                            var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
+
+                            var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
+                            var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
+                            staticFile.PageUrl = staticFileContentUrl;
+                            _dbContext.StaticPages.Update(staticFile);
+                            _dbContext.SaveChanges();
+
+                            return Ok("File uploaded successfully ");
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest("Failed process your file. Please try again later.");
+                        }
                     }
                     else
                     {
@@ -220,6 +235,15 @@ namespace IndianBank_ChatBOT.Controllers
             }
             return BadRequest("Invalid Input");
         }
+
+
+        private string EncodeToBase64(string toEncode)
+        {
+            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
+        }
+
 
         [HttpGet]
         public IActionResult UpdatePageConfigById(int id, string pageConfig)
