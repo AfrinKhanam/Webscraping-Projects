@@ -68,7 +68,9 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             }
             if (!Regex.IsMatch(mobileNumber, "^(\\+\\d{1,3}[- ]?)?\\d{10}$"))
             {
-                await pc.Context.SendActivityAsync("Invalid Mobile Number. Please enter a valid 10-Digit number.");
+                // await pc.Context.SendActivityAsync("Invalid Mobile Number. Please enter a valid 10-Digit number.");
+                await pc.Context.SendActivityAsync("Please enter a valid 10-Digit number");
+
                 return false;
             }
             return true;

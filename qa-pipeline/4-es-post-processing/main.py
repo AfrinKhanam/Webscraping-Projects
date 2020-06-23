@@ -21,9 +21,9 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         if len(document['ES_RESULT']['DOCUMENTS']) != 0:
-            # es_post_processing.MainTitlePrioritization(document)
-            document,bucket1,bucket2,bucket3 = es_post_processing.main_title_prioritization(document)
-            es_post_processing.subtitle_prioritization(bucket1,bucket2,bucket3,document)
+            es_post_processing.MainTitlePrioritization(document)
+            # document,bucket1,bucket2,bucket3 = es_post_processing.main_title_prioritization(document)
+            # es_post_processing.subtitle_prioritization(bucket1,bucket2,bucket3,document)
 
 
         #---------------------------------------------------------------#
@@ -35,7 +35,7 @@ def callback(ch, method, properties, body):
 
         #--------- LOGGING ---------------------------------------------#
         log['OUTGOING'] = document
-        # print(json.dumps(log, indent=4) )
+        print(json.dumps(log, indent=4) )
         #---------------------------------------------------------------#
 
         return

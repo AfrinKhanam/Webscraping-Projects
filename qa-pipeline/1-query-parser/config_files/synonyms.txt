@@ -80,5 +80,6 @@ Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
 pos=point of sale
 asba=applications supported by Blocked Amount
-customer=beneficiary
-limit=revolving credit
+jlg=Joint Liability Group
+MACAD=Motor Accident Claim Tribunal Deposit
+tenure=tenor

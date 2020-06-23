@@ -325,9 +325,9 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 Console.WriteLine(generalIntent, generalIntentScore);
 
-                BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
-                BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
-                BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
+                // BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
+                // BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
+                // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
                 string conversationID = dc.Context.Activity.Conversation.Id;
                 UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
