@@ -26,7 +26,7 @@ offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=di
 wish=want=prefered
 look=see=view=lk
 agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro
-eligibility=ability= apply=criteria=can
+eligibility=ability=criteria=can
 minimum=min
 apply=place=join
 criteria=norms=rule=prototype
@@ -45,8 +45,8 @@ associated=correlated=combined=joined=mixed=mingle
 regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
 produce=production=yield=outcome
 know=be aware=inquire=have knowledge=understand
-tenure=term=period=time=span=duration=AM=PM
-purchase=buy=obtain
+tenure=period=time=span=duration
+purchase=buy
 involving=relate
 amount=amt=cash=money=payment
 rate of interest=interest rate
@@ -83,3 +83,10 @@ asba=applications supported by Blocked Amount
 jlg=Joint Liability Group
 MACAD=Motor Accident Claim Tribunal Deposit
 tenure=tenor
+ICKSL=IND COVID KCC SAHAYA LOAN
+ICEPL=IND COVID EMERGENCY POULTRY LOAN
+frequently=Periodicity
+BSBDA=Basic Savings Bank Deposit Account
+point of sale=pos
+cvo=Chief Vigilance officer
+image=Acronym For Indian Bank Management Academy For Growth And Excellence

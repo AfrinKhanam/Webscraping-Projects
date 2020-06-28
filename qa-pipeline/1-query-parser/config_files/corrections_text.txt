@@ -30,3 +30,4 @@ accepet:accepted
 pupose:purpose
 vahaan:vaahan
 debits:debit
+lost:loss

@@ -34,6 +34,7 @@ def callback(ch, method, properties, body):
 
         #--------- LOGGING ---------------------------------------------#
         log['OUTGOING'] = document
+
         # print(json.dumps(log, indent=4) )
         #---------------------------------------------------------------#
 
