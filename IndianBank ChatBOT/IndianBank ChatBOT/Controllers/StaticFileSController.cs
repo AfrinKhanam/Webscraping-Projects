@@ -106,12 +106,21 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var staticFile = _dbContext.StaticPages.FirstOrDefault(file => file.Id == staticFileId);
 
-            if (staticFile != null && !string.IsNullOrWhiteSpace(staticFile.FileData))
+            if (staticFile != null)
             {
-                return Content(ToBase64Decode(staticFile.FileData), "text/html");
-            }
+                var htmlSanitizer = new HtmlSanitizer();
+                var sanitizedHtml = htmlSanitizer.Sanitize(ToBase64Decode(staticFile.FileData));
 
-            return null;
+                if (!string.IsNullOrWhiteSpace(staticFile.FileData))
+                    return Content(sanitizedHtml, "text/html");
+            }
+            var result = new ContentResult
+            {
+                StatusCode = 404,
+                Content = "Page not found!"
+            };
+
+            return result;
         }
 
         [HttpPost]
@@ -125,6 +134,20 @@ namespace IndianBank_ChatBOT.Controllers
                 return File(bytes, "text/html", staticFile.FileName);
             }
             return NotFound($"File with the Id {staticFileId} is not found");
+        }
+
+        private bool IsFileHasDangerousContent(string fileContent)
+        {
+            string[] suspiciousContents = _appSettings.StaticFileSuspiciousContentsCSV.Split(',');
+
+            foreach (string x in suspiciousContents)
+            {
+                if (fileContent.Contains(x))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         [HttpPost]
@@ -173,22 +196,54 @@ namespace IndianBank_ChatBOT.Controllers
                         staticPage.FileData = Convert.ToBase64String(target.ToArray());
                     }
 
-                    _dbContext.StaticPages.Add(staticPage);
-                    _dbContext.SaveChanges();
+                    var contentResult = Content(ToBase64Decode(staticPage.FileData), "text/html");
 
-                    var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
+                    var isSafeFile = IsFileHasDangerousContent(contentResult.Content);
 
-                    var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
-                    var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
-                    staticFile.PageUrl = staticFileContentUrl;
-                    _dbContext.StaticPages.Update(staticFile);
-                    _dbContext.SaveChanges();
+                    if (isSafeFile)
+                    {
+                        try
+                        {
+                            var htmlSanitizer = new HtmlSanitizer();
+                            var sanitizedHtml = htmlSanitizer.Sanitize(contentResult.Content);
 
-                    return Ok("File uploaded successfully ");
+                            staticPage.FileData = EncodeToBase64(sanitizedHtml);
+
+                            _dbContext.StaticPages.Add(staticPage);
+                            _dbContext.SaveChanges();
+
+                            var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
+
+                            var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
+                            var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
+                            staticFile.PageUrl = staticFileContentUrl;
+                            _dbContext.StaticPages.Update(staticFile);
+                            _dbContext.SaveChanges();
+
+                            return Ok("File uploaded successfully ");
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest("Failed process your file. Please try again later.");
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Suspicious file content found.! Please upload a plain HTML");
+                    }
                 }
             }
             return BadRequest("Invalid Input");
         }
+
+
+        private string EncodeToBase64(string toEncode)
+        {
+            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
+        }
+
 
         [HttpGet]
         public IActionResult UpdatePageConfigById(int id, string pageConfig)
