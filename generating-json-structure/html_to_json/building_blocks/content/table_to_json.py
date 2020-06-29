@@ -1,4 +1,5 @@
 #---------------------------------------------------------------------#
+import json
 from building_blocks.utils.utils import strip_tags
 from building_blocks.content.paragraph_to_json import parse_paragraph
 from building_blocks.content.list_to_json import parse_ul_to_json
@@ -21,6 +22,7 @@ def parse_inner_table(dom):
                 return parse_inner_table(table_dom)
 
             text['table']['keys'] = get_inner_table_keys(ele)
+            #print("table keys-->\n",text['table']['keys'])
     #--------------------------------------------------------------#
 
     #--------------------------------------------------------------#
@@ -103,6 +105,9 @@ def parse_table_to_json(dom):
                     if column.name is not None:
                         idx += 1
                         if idx % 2 == 0:
+                            #print("executing idx%2 condition")
+                            
+			
                             column = replace_tag(column)
 
                             for ele in column.contents:
@@ -114,12 +119,18 @@ def parse_table_to_json(dom):
                                     if text != None: value.append(text)
 
                                 elif ele.name == 'table':
+                                    #print("executing table condition")
+				    
                                     value.append(parse_inner_table(ele))
 
                                 elif len(ele) != 0 and ele != '\n':
+                                    #print("executing len condition")
+				    
                                     #print([ele])
                                     value.append(ele)
                         else:
+                            #print("executing else condition")
+			    
                             if column.find('table'):
                                 key = ""
                                 return parse_table_to_json(column.find('table'))

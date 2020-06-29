@@ -1,0 +1,24 @@
+{
+
+	"https://indianbank.in/departments/ib-gen-x-for-the-vibrant-youth/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "savings bank account"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

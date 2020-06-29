@@ -5,6 +5,7 @@ import array as arr
 
 ib_surabhi_path = "./ManuallyScrapedData/IbSurabhi.json"
 ibCollectionPlus="./ManuallyScrapedData/IbCollectPlus.json"
+IbVCollectPlus = './ManuallyScrapedData/IbVCollectPlus.json'
 CentralSchemeToProvideInterestSubsidy="./ManuallyScrapedData/CentralSchemeToProvideInterestSubsidy.json"
 CentralizedPensionProcessingSystem = "./ManuallyScrapedData/CentralizedPensionProcessingSystem.json"
 image="./ManuallyScrapedData/image.json"
@@ -19,24 +20,32 @@ IndPay="./ManuallyScrapedData/IndPay.json"
 SupremeCurrentAccounts="./ManuallyScrapedData/SupremeCurrentAccounts.json"
 DepositRates="./ManuallyScrapedData/DepositRates.json"
 ujjivanBank="./ManuallyScrapedData/ujjivansfb_in_corporate_salary_account.json"
-demo="./ManuallyScrapedData/demo.json"
 
 json_files = [
-        # ib_surabhi_path,
-        # ibCollectionPlus,
-        # CentralSchemeToProvideInterestSubsidy,
-        # CentralizedPensionProcessingSystem,
-        # image,
-        # ExecutiveDirectorsProfile,
-        # EConfirmationOfBankGuarantee,
-        # ComplaintsOfficersList,
-        # IndianBankMutualFund,
-        ServiceChargesForexRates,
+        IbVCollectPlus,
+        #ib_surabhi_path,
+       # ibCollectionPlus,
+       # CentralSchemeToProvideInterestSubsidy,
+        #CentralizedPensionProcessingSystem,
+        #image,
+        #ExecutiveDirectorsProfile,
+       # EConfirmationOfBankGuarantee,
+        #ComplaintsOfficersList,
+#        IndianBankMutualFund,
+        #ServiceChargesForexRates,
 
-        # LendingRates,
-        # InternetBanking,IndPay,
-        # SupremeCurrentAccounts,DepositRates
+        #LendingRates,
+
+        InternetBanking,
+        #IndPay,
+        #SupremeCurrentAccounts,DepositRates
         # ujjivanBank
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/ServiceChargesForexRates.json',
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/LendingRates.json',
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/ind_sme_e_vaahan.json',
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/ib_doctor_plus.json',
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/IndPay.json',
+        #'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/manual_html_to_json/ManuallyScrapedData/json_v2/general_managers.json'
         ]
 documents = []
 

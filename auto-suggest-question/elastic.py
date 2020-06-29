@@ -46,16 +46,16 @@ class Elastic():
 
 elastic = Elastic()
 
-'''
+
 with open('./auto-suggestion-question-v2.json') as file:
     question_list = json.loads(file.read())
 
     for question in question_list:
         elastic.index_document(question)
-'''
+
    
 
 
 
-result = elastic.search_with_original_query('cold', 'jewel loan')
-print(json.dumps(result, indent=4))
+# result = elastic.search_with_original_query('cold', 'jewel loan')
+# print(json.dumps(result, indent=4))

@@ -1,10 +1,14 @@
 import json
 def faq_for_amalgamation(document):
-    # json.dumps(document,indent=4)
+    #print("*********************",document)
     table = document['subtitle']['elements'][0]['content'][0]['table']
 
     for record in table:
-        record['value'] += [ record['key'] ]
+        key = record['key']
+        value = record['value']
+        record['key'] = value[0] #for tables having 3 columns
+        record['value'] = [key]
 
-
+    #print("************************",document)
     return document
+

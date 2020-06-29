@@ -1,0 +1,24 @@
+{
+
+	"https://indianbank.in/departments/ind-covid-kcc-sahaya-loan-icksl/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

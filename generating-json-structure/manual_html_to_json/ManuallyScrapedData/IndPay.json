@@ -25,7 +25,7 @@
                 "text": "Services offered:",
                 "content": [
                     {
-                        "text": "Financial Services",
+                        "text": "",
                         "table": [
                             {
                                 "key": "Financial Services-Fund Transfer within Indian Bank",
@@ -43,6 +43,7 @@
                                 "key": "Financial Services-Recharge and Bill Pay",
                                 "value": [
                                     "Recharge and Bill Pay : \n Pay Bills for gas, electricity, water, DTH and broadband/ landline can be paid"
+                                  
                                 ]
                             },
                             {
@@ -50,28 +51,26 @@
                                 "value": [
                                     "Opening of account:\n Open Term Deposit Account- RD/ FD/VRD/STD/MMD"
                                 ]
-                            }
-                        ]
-                    },
-                    {
-                        "text": "Non-Financial Services",
-                        "table": [
+                            },
                             {
                                 "key": "Non-Financial Services-Account Related:",
                                 "value": [
                                     "Account Related : \n Balance Enquiry \n mPassbook- mini statement with last 50 transactions."
+                                   
                                 ]
                             },
                             {
                                 "key": "Non-Financial Services-Cheque Related Services",
                                 "value": [
                                     "Cheque Related Services : \n Stop payment of cheque \n Raise Cheque book request"
+                                  
                                 ]
                             },
                             {
                                 "key": "Non-Financial Services-Password Related:",
                                 "value": [
                                     "Password Related: \n Change/reset  MPIN and MTPIN \n Forgot Password – MPIN/MTPIN"
+                                    
                                 ]
                             },
                             {
@@ -84,12 +83,14 @@
                                 "key": "Languages Available:",
                                 "value": [
                                     "English \n Hindi \n Tamil \n Marati \n Gujarati \n Malayalam"
+                                    
                                 ]
                             }
                         ]
                     }
                 ]
             }
+           
         ]
     }
 }
