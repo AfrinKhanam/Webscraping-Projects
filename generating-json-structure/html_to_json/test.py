@@ -75,6 +75,7 @@ annual_general_meeting = about_us + "annual_general_meeting.json"
 shareholding_pattern = about_us + "shareholding_pattern.json"
 annual_reports = about_us + "annual_reports.json"
 image = about_us + "image.json"
+investors_service = about_us + "investors_service.json" 
 # ----------------------------------------------------------- #
 
 
@@ -256,150 +257,165 @@ press_releases = news_path + 'press_releases.json'
 damodaran_committee_recommendations = news_path + 'damodaran_committee_recommendations.json'
 remit_of_india = news_path + 'remit_of_india.json'
 
+#--------------------------MSME (Loan)-------------------------------------------
+msme_path = './config_files/config_files_v2/loans/msme/'
+ib_standby_wc_facility_for_msmes = msme_path + 'ib_standby_wc_facility_for_msmes.json'
+ind_surya_shakti = msme_path + 'ind_surya_shakti.json'
+ind_sme_ease = msme_path + 'ind_sme_ease.json'
+ib_doctor_plus = msme_path + 'ib_doctor_plus.json'
+ind_sme_e_vaahan = msme_path + 'ind_sme_e_vaahan.json'
+agri_joint_liability_group = msme_path + 'agri_joint_liability_group.json'
 json_files = [
-#'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/html_to_json/config_files/config_files_v2/loans/agri_joint_liability_group.json'
+# '/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/html_to_json/config_files/config_files_v2/loans/agri_joint_liability_group.json',
 #--------------------------CORPORATE-------------------------------------------
-#corporate_credit,
-#working_capital,
-#term_loan,
-#corporate,
-#bonus_loan,
-#covid_emergency_credit_line,
-#loans_against_lease_rentals,
+# corporate_credit,
+# working_capital,
+# term_loan,
+# corporate,
+# bonus_loan,
+# covid_emergency_credit_line,
+# loans_against_lease_rentals,
 
 #--------------------------SAVINGS BANK ACCOUNT(DEPOSITS NEW)-------------------------------------------
-#ib_sammaan,
-#mahila_shakti_for_women,
-#ib_kishore,
-#ib_gen_x,
-#ib_salaam,
-#sba_for_pensioners,
-#ib_digi,
-#small_account,
-#sb_for_students_under_govt_scholarship,
-#sb_for_central_state_govt,
-#mact_sb,
+# ib_sammaan,
+# mahila_shakti_for_women,
+# ib_kishore,
+# ib_gen_x,
+# ib_salaam,
+# sba_for_pensioners,
+# ib_digi,
+# small_account,
+# sb_for_students_under_govt_scholarship,
+# sb_for_central_state_govt,
+# mact_sb,
 #--------------------------CURRENT ACCOUNT(DEPOSITS NEW)-------------------------------------------
-#ib_comfort,
-#ca_for_state_central_govt,
+# ib_comfort,
+# ca_for_state_central_govt,
 #--------------------------TERM DEPOSITS(DEPOSITS NEW)-------------------------------------------
-#money_mutiplier_deposits,
-#short_term_depoits,
-#motor_accident_claim,
+# money_mutiplier_deposits,
+# short_term_depoits,
+# motor_accident_claim,
 #-------------------------COVID PRODUCTS-------------------------------------------
-#covid_reassessment,
-#emergency_credit_line,
-#ind_gecls_covid_19,
-#covid_emergency_salary_loan,
-#covid_emergency_pension_loan,
-#shg_covid_sahayak_loan,
-#ind_covid_kcc_sahaya_loan,
-#iceapl,
-#ind_covid_emergency_poultry_loan,
-#ind_mse_covid_emergency_loan,
+# covid_reassessment,
+# emergency_credit_line,
+# ind_gecls_covid_19,
+# covid_emergency_salary_loan,
+# covid_emergency_pension_loan,
+# shg_covid_sahayak_loan,
+# ind_covid_kcc_sahaya_loan,
+# iceapl,
+# ind_covid_emergency_poultry_loan,
+# ind_mse_covid_emergency_loan,
 #--------------------------ALLAHABAD BANK-------------------------------------------
-#md_ceo_msg_on_allahabad_bank,
-#faqs_for_amalgamation,
-#amalgamation_of_allahabad_into_indianbank,
-#e_allahabad_bank_corner,
+# md_ceo_msg_on_allahabad_bank,
+# faqs_for_amalgamation,
+# amalgamation_of_allahabad_into_indianbank,
+# e_allahabad_bank_corner,
 #--------------------------LINKS-------------------------------------------
-#online_services,
-#slbc_puducherry,
-#colombo_branch, #not done
-#jaffna_branch, #not done
-#image,
+# online_services,
+# slbc_puducherry,
+# colombo_branch, #not done
+# jaffna_branch, #not done
+# image,
 #--------------------------NEWS-------------------------------------------
-#notifications,  #not done
-#corporate_social_responsibility,
-#news_letter,
-#what_is_new, #not done
-#press_releases,
-#damodaran_committee_recommendations,
-#banking_ombudsman,
+# notifications,  #not done
+# corporate_social_responsibility,
+news_letter,
+what_is_new, #not done
+press_releases,
+damodaran_committee_recommendations,
+# banking_ombudsman,
 remit_of_india,
 
+#--------------------------MSME-------------------------------------------
 
-#bank_profile,
+# ib_standby_wc_facility_for_msmes,
+# ind_sme_ease,
+# ind_surya_shakti,
+# ib_doctor_plus,
+# ind_sme_e_vaahan,
 
-#vision_mission,
-#managing_director_profile,
 
-#board_of_director,
-#cheif_vigilance_officer,
+# investors_service,
+# bank_profile,
 
-#corporate_governance,
-#nodal_officers,
-#annual_general_meeting,
-#shareholding_pattern,
-#annual_reports,
-#image, 
+# vision_mission,
+# managing_director_profile,
 
-#head_office, 
-#department,
-#executives,
-#image_email,
-#foreign_branches,
-#overseas_branches,
-#nri_branches,
-#zonal_offices,
-#e_confirmation_bank_guarantee,
-#        
+# board_of_director,
+# cheif_vigilance_officer,
+
+# corporate_governance,
+# nodal_officers,
+# annual_general_meeting,
+# shareholding_pattern,
+# annual_reports,
+# image, 
+
+# head_office, 
+# department,
+# executives,
+# image_email,
+# foreign_branches,
+# overseas_branches,
+# nri_branches,
+# zonal_offices,
+# e_confirmation_bank_guarantee,
+       
 #        death_claim,
-#customer_complaints,
-#quick_contacts,
+# customer_complaints,
+# quick_contacts,
 
-#rates_deposit,
-#rates_forex,
-#        
-#services_doorstep_banking,
-#services_e_payment_indirect_tax,
-#services_debenture_trustee,
-#services_e_payment_direct_tax,
+# rates_deposit,
+# rates_forex,
+# services_doorstep_banking,
+# services_e_payment_indirect_tax,
+# services_debenture_trustee,
+# services_e_payment_direct_tax,
 
-#services_chhatra,
-#services_ib_home_security,
-#services_jeevan_kalyan,
-#services_universal_health_care,
-#services_vidyarthi_suraksha,
-#services_griha_jeevan,
-#services_jana_shree_bhima_yojana,
-#services_jeevan_vidya,
-#services_jana_varishtha,
-#services_yatra_suraksha,
+# services_chhatra,
+# services_ib_home_security,
+# services_jeevan_kalyan,
+# services_universal_health_care,
+# services_vidyarthi_suraksha,
+# services_griha_jeevan,
+# services_jana_shree_bhima_yojana,
+# services_jeevan_vidya,
+# services_jana_varishtha,
+# services_yatra_suraksha,
 
 
 
 
 #    agriculture_config_file,
-#   personal_config_file,
+#   personal_config_file, #------------PENDING
 
 #   msme_config_file,
-#'/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/html_to_json/config_files/config_files_v2/loans/abc.json',
-#nri_config_file,
-#   
+# nri_config_file,
+  
 #   saving_config_file,
 #   current_config_file,
 #   term_config_file,
-#   depoit_nri_config_file,
+#   depoit_nri_config_file,#------------PENDING
 
 #   pos_config_file,
 #    digital_cash_pos_config_file,
 #   digital_debit_card,
-#digital_ib_collect_plus,
-#digital_ib_v_collect_plus,
-#digital_sms_banking,
+# digital_ib_collect_plus,
+# digital_ib_v_collect_plus,
+# digital_sms_banking,
 
 # featured_config_file,
-#services_credit_card,
-#services_atm_debit_cards,
-#services_ind_netbanking,
-#services_money_gram,
-#services_neft,
-#services_xpress_money,
-#services_ind_mobile_banking,
-#services_mca_payment,
-#services_multicity_cheque_facility,
-#services_rtgs,
+# services_credit_card,
+# services_atm_debit_cards,
+# services_ind_netbanking,
+# services_money_gram,
+# services_neft,
+# services_xpress_money,
+# services_ind_mobile_banking,
+# services_mca_payment,
+# services_multicity_cheque_facility,
+# services_rtgs,
 
 ]
 print("length of json files-----------> ",len(json_files))

@@ -1,12 +1,12 @@
 {
-
-	"https://indianbank.in/departments/ind-covid-emergency-agro-proc-loan-iceapl/" : {
+    "https://indianbank.in/departments/ind-surya-shakti/" : {
+		"post_processing" : true,
 		"page_hierarchy" : {
 			"domain" : "loan",
-			"class" : "agriculture"
+			"class" : "msme"
 		},
 
-		"subtitle_pattern" : "<strong>.*</strong>",
+		"subtitle_pattern" : null,
 		"html" : {
 			"main_title" : {
 				"tag" : "h1",
@@ -21,4 +21,5 @@
 
 		}
 	}
+
 }

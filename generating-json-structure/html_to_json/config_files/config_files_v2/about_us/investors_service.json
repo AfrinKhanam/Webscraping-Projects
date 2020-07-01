@@ -1,9 +1,8 @@
 {
-
-	"https://indianbank.in/departments/ind-covid-emergency-agro-proc-loan-iceapl/" : {
+	"https://indianbank.in/departments/investors-service/" : {
 		"page_hierarchy" : {
-			"domain" : "loan",
-			"class" : "agriculture"
+			"domain" : "about us",
+			"class" : "investors service"
 		},
 
 		"subtitle_pattern" : "<strong>.*</strong>",
@@ -20,5 +19,5 @@
 
 
 		}
-	}
+    }
 }

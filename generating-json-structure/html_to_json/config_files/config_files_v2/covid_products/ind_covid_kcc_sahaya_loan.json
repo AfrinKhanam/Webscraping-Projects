@@ -6,7 +6,7 @@
 			"class" : "agriculture"
 		},
 
-		"subtitle_pattern" : "<h3>.*</h3>",
+		"subtitle_pattern" : "<strong>.*</strong>",
 		"html" : {
 			"main_title" : {
 				"tag" : "h1",

@@ -1,13 +1,13 @@
 
 {
 
-	"https://www.indianbank.in/departments/applications-supported-by-blocked-amount/" : {
+	"https://indianbank.in/departments/ib-v-collect-plus-2/" : {
 		"page_hierarchy" : {
 			"domain" : "deposit",
 			"class" : "featured product / services/ Schemes"
 		},
 
-		"subtitle_pattern" : "<h3>.*</h3>",
+		"subtitle_pattern" : "<strong>.*</strong>",
 		"html" : {
 			"main_title" : {
 				"tag" : "h1",
