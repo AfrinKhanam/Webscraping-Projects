@@ -18,9 +18,9 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
                     new CardAction(type: ActionTypes.ImBack, title: "Who is the Managing Director of Indian Bank?", value: "Who is the Managing Director of Indian Bank?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "How much profit does IB make?", value: "How much profit does IB make?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "how many sub service areas have been alotted to inidan bank under financial inclusion?", value: "how many sub service areas have been alotted to inidan bank under financial inclusion?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What awards have Inidan bank won?", value: "What awards have Inidan bank won?")
+                    new CardAction(type: ActionTypes.ImBack, title: "Who all are the current executive director of indian bank?", value: "Who all are the current executive director of indian bank?"),
+                    new CardAction(type: ActionTypes.ImBack, title: "What is the Official address of chief vigiliance officer?", value: "What is the Official address of chief vigiliance officer?"),
+                    new CardAction(type: ActionTypes.ImBack, title: "Who all are the General Managers of indian bank in different division?", value: "who all are the General Managers of indian bank in different division?")
                 });
             }
         }
@@ -47,7 +47,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                     new CardAction(type: ActionTypes.ImBack, title: "Who are in the board of directors?", value: "Who are in the board of directors?"),
                     new CardAction(type: ActionTypes.ImBack, title: "Who is the executive director?", value: "Who is the executive director?"),
                     new CardAction(type: ActionTypes.ImBack, title: "Who is the Government Nominee Director?", value: "Who is the Government Nominee Director?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Who is the RBI Nominee?", value: "Who is the RBI Nominee?")
+                    new CardAction(type: ActionTypes.ImBack, title: "Who is the RBI Nominee Director?", value: "Who is the RBI Nominee Director?")
                 });
             }
         }
@@ -84,9 +84,9 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
-                    new CardAction(type: ActionTypes.ImBack, title: "What is IB Mutual Fund?", value: "What is IB Mutual Fund?"),
+                    new CardAction(type: ActionTypes.ImBack, title: "What is IB Mutual Fund?", value: "indian bank mutual fund formed"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is Ind TaxShield?", value: "What is Ind TaxShield?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Which office do i have to contact for Redemption Form?", value: "Which office do i have to contact for Redemption Form?")
+                    new CardAction(type: ActionTypes.ImBack, title: "Which office do i have to contact for Redemption Form?", value: "IB Mutual Fund")
                 });
             }
         }
@@ -284,10 +284,9 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
+                    new CardAction(type: ActionTypes.ImBack, title: "What is the lending rate?", value: "What is the lending rate?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the lending rate on personal segment loan products?", value: "What is the lending rate on personal segment loan products?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the lending rate for MSME loans?", value: "What is the lending rate for MSME loans?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the lending rate on Agricultural Products?", value: "What is the lending rate on Agricultural Products?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the lending rate on Rupee Export Credit?", value: "What is the lending rate on Rupee Export Credit?")
                 });
             }
         }
@@ -300,7 +299,6 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 {
                     new CardAction(type: ActionTypes.ImBack, title: "What are service charges on Forex Rate Cards?", value: "What are service charges on Forex Rate Cards?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What are the service charges on Forex transactions?", value: "What are the service charges on Forex transactions?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the rent on lockers?", value: "What is the rent on lockers?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What are the service charges on Loans and Advances?", value: "What are the service charges on Loans and Advances?")
                 });
             }

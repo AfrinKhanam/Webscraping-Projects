@@ -264,7 +264,7 @@ ind_surya_shakti = msme_path + 'ind_surya_shakti.json'
 ind_sme_ease = msme_path + 'ind_sme_ease.json'
 ib_doctor_plus = msme_path + 'ib_doctor_plus.json'
 ind_sme_e_vaahan = msme_path + 'ind_sme_e_vaahan.json'
-agri_joint_liability_group = msme_path + 'agri_joint_liability_group.json'
+agri_joint_liability_group = './config_files/config_files_v2/loans/' + 'agri_joint_liability_group.json'
 json_files = [
 # '/home/ubuntuvm/MissionImpossible/indian-bank-v2.2.4/IndianBank-KBOT/generating-json-structure/html_to_json/config_files/config_files_v2/loans/agri_joint_liability_group.json',
 #--------------------------CORPORATE-------------------------------------------
@@ -314,18 +314,18 @@ json_files = [
 #--------------------------LINKS-------------------------------------------
 # online_services,
 # slbc_puducherry,
-# colombo_branch, #not done
+colombo_branch, #not done
 # jaffna_branch, #not done
 # image,
 #--------------------------NEWS-------------------------------------------
 # notifications,  #not done
 # corporate_social_responsibility,
-news_letter,
-what_is_new, #not done
-press_releases,
-damodaran_committee_recommendations,
+# news_letter,
+# what_is_new, #not done
+# press_releases,
+# damodaran_committee_recommendations,
 # banking_ombudsman,
-remit_of_india,
+# remit_of_india,
 
 #--------------------------MSME-------------------------------------------
 
@@ -334,6 +334,7 @@ remit_of_india,
 # ind_surya_shakti,
 # ib_doctor_plus,
 # ind_sme_e_vaahan,
+# agri_joint_liability_group,
 
 
 # investors_service,

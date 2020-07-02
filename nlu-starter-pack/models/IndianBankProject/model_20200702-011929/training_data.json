@@ -514,30 +514,6 @@
         "text": "feature products"
       },
       {
-        "intent": "product_intent",
-        "entities": [
-          {
-            "start": 0,
-            "end": 7,
-            "value": "schemes",
-            "entity": "product_entity"
-          }
-        ],
-        "text": "schemes"
-      },
-      {
-        "intent": "product_intent",
-        "entities": [
-          {
-            "start": 0,
-            "end": 6,
-            "value": "schemes",
-            "entity": "product_entity"
-          }
-        ],
-        "text": "scheme"
-      },
-      {
         "intent": "services_intent",
         "entities": [
           {
@@ -791,12 +767,6 @@
         "synonyms": [
           "missing",
           "forgotten"
-        ]
-      },
-      {
-        "value": "schemes",
-        "synonyms": [
-          "scheme"
         ]
       },
       {

@@ -22,10 +22,10 @@
                 ]
             },
             {
-                "text": "Services offered:",
+                "text": "",
                 "content": [
                     {
-                        "text": "Financial Services",
+                        "text": "Services offered:Financial Services",
                         "table": [
                             {
                                 "key": "Financial Services-Fund Transfer within Indian Bank",
@@ -54,10 +54,10 @@
                         ]
                         },
                         {
-                            "text": "Non-Financial Services",
+                            "text": "",
                             "table": [
                                 {
-                                    "key": "Non-Financial Services-Account Related:",
+                                    "key": "Non-Financial Services : Non-Financial Services-Account Related:",
                                     "value": [
                                         "Account Related : \n Balance Enquiry \n mPassbook- mini statement with last 50 transactions."
                                     ]

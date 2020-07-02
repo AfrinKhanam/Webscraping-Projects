@@ -273,6 +273,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// </exception>
         protected override async Task RouteAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
+            string utterance = dc.Context.Activity.Text;
+            int utterance_word_count = utterance.Split(" ").Length;
 
             _services.LuisServices.TryGetValue("general", out var luisService);
 
@@ -331,8 +333,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 string conversationID = dc.Context.Activity.Conversation.Id;
                 UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
-                // if (generalIntentScore > 0.32)
-                if (generalIntentScore > 0.5)
+                if (generalIntentScore > 0.7)
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
@@ -360,11 +361,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     {
                         await dc.Context.SendActivityAsync($"Looks like your query requires futher assistance. Please contact customer care immediately on the following number's : \n\n <tel:180042500000> /  <tel:18004254422>");
                     }
-                    else if (entityType == "aboutus_entity" || entityType == "product_entity" || entityType == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
-                        await dc.EndDialogAsync();
-                    }
                     else
                     {
                         await ExecuteRabbitMqQueryAsync(dc);
@@ -380,12 +376,69 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     ScrollBarDialog.DisplayScrollBarMenu(dc, entityName);
                     await dc.EndDialogAsync();
                 }
-                else if (entityType ==  "aboutus_entity" || entityType == "product_entity" || entityType  == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("services") || (utterance.Split(" ")[utterance_word_count - 1].Equals("plus")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("banking")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("payment")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("trust")))
                 {
-                    await dc.Context.SendActivityAsync("Display the pre-defined FAQ's");
-                    SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
-                    await dc.EndDialogAsync();
+                    if (utterance.Trim() == "premium services" || utterance.Trim() == "insurance services" || utterance.Trim() == "cms plus" || utterance.Trim() == "doorstep banking" || utterance.Trim() == "tax payment" || utterance.Trim() == "debenture trust")
+                    {
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        await dc.EndDialogAsync();
+                    }
+                    else
+                    {
+                        await ExecuteRabbitMqQueryAsync(dc);
+                    }
+                }
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("products"))
+                {
+                    if (utterance.Trim() == "loan products" || utterance.Trim() == "deposit products" || utterance.Trim() == "digital products" || utterance.Trim() == "feature products")
+                    {
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        await dc.EndDialogAsync();
+                    }
+                    else
+                    {
+                        await ExecuteRabbitMqQueryAsync(dc);
 
+                    }
+                }
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("rates")||utterance.Split(" ")[utterance_word_count - 1].Equals("charges"))
+                {
+                    if (utterance.Trim() == "deposit rates" || utterance.Trim() == "lending rates" || utterance.Trim() == "service charges")
+                    {
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        await dc.EndDialogAsync();
+                    }
+                    else
+                    {
+                        await ExecuteRabbitMqQueryAsync(dc);
+
+                    }
+                }
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("profiles")||utterance.Split(" ")[utterance_word_count - 1].Equals("mission")||utterance.Split(" ")[utterance_word_count - 1].Equals("management")||utterance.Split(" ")[utterance_word_count - 1].Equals("governance")||utterance.Split(" ")[utterance_word_count - 1].Equals("fund")||utterance.Split(" ")[utterance_word_count - 1].Equals("report"))
+                {
+                    if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management"|| utterance.Trim() == "management"|| utterance.Trim() == "corporate governance"|| utterance.Trim() == "mutual fund"|| utterance.Trim() == "annual report")
+                    {
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        await dc.EndDialogAsync();
+                    }
+                    else
+                    {
+                        await ExecuteRabbitMqQueryAsync(dc);
+
+                    }
+                }
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("service")||utterance.Split(" ")[utterance_word_count - 1].Equals("sites")||utterance.Split(" ")[utterance_word_count - 1].Equals("alliances"))
+                {
+                    if (utterance.Trim() == "online service" || utterance.Trim() == "related sites" || utterance.Trim() == "alliances")
+                    {
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        await dc.EndDialogAsync();
+                    }
+                    else
+                    {
+                        await ExecuteRabbitMqQueryAsync(dc);
+
+                    }
                 }
                 else
                 {
@@ -399,7 +452,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             await Task.FromResult(true);
         }
 
-        private async Task ExecuteRabbitMqQueryAsync(DialogContext dc)
+        public async Task ExecuteRabbitMqQueryAsync(DialogContext dc)
         {
             var rabbitMqQuery = dc.Context.Activity.Text;
 
@@ -494,43 +547,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             }
                         }
                     }
-                    //else if (value.action == "emi_cal")
-                    //{
-                    //    string principal = value.principal;
-                    //    string rate = value.rate;
-                    //    string time = value.time;
-                    //    if (!string.IsNullOrEmpty(principal) && !string.IsNullOrEmpty(rate) && !string.IsNullOrEmpty(time))
-                    //    {
-                    //        await CalculateEmiCalculateFormAsync(dc, Convert.ToInt32(principal), Convert.ToInt32(rate), Convert.ToInt32(time));
-                    //    }
-                    //    else if (string.IsNullOrEmpty(principal) && string.IsNullOrEmpty(rate) && string.IsNullOrEmpty(time))
-                    //    {
-                    //        await dc.Context.SendActivityAsync("Please fill the form");
-                    //       // await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildEmiCalculatorCard);
-                    //    }
-                    //    else
-
-                    //    {
-                    //        if (string.IsNullOrEmpty(principal) || string.IsNullOrEmpty(rate) || string.IsNullOrEmpty(time))
-                    //        {
-                    //            if (string.IsNullOrEmpty(principal))
-                    //            {
-                    //                await dc.Context.SendActivityAsync("Principal field cannot be empty.");
-                    //               // await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildEmiCalculatorCard);
-                    //            }
-                    //            else if (string.IsNullOrEmpty(rate))
-                    //            {
-                    //                await dc.Context.SendActivityAsync("Rate field cannot be empty.");
-                    //             //   await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildEmiCalculatorCard);
-                    //            }
-                    //            else
-                    //            {
-                    //                await dc.Context.SendActivityAsync("Time field cannot be empty.");
-                    //             //   await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildEmiCalculatorCard);
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                    
                     else if (value.action == "VehicleLoanSubmit")
                     {
                         dynamic LoanDetails = dc.Context.Activity.Value;

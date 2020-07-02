@@ -11,8 +11,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName)
         {
             //await dialogContext.Context.SendActivityAsync($"This is what I received from main Dialog {EntityName}");
-            await dialogContext.Context.SendActivityAsync("Please click on the options below or feel free to type your own query");
-
 
             switch (EntityName)
             {
@@ -47,9 +45,23 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         break;
                     }
                 default:
-                    await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
+                     ExecuteRabbitMqQueryAsync(dialogContext);
+
+                    // await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
                     break;
             }
+        }
+
+        public static void ExecuteRabbitMqQueryAsync(DialogContext dc)
+        {
+            var rabbitMqQuery = dc.Context.Activity.Text;
+
+            var context = string.Empty;
+
+
+            var data = MainDialog.rabbitMq(rabbitMqQuery, context);
+
+             MainDialog.DisplayBackendResult(dc, context, data);
         }
 
         public static async void BuildScrollBarMenu(DialogContext dialogContext, IList<CardAction> cardAction)

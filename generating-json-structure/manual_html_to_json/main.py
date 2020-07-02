@@ -19,18 +19,18 @@ general_managers = "./ManuallyScrapedData/json_v2/general_managers.json"
 cms_plus = "./ManuallyScrapedData/json_v2/cms_plus.json"
 
 json_files = [
-    # CentralSchemeToProvideInterestSubsidy,
-    # CentralizedPensionProcessingSystem,
-    # image,
-    # ExecutiveDirectorsProfile,
-    # EConfirmationOfBankGuarantee,
-    # ComplaintsOfficersList,
+    CentralSchemeToProvideInterestSubsidy,
+    CentralizedPensionProcessingSystem,
+    image,
+    ExecutiveDirectorsProfile,
+    EConfirmationOfBankGuarantee,
+    ComplaintsOfficersList,
     IndianBankMutualFund,
-    # ServiceChargesForexRates,
-    # LendingRates,
+    ServiceChargesForexRates,
+    LendingRates,
     InternetBanking,
-    # IndPay,
-    # DepositRates,
+    IndPay,
+    DepositRates,
     cms_plus
 ]
 documents = []

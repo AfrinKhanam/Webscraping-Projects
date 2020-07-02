@@ -1,7 +1,6 @@
 {
   "missing": "lost",
   "forgotten": "lost",
-  "scheme": "schemes",
   "atm": "atm_entity",
   "atm branch": "atm_entity",
   "atm point": "atm_entity",
