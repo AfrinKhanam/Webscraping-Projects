@@ -22,7 +22,7 @@ class UpdateSynonyms:
 
             value="\n".join(synonyms)
             print("synonyms------>> ",value)
-            file = open(self.ROOT_DIR+"/1-query-parser/config_files/synonyms.txt","a") 
+            file = open(self.ROOT_DIR+"/1-query-parser/config_files/synonyms.txt","w+") 
             file.write(value)
             file.close() 
             # print(file)
