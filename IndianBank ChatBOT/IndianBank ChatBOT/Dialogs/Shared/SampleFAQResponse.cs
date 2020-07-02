@@ -113,7 +113,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the agricultural jewel loan scheme?", value: "What is the agricultural jewel loan scheme?"),
+                    new CardAction(type: ActionTypes.ImBack, title: "What is the eligibility criteria for the Agricultural Jewel Loan Scheme?", value: "What is the eligibility criteria for the Agricultural Jewel Loan Scheme?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the purpose of a cold storage loan?", value: "What is the purpose of a cold storage loan?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What kind of benefits are the borrower eligible to upon applying for an  IB home loan combo?", value: "What kind of benefits are the borrower eligible to upon applying for an  IB home loan combo?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the security required for Financing agriculturists", value: "What is the security required for Financing agriculturists")
@@ -162,19 +162,19 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             }
         }
 
-        public static SuggestedActions SuggestedActionsForSchemesFAQs
-        {
-            get
-            {
-                return new SuggestedActions(actions: new List<CardAction>()
-                {
-                    new CardAction(type: ActionTypes.ImBack, title: "What can you tell me about NRI/Foreign Exchange loan schemes?", value: "What can you tell me about NRI/Foreign Exchange loan schemes?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the Central Scheme to provide Interest subsidy(CSIS)?", value: "What is the Central Scheme to provide Interest subsidy(CSIS)?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What are the NRI Deposit Schemes?", value: "What are the NRI Deposit Schemes?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What are the Salient features of CSIS?", value: "What are the Salient features of CSIS?")
-                });
-            }
-        }
+        // public static SuggestedActions SuggestedActionsForSchemesFAQs
+        // {
+        //     get
+        //     {
+        //         return new SuggestedActions(actions: new List<CardAction>()
+        //         {
+        //             new CardAction(type: ActionTypes.ImBack, title: "What can you tell me about NRI/Foreign Exchange loan schemes?", value: "What can you tell me about NRI/Foreign Exchange loan schemes?"),
+        //             new CardAction(type: ActionTypes.ImBack, title: "What is the Central Scheme to provide Interest subsidy(CSIS)?", value: "What is the Central Scheme to provide Interest subsidy(CSIS)?"),
+        //             new CardAction(type: ActionTypes.ImBack, title: "What are the NRI Deposit Schemes?", value: "What are the NRI Deposit Schemes?"),
+        //             new CardAction(type: ActionTypes.ImBack, title: "What are the Salient features of CSIS?", value: "What are the Salient features of CSIS?")
+        //         });
+        //     }
+        // }
 
         #endregion
 
@@ -186,7 +186,6 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
-                    new CardAction(type: ActionTypes.ImBack, title: "How many types of Premium Services does Indian Bank offer?", value: "How many types of premium service does Indian Bank offer?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What are the facilities provided in ATM/Debit cards?", value: "What are the facilities provided in ATM/Debit cards?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the eligibility for net banking?", value: "What is the eligibility for net banking?"),
                     new CardAction(type: ActionTypes.ImBack, title: "Can customer transfer funds to any account in any bank branch using NEFT ?", value: "Can customer transfer funds to any account in any bank branch using NEFT ?")
@@ -200,7 +199,6 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             {
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
-                    new CardAction(type: ActionTypes.ImBack, title: "How many types of Insurance Services are available?", value: "How many types of Insurance Services are available?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the period coverage for IB Vidyarthi Suraksha?", value: "What is the period coverage for IB Vidyarthi Suraksha?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What are the Benefits of Jana shree Bima yojana?", value: "What are the Benefits of Jana shree Bima yojana?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is  sum insured under IB Jeevan Kalyan?", value: "What is  sum insured under IB Jeevan Kalyan?")
@@ -274,9 +272,8 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
                     new CardAction(type: ActionTypes.ImBack, title: "What are the Interest Rates on Domestic Term Deposits?", value: "What are the Interest Rates on Domestic Term Deposits?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What is the rate of interest on domestic term deposits?", value: "What is the rate of interest on domestic term deposits?"),
                     new CardAction(type: ActionTypes.ImBack, title: "What can you tell me about Domestic Term Deposists for Senior Citizen Accounts?", value: "What can you tell me about Domestic Term Deposists for Senior Citizen Accounts?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "What are the Foreclosure charges applicable on premature withdrawal of Term Deposits?", value: "What are the Foreclosure charges applicable on premature withdrawal of Term Deposits?")
+                    new CardAction(type: ActionTypes.ImBack, title: "What is the pre-closure procedure of FCNR(B) deposits?",value:"What is the pre-closure procedure of FCNR(B) deposits")
                 });
             }
         }

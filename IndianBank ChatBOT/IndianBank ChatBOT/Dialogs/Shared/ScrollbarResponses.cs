@@ -38,7 +38,6 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                     new CardAction(type: ActionTypes.ImBack, title: "Deposit Products", value: "deposit products"),
                     new CardAction(type: ActionTypes.ImBack, title: "Digital Products", value: "digital products"),
                     new CardAction(type: ActionTypes.ImBack, title: "Feature Products", value: "feature products"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Schemes", value: "schemes")
                 });
             }
         }

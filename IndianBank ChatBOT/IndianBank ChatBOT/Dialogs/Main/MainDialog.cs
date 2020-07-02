@@ -331,7 +331,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 string conversationID = dc.Context.Activity.Conversation.Id;
                 UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
-                if (generalIntentScore > 0.32)
+                // if (generalIntentScore > 0.32)
+                if (generalIntentScore > 0.5)
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")
@@ -379,12 +380,13 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     ScrollBarDialog.DisplayScrollBarMenu(dc, entityName);
                     await dc.EndDialogAsync();
                 }
-                // ELSE IF (ENTITYTYPE == "ABOUTUS_ENTITY" || ENTITYTYPE == "PRODUCT_ENTITY" || ENTITYTYPE == "SERVICES_ENTITY" || ENTITYTYPE == "RATES_ENTITY" || ENTITYTYPE == "CUSTOMERSUPPORT_ENTITY" || ENTITYTYPE == "LINK_ENTITY")
-                // {
-                //     AWAIT DC.CONTEXT.SENDACTIVITYASYNC("DISPLAY THE PREDEFINED FAQ'S");
-                //     SAMPLEFAQDIALOG.DISPLAYSAMPLEFAQ(DC, ENTITYTYPE, ENTITYNAME);
-                //     AWAIT DC.ENDDIALOGASYNC();
-                // }
+                else if (entityType ==  "aboutus_entity" || entityType == "product_entity" || entityType  == "services_entity" || entityType == "rates_entity" || entityType == "customersupport_entity" || entityType == "link_entity")
+                {
+                    await dc.Context.SendActivityAsync("Display the pre-defined FAQ's");
+                    SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                    await dc.EndDialogAsync();
+
+                }
                 else
                 {
                     await ExecuteRabbitMqQueryAsync(dc);

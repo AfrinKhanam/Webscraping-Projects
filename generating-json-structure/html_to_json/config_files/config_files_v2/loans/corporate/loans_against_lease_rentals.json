@@ -1,0 +1,24 @@
+{
+
+	"https://indianbank.in/departments/loan-against-lease-rentals/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "corporate"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

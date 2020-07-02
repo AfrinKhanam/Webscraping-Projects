@@ -1,0 +1,153 @@
+{
+	"https://www.indianbank.in/departments/ib-tradewell/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+		"https://www.indianbank.in/departments/ind-sme-secure/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ib-micro/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+	"https://www.indianbank.in/departments/ib-contractors-2/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/47556/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ind-sme-mortgage-2/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	
+
+	"https://www.indianbank.in/departments/ind-msme-vehicle/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "msme"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

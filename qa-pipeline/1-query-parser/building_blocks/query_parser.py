@@ -137,6 +137,8 @@ class QueryParser:
         string = re.sub('(\?|@|#|$|\"|\'|%|\\|&|\*|\(|\)|-|\^|")', ' ', string)
         string = re.sub('\.', ' ', string)
         string = re.sub('/', ' ', string)
+        # string = re.sub('-', ' ', string)
+
         return string
 
 
@@ -169,6 +171,7 @@ class QueryParser:
 
         stop_word = stop_words.remove('what')
         stop_word = stop_words.remove('can')
+
 
 
         word_tokens = word_tokenize(query_string)

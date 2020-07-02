@@ -85,8 +85,6 @@
 - [deposit products](product_entity)
 - [digital products](product_entity)
 - [feature products](product_entity)
-- [schemes](product_entity)
-- [scheme](product_entity:schemes)
 
 
 ## intent:services_intent

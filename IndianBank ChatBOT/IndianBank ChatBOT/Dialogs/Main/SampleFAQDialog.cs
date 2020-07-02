@@ -82,11 +82,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             BuildFAQMenu(dialogContext, SampleFAQResponse.SuggestedActionsForFeaturesFAQs.Actions);
                             break;
                         }
-                    case ProductFAQEntities.Schemes:
-                        {
-                            BuildFAQMenu(dialogContext, SampleFAQResponse.SuggestedActionsForSchemesFAQs.Actions);
-                            break;
-                        }
                     default:
                         await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
                         break;

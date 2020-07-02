@@ -13,16 +13,17 @@ class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
     def __init__(self, document, source):
         PostProcessing.__init__(self)
-
         if source is 'local':
             with open(document['filename']) as file:
                 html = file.read()
         elif source is 'web':
+            print("000000000000000000000000000000000000000000000")
+            print(requests)
             response = requests.get(document['url'], verify=False)
+            print("***********************************")
             html = response.content
         else:
             raise('INVALID SOURCE IS DEFINED')
-
 
         self.dom = BeautifulSoup(html, features="html5lib")
     #-----------------------------------------------------------------#
@@ -32,7 +33,8 @@ class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
     def main_title(self, document):
         main_title = self.dom.find(document['html']['main_title']['tag'], attrs={"class" : document['html']['main_title']['class']})
-        # print("main title is----> ",main_title)
+        print("main title is----> ",main_title)
+
         document['html']['main_title']['text'] = main_title.get_text()
         return document
     #-----------------------------------------------------------------#
@@ -114,7 +116,7 @@ class HtmlToJson(Subtitle, PostProcessing):
                 "subtitle"  : document["subtitle"]
                 }
         #-----------------------------------------------------------#
-
+        #print(document)
         return document
     #-----------------------------------------------------------------#
 

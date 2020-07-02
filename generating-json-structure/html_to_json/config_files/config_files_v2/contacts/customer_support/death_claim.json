@@ -1,0 +1,25 @@
+{
+	"https://www.indianbank.in/departments/death-claim/" : {
+		"page_hierarchy" : {
+			"domain" : "contacts",
+			"class" : "customer support"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+}
+
