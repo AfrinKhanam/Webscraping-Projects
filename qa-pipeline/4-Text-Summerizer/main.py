@@ -41,7 +41,7 @@ def callback(ch, method, properties, body):
         log['OUTGOING'] = document
 
         print(json.dumps(log, indent=4))
-        # rabbitmq_producer.publish(json.dumps(document).encode())
+        rabbitmq_producer.publish(json.dumps(document).encode())
 
         #---------------------------------------------------------------#
 
