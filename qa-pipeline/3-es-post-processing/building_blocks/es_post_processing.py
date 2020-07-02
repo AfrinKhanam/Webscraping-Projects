@@ -1605,96 +1605,134 @@ class ESPostProcessing:
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-   if re.search(r'(shareholder)', document['PARSED_QUERY_STRING']):
-        documents = []
-        for record in document['ES_RESULT']['DOCUMENTS']:
-            if record['url'] == "https://www.indianbank.in/departments/board-of-directors":
-                documents.append(record)
-        documents += document['ES_RESULT']['DOCUMENTS']
-        document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(tractor|tractr|tract)', document['POTENTIAL_QUERY_LIST']):
-        documents = []
-        if re.search(r'(second hand |use|agriculturist)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/purchase-of-second-hand-pre-used-tractors-by-agriculturists/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        elif re.search(r'(tie | sugar | mill)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/loans-for-maintenance-of-tractors-under-tie-up-with-sugar-mills/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        else:
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/financing-agriculturists-for-purchase-of-tractors/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(skill)', document['PARSED_QUERY_STRING']):
-        for record in document['ES_RESULT']['DOCUMENTS']:
-            if record['url'] == "https://www.indianbank.in/departments/ib-skill-loan-scheme/":
-                documents.append(record)
-        # print(json.dumps(documents,indent=4))
-        documents += document['ES_RESULT']['DOCUMENTS']
-        document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(term deposit)', document['PARSED_QUERY_STRING']):
-        if re.search(r'(domest)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://indianbank.in/departments/deposit-rates/":
-                    documents.append(record)
-            # print(json.dumps(documents,indent=4))
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        else:
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/":
-                    documents.append(record)
-            # print(json.dumps(documents,indent=4))
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(csi)', document['PARSED_QUERY_STRING']):
-        documents = []
-        for record in document['ES_RESULT']['DOCUMENTS']:
-            if record['url'] == "https://www.indianbank.in/departments/central-scheme-to-provide-interest-subsidy-csis/":
-                documents.append(record)
-        documents += document['ES_RESULT']['DOCUMENTS']
-        document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(asba|applic support by block amount)', document['PARSED_QUERY_STRING']):
-        documents = []
-        for record in document['ES_RESULT']['DOCUMENTS']:
-            if record['url'] == "https://www.indianbank.in/departments/applications-supported-by-blocked-amount/":
-                documents.append(record)
-        # print(json.dumps(documents,indent=4))
-        documents += document['ES_RESULT']['DOCUMENTS']
-        document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    if re.search(r'(educ)', document['QUERY_SYNONYMS']):
-        if re.search(r'( revis | iba )', document['PARSED_QUERY_STRING']):
-            if re.search(r'(secur)', document['PARSED_QUERY_STRING']):
+        if re.search(r'(shareholder)', document['PARSED_QUERY_STRING']):
+                documents = []
                 for record in document['ES_RESULT']['DOCUMENTS']:
-                    if record['url'] == "https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/" and record['stemmed_title'] =='secur ':
+                    if record['url'] == "https://www.indianbank.in/departments/board-of-directors":
                         documents.append(record)
-                print(json.dumps(documents, indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(tractor|tractr|tract)', document['POTENTIAL_QUERY_LIST']):
+            documents = []
+            if re.search(r'(second hand |use|agriculturist)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/purchase-of-second-hand-pre-used-tractors-by-agriculturists/":
+                        documents.append(record)
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            elif re.search(r'(tie | sugar | mill)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/loans-for-maintenance-of-tractors-under-tie-up-with-sugar-mills/":
+                        documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
-                    if record['url'] == "https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/":
+                    if record['url'] == "https://www.indianbank.in/departments/financing-agriculturists-for-purchase-of-tractors/":
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        elif re.search(r'(prime)', document['PARSED_QUERY_STRING']):
-            if re.search(r'(amount)', document['PARSED_QUERY_STRING']):
+        if re.search(r'(skill)', document['PARSED_QUERY_STRING']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == "https://www.indianbank.in/departments/ib-skill-loan-scheme/":
+                    documents.append(record)
+            # print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(term deposit)', document['PARSED_QUERY_STRING']):
+            if re.search(r'(domest)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
-                    if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/" and record['stemmed_title'] =='amount of loan':
+                    if record['url'] == "https://indianbank.in/departments/deposit-rates/":
+                        documents.append(record)
+                # print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            else:
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/":
+                        documents.append(record)
+                # print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(csi)', document['PARSED_QUERY_STRING']):
+            documents = []
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == "https://www.indianbank.in/departments/central-scheme-to-provide-interest-subsidy-csis/":
+                    documents.append(record)
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(asba|applic support by block amount)', document['PARSED_QUERY_STRING']):
+            documents = []
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == "https://www.indianbank.in/departments/applications-supported-by-blocked-amount/":
+                    documents.append(record)
+            # print(json.dumps(documents,indent=4))
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        if re.search(r'(educ)', document['QUERY_SYNONYMS']):
+            if re.search(r'( revis | iba )', document['PARSED_QUERY_STRING']):
+                if re.search(r'(secur)', document['PARSED_QUERY_STRING']):
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/" and record['stemmed_title'] =='secur ':
+                            documents.append(record)
+                    print(json.dumps(documents, indent=4))
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+                else:
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/":
+                            documents.append(record)
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+            elif re.search(r'(prime)', document['PARSED_QUERY_STRING']):
+                if re.search(r'(amount)', document['PARSED_QUERY_STRING']):
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/" and record['stemmed_title'] =='amount of loan':
+                            documents.append(record)
+                    # print(json.dumps(documents,indent=4))
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+                else:
+                    for record in document['ES_RESULT']['DOCUMENTS']:
+                        if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/":
+                            documents.append(record)
+                    # print(json.dumps(documents,indent=4))
+                    documents += document['ES_RESULT']['DOCUMENTS']
+                    document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+            elif re.search(r'(subsidi)', document['PARSED_QUERY_STRING']):
+                documents = []
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/hindi-education-loan-interest-subsidies/":
+                        documents.append(record)
+                # print(json.dumps(documents,indent=4))
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+            elif re.search(r'(jeevan vidya)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/ib-balavidhya-scheme/":
+                        documents.append(record)
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+            elif re.search(r'(bal vidya)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/ib-balavidhya-scheme/":
+                        documents.append(record)
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+            elif re.search(r'(vidyarthi suraksha |vidyarthi)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/ib-vidyarthi-suraksha-with-pnb-metlife/":
                         documents.append(record)
                 # print(json.dumps(documents,indent=4))
                 documents += document['ES_RESULT']['DOCUMENTS']
@@ -1703,50 +1741,12 @@ class ESPostProcessing:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        elif re.search(r'(subsidi)', document['PARSED_QUERY_STRING']):
-            documents = []
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/hindi-education-loan-interest-subsidies/":
-                    documents.append(record)
-            # print(json.dumps(documents,indent=4))
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-        elif re.search(r'(jeevan vidya)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/ib-balavidhya-scheme/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-        elif re.search(r'(bal vidya)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/ib-balavidhya-scheme/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-        elif re.search(r'(vidyarthi suraksha |vidyarthi)', document['PARSED_QUERY_STRING']):
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/ib-vidyarthi-suraksha-with-pnb-metlife/":
-                    documents.append(record)
-            # print(json.dumps(documents,indent=4))
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-        else:
-            for record in document['ES_RESULT']['DOCUMENTS']:
-                if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/":
-                    documents.append(record)
-            documents += document['ES_RESULT']['DOCUMENTS']
-            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-
-    document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:3]
+        document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:3]
     # document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:20]
 
     #-----------------------------------------------------------------------------------------------#
 
-    return document
+        return document
