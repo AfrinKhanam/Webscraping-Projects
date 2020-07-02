@@ -1,7 +1,9 @@
 ﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -24,6 +26,25 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             return Ok(Synonyms);
+        }
+        public IActionResult GetAllWordsCsv()
+        {
+            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var wordsCsv = new List<string>();
+            foreach (var synonym in synonyms)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(synonym.Word);
+                var SynonymWords = synonym.SynonymWords.ToList();
+                for (int i = 0; i < SynonymWords.Count; i++)
+                {
+                    sb.Append(",");
+                    sb.Append(SynonymWords[i].Name);
+                }
+                wordsCsv.Add(sb.ToString());
+            }
+
+            return Ok(wordsCsv);
         }
 
         [HttpDelete]
