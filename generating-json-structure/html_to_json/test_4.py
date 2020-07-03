@@ -269,26 +269,26 @@ agri_joint_liability_group = './config_files/config_files_v2/loans/' + 'agri_joi
 json_files = [
 
 #--------------------------CORPORATE-------------------------------------------
-corporate_credit,
-working_capital,
-term_loan,
-corporate,
-bonus_loan,
-covid_emergency_credit_line,
-loans_against_lease_rentals,
+# corporate_credit,
+# working_capital,
+# term_loan,
+# corporate,
+# bonus_loan,
+# covid_emergency_credit_line,
+# loans_against_lease_rentals,
 
 #--------------------------SAVINGS BANK ACCOUNT(DEPOSITS NEW)-------------------------------------------
-ib_sammaan,
-mahila_shakti_for_women,
-ib_kishore,
-ib_gen_x,
-ib_salaam,
-sba_for_pensioners,
-ib_digi,
-small_account,
-sb_for_students_under_govt_scholarship,
-sb_for_central_state_govt,
-mact_sb,
+# ib_sammaan,
+# mahila_shakti_for_women,
+# ib_kishore,
+# ib_gen_x,
+# ib_salaam,
+# sba_for_pensioners,
+# ib_digi,
+# small_account,
+# sb_for_students_under_govt_scholarship,
+# sb_for_central_state_govt,
+# mact_sb,
 #--------------------------CURRENT ACCOUNT(DEPOSITS NEW)-------------------------------------------
 # ib_comfort,
 # ca_for_state_central_govt,
@@ -341,37 +341,37 @@ mact_sb,
 # annual_reports,
 # image, 
 
-# head_office, 
-# department,
-# executives,
-# image_email,
-# foreign_branches,
-# overseas_branches,
-# nri_branches,
-# zonal_offices,
-# e_confirmation_bank_guarantee,
+head_office, 
+department,
+executives,
+image_email,
+foreign_branches,
+overseas_branches,
+nri_branches,
+zonal_offices,
+e_confirmation_bank_guarantee,
        
-#        death_claim,
-# customer_complaints,
-# quick_contacts,
+       death_claim,
+customer_complaints,
+quick_contacts,
 
-# rates_deposit,
-# rates_forex,
-# services_doorstep_banking,
-# services_e_payment_indirect_tax,
-# services_debenture_trustee,
-# services_e_payment_direct_tax,
+rates_deposit,
+rates_forex,
+services_doorstep_banking,
+services_e_payment_indirect_tax,
+services_debenture_trustee,
+services_e_payment_direct_tax,
 
-# services_chhatra,
-# services_ib_home_security,
-# services_jeevan_kalyan,
-# services_universal_health_care,
-# services_vidyarthi_suraksha,
-# services_griha_jeevan,
-# services_jana_shree_bhima_yojana,
-# services_jeevan_vidya,
-# services_jana_varishtha,
-# services_yatra_suraksha,
+services_chhatra,
+services_ib_home_security,
+services_jeevan_kalyan,
+services_universal_health_care,
+services_vidyarthi_suraksha,
+services_griha_jeevan,
+services_jana_shree_bhima_yojana,
+services_jeevan_vidya,
+services_jana_varishtha,
+services_yatra_suraksha,
 
 
 
@@ -468,19 +468,13 @@ def main():
         #---------------------------------------------------------------#
 
         print('---------------------------------------------------\n\n')
-        # input("Press key to continue")
-        # except Exception as e:
-        #print('ERROR :: ', str(e))
+        
         #---------------------------------------------------------------#
 
 
 # ----------------------------------------------------------- #
 # ----------------------------------------------------------- #
-# rabbitmq_producer = RabbitmqProducerPipe(
-#     publish_exchange="nlpEx",
-#     routing_key="nlp",
-#     queue_name='nlp',
-#     host="localhost")
+
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange="nlpEx",
     routing_key="nlp",

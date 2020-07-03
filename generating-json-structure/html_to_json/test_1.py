@@ -468,19 +468,13 @@ def main():
         #---------------------------------------------------------------#
 
         print('---------------------------------------------------\n\n')
-        # input("Press key to continue")
-        # except Exception as e:
-        #print('ERROR :: ', str(e))
+        
         #---------------------------------------------------------------#
 
 
 # ----------------------------------------------------------- #
 # ----------------------------------------------------------- #
-# rabbitmq_producer = RabbitmqProducerPipe(
-#     publish_exchange="nlpEx",
-#     routing_key="nlp",
-#     queue_name='nlp',
-#     host="localhost")
+
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange="nlpEx",
     routing_key="nlp",

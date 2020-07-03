@@ -6,12 +6,16 @@ import os
 import requests 
 import time
 from datetime import datetime
+from configparser import ConfigParser
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
+config_file_path = '../../config.ini'
+config = ConfigParser()
+config.read(config_file_path)
 
 def get_static_file_info():
-    
-    url="http://localhost:7512/StaticFiles/GetAllStaticFileInfoAsText"
+    # url="http://localhost:7512/StaticFiles/"
+    url=config['urls']['static_file_url']
     
     try:
         response=requests.get(url=url)
@@ -68,7 +72,7 @@ def scrape_static_file():
 
 def update_scrape_status(params):
     try:
-        requests.put('http://localhost:7512/StaticFiles/UpdateStatus', data=(params))
+        requests.put(config['urls']['static_file_status_url'], data=(params))
     except Exception as e:
         print(e.args)
 
@@ -81,6 +85,7 @@ def main():
    
 if __name__ == "__main__":
     while True:
+        pass
         main()
         time.sleep(60)
 

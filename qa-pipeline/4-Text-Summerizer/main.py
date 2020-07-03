@@ -58,7 +58,7 @@ rabbitmq_producer = RabbitmqProducerPipe(
     routing_key='text_summerizer'
 )
 
-model = SiugleModel()
+model = SingleModel()
 
 print('Service is up and running..... [4-Text-Summerizer]')
 rabbimq_consumer.start_consuming()

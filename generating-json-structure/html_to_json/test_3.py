@@ -269,26 +269,26 @@ agri_joint_liability_group = './config_files/config_files_v2/loans/' + 'agri_joi
 json_files = [
 
 #--------------------------CORPORATE-------------------------------------------
-corporate_credit,
-working_capital,
-term_loan,
-corporate,
-bonus_loan,
-covid_emergency_credit_line,
-loans_against_lease_rentals,
+# corporate_credit,
+# working_capital,
+# term_loan,
+# corporate,
+# bonus_loan,
+# covid_emergency_credit_line,
+# loans_against_lease_rentals,
 
 #--------------------------SAVINGS BANK ACCOUNT(DEPOSITS NEW)-------------------------------------------
-ib_sammaan,
-mahila_shakti_for_women,
-ib_kishore,
-ib_gen_x,
-ib_salaam,
-sba_for_pensioners,
-ib_digi,
-small_account,
-sb_for_students_under_govt_scholarship,
-sb_for_central_state_govt,
-mact_sb,
+# ib_sammaan,
+# mahila_shakti_for_women,
+# ib_kishore,
+# ib_gen_x,
+# ib_salaam,
+# sba_for_pensioners,
+# ib_digi,
+# small_account,
+# sb_for_students_under_govt_scholarship,
+# sb_for_central_state_govt,
+# mact_sb,
 #--------------------------CURRENT ACCOUNT(DEPOSITS NEW)-------------------------------------------
 # ib_comfort,
 # ca_for_state_central_govt,
@@ -313,33 +313,33 @@ mact_sb,
 # amalgamation_of_allahabad_into_indianbank,
 # e_allahabad_bank_corner,
 #--------------------------LINKS-------------------------------------------
-# colombo_branch, #not done
+colombo_branch, #not done
 
 #--------------------------MSME-------------------------------------------
 
-# ib_standby_wc_facility_for_msmes,
-# ind_sme_ease,
-# ind_surya_shakti,
-# ib_doctor_plus,
-# ind_sme_e_vaahan,
-# agri_joint_liability_group,
+ib_standby_wc_facility_for_msmes,
+ind_sme_ease,
+ind_surya_shakti,
+ib_doctor_plus,
+ind_sme_e_vaahan,
+agri_joint_liability_group,
 
 
-# investors_service,
-# bank_profile,
+investors_service,
+bank_profile,
 
-# vision_mission,
-# managing_director_profile,
+vision_mission,
+managing_director_profile,
 
-# board_of_director,
-# cheif_vigilance_officer,
+board_of_director,
+cheif_vigilance_officer,
 
-# corporate_governance,
-# nodal_officers,
-# annual_general_meeting,
-# shareholding_pattern,
-# annual_reports,
-# image, 
+corporate_governance,
+nodal_officers,
+annual_general_meeting,
+shareholding_pattern,
+annual_reports,
+image, 
 
 # head_office, 
 # department,
@@ -468,19 +468,13 @@ def main():
         #---------------------------------------------------------------#
 
         print('---------------------------------------------------\n\n')
-        # input("Press key to continue")
-        # except Exception as e:
-        #print('ERROR :: ', str(e))
+        
         #---------------------------------------------------------------#
 
 
 # ----------------------------------------------------------- #
 # ----------------------------------------------------------- #
-# rabbitmq_producer = RabbitmqProducerPipe(
-#     publish_exchange="nlpEx",
-#     routing_key="nlp",
-#     queue_name='nlp',
-#     host="localhost")
+
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange="nlpEx",
     routing_key="nlp",

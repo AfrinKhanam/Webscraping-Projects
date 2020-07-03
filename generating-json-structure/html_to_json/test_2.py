@@ -269,49 +269,49 @@ agri_joint_liability_group = './config_files/config_files_v2/loans/' + 'agri_joi
 json_files = [
 
 #--------------------------CORPORATE-------------------------------------------
-corporate_credit,
-working_capital,
-term_loan,
-corporate,
-bonus_loan,
-covid_emergency_credit_line,
-loans_against_lease_rentals,
+# corporate_credit,
+# working_capital,
+# term_loan,
+# corporate,
+# bonus_loan,
+# covid_emergency_credit_line,
+# loans_against_lease_rentals,
 
 #--------------------------SAVINGS BANK ACCOUNT(DEPOSITS NEW)-------------------------------------------
-ib_sammaan,
-mahila_shakti_for_women,
-ib_kishore,
-ib_gen_x,
-ib_salaam,
-sba_for_pensioners,
-ib_digi,
-small_account,
-sb_for_students_under_govt_scholarship,
-sb_for_central_state_govt,
-mact_sb,
+# ib_sammaan,
+# mahila_shakti_for_women,
+# ib_kishore,
+# ib_gen_x,
+# ib_salaam,
+# sba_for_pensioners,
+# ib_digi,
+# small_account,
+# sb_for_students_under_govt_scholarship,
+# sb_for_central_state_govt,
+# mact_sb,
 #--------------------------CURRENT ACCOUNT(DEPOSITS NEW)-------------------------------------------
-# ib_comfort,
-# ca_for_state_central_govt,
+ib_comfort,
+ca_for_state_central_govt,
 #--------------------------TERM DEPOSITS(DEPOSITS NEW)-------------------------------------------
-# money_mutiplier_deposits,
-# short_term_depoits,
-# motor_accident_claim,
+money_mutiplier_deposits,
+short_term_depoits,
+motor_accident_claim,
 #-------------------------COVID PRODUCTS-------------------------------------------
-# covid_reassessment,
-# emergency_credit_line,
-# ind_gecls_covid_19,
-# covid_emergency_salary_loan,
-# covid_emergency_pension_loan,
-# shg_covid_sahayak_loan,
-# ind_covid_kcc_sahaya_loan,
-# iceapl,
-# ind_covid_emergency_poultry_loan,
-# ind_mse_covid_emergency_loan,
+covid_reassessment,
+emergency_credit_line,
+ind_gecls_covid_19,
+covid_emergency_salary_loan,
+covid_emergency_pension_loan,
+shg_covid_sahayak_loan,
+ind_covid_kcc_sahaya_loan,
+iceapl,
+ind_covid_emergency_poultry_loan,
+ind_mse_covid_emergency_loan,
 #--------------------------ALLAHABAD BANK-------------------------------------------
-# md_ceo_msg_on_allahabad_bank,
-# faqs_for_amalgamation,
-# amalgamation_of_allahabad_into_indianbank,
-# e_allahabad_bank_corner,
+md_ceo_msg_on_allahabad_bank,
+faqs_for_amalgamation,
+amalgamation_of_allahabad_into_indianbank,
+e_allahabad_bank_corner,
 #--------------------------LINKS-------------------------------------------
 # colombo_branch, #not done
 
@@ -468,19 +468,13 @@ def main():
         #---------------------------------------------------------------#
 
         print('---------------------------------------------------\n\n')
-        # input("Press key to continue")
-        # except Exception as e:
-        #print('ERROR :: ', str(e))
+        
         #---------------------------------------------------------------#
 
 
 # ----------------------------------------------------------- #
 # ----------------------------------------------------------- #
-# rabbitmq_producer = RabbitmqProducerPipe(
-#     publish_exchange="nlpEx",
-#     routing_key="nlp",
-#     queue_name='nlp',
-#     host="localhost")
+
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange="nlpEx",
     routing_key="nlp",
