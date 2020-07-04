@@ -1,3 +1,0 @@
-two=2=to=4
-four=4=for
-agriculture=agri=agricul=study

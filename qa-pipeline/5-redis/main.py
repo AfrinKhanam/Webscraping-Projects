@@ -73,13 +73,6 @@ def callback(ch, method, properties, body):
 #---------------------------------------------------------------#
 redis_client = RedisClient()
 
-#rabbimq_consumer = RabbitmqConsumerPipe(
-#         exchange="esPostProcessingEx", 
-#         queue="esPostProcessingQ",
-#         routing_key="es_post_processing", 
-#         callback=callback, 
-#         host='localhost')
-
 rabbimq_consumer_text_summerizer = RabbitmqConsumerPipe(
        exchange="textSummerizerEx", 
        queue="textSummerizerQ",

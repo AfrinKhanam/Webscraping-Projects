@@ -1,0 +1,91 @@
+individual=single
+education=study
+four=4
+two=scooter=2
+three=3
+week=7 days
+rfc=resident foreign currency
+vehicle=motor bike=motor cycle=mobike=car=bike
+healthcare=health care
+shareholder=share holder
+jewel=gold
+gcs=gold card scheme
+profit=gain
+doorstep=door step
+award=accolades
+mediclaim=medi claim
+beyond reach=cannot affort=can't afford
+managing director=MD
+ceo=chief executive officer
+neft=n e f t
+fd=fixed deposit
+rd=recurring deposit
+sb=saving bank
+wc=working capital
+offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
+wish=want=prefered
+look=see=view=lk
+agriculture=farming=crop production=horticulture=cultivation=agri=agriculture=agricultre
+eligibility=ability=criteria=can
+minimum=min
+apply=place=join
+criteria=norms=rule=prototype
+requirement=necessary=recommended=required
+objectives=aim=goal=intention=intention=purpose=information
+interest rate=interest
+margin=edge=border=scope=surplus
+security=safety=protection=collateral
+kcc=kisan credit card
+maximum=max=maxi=highest
+repayment=paying back=compensate=compensation=reimbursement
+permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted
+maintenances=support=repairs=adjustment=replacement=maintain
+tractors=tractrs=tract
+associated=correlated=combined=joined=mixed=mingle
+regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
+produce=production=yield=outcome
+know=be aware=inquire=have knowledge=understand
+tenure=period=duration=time=span
+purchase=buy
+involving=relate
+amount=atm=cash=money=payment
+rate of interest=interest rate
+financing=funding=costs
+second hand=pre used=2nd hand
+documents=record=script=report=certificate=documentation
+shg=self help groups=sh group=shgs
+some=part of=few=little
+provide=serve=give=grant=add
+DRI=differential RI
+targets=goal
+harvest=golden harvest scheme=gh scheme=ghs
+Jewel loan=Agricultural Jewel Loan=AGL
+get=have=take=receive=earn
+categories=types=list=group=features
+repayment=compensation=paying back
+prepayment=advance payment
+policy=procedure=plan=method
+salient=important=noticeable
+against=opposite to
+terms and conditions=terms=terms & conditions=T and C=T&C=conditions
+quantum=amount
+submitted=given
+benefits=advantage
+additional=further=extra=other=supplementary
+Details=info=more about
+home=house=hm
+Non Resident Indian=NRI
+ib=IB=Indian Bank
+Micro Small & Medium Enterprises=MSME
+different=distinct=dissimilar=separate=many
+pos=point of sale
+asba=applications supported by Blocked Amount
+jlg=Joint Liability Group
+MACAD=Motor Accident Claim Tribunal Deposit
+tenure=tenor
+ICKSL=IND COVID KCC SAHAYA LOAN
+ICEPL=IND COVID EMERGENCY POULTRY LOAN
+frequently=Periodicity
+BSBDA=Basic Savings Bank Deposit Account
+cvo=Chief Vigilance officer
+image=Acronym For Indian Bank Management Academy For Growth And Excellence

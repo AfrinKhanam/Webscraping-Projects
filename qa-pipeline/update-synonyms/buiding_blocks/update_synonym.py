@@ -2,10 +2,15 @@ import requests
 import re
 import pathlib
 import os
+from configparser import ConfigParser
+
 class UpdateSynonyms:
     def __init__(self):
         # api-endpoint 
-        self.url="http://localhost:7512/Synonyms/GetAllWordsCsv"
+        config_file_path = '../../config.ini'
+        config = ConfigParser()
+        config.read(config_file_path)
+        self.url=config['urls']['synonyms_url']
         self.ROOT_DIR = os.path.abspath(os.pardir)
     
     def fetchSynonyms(self):
@@ -22,7 +27,7 @@ class UpdateSynonyms:
 
             value="\n".join(synonyms)
             print("synonyms------>> ",value)
-            file = open(self.ROOT_DIR+"/1-query-parser/config_files/synonyms.txt","a") 
+            file = open(self.ROOT_DIR+"/1-query-parser/config_files/synonyms.txt","w+") 
             file.write(value)
             file.close() 
             # print(file)

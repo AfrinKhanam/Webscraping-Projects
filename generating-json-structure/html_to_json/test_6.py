@@ -269,26 +269,26 @@ agri_joint_liability_group = './config_files/config_files_v2/loans/' + 'agri_joi
 json_files = [
 
 #--------------------------CORPORATE-------------------------------------------
-corporate_credit,
-working_capital,
-term_loan,
-corporate,
-bonus_loan,
-covid_emergency_credit_line,
-loans_against_lease_rentals,
+# corporate_credit,
+# working_capital,
+# term_loan,
+# corporate,
+# bonus_loan,
+# covid_emergency_credit_line,
+# loans_against_lease_rentals,
 
 #--------------------------SAVINGS BANK ACCOUNT(DEPOSITS NEW)-------------------------------------------
-ib_sammaan,
-mahila_shakti_for_women,
-ib_kishore,
-ib_gen_x,
-ib_salaam,
-sba_for_pensioners,
-ib_digi,
-small_account,
-sb_for_students_under_govt_scholarship,
-sb_for_central_state_govt,
-mact_sb,
+# ib_sammaan,
+# mahila_shakti_for_women,
+# ib_kishore,
+# ib_gen_x,
+# ib_salaam,
+# sba_for_pensioners,
+# ib_digi,
+# small_account,
+# sb_for_students_under_govt_scholarship,
+# sb_for_central_state_govt,
+# mact_sb,
 #--------------------------CURRENT ACCOUNT(DEPOSITS NEW)-------------------------------------------
 # ib_comfort,
 # ca_for_state_central_govt,
@@ -373,9 +373,6 @@ mact_sb,
 # services_jana_varishtha,
 # services_yatra_suraksha,
 
-
-
-
 #    agriculture_config_file,
 #   personal_config_file, 
 
@@ -394,17 +391,17 @@ mact_sb,
 # digital_ib_v_collect_plus,
 # digital_sms_banking,
 
-# featured_config_file,
-# services_credit_card,
-# services_atm_debit_cards,
-# services_ind_netbanking,
-# services_money_gram,
-# services_neft,
-# services_xpress_money,
-# services_ind_mobile_banking,
-# services_mca_payment,
-# services_multicity_cheque_facility,
-# services_rtgs,
+featured_config_file,
+services_credit_card,
+services_atm_debit_cards,
+services_ind_netbanking,
+services_money_gram,
+services_neft,
+services_xpress_money,
+services_ind_mobile_banking,
+services_mca_payment,
+services_multicity_cheque_facility,
+services_rtgs,
 
 ]
 print("length of json files-----------> ",len(json_files))
@@ -468,19 +465,13 @@ def main():
         #---------------------------------------------------------------#
 
         print('---------------------------------------------------\n\n')
-        # input("Press key to continue")
-        # except Exception as e:
-        #print('ERROR :: ', str(e))
+        
         #---------------------------------------------------------------#
 
 
 # ----------------------------------------------------------- #
 # ----------------------------------------------------------- #
-# rabbitmq_producer = RabbitmqProducerPipe(
-#     publish_exchange="nlpEx",
-#     routing_key="nlp",
-#     queue_name='nlp',
-#     host="localhost")
+
 rabbitmq_producer = RabbitmqProducerPipe(
     publish_exchange="nlpEx",
     routing_key="nlp",
