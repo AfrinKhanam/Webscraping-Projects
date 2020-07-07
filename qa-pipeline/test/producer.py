@@ -3,7 +3,7 @@ import json
 import uuid
 
 
-test_query = "I want to apply for Affordable Housing Loans.Can I get the Home loan Form ?"
+test_query = "corporate credit"
 
 
 

@@ -2,6 +2,12 @@ from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqConsumerPipe
 from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
 from building_blocks.elastic_search import Elastic
 import json
+from configparser import ConfigParser
+
+config_file_path = '../../config.ini'
+config = ConfigParser()
+config.read(config_file_path)
+index = config.get('elastic_search_credentials', 'index')
 
 
 def callback(ch, method, properties, body):
@@ -18,10 +24,6 @@ def callback(ch, method, properties, body):
 
         #---------------------------------------------------------------#
         es_result = elastic.w_search(query)
-        #print('--------------------- ELASTIC SEARCH ------------------------------')
-        #print(es_result)
-        #print('-------------------------------------------------------------------')
-        #---------------------------------------------------------------#
 
         #---------------------------------------------------------------#
         if es_result == None:
@@ -60,24 +62,10 @@ def callback(ch, method, properties, body):
         return
 
 #---------------------------------------------------------------#
-# webscrape
-# elasticsearch_demo
-# elastic = Elastic(index='indian-bank-index-v2')
-# webscrape
-# indian_bank_database
-# ujjivan_bank_database
-# indian_bank_database_v1
-elastic = Elastic(index='indian_bank_database_v2')
 
-# elastic = Elastic(index='indian-bank-index-modified')
+# indian_bank_database_v2
+elastic = Elastic(index=index)
 
-
-# rabbimq_consumer = RabbitmqConsumerPipe(
-#         exchange="elasticSearchEx",
-#         queue="esQueue",
-#         routing_key="es",
-#         callback=callback,
-#         host='localhost')
 rabbimq_consumer = RabbitmqConsumerPipe(
         exchange="elasticSearchEx",
         queue="esQueue",
@@ -90,12 +78,6 @@ rabbitmq_producer = RabbitmqProducerPipe(
         publish_exchange="esResultEx",
         routing_key="es_result",
         host="localhost")
-'''
-rabbitmq_producer = RabbitmqProducerPipe(
-    publish_exchange='esPostProcessingEx',
-    routing_key='es_post_processing'
-)
-'''
 
 print('Service is up and running...... [2-elasticsearch]webscrape')
 rabbimq_consumer.start_consuming()
