@@ -1,18 +1,18 @@
-﻿@model List<WebPage>
+﻿@model List<WebScapeConfig>
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <h1>Web Pages</h1>
+        <h1>Web Scrape Config</h1>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
 
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        @*<button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("AddNew", "WebPage")'">Add New Web Page</button>*@
+        <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("addnew", "webpage")'">Add new web page</button>
     </div>
 </div>
 
@@ -25,8 +25,28 @@
                     <div class="card-stats">
                         <div class="card-stats-items">
                             <div class="card-stats-item">
-                                <div class="card-stats-item-label">Total Web Pages</div>
+                                <div class="card-stats-item-label">Total Requests</div>
                                 <div class="card-stats-item-count">@Model.Count()</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Pending Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Successful Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <div class="card-stats-item-label">Failed Requests</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed)</div>
+                            </div>
+
+                            <div class="card-stats-item">
+                                <button class="btn btn-sm btn-outline-warning toggle-modal-addWebScrapeRequest">Rescrape All Web Pages</button>
+                                @*<button style="float:right; margin-bottom:10px;" class="btn btn-outline-success" onclick="location.href='/WebPage/AddNew'">Rescrape All Web Pages</button>*@
                             </div>
                         </div>
                     </div>
@@ -44,10 +64,19 @@
                                         Page Name
                                     </th>
                                     <th>
-                                        Description
+                                        Url
                                     </th>
                                     <th>
-                                        Url
+                                        Last Scraped On
+                                    </th>
+                                    <th>
+                                        Scraping Status
+                                    </th>
+                                    <th>
+                                        Error
+                                    </th>
+                                    <th>
+                                        Active
                                     </th>
                                     <th>
                                         Action
@@ -67,22 +96,57 @@
                                             @Html.DisplayFor(modelItem => item.PageName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
                                             <a target="_blank" href="@item.Url">@item.Url</a>
                                         </td>
-                                        <td width="30%">
-                                            @*<button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>*@
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-warning toggle-modal-addWebScrapeRequest">Request Rescrape</button>
+
+                                        <td>
+                                            @{
+                                                var lastScrapedOn = item.LastScrapedOn.HasValue ? item.LastScrapedOn.Value.ToString("dd-MMM-yyyy") : "N/A";
+                                            }
+                                            @lastScrapedOn
+                                        </td>
+                                        <td>
+                                            @{
+                                                var status = item.GetEnumDescription();
+                                                var statusClass = "badge-warning";
+                                                switch (item.ScrapeStatus)
+                                                {
+                                                    case ScrapeStatus.YetToScrape:
+                                                        statusClass = "badge-warning";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeSuccess:
+                                                        statusClass = "badge-success";
+                                                        break;
+                                                    case ScrapeStatus.ScrapeFailed:
+                                                        statusClass = "badge-danger";
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+
+                                            }
+                                            <div class="badge @statusClass">@status</div>
+                                        </td>
+                                        <td>
+                                            @item.ErrorMessage
+                                        </td>
+                                        <td>
+                                            @{
+                                                string isActive = (item.IsActive) ? "Yes" : "No";
+                                            }
+                                            @isActive
+                                        </td>
+                                        <td width="0%">
+                                            <button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
+                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>
+                                            @*<button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-warning toggle-modal-addWebScrapeRequest">Request Rescrape</button>*@
                                         </td>
                                     </tr>
                                 }
                                 @if (Model.Count == 0)
                                 {
                                     <tr class="no-data" style="text-align:center">
-                                        <td colspan="5">No data found !</td>
+                                        <td colspan="7">No data found !</td>
                                     </tr>
                                 }
                             </tbody>
@@ -118,17 +182,17 @@
         });
 
         var body = '<div class="alert alert-warning">' +
-            '<b> Note!</b> Rescrape can only be done in the case where your page content is changed with the same structure.' +
-            '</div >';
+            '<b>Note! </b> Re-scrape web page using this feature is recommended only if your page content is changed with the same structure.' +
+            '</br> Rescrape of the web page will be happening at the background. Once it is completed, Status will be updated in the <b>Web scrape config</b> page.</div > ';
 
         $('.toggle-modal-addWebScrapeRequest').fireModal({
             title: 'Request for Web Page Rescrape',
-            body: body + '<b>Are you sure you want to rescrape this Web Page?</b>',
+            body: body + '<b>Are you sure you want to rescrape all the Web Pages?</b>',
             buttons: [
                 {
                     text: 'Rescrape',
                     class: 'btn btn-outline-warning',
-                    handler: addWebScrapeRequest
+                    handler: rescrapeWebPages
                 },
                 {
                     text: 'No',
@@ -176,11 +240,10 @@
         });
     }
 
-    function addWebScrapeRequest() {
-        var id = $('#currentWebPageId').val();
+    function rescrapeWebPages() {
 
         var request = $.ajax({
-            url: "/WebPageScrapeRequest/AddNewRequest?pageId=" + id,
+            url: "/WebPage/RescrapeAllPages",
             type: "POST"
         });
 

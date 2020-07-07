@@ -1,4 +1,4 @@
-﻿@model WebPage
+﻿@model WebScapeConfig
 @{
     ViewData["Title"] = "Edit";
     Layout = "_Layout";
@@ -47,25 +47,35 @@
                         <h4>Edit New Web Page - @Model.PageName</h4>
                     </div>
                     @Html.HiddenFor(m => m.Id)
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Page Name</label>
-                            @Html.TextBoxFor(m => m.PageName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.PageName, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            <label>Page Url</label>
-                            @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
-                        </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Page Name</label>
+                        @Html.TextBoxFor(m => m.PageName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PageName, "", new { @class = "text-danger" })
                     </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Page Url</label>
+                        @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Scrape Config</label>
+                        @Html.TextAreaFor(m => m.PageConfig, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Active</label>
+                        @Html.CheckBoxFor(m => m.IsActive)
+                    </div>
+                </div>
                     <div class="card-footer text-right">
                         <button class="btn btn-primary mr-1" type="submit">Update</button>
                         <button class="btn btn-secondary" type="reset">Reset</button>
