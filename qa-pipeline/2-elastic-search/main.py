@@ -66,8 +66,8 @@ def callback(ch, method, properties, body):
 # webscrape
 # indian_bank_database
 # ujjivan_bank_database
-# indian_bank_database_v1
-elastic = Elastic(index='indian_bank_database_v2')
+# indian_bank_database_v2
+elastic = Elastic(index='indian_bank_database')
 
 # elastic = Elastic(index='indian-bank-index-modified')
 
