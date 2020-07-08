@@ -8,11 +8,14 @@
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <h1>Synonyms</h1>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
 
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
         <button style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" id="toggle-modal-addNewSynonymModal">Add New Word</button>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+        <button style="float:right; margin-bottom:10px;" class="btn btn-outline-warning toggle-modal-resyncAllSynonyms">Resync All Synonyms</button>
     </div>
 </div>
 <input id="wordDeleteId" type="hidden" value="" />
@@ -156,6 +159,29 @@
                 }
             ]
         });
+
+        var body = '<div class="alert alert-warning">' +
+            '<b>Note! </b> Re-syncing Synonyms using this feature is recommended only if you have added/modified/deleted the Synonyms.' +
+            '</br> Re-syncing of the Synonyms will be happening in the background.</div > ';
+
+        $('.toggle-modal-resyncAllSynonyms').fireModal({
+            title: 'Request for Sync Synonyms',
+            body: body + '<b>Are you sure you want to Sync all the Synonyms?</b>',
+            buttons: [
+                {
+                    text: 'Sync Synonyms',
+                    class: 'btn btn-outline-warning',
+                    handler: resyncSynonyms
+                },
+                {
+                    text: 'Cancel',
+                    class: 'btn btn-outline-secondary',
+                    handler: function (current_modal) {
+                        $.destroyModal(current_modal);
+                    }
+                }
+            ]
+        });
     });
 
     var synonymDetails = {};
@@ -292,6 +318,32 @@
                 title: 'Error!',
                 position: 'topRight',
                 message: 'Failed to add new Synonym Word.',
+            });
+        });
+    }
+
+    function resyncSynonyms() {
+
+        var request = $.ajax({
+            url: "/Synonyms/ReSyncSynonyms",
+            type: "POST"
+        });
+
+        request.done(function (response) {
+            iziToast.success({
+                title: 'Done!',
+                position: 'topRight',
+                message: 'Synonyms re-synched successfully.',
+            });
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            request.fail(function (jqXHR, textStatus) {
+                iziToast.error({
+                    title: 'Error!',
+                    position: 'topRight',
+                    message: 'Failed to resync Synonyms.',
+                });
             });
         });
     }

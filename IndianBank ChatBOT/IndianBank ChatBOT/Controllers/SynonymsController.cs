@@ -1,8 +1,11 @@
 ﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 namespace IndianBank_ChatBOT.Controllers
@@ -11,11 +14,13 @@ namespace IndianBank_ChatBOT.Controllers
     public class SynonymsController : Controller
     {
         private readonly AppDbContext _dbContext;
-        public SynonymsController(AppDbContext _dbContext)
+        private readonly AppSettings _appSettings;
+        public SynonymsController(IOptions<AppSettings> appsettings, AppDbContext _dbContext)
         {
             this._dbContext = _dbContext;
+            _appSettings = appsettings.Value;
         }
-
+        
         public ActionResult Index()
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();
@@ -155,6 +160,27 @@ namespace IndianBank_ChatBOT.Controllers
             }
 
             return BadRequest("Invalid Input Data");
+        }
+
+
+        [HttpPost]
+        public IActionResult ReSyncSynonyms()
+        {
+            string reSyncSynonymsUrl = _appSettings.WebscrapeUrl;
+            if (!string.IsNullOrEmpty(reSyncSynonymsUrl))
+            {
+                using var client = new HttpClient
+                {
+                    BaseAddress = new Uri(reSyncSynonymsUrl)
+                };
+
+                var responseTask = client.GetAsync("");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                return Ok();
+            }
+            return BadRequest("ReSync Synonyms Url not found. Please check the configuration");
         }
     }
 }

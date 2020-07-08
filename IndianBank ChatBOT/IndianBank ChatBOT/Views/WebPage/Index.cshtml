@@ -183,7 +183,7 @@
 
         var body = '<div class="alert alert-warning">' +
             '<b>Note! </b> Re-scrape web page using this feature is recommended only if your page content is changed with the same structure.' +
-            '</br> Rescrape of the web page will be happening at the background. Once it is completed, Status will be updated in the <b>Web scrape config</b> page.</div > ';
+            '</br> Rescrape of the web page will be happening in the background. Once it is completed, Status will be updated in the <b>Web scrape config</b> page.</div > ';
 
         $('.toggle-modal-addWebScrapeRequest').fireModal({
             title: 'Request for Web Page Rescrape',
@@ -195,7 +195,7 @@
                     handler: rescrapeWebPages
                 },
                 {
-                    text: 'No',
+                    text: 'Cancel',
                     class: 'btn btn-outline-secondary',
                     handler: function (current_modal) {
                         $.destroyModal(current_modal);
@@ -253,7 +253,6 @@
                 position: 'topRight',
                 message: 'Web page rescrape request is done successfully.',
             });
-            setTimeout(function () { window.location.reload(); }, 1000);
         });
 
         request.fail(function (jqXHR, textStatus) {
