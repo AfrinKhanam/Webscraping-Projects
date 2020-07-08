@@ -583,5 +583,5 @@ def rescrape_pages_by_url(url_list):
 
 
 
-rescrape_pages_by_url(["https://indianbank.in/departments/indpay/","https://www.indianbank.in/departments/ind-mobile-banking/","https://indianbank.in/departments/centralized-pension-processing-system/","https://www.indianbank.in/departments/money-gram/","https://indianbank.in/departments/image/"])
-# app.run(port=6000)
+# rescrape_pages_by_url(["https://indianbank.in/departments/indpay/","https://www.indianbank.in/departments/ind-mobile-banking/","https://indianbank.in/departments/centralized-pension-processing-system/","https://www.indianbank.in/departments/money-gram/","https://indianbank.in/departments/image/"])
+app.run(port=6000)
