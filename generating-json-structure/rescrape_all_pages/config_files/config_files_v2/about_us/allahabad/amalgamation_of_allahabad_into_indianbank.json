@@ -1,0 +1,25 @@
+{
+
+	"https://indianbank.in/departments/amalgamation-of-allahabad-bank-into-indian-bank/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

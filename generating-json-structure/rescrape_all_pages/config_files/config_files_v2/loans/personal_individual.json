@@ -1,0 +1,271 @@
+{
+	"https://www.indianbank.in/departments/ib-home-loan-combo/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ib-rent-encash/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+"https://www.indianbank.in/departments/loan-od-against-deposits/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ib-clean-loan-to-salaried-class/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+	"https://www.indianbank.in/departments/ind-reverse-mortgage/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ib-vehicle-loan/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/ind-mortgage/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/ib-home-loan/" : {
+		"post_processing" : true,
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/ib-pension-loan/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/home-improve/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+"https://www.indianbank.in/departments/ib-home-loan-plus/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/loan-od-against-nsc-kvp-relief-bonds-of-rbi-lic-policies/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "personal"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

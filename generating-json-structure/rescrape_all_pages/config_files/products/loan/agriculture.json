@@ -1,0 +1,318 @@
+{
+
+	"https://www.indianbank.in/departments/agricultural-godowns-cold-storage/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/loans-for-maintenance-of-tractors-under-tie-up-with-sugar-mills/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+	
+
+
+	"https://www.indianbank.in/departments/agricultural-produce-marketing-loan/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/financing-agriculturists-for-purchase-of-tractors/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/purchase-of-second-hand-pre-used-tractors-by-agriculturists/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/agri-clinic-and-agri-business-centres/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+
+
+	"https://www.indianbank.in/departments/shg-bank-linkage-programme-direct-linkage-to-shgs/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+
+	"https://www.indianbank.in/departments/rupay-kisan-card/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/dri-scheme-revised-norms/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/sugar-premium-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+
+	"https://www.indianbank.in/departments/sugar-premium-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/golden-harvest-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+
+	"https://www.indianbank.in/departments/agricultural-jewel-loan-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "loan",
+			"class" : "agriculture"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+}

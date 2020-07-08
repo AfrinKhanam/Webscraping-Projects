@@ -1,0 +1,74 @@
+{
+	"https://www.indianbank.in/departments/applications-supported-by-blocked-amount/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "featured product / services/ Schemes"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+
+	"https://www.indianbank.in/departments/central-scheme-to-provide-interest-subsidy-csis/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "featured product / services/ Schemes"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+
+	"https://www.indianbank.in/departments/centralized-pension-processing-system/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "featured product / services/ Schemes"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+
+}
+
