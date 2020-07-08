@@ -10,7 +10,7 @@ class Elastic():
     # indian-bank-hindi
     # indian_bank_database
     # ujjivan_bank_database
-    def __init__(self, host='localhost', port='9200', index='indian_bank_database_v2', doc_type='_doc'):
+    def __init__(self, host='localhost', port='9200', index='indian_bank_database_v6', doc_type='_doc'):
 
     # def __init__(self, host='localhost', port='9200', index='-index-v2', doc_type='_doc'):
     # def __init__(self, host='localhost', port='9200', index='indian-bank-index', doc_type='_doc'):
