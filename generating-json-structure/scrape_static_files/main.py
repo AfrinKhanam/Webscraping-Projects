@@ -93,6 +93,5 @@ def main():
 
 if __name__ == "__main__":
     while True:
-        pass
         main()
         time.sleep(60)

@@ -1,16 +1,24 @@
 import pika
+from configparser import ConfigParser
 
+config_file_path = '../../config.ini'
+config = ConfigParser()
+config.read(config_file_path)
+host = config.get('rabbitmq_webscraping_credentials', 'host')
+username = config.get('rabbitmq_webscraping_credentials', 'username')
+password = config.get('rabbitmq_webscraping_credentials', 'password')
+vhost = config.get('rabbitmq_webscraping_credentials', 'vhost')
 class RabbitmqProducerPipe:
-    def __init__(self, publish_exchange, routing_key, queue_name, host='localhost'):
+    def __init__(self, publish_exchange, routing_key, queue_name, host=host):
 
-        self.credentials = pika.PlainCredentials('webscrape', 'webscrape')
+        self.credentials = pika.PlainCredentials(username, password)
         self.publish_routing_key = routing_key
         self.publish_exchange = publish_exchange
         self.queue_name = queue_name
 
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(
             host, 
-            virtual_host='webscrape',
+            virtual_host=vhost,
             heartbeat = 0,
             credentials=self.credentials))
         self.channel = self.connection.channel()
@@ -33,15 +41,15 @@ class RabbitmqProducerPipe:
 
     
 class RabbitmqConsumerPipe:
-    def __init__(self, exchange, queue, routing_key, callback, host='localhost'):
+    def __init__(self, exchange, queue, routing_key, callback, host=host):
         self.queue = queue
         self.exchange = exchange
         self.routing_key = routing_key
-        self.credentials = pika.PlainCredentials('webscrape', 'webscrape')
+        self.credentials = pika.PlainCredentials(username, password)
 
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(
             host, 
-            virtual_host='webscrape',
+            virtual_host=vhost,
             heartbeat=0,
             credentials=self.credentials))
         self.channel = self.connection.channel()
