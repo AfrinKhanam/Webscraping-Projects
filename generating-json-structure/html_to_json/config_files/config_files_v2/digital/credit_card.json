@@ -16,11 +16,15 @@
 
 			"main_content" : {
 				"tag" : "div",
-				"class" : "row debitCardBTGridTopRow"
+				"class" : "wow zoomIn"
 			}
 
 
 		}
 	}
 }
+
+
+
+
 

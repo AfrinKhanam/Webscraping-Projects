@@ -40,8 +40,9 @@ def read_config_files():
             for json_config in json_configurations:
                 print(type(json_config))
                 url_list = json.loads(json_config['pageConfig'])
-                print("url_list ---> ", list(url_list.keys())[0])
-                if list(url_list.keys())[0] != 'document_name':
+                # print("url_list ---> ", list(url_list.keys())[0])
+                # if list(url_list.keys())[0] != 'document_name':
+                if "document_name" not in url_list:
                     for url in url_list:
                         document = url_list[url]
                         document['url'] = url
@@ -127,7 +128,7 @@ def rescrape(documents):
                 print("exceptiom occured ",e.args)
                 Id = documents[idx]['id']
                 ScrapeStatus = 2
-                ErrorMessage = e.__class__.__name__
+                ErrorMessage = "JSON configuration error"
                 response = requests.put(
                     rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus)+"&ErrorMessage="+ErrorMessage)
                 print(response.status_code)
@@ -152,10 +153,11 @@ def drop_database():
 @app.route('/rescrape_all_pages', methods=['GET'])
 def rescrape_all_pages():
     documents = read_config_files()
-    print(json.dumps(documents[0], indent=4))
-    # drop_database()
-    # time.sleep(5)
-    rescrape(documents)
+    # print(json.dumps(documents[0], indent=4))
+    if documents != None:
+        drop_database()
+        time.sleep(5)
+        rescrape(documents)
     return "successfully scraped the pages", 200
 
 # ----------------------------------------------------------------------------
