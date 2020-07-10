@@ -1,0 +1,132 @@
+{
+		"https://www.indianbank.in/departments/capital-gains/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+	"https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/recurring-deposit/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},"https://www.indianbank.in/departments/ib-tax-saver-scheme/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+	"https://www.indianbank.in/departments/fixed-deposit/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	},
+
+
+	"https://www.indianbank.in/departments/variable-recurring-deposit/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "term"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

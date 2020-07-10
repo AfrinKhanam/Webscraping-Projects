@@ -1,0 +1,25 @@
+{
+
+	"https://indianbank.in/departments/mact-sb/" : {
+		"post_processing":true,
+		"page_hierarchy" : {
+			"domain" : "deposits",
+			"class" : "savings bank account"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

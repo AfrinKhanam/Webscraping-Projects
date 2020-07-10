@@ -1,0 +1,25 @@
+
+{
+
+	"https://www.indianbank.in/departments/sms-banking/" : {
+		"page_hierarchy" : {
+			"domain" : "deposit",
+			"class" : "featured product / services/ Schemes"
+		},
+
+		"subtitle_pattern" : "<h3>.*</h3>",
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

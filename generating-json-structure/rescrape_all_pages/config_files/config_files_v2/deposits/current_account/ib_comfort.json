@@ -1,0 +1,24 @@
+{
+
+	"https://indianbank.in/departments/ib-comfort-domestic-and-nre/" : {
+		"page_hierarchy" : {
+			"domain" : "deposits",
+			"class" : "current account"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "wow zoomIn"
+			}
+
+
+		}
+	}
+}

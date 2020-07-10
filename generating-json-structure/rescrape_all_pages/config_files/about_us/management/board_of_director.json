@@ -1,0 +1,24 @@
+{
+	"https://www.indianbank.in/departments/board-of-directors/" : {
+		"page_hierarchy" : {
+			"domain" : "about",
+			"class" : "management"
+		},
+
+		"subtitle_pattern" : null,
+		"html" : {
+			"main_title" : {
+				"tag" : "h1",
+				"class" : "contentTitle wow bounceInRight"
+			},
+
+			"main_content" : {
+				"tag" : "div",
+				"class" : "boradofdirector-list row"
+			}
+
+
+		}
+	}
+
+}
