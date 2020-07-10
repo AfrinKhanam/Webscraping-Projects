@@ -154,6 +154,17 @@ namespace IndianBank_ChatBOT.Controllers
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
             if (!string.IsNullOrEmpty(WebscrapeUrl))
             {
+                var activeWebPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == true).ToList();
+
+                foreach (var webPage in activeWebPages)
+                {
+                    webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+                    webPage.ErrorMessage = string.Empty;
+                }
+
+                _dbContext.WebScapeConfig.UpdateRange(activeWebPages);
+                _dbContext.SaveChanges();
+
                 using var client = new HttpClient
                 {
                     BaseAddress = new Uri(WebscrapeUrl)
