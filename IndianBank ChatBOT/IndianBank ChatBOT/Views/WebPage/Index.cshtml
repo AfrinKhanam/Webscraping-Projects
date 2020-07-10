@@ -25,23 +25,28 @@
                     <div class="card-stats">
                         <div class="card-stats-items">
                             <div class="card-stats-item">
-                                <div class="card-stats-item-label">Total Requests</div>
+                                <div class="card-stats-item-label">Total Pages</div>
                                 <div class="card-stats-item-count">@Model.Count()</div>
                             </div>
 
                             <div class="card-stats-item">
+                                <div class="card-stats-item-label">Inactive Pages</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.IsActive == false)</div>
+                            </div>
+
+                            <div class="card-stats-item">
                                 <div class="card-stats-item-label">Pending Requests</div>
-                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape)</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape && a.IsActive)</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Successful Requests</div>
-                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess)</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess && a.IsActive)</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Failed Requests</div>
-                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed)</div>
+                                <div class="card-stats-item-count">@Model.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed && a.IsActive)</div>
                             </div>
 
                             <div class="card-stats-item">

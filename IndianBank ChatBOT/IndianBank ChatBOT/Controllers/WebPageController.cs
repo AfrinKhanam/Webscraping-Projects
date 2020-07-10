@@ -154,7 +154,7 @@ namespace IndianBank_ChatBOT.Controllers
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
             if (!string.IsNullOrEmpty(WebscrapeUrl))
             {
-                var activeWebPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == true).ToList();
+                var activeWebPages = _dbContext.WebScapeConfig.ToList();
 
                 foreach (var webPage in activeWebPages)
                 {
