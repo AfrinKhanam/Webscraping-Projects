@@ -7,6 +7,8 @@ import sys
 import time
 from elasticsearch import Elasticsearch
 from configparser import ConfigParser
+import requests
+from datetime import datetime
 
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
@@ -428,26 +430,33 @@ json_files = [
     services_rtgs,
 ]
 print("length of json files-----------> ", len(json_files))
+
+
 def read_config_files():
-    documents = []
-    # ----------------------------------------------------------- #
-    for json_file in json_files:
-        with open(json_file, "r") as file:
-            url_list = json.loads(file.read())
-            # print("url_list--------->",url_list,"\n")
-            for url in url_list:
-                # print("url--------->",url_list[url],"\n")
-                document = url_list[url]
-                # print("document--------->",document,"\n")
+    try:
+        documents = []
+        response = requests.get(
+            url='http://localhost:7512/WebPage/GetAllPages')
+        json_configurations = response.json()
+        # print(json.dumps(json_configurations, indent=4))
+        if json_configurations != None:
+            # ----------------------------------------------------------- #
+            for json_config in json_configurations:
+                print(type(json_config))
+                url_list = json.loads(json_config['pageConfig'])
+                for url in url_list:
+                    document = url_list[url]
+                    document['url'] = url
+                    document['filename'] = path + \
+                        url.split('/')[-2] + '/index.html'
+                    json_config['pageConfig'] = document
+                    documents.append(json_config)
+        return documents
+    except Exception as e:
 
-                document['url'] = url
-                # print("document['url']--------->",document['url'],"\n")
-
-                document['filename'] = path + url.split('/')[-2] + '/index.html'
-                documents.append(document)
-    # print("the length of documents is --> ",documents)
-    return documents
+        print(e.args)
 # ----------------------------------------------------------- #
+
 
 def generate_json_structure(document):
     html_to_json = HtmlToJson(document, source='web')
@@ -459,6 +468,7 @@ def generate_json_structure(document):
     html_to_json.post_processing(document)
     html_to_json.frame_json(document)
 
+
 def main(documents):
     unscraped_pages = []
     for idx in range(len(documents)):
@@ -466,22 +476,43 @@ def main(documents):
         value = True
         while value:
             try:
-                print("filename :: ", documents[idx]['filename'])
-                print("url :: ", documents[idx]['url'])
-                generate_json_structure(documents[idx])
+                print("filename :: ", documents[idx]['pageConfig']['filename'])
+                print("url :: ", documents[idx]['pageConfig']['url'])
+
+                generate_json_structure(documents[idx]['pageConfig'])
                 #---------------------------------------------------------------#
 
                 #---------------------------------------------------------------#
-                print(json.dumps(documents[idx]['html_to_json'], indent=4))
+                print("PRINTING FINAL JSON STRUCTURE \n")
+                print(json.dumps(
+                    documents[idx]['pageConfig']['html_to_json'], indent=4))
                 #---------------------------------------------------------------#
 
                 #---------------------------------------------------------------#
                 rabbitmq_producer.publish(json.dumps(
-                    documents[idx]['html_to_json']).encode())
+                    documents[idx]['pageConfig']['html_to_json']).encode())
                 #---------------------------------------------------------------#
 
                 print('---------------------------------------------------\n\n')
-                time.sleep(5)
+
+                # scrape_status = {'id': documents[idx]['id'], 'url': documents[idx]['url'],
+                #  'scrapeStatus': 1}
+                scrape_status = {
+                    "id": 1,
+                    "url": "https://www.indianbank.in/departments/agricultural-godowns-cold-storage",
+                    "scrapeStatus": 0,
+                    "errorMessage": "abcd"
+                }
+                print(scrape_status)
+
+                response = requests.put("http://localhost:7512/WebPage/UpdateStatus", data=({
+                    "id": 1,
+                    "url": "https://www.indianbank.in/departments/agricultural-godowns-cold-storage",
+                    "scrapeStatus": 1,
+                    "errorMessage": "abcd"
+                }))
+                print(response.status_code)
+                # time.sleep(5)
                 #------`---------------------------------------------------------#
             except ConnectionError as e:
                 print("filename :: ", documents[idx]['filename'])
@@ -491,11 +522,12 @@ def main(documents):
                 time.sleep(5)
                 continue
             except Exception as e:
-                print(
-                    "url,structure of the webpage is changed. Hence webpage is not scraped..!!")
-                print("filename :: ", documents[idx]['filename'])
-                print("url :: ", documents[idx]['url'])
-                unscraped_pages.append(documents[idx]['url'])
+                print("exception occurred..!!", e.args)
+                # print(
+                #     "url,structure of the webpage is changed. Hence webpage is not scraped..!!")
+                # print("filename :: ", documents[idx]['filename'])
+                # print("url :: ", documents[idx]['url'])
+                # unscraped_pages.append(documents[idx]['url'])
             value = False
     return unscraped_pages
 
@@ -534,53 +566,55 @@ def delete_by_condition(documents):
 
         result = es.delete_by_query(index=index, body=query)
         print(json.dumps(result, indent=4))
-    
+
 
 @app.route('/rescrape_all_pages', methods=['GET'])
 def rescrape_all_pages():
     documents = read_config_files()
-    unscraped_pages = main(documents)
-    return str(unscraped_pages)
+    print(json.dumps(documents, indent=4))
+    # print("documents are : \n\n ",json.dumps(documents[0],indent=4))
+    # print("page config : \n\n ",(documents[0]['pageConfig']))
 
+    unscraped_pages = main(documents)
+
+    # documents = read_config_files()
+    # unscraped_pages = main(documents)
+    # return str(unscraped_pages)
+    return "success"
 
 # @app.route('/rescrape_pages_by_url', methods=['POST'])
+
+
 def rescrape_pages_by_url(url_list):
     rescrape_configs = []
     # url_list = request.args
 
     # delete_by_condition(url_list)
 
-
     documents = read_config_files()
     # print("------docs--------",documents)
     for url in url_list:
-        print("url --> ",url,"\n")
+        print("url --> ", url, "\n")
         for doc in documents:
             # print(json.dumps(doc,indent=4))
             if str(doc['url']).split("indianbank.in")[1].strip() == url.split("indianbank.in")[1].strip():
                 rescrape_configs.append(doc)
-                print("\n *********************************************************** \n ",json.dumps(doc,indent=4))
-    print("rescraping config files length is : ",rescrape_configs)
+                print("\n *********************************************************** \n ",
+                      json.dumps(doc, indent=4))
+    print("rescraping config files length is : ", rescrape_configs)
     if rescrape_configs != None:
         rescrape_urls = []
         for r in rescrape_configs:
             rescrape_urls.append(r['url'])
         new_urls = set(url_list) - set(rescrape_urls)
 
-        print("manually scraped pages are : ",list(new_urls))
+        print("manually scraped pages are : ", list(new_urls))
         delete_by_condition(rescrape_configs)
         time.sleep(15)
         unscraped_pages = main(rescrape_configs)
         unscraped_pages.extend(list(new_urls))
-        print("The unscraed pages are : \n ",unscraped_pages)
+        print("The unscraed pages are : \n ", unscraped_pages)
     return str(unscraped_pages)
-
-
-
-
-
-
-
 
 
 # rescrape_pages_by_url(["https://indianbank.in/departments/indpay/","https://www.indianbank.in/departments/ind-mobile-banking/","https://indianbank.in/departments/centralized-pension-processing-system/","https://www.indianbank.in/departments/money-gram/","https://indianbank.in/departments/image/"])
