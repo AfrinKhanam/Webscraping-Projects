@@ -113,21 +113,38 @@ namespace IndianBank_ChatBOT.Controllers
         }
 
 
+        // [HttpPut]
+        // [Route(nameof(UpdateStatus))]
+        // public IActionResult UpdateStatus([FromBody] WebScapeConfig vm)
+        // {
+        //     Console.WriteLine("000000000000000000", vm.Id);
+        //     var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == vm.Id);
+        //     if (webPage != null)
+        //     {
+        //         webPage.ErrorMessage = vm.ErrorMessage;
+        //         webPage.ScrapeStatus = vm.ScrapeStatus;
+        //         webPage.LastScrapedOn = vm.LastScrapedOn;
+        //         _dbContext.WebScapeConfig.Update(webPage);
+        //         _dbContext.SaveChanges();
+        //         return Ok();
+        //     }
+        //     return NotFound($"Web Page with the Id {vm.Id} is not found");
+        // }
         [HttpPut]
         [Route(nameof(UpdateStatus))]
-        public IActionResult UpdateStatus([FromBody] WebScapeConfig vm)
-        {
-            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == vm.Id);
+        public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage=null)
+        { 
+            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == Id);
             if (webPage != null)
             {
-                webPage.ErrorMessage = vm.ErrorMessage;
-                webPage.ScrapeStatus = vm.ScrapeStatus;
-                webPage.LastScrapedOn = vm.LastScrapedOn;
+                webPage.ErrorMessage = ErrorMessage;
+                webPage.ScrapeStatus = ScrapeStatus;
+                webPage.LastScrapedOn = DateTime.Now;
                 _dbContext.WebScapeConfig.Update(webPage);
                 _dbContext.SaveChanges();
                 return Ok();
             }
-            return NotFound($"Web Page with the Id {vm.Id} is not found");
+            return NotFound($" Web Page with the Id {Id} is not found");
         }
 
         [HttpPost]

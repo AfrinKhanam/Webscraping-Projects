@@ -15,5 +15,7 @@
         public string ChatBotBackEndUIEndPoint { get; set; }
         public string StaticFileSuspiciousContentsCSV { get; set; }
         public string WebscrapeUrl { get; set; }
+        public string SynonymsSyncUrl { get; set; }
+
     }
 }
