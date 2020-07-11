@@ -1,4 +1,4 @@
-﻿@model WebPage
+﻿@model WebScapeConfig
 @{
     ViewData["Title"] = "AddNew";
     Layout = "_Layout";
@@ -6,7 +6,7 @@
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <h1>AddNew Web Page</h1>
+        <h1>Add New WebPage</h1>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
 
@@ -63,6 +63,11 @@
                             <label>Page Url</label>
                             @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Url, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Scrape Config</label>
+                            @Html.TextAreaFor(m => m.PageConfig, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="card-footer text-right">

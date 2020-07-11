@@ -39,6 +39,10 @@ namespace IndianBank_ChatBOT.Models
             modelBuilder.Entity<StaticPage>()
                    .Property(e => e.CreatedOn)
                    .HasDefaultValue(DateTime.Now);
+
+            modelBuilder.Entity<WebScapeConfig>()
+                 .Property(e => e.CreatedOn)
+                 .HasDefaultValue(DateTime.Now);
         }
 
         public DbSet<ChatLog> ChatLogs { get; set; }
@@ -48,8 +52,8 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<SynonymWord> SynonymWords { get; set; }
         public DbSet<LeadGenerationInfo> LeadGenerationInfos { get; set; }
         public DbSet<LeadGenerationAction> LeadGenerationActions { get; set; }
-        public DbSet<WebPageScrapeRequest> WebPageScrapeRequests { get; set; }
-        public DbSet<WebPage> WebPages { get; set; }
+        //public DbSet<WebPageScrapeRequest> WebPageScrapeRequests { get; set; }
+        public DbSet<WebScapeConfig> WebScapeConfig { get; set; }
 
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
 

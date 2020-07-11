@@ -16,57 +16,57 @@ namespace IndianBank_ChatBOT.Controllers
             this._dbContext = _dbContext;
         }
 
-        [HttpGet]
-        [Route(nameof(Index))]
-        public ActionResult Index()
-        {
-            var requests = _dbContext.WebPageScrapeRequests.Include(w => w.WebPage).OrderByDescending(w => w.RequestedDate).ToList();
-            return View(requests);
-        }
+        //[HttpGet]
+        //[Route(nameof(Index))]
+        //public ActionResult Index()
+        //{
+        //    var requests = _dbContext.WebPageScrapeRequests.Include(w => w.WebPage).OrderByDescending(w => w.RequestedDate).ToList();
+        //    return View(requests);
+        //}
 
-        // Below APIs for RabbitMQ
+        //// Below APIs for RabbitMQ
 
-        [HttpGet]
-        [Route(nameof(GetAllPendingRequests))]
-        public IActionResult GetAllPendingRequests()
-        {
-            var requests = _dbContext.WebPageScrapeRequests
-                                     .Include(w => w.WebPage)
-                                     .Where(r => r.ScrapeStatus == ScrapeStatus.YetToScrape)
-                                     .ToList();
-            return Ok(requests);
-        }
+        //[HttpGet]
+        //[Route(nameof(GetAllPendingRequests))]
+        //public IActionResult GetAllPendingRequests()
+        //{
+        //    var requests = _dbContext.WebPageScrapeRequests
+        //                             .Include(w => w.WebPage)
+        //                             .Where(r => r.ScrapeStatus == ScrapeStatus.YetToScrape)
+        //                             .ToList();
+        //    return Ok(requests);
+        //}
 
-        [HttpPost]
-        [Route(nameof(AddNewRequest))]
-        public IActionResult AddNewRequest(int pageId)
-        {
-            WebPageScrapeRequest vm = new WebPageScrapeRequest
-            {
-                RequestedDate = DateTime.Now,
-                ScrapeStatus = ScrapeStatus.YetToScrape,
-                WebPageId = pageId,
-                Id = 0
-            };
+        //[HttpPost]
+        //[Route(nameof(AddNewRequest))]
+        //public IActionResult AddNewRequest(int pageId)
+        //{
+        //    WebPageScrapeRequest vm = new WebPageScrapeRequest
+        //    {
+        //        RequestedDate = DateTime.Now,
+        //        ScrapeStatus = ScrapeStatus.YetToScrape,
+        //        WebPageId = pageId,
+        //        Id = 0
+        //    };
 
-            _dbContext.WebPageScrapeRequests.Add(vm);
-            _dbContext.SaveChanges();
-            return Ok();
-        }
+        //    _dbContext.WebPageScrapeRequests.Add(vm);
+        //    _dbContext.SaveChanges();
+        //    return Ok();
+        //}
 
-        [HttpPut]
-        [Route(nameof(UpdateStatus))]
-        public IActionResult UpdateStatus(WebPageScrapeRequest vm)
-        {
-            var page = _dbContext.WebPageScrapeRequests.FirstOrDefault(p => p.Id == vm.Id);
-            if (page != null)
-            {
-                _dbContext.WebPageScrapeRequests.Update(vm);
-                _dbContext.SaveChanges();
-                return Ok();
-            }
+        //[HttpPut]
+        //[Route(nameof(UpdateStatus))]
+        //public IActionResult UpdateStatus(WebPageScrapeRequest vm)
+        //{
+        //    var page = _dbContext.WebPageScrapeRequests.FirstOrDefault(p => p.Id == vm.Id);
+        //    if (page != null)
+        //    {
+        //        _dbContext.WebPageScrapeRequests.Update(vm);
+        //        _dbContext.SaveChanges();
+        //        return Ok();
+        //    }
 
-            return NotFound($"Page with the Id {vm.Id} is not found");
-        }
+        //    return NotFound($"Page with the Id {vm.Id} is not found");
+        //}
     }
 }

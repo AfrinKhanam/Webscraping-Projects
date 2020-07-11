@@ -1,6 +1,12 @@
 ﻿using IndianBank_ChatBOT.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Bot.Builder.Dialogs.Debugging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Http;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -8,17 +14,19 @@ namespace IndianBank_ChatBOT.Controllers
     public class WebPageController : Controller
     {
         private readonly AppDbContext _dbContext;
+        private readonly AppSettings _appSettings;
 
-        public WebPageController(AppDbContext _dbContext)
+        public WebPageController(IOptions<AppSettings> appsettings, AppDbContext _dbContext)
         {
             this._dbContext = _dbContext;
+            _appSettings = appsettings.Value;
         }
 
         [HttpGet]
         [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebPages.OrderBy(p => p.PageName).ToList();
+            var webPages = _dbContext.WebScapeConfig.OrderBy(p => p.PageName).ToList();
             return View(webPages);
         }
 
@@ -26,15 +34,20 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(AddNew))]
         public ActionResult AddNew()
         {
-            var webPage = new WebPage();
+            var webPage = new WebScapeConfig();
             return View(webPage);
         }
 
         [HttpPost]
         [Route(nameof(AddNew))]
-        public ActionResult AddNew(WebPage webPage)
+        public ActionResult AddNew(WebScapeConfig webPage)
         {
-            _dbContext.WebPages.Add(webPage);
+            webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+            webPage.CreatedOn = DateTime.Now;
+            webPage.LastScrapedOn = null;
+            webPage.IsActive = true;
+
+            _dbContext.WebScapeConfig.Add(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.insertWebPageStatus = "New Web Page is added successfully.";
@@ -48,15 +61,15 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Edit))]
         public ActionResult Edit(int pageId)
         {
-            var webPage = _dbContext.WebPages.Find(pageId);
+            var webPage = _dbContext.WebScapeConfig.Find(pageId);
             return View(webPage);
         }
 
         [HttpPost]
         [Route(nameof(Edit))]
-        public ActionResult Edit(WebPage webPage)
+        public ActionResult Edit(WebScapeConfig webPage)
         {
-            _dbContext.WebPages.Update(webPage);
+            _dbContext.WebScapeConfig.Update(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.editWebPageStatus = "Web Page is updates successfully.";
@@ -72,10 +85,10 @@ namespace IndianBank_ChatBOT.Controllers
         {
             if (pageId != 0)
             {
-                var webpage = _dbContext.WebPages.FirstOrDefault(w => w.Id == pageId);
+                var webpage = _dbContext.WebScapeConfig.FirstOrDefault(w => w.Id == pageId);
                 if (webpage != null)
                 {
-                    _dbContext.WebPages.Remove(webpage);
+                    _dbContext.WebScapeConfig.Remove(webpage);
                     _dbContext.SaveChanges();
                     return Ok();
                 }
@@ -83,13 +96,11 @@ namespace IndianBank_ChatBOT.Controllers
             return NotFound($"Web Page with the id {pageId} not found!");
         }
 
-        // Below APIs for RabbitMQ
-
         [HttpGet]
         [Route(nameof(GetAllPages))]
-        public IActionResult GetAllPages()
+        public IActionResult GetAllPages(bool isActive = true)
         {
-            var webPages = _dbContext.WebPages.ToList();
+            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).ToList();
             return Ok(webPages);
         }
 
@@ -97,8 +108,47 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(GetPageById))]
         public IActionResult GetPageById(int pageId)
         {
-            var webPage = _dbContext.WebPages.Find(pageId);
+            var webPage = _dbContext.WebScapeConfig.Find(pageId);
             return Ok(webPage);
+        }
+
+
+        [HttpPut]
+        [Route(nameof(UpdateStatus))]
+        public IActionResult UpdateStatus([FromBody] WebScapeConfig vm)
+        {
+            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == vm.Id);
+            if (webPage != null)
+            {
+                webPage.ErrorMessage = vm.ErrorMessage;
+                webPage.ScrapeStatus = vm.ScrapeStatus;
+                webPage.LastScrapedOn = vm.LastScrapedOn;
+                _dbContext.WebScapeConfig.Update(webPage);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            return NotFound($"Web Page with the Id {vm.Id} is not found");
+        }
+
+        [HttpPost]
+        [Route(nameof(RescrapeAllPages))]
+        public IActionResult RescrapeAllPages()
+        {
+            string WebscrapeUrl = _appSettings.WebscrapeUrl;
+            if (!string.IsNullOrEmpty(WebscrapeUrl))
+            {
+                using var client = new HttpClient
+                {
+                    BaseAddress = new Uri(WebscrapeUrl)
+                };
+
+                var responseTask = client.GetAsync("");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                return Ok();
+            }
+            return BadRequest("Web Scrape Url not found. Please check the configuration");
         }
     }
 }

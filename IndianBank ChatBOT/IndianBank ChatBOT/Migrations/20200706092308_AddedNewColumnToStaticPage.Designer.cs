@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200706092308_AddedNewColumnToStaticPage")]
+    partial class AddedNewColumnToStaticPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,7 +225,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 7, 7, 22, 32, 49, 825, DateTimeKind.Local).AddTicks(7133));
+                        .HasDefaultValue(new DateTime(2020, 7, 6, 14, 53, 7, 798, DateTimeKind.Local).AddTicks(2622));
 
                     b.Property<string>("FileData")
                         .HasColumnType("text");
@@ -375,39 +377,19 @@ namespace IndianBank_ChatBOT.Migrations
                     b.ToTable("VisitorsByYearMonthViewModels");
                 });
 
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebScapeConfig", b =>
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 7, 7, 22, 32, 49, 828, DateTimeKind.Local).AddTicks(6932));
-
                     b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ErrorMessage")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastScrapedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("PageConfig")
                         .HasColumnType("text");
 
                     b.Property<string>("PageName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("ScrapeStatus")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -415,7 +397,33 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WebScapeConfig");
+                    b.ToTable("WebPages");
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageScrapeRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("CompletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("RequestedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("ScrapeStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WebPageId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WebPageId");
+
+                    b.ToTable("WebPageScrapeRequests");
                 });
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.SynonymWord", b =>
@@ -423,6 +431,15 @@ namespace IndianBank_ChatBOT.Migrations
                     b.HasOne("IndianBank_ChatBOT.Models.Synonym", "Synonym")
                         .WithMany("SynonymWords")
                         .HasForeignKey("SynonymId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageScrapeRequest", b =>
+                {
+                    b.HasOne("IndianBank_ChatBOT.Models.WebPage", "WebPage")
+                        .WithMany()
+                        .HasForeignKey("WebPageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

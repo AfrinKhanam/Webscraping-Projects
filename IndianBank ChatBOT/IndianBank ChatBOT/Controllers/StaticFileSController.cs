@@ -287,11 +287,10 @@ namespace IndianBank_ChatBOT.Controllers
         public IActionResult UpdateStatus(StaticPage vm)
         {
             var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == vm.Id);
-            // var staticFile = _dbContext.WebPageScrapeRequests.FirstOrDefault(s => s.Id == vm.Id);
             if (staticFile != null)
             {
                 staticFile.ScrapeStatus = vm.ScrapeStatus;
-                staticFile.CreatedOn = vm.CreatedOn;
+                staticFile.LastScrapedOn = vm.LastScrapedOn;
                 _dbContext.StaticPages.Update(staticFile);
                 _dbContext.SaveChanges();
                 return Ok();
