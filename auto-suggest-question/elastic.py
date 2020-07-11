@@ -1,11 +1,19 @@
 from elasticsearch import Elasticsearch
 import json
 from uuid import uuid1
+from configparser import ConfigParser
 
+config_file_path = '../config.ini'
+config = ConfigParser()
+config.read(config_file_path)
 
 class Elastic():
-    def __init__(self, host='localhost', port='9200', index='indian-bank-auto-suggestion-v2', doc_type='_doc'):
-        self.es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    localhost = config.get('elastic_search_credentials', 'host')
+    port = config.getint('elastic_search_credentials', 'port')
+    autosuggestion_index = config.get('elastic_search_credentials', 'autosuggestion_index')
+    
+    def __init__(self, host=localhost, port=port, index=autosuggestion_index, doc_type='_doc'):
+        self.es = Elasticsearch([{'host': host, 'port': port}])
         self.index = index
         self.doc_type = doc_type
 
