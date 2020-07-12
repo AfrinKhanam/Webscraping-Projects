@@ -52,32 +52,6 @@ class Elastic():
         else:
             return es_result
 
-    # def delete_by_condition(self):
-    #     query = {
-    #         "query": {
-    #             "bool": {
-    #                 "should": [
-    #                     {
-    #                         "match_phrase": {
-    #                             "url": "https://indianbank.in/departments/ind-sme-ease/",
-
-    #                         }
-    #                     },
-    #                     {
-    #                         "match_phrase": {
-    #                             "url": "https://www.indianbank.in/departments/ind-sme-ease/",
-
-    #                         }
-    #                     }
-    #                 ]
-    #             }
-    #         }
-    #     }
-
-    #     res = self.es.delete_by_query(index='static_pages', body=query)
-    #     print(json.dumps(res, indent=4))
-
-
 elastic = Elastic()
 
 

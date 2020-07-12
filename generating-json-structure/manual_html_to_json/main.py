@@ -19,19 +19,19 @@ general_managers = "./ManuallyScrapedData/json_v2/general_managers.json"
 cms_plus = "./ManuallyScrapedData/json_v2/cms_plus.json"
 
 json_files = [
-    CentralSchemeToProvideInterestSubsidy,
+    # CentralSchemeToProvideInterestSubsidy,
     CentralizedPensionProcessingSystem,
-    image,
-    ExecutiveDirectorsProfile,
-    EConfirmationOfBankGuarantee,
-    ComplaintsOfficersList,
-    IndianBankMutualFund,
-    ServiceChargesForexRates,
-    LendingRates,
-    InternetBanking,
-    IndPay,
-    DepositRates,
-    cms_plus
+    # image,
+    # ExecutiveDirectorsProfile,
+    # EConfirmationOfBankGuarantee,
+    # ComplaintsOfficersList,
+    # IndianBankMutualFund,
+    # ServiceChargesForexRates,
+    # LendingRates,
+    # InternetBanking,
+    # IndPay,
+    # DepositRates,
+    # cms_plus
 ]
 documents = []
 
@@ -43,7 +43,7 @@ print("the documents length is----------", documents.__len__)
 
 def main():
     for document in documents:
-        print("^^^^^^^^^^^^^", document)
+        print("^^^^^^^^^^^^^", json.dumps(document,indent=4))
         rabbitmq_producer.publish(json.dumps(document).encode())
 
 

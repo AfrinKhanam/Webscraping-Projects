@@ -22,10 +22,11 @@ app.config["DEBUG"] = True
 config_file_path = '../../config.ini'
 config = ConfigParser()
 config.read(config_file_path)
-rescraping_url=config['urls']['rescrape_all_pages_url']
+rescraping_url = config['urls']['rescrape_all_pages_url']
 index = config.get('elastic_search_credentials', 'index')
-synonyms_url=config['urls']['synonyms_url']
-rescrape_status_url = config.get('urls','rescrape_status_url')
+synonyms_url = config['urls']['synonyms_url']
+rescrape_status_url = config.get('urls', 'rescrape_status_url')
+
 
 def read_config_files():
     try:
@@ -33,22 +34,32 @@ def read_config_files():
         response = requests.get(
             url=rescraping_url)
         json_configurations = response.json()
+        print(json.dumps(json_configurations, indent=4))
         if json_configurations != None:
             # ----------------------------------------------------------- #
             for json_config in json_configurations:
                 print(type(json_config))
                 url_list = json.loads(json_config['pageConfig'])
-                for url in url_list:
-                    document = url_list[url]
-                    document['url'] = url
-                    document['filename'] = path + \
-                        url.split('/')[-2] + '/index.html'
+                print("url_list ---> ", list(url_list.keys())[0])
+                if list(url_list.keys())[0] != 'document_name':
+                    for url in url_list:
+                        document = url_list[url]
+                        document['url'] = url
+                        document['filename'] = path + \
+                            url.split('/')[-2] + '/index.html'
+                        json_config['pageConfig'] = document
+                        documents.append(json_config)
+                else:
+                    document = url_list
                     json_config['pageConfig'] = document
+
                     documents.append(json_config)
-        return documents
+
+            return documents
     except Exception as e:
         print(e.args)
 # ----------------------------------------------------------- #
+
 
 def generate_json_structure(document):
     html_to_json = HtmlToJson(document, source='web')
@@ -64,33 +75,48 @@ def generate_json_structure(document):
 
 # ----------------------------------------------------------- #
 
+
 def rescrape(documents):
     for idx in range(len(documents)):
         value = True
         while value:
             try:
-                print("filename :: ", documents[idx]['pageConfig']['filename'])
-                print("url :: ", documents[idx]['pageConfig']['url'])
+                config = (documents[idx]['pageConfig'])
+                print(config.get("filename"))
+                if not (config.get('filename') is None):
+                    print("if condition..!")
+                    print("filename :: ",
+                          documents[idx]['pageConfig']['filename'])
+                    print("url :: ", documents[idx]['pageConfig']['url'])
 
-                generate_json_structure(documents[idx]['pageConfig'])
-                #---------------------------------------------------------------#
+                    generate_json_structure(documents[idx]['pageConfig'])
+                    #---------------------------------------------------------------#
 
-                #---------------------------------------------------------------#
-                print("PRINTING FINAL JSON STRUCTURE \n")
-                print(json.dumps(
-                    documents[idx]['pageConfig']['html_to_json'], indent=4))
-                #---------------------------------------------------------------#
+                    #---------------------------------------------------------------#
+                    print("PRINTING FINAL JSON STRUCTURE \n")
+                    print(json.dumps(
+                        documents[idx]['pageConfig']['html_to_json'], indent=4))
+                    #---------------------------------------------------------------#
 
-                #---------------------------------------------------------------#
-                rabbitmq_producer.publish(json.dumps(
-                    documents[idx]['pageConfig']['html_to_json']).encode())
-                #---------------------------------------------------------------#
+                    #---------------------------------------------------------------#
+                    rabbitmq_producer.publish(json.dumps(
+                        documents[idx]['pageConfig']['html_to_json']).encode())
+                    #---------------------------------------------------------------#
 
-                print('---------------------------------------------------\n\n')
+                    print('---------------------------------------------------\n\n')
+                    
+                else:
+                    print("else condition condition..!",json.dumps(documents[idx],indent=4))
+
+                    # print(documents[idx]['pageConfig'])
+                        
+                    rabbitmq_producer.publish(
+                       json.dumps(documents[idx]['pageConfig']))
 
                 Id = documents[idx]['id']
                 ScrapeStatus = 1
-                response = requests.put(rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus))
+                response = requests.put(
+                rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus))
                 print(response.status_code)
                 time.sleep(5)
                 #------`---------------------------------------------------------#
@@ -98,10 +124,12 @@ def rescrape(documents):
                 time.sleep(5)
                 continue
             except Exception as e:
+                print("exceptiom occured ",e.args)
                 Id = documents[idx]['id']
                 ScrapeStatus = 2
                 ErrorMessage = e.__class__.__name__
-                response = requests.put(rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus)+"&ErrorMessage="+ErrorMessage)
+                response = requests.put(
+                    rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus)+"&ErrorMessage="+ErrorMessage)
                 print(response.status_code)
             value = False
 
@@ -112,69 +140,46 @@ rabbitmq_producer = RabbitmqProducerPipe(
     queue_name='nlpQueue',
     host="localhost")
 
-
-# def delete_by_condition(documents):
-#     es = Elasticsearch(index=index)
-#     if es.indices.exists(index=index):
-#         for doc in documents:
-#             url = doc['pageConfig']['url'].split("indianbank.in")[1]
-#             print("deleting the url = ",url)
-#             query = {
-#                 "query": {
-#                     "bool": {
-#                         "must": [
-#                             {
-#                                 "match_phrase": {
-#                                     "url": url
-#                                 }
-#                             }
-#                         ]
-#                     }
-#                 }
-#             }
-#             result = es.delete_by_query(index=index, body=query)
-#             time.sleep(5)
-#             print(json.dumps(result, indent=4))
-
 def drop_database():
     try:
         es = Elasticsearch(index=index)
-        es.indices.delete(index=index) 
-        print("database deleted successfully..!!",index)
+        es.indices.delete(index=index)
+        print("database deleted successfully..!!", index)
     except Exception as e:
-        print("No database found..!!",e.args)
+        print("No database found..!!", e.args)
 
 
 @app.route('/rescrape_all_pages', methods=['GET'])
 def rescrape_all_pages():
     documents = read_config_files()
-    # delete_by_condition(documents)
-    drop_database()
-    time.sleep(5)
+    print(json.dumps(documents[0], indent=4))
+    # drop_database()
+    # time.sleep(5)
     rescrape(documents)
-    return "successfully scraped the pages",200
+    return "successfully scraped the pages", 200
 
 # ----------------------------------------------------------------------------
-@app.route('/resync_synonyms', methods=['POST'])
-def resync_synonyms ():
-    print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+@app.route('/resync_synonyms', methods=['GET'])
+def resync_synonyms():
     ROOT_DIR = os.path.abspath(os.pardir)
     try:
-        r = requests.get(url = synonyms_url) 
+        r = requests.get(url=synonyms_url)
         data = r.json()
-        print("----------> ",r)
-        synonyms=[]
+        print("----------> ", r)
+        synonyms = []
         for w in data:
-            synonyms.append(re.sub(",","=",w))
-        value="\n".join(synonyms)
-        print("synonyms------>> ",value)
-        file = open(ROOT_DIR+"/../qa-pipeline/1-query-parser/config_files/synonyms.txt","w+") 
+            synonyms.append(re.sub(",", "=", w))
+        value = "\n".join(synonyms)
+        print("synonyms------>> ", value)
+        file = open(
+            ROOT_DIR+"/../qa-pipeline/1-query-parser/config_files/synonyms.txt", "w+")
         file.write(value)
-        file.close() 
+        file.close()
         return "successfully updated synonyms"
     except Exception as e:
-        print("exception occurred..!!",e)
+        print("exception occurred..!!", e)
         return "failed to update synonyms", 400
+
 
 # ----------------------------------------------------------------------------
 app.run(port=6000)
