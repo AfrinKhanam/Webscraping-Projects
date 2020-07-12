@@ -4,6 +4,13 @@ from building_blocks.MessageQueue.rabbitmq_pipe import RabbitmqProducerPipe
 import json
 import sys
 import time
+from elasticsearch import Elasticsearch
+from configparser import ConfigParser
+
+config_file_path = '../../config.ini'
+config = ConfigParser()
+config.read(config_file_path)
+index = config.get('elastic_search_credentials', 'index')
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 
 # ----------------------------------------------------------- #
@@ -286,7 +293,7 @@ agri_joint_liability_group = './config_files/config_files_v2/loans/' + \
 
 json_files = [
 
-    # --------------------------CORPORATE-------------------------------------------
+     # --------------------------CORPORATE-------------------------------------------
     corporate_credit,
     working_capital,
     term_loan,
@@ -340,6 +347,7 @@ json_files = [
     ib_doctor_plus,
     ind_sme_e_vaahan,
     agri_joint_liability_group,
+    # ---------------------------------------------------------------------
 
 
     investors_service,
@@ -357,6 +365,7 @@ json_files = [
     shareholding_pattern,
     annual_reports,
     image,
+    # ------------------------contacts---------------------------------------------
 
     head_office,
     department,
@@ -371,14 +380,15 @@ json_files = [
     death_claim,
     customer_complaints,
     quick_contacts,
+    # -------------------------rates--------------------------------------------
 
     rates_deposit,
-    rates_forex,
+    # -----------------------------services----------------------------------------
+
     services_doorstep_banking,
     services_e_payment_indirect_tax,
     services_debenture_trustee,
     services_e_payment_direct_tax,
-
     services_chhatra,
     services_ib_home_security,
     services_jeevan_kalyan,
@@ -389,26 +399,6 @@ json_files = [
     services_jeevan_vidya,
     services_jana_varishtha,
     services_yatra_suraksha,
-
-    agriculture_config_file,
-    personal_config_file,
-
-    msme_config_file,
-    nri_config_file,
-
-    saving_config_file,
-    current_config_file,
-    term_config_file,
-    depoit_nri_config_file,
-
-    pos_config_file,
-    digital_cash_pos_config_file,
-    digital_debit_card,
-    digital_ib_collect_plus,
-    digital_ib_v_collect_plus,
-    digital_sms_banking,
-
-    featured_config_file,
     services_credit_card,
     services_atm_debit_cards,
     services_ind_netbanking,
@@ -419,6 +409,30 @@ json_files = [
     services_mca_payment,
     services_multicity_cheque_facility,
     services_rtgs,
+    # ----------------------loans-----------------------------------------------
+    agriculture_config_file,
+    personal_config_file,
+    msme_config_file,
+    nri_config_file,
+    # ----------------------deposits-----------------------------------------------
+
+    saving_config_file,
+    current_config_file,
+    term_config_file,
+    depoit_nri_config_file,
+
+    # ----------------------digital-----------------------------------------------
+
+    pos_config_file,
+    digital_cash_pos_config_file,
+    digital_debit_card,
+    digital_ib_collect_plus,
+    digital_ib_v_collect_plus,
+    digital_sms_banking,
+    # ----------------------features-----------------------------------------------
+
+    featured_config_file,
+    
 
 ]
 print("length of json files-----------> ", len(json_files))
@@ -495,6 +509,15 @@ rabbitmq_producer = RabbitmqProducerPipe(
     queue_name='nlpQueue',
     host="localhost")
 # ----------------------------------------------------------- #
+def drop_database():
+    try:
+        es = Elasticsearch(index=index)
+        es.indices.delete(index=index) 
+        print("database deleted successfully..!!")
+    except Exception as e:
+        print("No database found..!!",e.args)
 
 if __name__ == "__main__":
+    drop_database()
+    time.sleep(5)
     main()

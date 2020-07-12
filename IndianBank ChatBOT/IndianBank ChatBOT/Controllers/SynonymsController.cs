@@ -166,7 +166,7 @@ namespace IndianBank_ChatBOT.Controllers
         [HttpPost]
         public IActionResult ReSyncSynonyms()
         {
-            string reSyncSynonymsUrl = "http://localhost:6000/resync_synonyms";
+            string reSyncSynonymsUrl = _appSettings.SynonymsSyncUrl;
             if (!string.IsNullOrEmpty(reSyncSynonymsUrl))
             {
                 using var client = new HttpClient

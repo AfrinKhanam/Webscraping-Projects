@@ -6,12 +6,15 @@ import sys
 import time
 from configparser import ConfigParser
 import requests
+from elasticsearch import Elasticsearch
+from configparser import ConfigParser
 
 path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
 config_file_path = '../../config.ini'
 config = ConfigParser()
 config.read(config_file_path)
 rescraping_url=config['urls']['rescrape_all_pages_url']
+index = config.get('elastic_search_credentials', 'index')
 
 # ----------------------------------------------------------- #
 
@@ -563,9 +566,19 @@ def rescrape(documents):
                 print("excption",e)
             value = False
 
+def drop_database():
+    try:
+        es = Elasticsearch(index=index)
+        es.indices.delete(index=index) 
+        print("database deleted successfully..!!",index)
+    except Exception as e:
+        print("No database found..!!",e.args)
 
 if __name__ == "__main__":
     documents = read_config_files()
-    rescrape(documents)
+    if documents != None:
+        drop_database()
+        time.sleep(5)
+        rescrape(documents)
 
 

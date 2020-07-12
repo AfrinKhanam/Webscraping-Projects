@@ -113,35 +113,46 @@ rabbitmq_producer = RabbitmqProducerPipe(
     host="localhost")
 
 
-def delete_by_condition(documents):
-    es = Elasticsearch(index=index)
-    for doc in documents:
-        url = doc['pageConfig']['url'].split("indianbank.in")[1]
-        print("deleting the url = ",url)
-        query = {
-            "query": {
-                "bool": {
-                    "must": [
-                        {
-                            "match_phrase": {
-                                "url": url
-                            }
-                        }
-                    ]
-                }
-            }
-        }
-        result = es.delete_by_query(index=index, body=query)
-        time.sleep(5)
-        print(json.dumps(result, indent=4))
+# def delete_by_condition(documents):
+#     es = Elasticsearch(index=index)
+#     if es.indices.exists(index=index):
+#         for doc in documents:
+#             url = doc['pageConfig']['url'].split("indianbank.in")[1]
+#             print("deleting the url = ",url)
+#             query = {
+#                 "query": {
+#                     "bool": {
+#                         "must": [
+#                             {
+#                                 "match_phrase": {
+#                                     "url": url
+#                                 }
+#                             }
+#                         ]
+#                     }
+#                 }
+#             }
+#             result = es.delete_by_query(index=index, body=query)
+#             time.sleep(5)
+#             print(json.dumps(result, indent=4))
+
+def drop_database():
+    try:
+        es = Elasticsearch(index=index)
+        es.indices.delete(index=index) 
+        print("database deleted successfully..!!",index)
+    except Exception as e:
+        print("No database found..!!",e.args)
+
 
 @app.route('/rescrape_all_pages', methods=['GET'])
 def rescrape_all_pages():
     documents = read_config_files()
-    delete_by_condition(documents)
+    # delete_by_condition(documents)
+    drop_database()
     time.sleep(5)
     rescrape(documents)
-    return "success"
+    return "successfully scraped the pages",200
 
 # ----------------------------------------------------------------------------
 @app.route('/resync_synonyms', methods=['POST'])
@@ -163,7 +174,7 @@ def resync_synonyms ():
         return "successfully updated synonyms"
     except Exception as e:
         print("exception occurred..!!",e)
-        return "failed to updated synonyms"
+        return "failed to update synonyms", 400
 
 # ----------------------------------------------------------------------------
 app.run(port=6000)
