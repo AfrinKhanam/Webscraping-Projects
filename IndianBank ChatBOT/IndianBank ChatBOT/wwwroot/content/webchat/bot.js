@@ -181,7 +181,7 @@ $(document).ready(function () {
                 });
             },
             // deferRequestBy - number of miliseconds to defer ajax request, default: 0
-            deferRequestBy: 0,
+            deferRequestBy: 300,
             // ajaxSettings - any additional ajax settings that configure the jQuery Ajax request,
             // see: from: http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings
             // END ajax settings
