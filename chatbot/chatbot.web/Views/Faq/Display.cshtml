@@ -1,0 +1,334 @@
+﻿@model IEnumerable<Faq>
+
+@{
+    ViewData["Title"] = "display";
+}
+
+<h2>List of Frequently asked Questions</h2>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#trainModal">Train</button>
+<button class="btn btn-outline-success" data-toggle="modal" onclick="clearTestInputs()" data-target="#testModal">Test</button>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#deployModal">Deploy</button>
+<p>
+    <button type="button" style="float:right; margin-bottom:10px;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Create", "Faq")'">Add New</button>
+</p>
+<table class="table css-serial">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            {
+                index += 1;
+            }
+            <tr>
+                <td>@index</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="location.href='@Url.Action("Update", "Faq", new { id = item.Id })'">Edit</button>
+
+                    <button onclick="setDeleteId(@item.Id)" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+
+    .css-serial {
+        counter-reset: serial-number; /* Set the serial number counter to 0 */
+    }
+
+        .css-serial td:first-child:before {
+            counter-increment: serial-number; /* Increment the serial number counter */
+            content: counter(serial-number); /* Display the counter */
+        }
+</style>
+@*DELETE MODEL*@
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong>Note:</strong> Always make sure that you <strong>Train</strong> and <strong>Deploy</strong> the FAQ BOT after deleting the FAQ.
+                </div>
+                Are you sure you want to delete this FAQ?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <input id="deleteFAQId" type="hidden" value="" />
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="deleteFAQ()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deployModal" tabindex="-1" role="dialog" aria-labelledby="deployModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deployModalLabel">Deploy FAQ BOT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to Deploy FAQ BOT?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="deploy()">Deploy</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="deleteSuccessStatus" style="display:none; margin-top: 10px;" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success.</strong> FAQ is deleted Successfully.
+    <button onclick="closeStatusBar('deleteSuccessStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="deleteFailedStatus" style="display:none; margin-top: 10px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed.</strong> Failed to delete FAQ.
+    <button onclick="closeStatusBar('deleteFailedStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal fade" id="trainModal" tabindex="-1" role="dialog" aria-labelledby="trainModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="trainModalLabel">Train FAQ BOT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure that you would like to Train the FAQ BOT?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="train()">Train</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="trainSuccessStatus" style="display:none; margin-top: 10px;" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success.</strong> FAQ BOT is Trained Successfully.
+    <button onclick="closeStatusBar('trainSuccessStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="trainFailedStatus" style="display:none; margin-top: 10px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed.</strong> Failed to Train the FAQ BOT.
+    <button onclick="closeStatusBar('trainFailedStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div id="deploySuccessStatus" style="display:none; margin-top: 10px;" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success.</strong> FAQ BOT is Deployed Successfully.
+    <button onclick="closeStatusBar('deploySuccessStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="deployFailedStatus" style="display:none; margin-top: 10px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed.</strong> Failed to Deploy the FAQ BOT.
+    <button onclick="closeStatusBar('deployFailedStatus')" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testModalLabel">Test FAQ BOT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Question">Question:</label>
+                    <input placeholder="Enter your question" class="form-control" type="text" id="testData" name="testData" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Question">Result:</label>
+
+                    <div id="testSuccessStatus" style="display:none" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success.</strong> FAQ is tested Successfully.
+                        <button onclick="closeStatusBar('testSuccessStatus')" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div id="testFailedStatus" style="display:none" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Failed.</strong> Trainig NLP Engine is not running. Please make sure that it is running.
+                        <button onclick="closeStatusBar('testFailedStatus')" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div style="display:none" id="testResult" class="alert alert-success" role="alert">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success" onclick="test()">Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function test() {
+
+        document.getElementById('testResult').textContent = "";
+
+        var testData = document.getElementById('testData').value.trim();
+
+        if (testData.trim().length == 0) {
+            alert('Please enter the question text.');
+            return;
+        }
+
+        var request = $.ajax({
+
+            url: "/Faq/TestFaq",
+            data: { testData: testData },
+            type: "GET"
+        });
+
+        request.done(function (response) {
+            if (response.success == true) {
+                document.getElementById('testResult').style.display = "block";
+                document.getElementById('testResult').innerHTML = response.data.response;
+                document.getElementById("testSuccessStatus").style.display = "block";
+                document.getElementById("testFailedStatus").style.display = "none";
+            }
+            else {
+                document.getElementById('testResult').style.display = "none";
+                document.getElementById("testFailedStatus").style.display = "block";
+                document.getElementById("testSuccessStatus").style.display = "none";
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            document.getElementById("testFailedStatus").style.display = "block";
+        });
+
+    }
+
+    function clearTestInputs() {
+        document.getElementById('testData').value = "";
+        document.getElementById('testResult').textContent = "";
+    }
+
+    function setDeleteId(val) {
+        document.getElementById('deleteFAQId').value = val;
+    }
+
+    function closeStatusBar(targetElement) {
+        document.getElementById(targetElement).style.display = "none";
+    }
+    function deleteFAQ() {
+        var idToDelete = document.getElementById('deleteFAQId').value;
+
+        document.getElementById("deleteSuccessStatus").style.display = "none";
+        document.getElementById("deleteFailedStatus").style.display = "none";
+
+        var request = $.ajax({
+            url: "/Faq/Delete?id=" + idToDelete,
+            type: "GET"
+        });
+
+        request.done(function (data) {
+            document.getElementById("deleteSuccessStatus").style.display = "block";
+            setTimeout(function () { window.location.reload(); }, 500);
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            document.getElementById("deleteFailedStatus").style.display = "block";
+        });
+        function clearTestInputs() {
+            document.getElementById('testData').value = "";
+            document.getElementById('testResult').textContent = "";
+        }
+    }
+    function train() {
+        document.getElementById("trainSuccessStatus").style.display = "none";
+        document.getElementById("trainFailedStatus").style.display = "none";
+
+        var request = $.ajax({
+            url: "/Faq/TrainFaq",
+            type: "GET"
+        });
+
+        request.done(function (data) {
+            if (data.value["success"] == true) {
+                document.getElementById("trainSuccessStatus").style.display = "block";
+            }
+            else if (data.value["ExceptionType"] == "deepPavlovTrainigPath") {
+                alert('deeppavlov training path is not correct' + data.value["Message"]);
+            }
+            else {
+                document.getElementById("trainFailedStatus").style.display = "block";
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            document.getElementById("trainFailedStatus").style.display = "block";
+        });
+    }
+    function deploy() {
+
+        document.getElementById("deploySuccessStatus").style.display = "none";
+        document.getElementById("deployFailedStatus").style.display = "none";
+
+        var request = $.ajax({
+            url: "/Faq/DeployFaq",
+            type: "GET"
+        });
+
+        request.done(function (data) {
+            document.getElementById("deploySuccessStatus").style.display = "block";
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            document.getElementById("deployFailedStatus").style.display = "block";
+        });
+    }
+
+</script>
