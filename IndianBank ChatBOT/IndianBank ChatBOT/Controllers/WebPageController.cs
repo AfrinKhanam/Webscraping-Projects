@@ -100,7 +100,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(GetAllPages))]
         public IActionResult GetAllPages(bool isActive = true)
         {
-            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).ToList();
+            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).OrderBy(p => p.PageName).ToList();
             return Ok(webPages);
         }
 
@@ -132,8 +132,8 @@ namespace IndianBank_ChatBOT.Controllers
         // }
         [HttpPut]
         [Route(nameof(UpdateStatus))]
-        public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage=null)
-        { 
+        public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage = null)
+        {
             var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == Id);
             if (webPage != null)
             {
