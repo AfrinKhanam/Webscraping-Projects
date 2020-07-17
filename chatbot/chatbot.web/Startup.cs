@@ -157,7 +157,7 @@ namespace IndianBank_ChatBOT
                 {
                     var activity = context.Activity;
                     // BotChatActivityLogger.UpdateRaSaData(exception.Message, 0, "");
-                    
+
                     // BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                     // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
                     // await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
@@ -223,15 +223,7 @@ namespace IndianBank_ChatBOT
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
             });
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WebScrapingStaticFiles")),
-                RequestPath = "/WebScrapingStaticFiles"
-            });
         }
-
 
         #endregion
     }

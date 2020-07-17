@@ -40,7 +40,7 @@ namespace IndianBank_ChatBOT
             _userState = userState ?? throw new ArgumentNullException(nameof(userState));
             _services = botServices ?? throw new ArgumentNullException(nameof(botServices));
             _dialogs = new DialogSet(_conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
-            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, clientFactory));
+            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings));
             // _dialogs.Add(new VehicleLoanDialog(_services, _conversationState, _userState));
         }
 
