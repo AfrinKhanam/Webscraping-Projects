@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace IndianBank_ChatBOT
 {
@@ -29,7 +30,8 @@ namespace IndianBank_ChatBOT
         /// <param name="botServices">Bot services.</param>
         /// <param name="conversationState">Bot conversation state.</param>
         /// <param name="userState">Bot user state.</param>
-        public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, UserState userState, IOptions<AppSettings> appsettings)
+        public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, UserState userState,
+            IOptions<AppSettings> appsettings, IHttpClientFactory clientFactory)
 
         {
             appSettings = appsettings.Value;
@@ -38,7 +40,7 @@ namespace IndianBank_ChatBOT
             _userState = userState ?? throw new ArgumentNullException(nameof(userState));
             _services = botServices ?? throw new ArgumentNullException(nameof(botServices));
             _dialogs = new DialogSet(_conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
-            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings));
+            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, clientFactory));
             // _dialogs.Add(new VehicleLoanDialog(_services, _conversationState, _userState));
         }
 

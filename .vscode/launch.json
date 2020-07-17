@@ -15,9 +15,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/IndianBank ChatBOT/IndianBank ChatBOT/bin/Debug/netcoreapp3.1/IndianBank_ChatBOT.dll",
+            "program": "${workspaceFolder}/chatbot/chatbot.web/bin/Debug/netcoreapp3.1/IndianBank_ChatBOT.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/IndianBank ChatBOT/IndianBank ChatBOT",
+            "cwd": "${workspaceFolder}/chatbot/chatbot.web",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {

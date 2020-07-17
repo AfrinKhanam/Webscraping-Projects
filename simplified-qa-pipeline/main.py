@@ -11,6 +11,8 @@ config_file_path = '../config.ini'
 config = ConfigParser()
 config.read(config_file_path)
 
+api_port = config.get("application", "api_port")
+
 qa_pipeline = QAPipeline(config)
 
 app = FastAPI()
@@ -26,4 +28,4 @@ def qa(query: str, context: Optional[str] = None):
         }
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(api_port))

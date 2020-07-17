@@ -65,7 +65,10 @@ namespace IndianBank_ChatBOT
             });
 
             var appSettings = Configuration.GetSection("AppSettings");
+
             services.Configure<AppSettings>(appSettings);
+
+            services.AddHttpClient();
 
             // Load the connected services from .bot file.
             var botFilePath = Configuration.GetSection("botFilePath")?.Value;
