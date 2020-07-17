@@ -59,7 +59,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             var context = string.Empty;
 
 
-            var data = MainDialog.rabbitMq(rabbitMqQuery, context);
+            var data = MainDialog.GetRabbitMqResponse(rabbitMqQuery, context);
 
              MainDialog.DisplayBackendResult(dc, context, data);
         }

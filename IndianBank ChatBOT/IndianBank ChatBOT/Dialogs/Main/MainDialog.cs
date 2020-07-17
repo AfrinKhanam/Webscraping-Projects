@@ -401,7 +401,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                     }
                 }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("rates")||utterance.Split(" ")[utterance_word_count - 1].Equals("charges"))
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("rates") || utterance.Split(" ")[utterance_word_count - 1].Equals("charges"))
                 {
                     if (utterance.Trim() == "deposit rates" || utterance.Trim() == "lending rates" || utterance.Trim() == "service charges")
                     {
@@ -414,9 +414,9 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                     }
                 }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("profiles")||utterance.Split(" ")[utterance_word_count - 1].Equals("mission")||utterance.Split(" ")[utterance_word_count - 1].Equals("management")||utterance.Split(" ")[utterance_word_count - 1].Equals("governance")||utterance.Split(" ")[utterance_word_count - 1].Equals("fund")||utterance.Split(" ")[utterance_word_count - 1].Equals("report"))
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("profiles") || utterance.Split(" ")[utterance_word_count - 1].Equals("mission") || utterance.Split(" ")[utterance_word_count - 1].Equals("management") || utterance.Split(" ")[utterance_word_count - 1].Equals("governance") || utterance.Split(" ")[utterance_word_count - 1].Equals("fund") || utterance.Split(" ")[utterance_word_count - 1].Equals("report"))
                 {
-                    if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management"|| utterance.Trim() == "management"|| utterance.Trim() == "corporate governance"|| utterance.Trim() == "mutual fund"|| utterance.Trim() == "annual report")
+                    if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management" || utterance.Trim() == "management" || utterance.Trim() == "corporate governance" || utterance.Trim() == "mutual fund" || utterance.Trim() == "annual report")
                     {
                         SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
                         await dc.EndDialogAsync();
@@ -427,7 +427,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                     }
                 }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("service")||utterance.Split(" ")[utterance_word_count - 1].Equals("sites")||utterance.Split(" ")[utterance_word_count - 1].Equals("alliances"))
+                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("service") || utterance.Split(" ")[utterance_word_count - 1].Equals("sites") || utterance.Split(" ")[utterance_word_count - 1].Equals("alliances"))
                 {
                     if (utterance.Trim() == "online service" || utterance.Trim() == "related sites" || utterance.Trim() == "alliances")
                     {
@@ -460,7 +460,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
             Console.WriteLine(dc.Context.Activity.ChannelData);
 
-            var data = rabbitMq(rabbitMqQuery, context);
+            var data = GetRabbitMqResponse(rabbitMqQuery, context);
 
             await DisplayBackendResult(dc, context, data);
         }
@@ -547,7 +547,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             }
                         }
                     }
-                    
+
                     else if (value.action == "VehicleLoanSubmit")
                     {
                         dynamic LoanDetails = dc.Context.Activity.Value;
@@ -719,71 +719,73 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         }
 
 
-        public static string rabbitMq(string queryParam, string context)
+        public static string GetRabbitMqResponse(string queryParam, string context)
         {
             Random rnd = new Random();
             var coupon = GenerateCoupon(10, rnd);
-            var key = String.Join(Environment.NewLine, coupon);
-            var redis_res = string.Empty;
+            var key = string.Join(Environment.NewLine, coupon);
+            var redisResponse = string.Empty;
 
-            ConnectionFactory factory = new ConnectionFactory();
-            // "guest"/"guest" by default, limited to localhost connections
+            ConnectionFactory factory = new ConnectionFactory
+            {
+                UserName = appSettings.RabbitmqUsername,
+                Password = appSettings.RabbitmqPassword,
+                VirtualHost = appSettings.RabbitmqVirtualHost,
+                HostName = appSettings.RabbitmqHostName
+            };
 
-            factory.UserName = appSettings.RabbitmqUsername;
-            factory.Password = appSettings.RabbitmqPassword;
-            factory.VirtualHost = appSettings.RabbitmqVirtualHost;
             factory.HostName = appSettings.RabbitmqHostName;
-            factory.HostName = "localhost";
 
             Console.WriteLine($"Key Generated is {key}");
 
-            IConnection connection = factory.CreateConnection();
-
-            var model = connection.CreateModel();
-            Console.WriteLine("Creating Exchange");
-
-            // set up the properties
-            var properties = model.CreateBasicProperties();
-            properties.Persistent = true;
-
-            // Sending Message to Rvehicleabbitmq server 
-            var message = $@" {{""UUID"": ""{key}"", ""CONTEXT"": ""{context}"", ""QUERY_STRING"": ""{queryParam}"" }}";
-
-            byte[] messageBuffer = Encoding.Default.GetBytes(message);
-            model.BasicPublish("queryExchange", "query", properties, messageBuffer);
-            Console.WriteLine("Message Sent");
-
-            // string host = "ashutosh-redis";
-            string host = "localhost";
-
-            int count = 0;
-            while (count <= 25 && redis_res == string.Empty)
+            using (IConnection connection = factory.CreateConnection())
             {
-                Thread.Sleep(2000);
-                var keydata = Get(host, key.ToString());
-                Console.WriteLine("FROM REDIS ************************************" + keydata);
-                if (keydata != null)
+                var model = connection.CreateModel();
+                Console.WriteLine("Creating Exchange");
+
+                // set up the properties
+                var properties = model.CreateBasicProperties();
+                properties.Persistent = true;
+
+                // Sending Message to Rabbitmq server 
+                var message = $@" {{""UUID"": ""{key}"", ""CONTEXT"": ""{context}"", ""QUERY_STRING"": ""{queryParam}"" }}";
+
+                byte[] messageBuffer = Encoding.Default.GetBytes(message);
+                model.BasicPublish("queryExchange", "query", properties, messageBuffer);
+                Console.WriteLine("Message Sent");
+
+                // string host = "ashutosh-redis";
+                string host = "localhost";
+
+                int count = 0;
+                while (count <= 25 && redisResponse == string.Empty)
                 {
-                    redis_res = Encoding.UTF8.GetString(keydata, 0, keydata.Length);
+                    Thread.Sleep(2000);
+                    var keydata = GetRedisResponse(host, key.ToString());
+                    Console.WriteLine("FROM REDIS ************************************" + keydata);
+                    if (keydata != null)
+                    {
+                        redisResponse = Encoding.UTF8.GetString(keydata, 0, keydata.Length);
+                    }
+                    Console.WriteLine("FROM REDIS ************************************" + redisResponse);
+                    count++;
+                    Console.WriteLine($"redis_res==string.Empty = {redisResponse == string.Empty}");
                 }
-                Console.WriteLine("FROM REDIS ************************************" + redis_res);
-                count++;
-                Console.WriteLine($"redis_res==string.Empty = {redis_res == string.Empty}");
+
+                //if (!string.IsNullOrEmpty(redis_res))
+                //{
+                //    var jObject = JObject.Parse(redis_res);
+                //    Console.WriteLine("AFTER PARSING ************************************" + jObject);
+                //}
             }
 
-            if (!string.IsNullOrEmpty(redis_res))
-            {
-                var jObject = JObject.Parse(redis_res);
-                Console.WriteLine("AFTER PARSING ************************************" + jObject);
-            }
-
-            return redis_res;
+            return redisResponse;
         }
 
         //rabbitmq method ends here
 
         //redis code
-        public static byte[] Get(string host, string UUID)
+        public static byte[] GetRedisResponse(string host, string UUID)
         {
             using (RedisClient redisClient = new RedisClient(host))
             {

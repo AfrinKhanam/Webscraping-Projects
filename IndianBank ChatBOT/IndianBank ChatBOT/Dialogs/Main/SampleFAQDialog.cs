@@ -18,7 +18,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
             Console.WriteLine(dc.Context.Activity.ChannelData);
 
-            var data = MainDialog.rabbitMq(rabbitMqQuery, context);
+            var data = MainDialog.GetRabbitMqResponse(rabbitMqQuery, context);
 
              MainDialog.DisplayBackendResult(dc, context, data);
         }
