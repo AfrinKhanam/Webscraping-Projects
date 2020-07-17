@@ -10,9 +10,9 @@
         },
         body: JSON.stringify({ userId: userId, }),
     })
-    
-        .then(function(res) {return res.json()})
-        .then(function(res){
+
+        .then(function (res) { return res.json() })
+        .then(function (res) {
             window.directLine = window.WebChat.createDirectLine({
                 domain: directLineUrl + '/v3/directline',
                 token: res.token,
@@ -101,17 +101,23 @@ $(document).ready(function () {
             // params - additional parameters to pass with the request, optional
             lookup: function (query, done) {
 
-                var q = query.split(" ").length > 2 ? { match: { "Questions": query } } : { match_phrase: { "Questions": query } };
+                var q = [{ wildcard: { "Questions": "*" + query + "*" } }];
+
+                if (query.split(" ").length > 1) {
+                    q = [];
+                    var words = query.split(" ");
+
+                    for (var i = 0; i < words.length; i++) {
+                        q.push({ wildcard: { "Questions": "*" + words[i] + "*" } });
+                    }
+                }
 
                 var dataToPost =
                 {
                     "from": 0, "size": 200,
                     "query": {
                         "bool": {
-                            "should":
-                                [
-                                    q
-                                ]
+                            "should": q
                         }
                     }
                 };
