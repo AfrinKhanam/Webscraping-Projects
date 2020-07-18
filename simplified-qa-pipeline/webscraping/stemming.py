@@ -1,6 +1,7 @@
-from nltk.stem      import PorterStemmer
-from nltk.tokenize  import word_tokenize
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
 import re
+
 
 class Stemmer():
     def __init__(self):
@@ -37,7 +38,6 @@ class Stemmer():
         self.stem_class(document)
         #---------------------------------------------------------------#
 
-
         #------------- CONTENT TEXT STEMMING ---------------------------#
         for element in document['subtitle']['elements']:
             for _, content in enumerate(element['content']):
@@ -49,7 +49,6 @@ class Stemmer():
         self.stem_subtitle(document)
         self.stem_table(document)
 
-
         return document
 
     def stem_subtitle(self, document):
@@ -60,7 +59,6 @@ class Stemmer():
 
         return document
 
-
     def stem_table(self, document):
         #-------------- TABLE KEY/VALUE  STEMMING ----------------------#
         for element in document['subtitle']['elements']:
@@ -69,20 +67,15 @@ class Stemmer():
                     for row in record['table']:
                         row['value_stem'] = []
 
-                        print('-------------------- SUBTITLE -------------------')
-                        print(row['key'])
                         regex_key = re.sub(r'/', ' ', row['key'])
-                        print('-------------------------------------------------')
 
                         row['key_stem'] = self.stem(regex_key)
 
                         for value in row['value']:
                             if isinstance(value, dict) and 'table' in value:
-                                print('----------------------------------------------')
-                                print(self.stem_inner_table(value))
-                                print('----------------------------------------------')
-                                row['value_stem'].append({"table_stem" : self.stem_inner_table(value)})
-                            else: 
+                                row['value_stem'].append(
+                                    {"table_stem": self.stem_inner_table(value)})
+                            else:
                                 row['value_stem'] += [self.stem(value)]
         #---------------------------------------------------------------#
 
@@ -90,19 +83,19 @@ class Stemmer():
 
     def stem_inner_table(self, inner_table):
         #-------------- INNER TABLE KEY/VALUE  STEMMING ----------------------#
-        table_stem = { "keys_stem" : [], "values_stem"  : []}
+        table_stem = {"keys_stem": [], "values_stem": []}
 
         keys = inner_table['table']['keys']
         values = inner_table['table']['values']
 
-        table_stem['keys_stem'] = [ self.stem(value) for value in keys ]
+        table_stem['keys_stem'] = [self.stem(value) for value in keys]
 
         for record in values:
-            table_stem['values_stem'].append([ self.stem(value) for value in record ])
+            table_stem['values_stem'].append(
+                [self.stem(value) for value in record])
         #---------------------------------------------------------------------#
 
         return table_stem
-
 
     def stem_domain(self, document):
 
@@ -110,20 +103,19 @@ class Stemmer():
 
         return document
 
-
     def stem_class(self, document):
 
         document['class_stem'] = self.stem(document['class'])
 
         return document
 
-    def removeSpecialCharacters(self,text):
-        parsed_string = text.replace('-',' ')
-        print("text is------>>  ",parsed_string)
+    def removeSpecialCharacters(self, text):
+        parsed_string = text.replace('-', ' ')
         return parsed_string
 
 
 if __name__ == "__main__":
     stem = Stemmer()
-    parsed_string = stem.removeSpecialCharacters('OFFICE-INDIAN BANK MUTUAL FUND')
-    print( stem.stem(parsed_string))
+    parsed_string = stem.removeSpecialCharacters(
+        'OFFICE-INDIAN BANK MUTUAL FUND')
+    print(stem.stem(parsed_string))

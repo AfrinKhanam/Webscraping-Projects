@@ -14,6 +14,17 @@ config.read(config_file_path)
 
 api_port = config.get("application", "api_port")
 
+http_proxy = config.get("proxies", "http")
+https_proxy = config.get("proxies", "https")
+
+proxies = None
+
+if http_proxy is not None and https_proxy is not None:
+    proxies = {
+        "http": http_proxy,
+        "https": https_proxy
+    }
+
 qa_pipeline = QAPipeline(config)
 
 fetch_scraping_config_url = config.get("urls", "rescrape_all_pages_url")
@@ -40,7 +51,7 @@ def __scrape_all_pages__():
     __scraping_in_progress = True
 
     try:
-        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index)
+        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
         
         web_scraping_pipeline.scrape_all_pages()
     except Exception as e:
@@ -54,7 +65,7 @@ def __scrape_page__(page_config):
     __scraping_in_progress = True
 
     try:
-        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index)
+        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
         
         web_scraping_pipeline.scrape_page(page_config)
     except Exception as e:

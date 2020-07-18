@@ -1,6 +1,6 @@
 import json
+
 def faq_for_amalgamation(document):
-    #print("*********************",document)
     table = document['subtitle']['elements'][0]['content'][0]['table']
 
     for record in table:
@@ -9,6 +9,4 @@ def faq_for_amalgamation(document):
         record['key'] = value[0] #for tables having 3 columns
         record['value'] = [key]
 
-    #print("************************",document)
     return document
-

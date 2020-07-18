@@ -1,7 +1,12 @@
 import json
 import sys
 import time
+from traceback import format_exc
 import requests
+
+# Disable the annoying "Unverified HTTPS request is being made" warning
+requests.packages.urllib3.disable_warnings()
+
 from elasticsearch import Elasticsearch
 
 from webscraping.html_to_json import HtmlToJson
@@ -13,7 +18,7 @@ db_sleep_time = 2
 
 class WebScrapingPipeline:
 
-    def __init__(self, fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index):
+    def __init__(self, fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies=None):
         self.__es_index = es_index
         self.__fetch_scraping_config_url = fetch_scraping_config_url
         self.__scraping_status_url = scraping_status_url
@@ -22,6 +27,8 @@ class WebScrapingPipeline:
         self.__pre_processor = PreProcessing()
 
         self.__elastic = Elastic(es_host, es_port, es_index, '_doc')
+
+        self.__proxies = proxies
 
     def scrape_all_pages(self):
         self.__drop_database__()
@@ -37,10 +44,8 @@ class WebScrapingPipeline:
         try:
             es = Elasticsearch(index=self.__es_index)
             es.indices.delete(index=self.__es_index)
-            print("database deleted successfully..!!",
-                  self.__es_index)
         except Exception as e:
-            print("No database found..!!", e.args)
+            print("No database found..!!", self.get_error_details(e))
 
     def __delete_page_from_es_index__(self, page_config):
         # TODO: Delete an individual url's documents from Elasticsearch index
@@ -87,6 +92,8 @@ class WebScrapingPipeline:
         doc_id = document['id']
         doc_url = document['pageConfig']['url']
 
+        print(f"Scraping {doc_url}...")
+
         error_message = None
         value = 1
 
@@ -109,6 +116,7 @@ class WebScrapingPipeline:
                 print(f"Success: {doc_url}")
 
                 time.sleep(5)
+                break
                 #----------------------------------------------------------------#
 
             except ConnectionError as e:
@@ -117,7 +125,8 @@ class WebScrapingPipeline:
                 continue
 
             except Exception as e:
-                error_message = f"Scraping Error: {e.args}"
+
+                error_message = f"Scraping Error: {self.get_error_details(e)}"
 
                 break
 
@@ -126,16 +135,22 @@ class WebScrapingPipeline:
 
         if error_message is not None:
             print(f"{error_message}: {doc_url}")
-            
+
             scrape_status = 2
             response = requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}&ErrorMessage={error_message}")
 
 
     def __generate_json_structure__(self, document):
-        manager_pages = ['https://www.indianbank.in/departments/general-managers/', 'https://indianbank.in/departments/general-managers/']
 
-        if document['url'].lower() in manager_pages:
-            html_to_json = HtmlToJson(document, source='web')
+        response = requests.get(document['url'], verify=False, proxies=self.__proxies)
+
+        html = response.content
+
+        html_to_json = HtmlToJson(html)
+
+        manager_pages = ['/departments/general-managers/', '/departments/general-managers/']
+
+        if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
             html_to_json.generate_json_for_general_managers(document)
 
             return document
@@ -143,7 +158,6 @@ class WebScrapingPipeline:
         document = document['pageConfig']
 
         #---------------------------------------------------------------#
-        html_to_json = HtmlToJson(document, source='web')
         html_to_json.main_title(document)
         html_to_json.get_url(document)
         html_to_json.get_document_name(document)
@@ -153,3 +167,9 @@ class WebScrapingPipeline:
         html_to_json.frame_json(document)
 
         return document['html_to_json']
+
+    def get_error_details(self, err):
+        return {
+            error: repr(err),
+            stacktrace: format_exc()
+        }
