@@ -51,8 +51,6 @@ def read_config_files():
             for json_config in json_configurations:
                 print(type(json_config))
                 url_list = json.loads(json_config['pageConfig'])
-                # print("url_list ---> ", list(url_list.keys())[0])
-                # if list(url_list.keys())[0] != 'document_name':
                 if "document_name" not in url_list:
                     for url in url_list:
                         document = url_list[url]
@@ -78,40 +76,43 @@ def rescrape(documents):
         while value:
             try:
                 config = (documents[idx]['pageConfig'])
-                print(config.get("filename"))
+                #check if the file is not in manually scraped list
                 if not (config.get('filename') is None):
-                    print("if condition..!")
                     print("filename :: ",
                           documents[idx]['pageConfig']['filename'])
                     print("url :: ", documents[idx]['pageConfig']['url'])
+                    if documents[idx]['url'] == 'https://www.indianbank.in/departments/general-managers/' or documents[idx]['url'] == 'https://indianbank.in/departments/general-managers/':
+                        html_to_json = HtmlToJson(documents[idx], source='web')
+                        html_to_json.generate_json_for_general_managers(documents[idx])
+                        rabbitmq_producer.publish(json.dumps(
+                            documents[idx]).encode())
+                    else:
+                        generate_json_structure(documents[idx]['pageConfig'])
+                        #---------------------------------------------------------------#
 
-                    generate_json_structure(documents[idx]['pageConfig'])
-                    #---------------------------------------------------------------#
+                        #---------------------------------------------------------------#
+                        print("PRINTING FINAL JSON STRUCTURE \n")
+                        print(json.dumps(
+                            documents[idx]['pageConfig']['html_to_json'], indent=4))
+                        #---------------------------------------------------------------#
 
-                    #---------------------------------------------------------------#
-                    print("PRINTING FINAL JSON STRUCTURE \n")
-                    print(json.dumps(
-                        documents[idx]['pageConfig']['html_to_json'], indent=4))
-                    #---------------------------------------------------------------#
+                        #---------------------------------------------------------------#
+                        rabbitmq_producer.publish(json.dumps(
+                            documents[idx]['pageConfig']['html_to_json']).encode())
+                        #---------------------------------------------------------------#
 
-                    #---------------------------------------------------------------#
-                    rabbitmq_producer.publish(json.dumps(
-                        documents[idx]['pageConfig']['html_to_json']).encode())
-                    #---------------------------------------------------------------#
-
-                    print('---------------------------------------------------\n\n')
-
+                        print('---------------------------------------------------\n\n')
+                    
                 else:
-                    print("else condition condition..!",
-                          json.dumps(documents[idx], indent=4))
-
+                    print("else condition condition..!",json.dumps(documents[idx],indent=4))
+                        
                     rabbitmq_producer.publish(
-                        json.dumps(documents[idx]['pageConfig']))
+                       json.dumps(documents[idx]['pageConfig']))
 
                 Id = documents[idx]['id']
                 ScrapeStatus = 1
                 response = requests.put(
-                    rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus))
+                rescrape_status_url+str(Id)+"&ScrapeStatus="+str(ScrapeStatus))
                 print(response.status_code)
                 time.sleep(5)
                 #------`---------------------------------------------------------#
@@ -119,7 +120,7 @@ def rescrape(documents):
                 time.sleep(5)
                 continue
             except Exception as e:
-                print("exceptiom occured ", e.args)
+                print("exceptiom occured ",e.args)
                 Id = documents[idx]['id']
                 ScrapeStatus = 2
                 ErrorMessage = "JSON configuration error"
