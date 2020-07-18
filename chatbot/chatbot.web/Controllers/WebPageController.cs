@@ -120,24 +120,6 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(webPage);
         }
 
-
-        // [HttpPut]
-        // [Route(nameof(UpdateStatus))]
-        // public IActionResult UpdateStatus([FromBody] WebScapeConfig vm)
-        // {
-        //     Console.WriteLine("000000000000000000", vm.Id);
-        //     var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == vm.Id);
-        //     if (webPage != null)
-        //     {
-        //         webPage.ErrorMessage = vm.ErrorMessage;
-        //         webPage.ScrapeStatus = vm.ScrapeStatus;
-        //         webPage.LastScrapedOn = vm.LastScrapedOn;
-        //         _dbContext.WebScapeConfig.Update(webPage);
-        //         _dbContext.SaveChanges();
-        //         return Ok();
-        //     }
-        //     return NotFound($"Web Page with the Id {vm.Id} is not found");
-        // }
         [HttpPut]
         [Route(nameof(UpdateStatus))]
         public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage = null)
@@ -159,40 +141,54 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapeAllPages))]
         public IActionResult RescrapeAllPages()
         {
-            _isFullWebScrapingInProgress = false;
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
+
             if (!string.IsNullOrEmpty(WebscrapeUrl))
             {
-                var activeWebPages = _dbContext.WebScapeConfig.ToList();
-
-                foreach (var webPage in activeWebPages)
+                try
                 {
-                    webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
-                    webPage.ErrorMessage = string.Empty;
+                    ResetWebPageScrapeStatus();
+                    _isFullWebScrapingInProgress = true;
+
+                    using var client = new HttpClient
+                    {
+                        BaseAddress = new Uri(WebscrapeUrl)
+                    };
+
+                    var responseTask = client.GetAsync("");
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+                    return Ok();
                 }
-
-                _dbContext.WebScapeConfig.UpdateRange(activeWebPages);
-                _dbContext.SaveChanges();
-
-                using var client = new HttpClient
+                catch (Exception ex)
                 {
-                    BaseAddress = new Uri(WebscrapeUrl)
-                };
-
-                var responseTask = client.GetAsync("");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                return Ok();
+                    _isFullWebScrapingInProgress = false;
+                    return BadRequest($"Failed to Start the Web Scraping. Error : {ex.Message} ");
+                }
             }
             return BadRequest("Web Scrape Url not found. Please check the configuration");
         }
 
-        [HttpPost]
-        [Route(nameof(UpdateFullScrapingStatus))]
-        public IActionResult UpdateFullScrapingStatus()
+        private void ResetWebPageScrapeStatus()
         {
-            _isFullWebScrapingInProgress = true;
+            var webPages = _dbContext.WebScapeConfig.ToList();
+
+            foreach (var webPage in webPages)
+            {
+                webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+                webPage.ErrorMessage = string.Empty;
+            }
+
+            _dbContext.WebScapeConfig.UpdateRange(webPages);
+            _dbContext.SaveChanges();
+        }
+
+        [HttpPost]
+        [Route(nameof(OnScrapingCompleted))]
+        public IActionResult OnScrapingCompleted()
+        {
+            _isFullWebScrapingInProgress = false;
             return Ok(_isFullWebScrapingInProgress);
         }
 
