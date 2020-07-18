@@ -16,6 +16,8 @@ namespace IndianBank_ChatBOT.Controllers
         private readonly AppDbContext _dbContext;
         private readonly AppSettings _appSettings;
 
+        private static bool _isFullScrapingDone = false;
+
         public WebPageController(IOptions<AppSettings> appsettings, AppDbContext _dbContext)
         {
             this._dbContext = _dbContext;
@@ -151,6 +153,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapeAllPages))]
         public IActionResult RescrapeAllPages()
         {
+            _isFullScrapingDone = false;
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
             if (!string.IsNullOrEmpty(WebscrapeUrl))
             {
@@ -177,6 +180,21 @@ namespace IndianBank_ChatBOT.Controllers
                 return Ok();
             }
             return BadRequest("Web Scrape Url not found. Please check the configuration");
+        }
+
+        [HttpPost]
+        [Route(nameof(UpdateFullScrapingStatus))]
+        public IActionResult UpdateFullScrapingStatus()
+        {
+            _isFullScrapingDone = true;
+            return Ok(_isFullScrapingDone);
+        }
+
+        [HttpGet]
+        [Route(nameof(GetFullScrapingStatus))]
+        public IActionResult GetFullScrapingStatus()
+        {
+            return Ok(_isFullScrapingDone);
         }
     }
 }

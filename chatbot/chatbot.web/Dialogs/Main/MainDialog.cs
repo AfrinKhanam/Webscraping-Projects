@@ -9,8 +9,9 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RabbitMQ.Client;
+using ServiceStack.Redis;
 using System;
-using System.Net.Http;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net.Http;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -30,8 +30,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         private BotServices _services;
         private UserState _userState;
         private ConversationState _conversationState;
-        private readonly IHttpClientFactory clientFactory;
-
         private MainResponses _responder = new MainResponses();
 
         public static Dictionary<string, ImageData> keyValuePairs = new Dictionary<string, ImageData>
@@ -228,8 +226,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         private static AppSettings appSettings;
 
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState,
-            AppSettings appsettings, IHttpClientFactory clientFactory)
+        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings)
             : base(nameof(MainDialog))
         {
             appSettings = appsettings;
@@ -240,8 +237,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
             AddDialog(new OnBoardingFormDialog(_services, conversationState, userState, appsettings));
             AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
-
-            this.clientFactory = clientFactory;
         }
 
         #endregion
@@ -368,7 +363,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
                     }
                 }
                 else if (generalIntent == "thankyouintent")
@@ -390,7 +385,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
                     }
                 }
                 else if (utterance.Split(" ")[utterance_word_count - 1].Equals("products"))
@@ -402,7 +397,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
 
                     }
                 }
@@ -415,7 +410,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
 
                     }
                 }
@@ -428,7 +423,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
 
                     }
                 }
@@ -441,13 +436,13 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc);
+                        await ExecuteRabbitMqQueryAsync(dc);
 
                     }
                 }
                 else
                 {
-                    await SearchKB(dc);
+                    await ExecuteRabbitMqQueryAsync(dc);
                 }
             }
             else
@@ -457,24 +452,15 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             await Task.FromResult(true);
         }
 
-        public async Task SearchKB(DialogContext dc)
+        public async Task ExecuteRabbitMqQueryAsync(DialogContext dc)
         {
-            var query = dc.Context.Activity.Text;
+            var rabbitMqQuery = dc.Context.Activity.Text;
 
             var context = string.Empty;
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{appSettings.QAEndPoint}?query={query}&context={context}");
+            Console.WriteLine(dc.Context.Activity.ChannelData);
 
-            var client = clientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
-
-            var data = string.Empty;
-
-            if (response.IsSuccessStatusCode)
-            {
-                data = await response.Content.ReadAsStringAsync();
-            }
+            var data = GetRabbitMqResponse(rabbitMqQuery, context);
 
             await DisplayBackendResult(dc, context, data);
         }
@@ -620,6 +606,18 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             }
         }
 
+        //rabbitmq method
+        public static string GenerateCoupon(int length, Random random)
+        {
+            string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            StringBuilder result = new StringBuilder(length);
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(characters[random.Next(characters.Length)]);
+            }
+            return result.ToString();
+        }
+
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {
             if (string.IsNullOrEmpty(backendResult))
@@ -685,7 +683,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.AUTO_CORRECT_QUERY}\"");
+                        await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.CORRECT_QUERY}\"");
                         if (jsonObject.WORD_COUNT > 100)
                         {
                             await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value} \n\n {jsonObject.DOCUMENTS[0].url}");
@@ -719,6 +717,82 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
             }
         }
+
+
+        public static string GetRabbitMqResponse(string queryParam, string context)
+        {
+            Random rnd = new Random();
+            var coupon = GenerateCoupon(10, rnd);
+            var key = string.Join(Environment.NewLine, coupon);
+            var redisResponse = string.Empty;
+
+            ConnectionFactory factory = new ConnectionFactory
+            {
+                UserName = appSettings.RabbitmqUsername,
+                Password = appSettings.RabbitmqPassword,
+                VirtualHost = appSettings.RabbitmqVirtualHost,
+                HostName = appSettings.RabbitmqHostName
+            };
+
+            factory.HostName = appSettings.RabbitmqHostName;
+
+            Console.WriteLine($"Key Generated is {key}");
+
+            using (IConnection connection = factory.CreateConnection())
+            {
+                var model = connection.CreateModel();
+                Console.WriteLine("Creating Exchange");
+
+                // set up the properties
+                var properties = model.CreateBasicProperties();
+                properties.Persistent = true;
+
+                // Sending Message to Rabbitmq server 
+                var message = $@" {{""UUID"": ""{key}"", ""CONTEXT"": ""{context}"", ""QUERY_STRING"": ""{queryParam}"" }}";
+
+                byte[] messageBuffer = Encoding.Default.GetBytes(message);
+                model.BasicPublish("queryExchange", "query", properties, messageBuffer);
+                Console.WriteLine("Message Sent");
+
+                // string host = "ashutosh-redis";
+                string host = "localhost";
+
+                int count = 0;
+                while (count <= 25 && redisResponse == string.Empty)
+                {
+                    Thread.Sleep(2000);
+                    var keydata = GetRedisResponse(host, key.ToString());
+                    Console.WriteLine("FROM REDIS ************************************" + keydata);
+                    if (keydata != null)
+                    {
+                        redisResponse = Encoding.UTF8.GetString(keydata, 0, keydata.Length);
+                    }
+                    Console.WriteLine("FROM REDIS ************************************" + redisResponse);
+                    count++;
+                    Console.WriteLine($"redis_res==string.Empty = {redisResponse == string.Empty}");
+                }
+
+                //if (!string.IsNullOrEmpty(redis_res))
+                //{
+                //    var jObject = JObject.Parse(redis_res);
+                //    Console.WriteLine("AFTER PARSING ************************************" + jObject);
+                //}
+            }
+
+            return redisResponse;
+        }
+
+        //rabbitmq method ends here
+
+        //redis code
+        public static byte[] GetRedisResponse(string host, string UUID)
+        {
+            using (RedisClient redisClient = new RedisClient(host))
+            {
+                return redisClient.Get(UUID);
+            }
+        }
+        //redis code ends here 
 
         /// <summary>
         /// Displays User Form
