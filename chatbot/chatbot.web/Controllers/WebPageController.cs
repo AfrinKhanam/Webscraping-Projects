@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-
+using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -139,7 +139,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         [HttpPost]
         [Route(nameof(RescrapeAllPages))]
-        public IActionResult RescrapeAllPages()
+        public async Task<IActionResult> RescrapeAllPages()
         {
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
 
@@ -155,11 +155,17 @@ namespace IndianBank_ChatBOT.Controllers
                         BaseAddress = new Uri(WebscrapeUrl)
                     };
 
-                    var responseTask = client.GetAsync("");
-                    responseTask.Wait();
+                    var response = await client.GetAsync("");
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var result = responseTask.Result;
-                    return Ok();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Ok(responseContent);
+                    }
+                    else
+                    {
+                        return BadRequest($"Failed to Start the Web Scraping. Error : {responseContent}");
+                    }
                 }
                 catch (Exception ex)
                 {
