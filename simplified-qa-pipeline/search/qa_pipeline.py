@@ -1,10 +1,10 @@
 from summarizer import SingleModel
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-from api.query_preprocessor import QueryPreprocessor
-from api.elastic_search import Elastic
-from api.doc_prioritizer import DocPrioritizer
-from api.doc_title_prioritizer import DocTitlePrioritizer
+from search.query_preprocessor import QueryPreprocessor
+from search.elastic_search import Elastic
+from search.doc_prioritizer import DocPrioritizer
+from search.doc_title_prioritizer import DocTitlePrioritizer
 
 class QAPipeline:
     def __init__(self, config):
