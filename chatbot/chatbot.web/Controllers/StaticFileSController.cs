@@ -1,19 +1,17 @@
-﻿using AdaptiveExpressions;
-using Antlr4.Runtime.Tree;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -222,18 +220,18 @@ namespace IndianBank_ChatBOT.Controllers
 
                             return Ok("File uploaded successfully ");
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            return BadRequest("Failed process your file. Please try again later.");
+                            return BadRequest("Failed to process your file. Please try again later.");
                         }
                     }
                     else
                     {
-                        return BadRequest("Suspicious file content found.! Please upload a plain HTML");
+                        return BadRequest("Suspicious file content found! Please upload a plain HTML");
                     }
                 }
             }
-            return BadRequest("Invalid Input");
+            return BadRequest("Invalid input!");
         }
 
 

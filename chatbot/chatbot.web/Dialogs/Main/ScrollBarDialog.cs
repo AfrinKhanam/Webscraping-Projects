@@ -1,14 +1,17 @@
+using System.Collections.Generic;
+using System.Net.Http;
+
 using IndianBank_ChatBOT.Dialogs.Shared;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using System.Collections.Generic;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class ScrollBarDialog
     {
-        public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName)
+        public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName, IHttpClientFactory clientFactory)
         {
             //await dialogContext.Context.SendActivityAsync($"This is what I received from main Dialog {EntityName}");
 
@@ -45,23 +48,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         break;
                     }
                 default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
+                    await MainDialog.SearchKB(dialogContext, clientFactory);
 
                     // await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
                     break;
             }
-        }
-
-        public static void ExecuteRabbitMqQueryAsync(DialogContext dc)
-        {
-            var rabbitMqQuery = dc.Context.Activity.Text;
-
-            var context = string.Empty;
-
-
-            var data = MainDialog.GetRabbitMqResponse(rabbitMqQuery, context);
-
-             MainDialog.DisplayBackendResult(dc, context, data);
         }
 
         public static async void BuildScrollBarMenu(DialogContext dialogContext, IList<CardAction> cardAction)

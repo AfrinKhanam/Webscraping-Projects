@@ -1,13 +1,15 @@
-﻿using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
-using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
-using Microsoft.Rest;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
+using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
+using Microsoft.Rest;
+
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Middleware.Telemetry
 {

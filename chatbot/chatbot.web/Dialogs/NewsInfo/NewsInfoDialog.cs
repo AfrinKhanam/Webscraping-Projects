@@ -1,6 +1,7 @@
-﻿using Microsoft.Bot.Builder;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+
+using Microsoft.Bot.Builder;
 
 namespace IndianBank_ChatBOT.Dialogs.NewsInfo
 {

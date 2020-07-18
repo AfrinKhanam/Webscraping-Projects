@@ -1,12 +1,14 @@
-﻿using IndianBank_ChatBOT.ExcelExport;
-using IndianBank_ChatBOT.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
+using IndianBank_ChatBOT.ExcelExport;
+using IndianBank_ChatBOT.Models;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -69,7 +71,7 @@ namespace IndianBank_ChatBOT.Controllers
             var vm = GetChatBotVisitorsViewModelReport(@params);
             return View(vm);
         }
-       
+
         [HttpGet]
         public ActionResult UnAnsweredQueries()
         {
@@ -233,11 +235,11 @@ namespace IndianBank_ChatBOT.Controllers
             else
             {
                 //Checkes for the Date in the format xxxx-xx-xx
-                var regex = new Regex(@"^\d{4}-\d{1,2}-\d{1,2}$"); 
+                var regex = new Regex(@"^\d{4}-\d{1,2}-\d{1,2}$");
                 var isValidFrom = regex.Matches(@params.From).Count() == 1;
                 var isValidTo = regex.Matches(@params.To).Count() == 1;
 
-                if(isValidFrom && isValidTo)
+                if (isValidFrom && isValidTo)
                 {
                     if (IsValidDate(@params.From) && IsValidDate(@params.To))
                     {

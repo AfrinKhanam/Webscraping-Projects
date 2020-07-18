@@ -1,28 +1,17 @@
+using System.Collections.Generic;
+using System.Net.Http;
+
 using IndianBank_ChatBOT.Dialogs.Shared;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class SampleFAQDialog
     {
-        public static void ExecuteRabbitMqQueryAsync(DialogContext dc)
-        {
-            var rabbitMqQuery = dc.Context.Activity.Text;
-
-            var context = string.Empty;
-
-            Console.WriteLine(dc.Context.Activity.ChannelData);
-
-            var data = MainDialog.GetRabbitMqResponse(rabbitMqQuery, context);
-
-             MainDialog.DisplayBackendResult(dc, context, data);
-        }
-        public static async void DisplaySampleFAQ(DialogContext dialogContext, string EntityType, string EntityName)
+        public static async void DisplaySampleFAQ(DialogContext dialogContext, string EntityType, string EntityName, IHttpClientFactory clientFactory)
         {
             //await dialogContext.Context.SendActivityAsync($"This is what I received from main Dialog {EntityName} and {EntityType}");
 
@@ -66,8 +55,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-
-                     ExecuteRabbitMqQueryAsync(dialogContext);
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
 
                         break;
                 }
@@ -97,7 +85,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
                         break;
                 }
             }
@@ -139,8 +127,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
-                        
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
+
                         break;
                 }
             }
@@ -165,8 +153,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         }
 
                     default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
-                        
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
+
                         break;
                 }
             }
@@ -185,8 +173,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
-                        
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
+
                         break;
                 }
             }
@@ -210,16 +198,14 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                     ExecuteRabbitMqQueryAsync(dialogContext);
-                        
+                        await MainDialog.SearchKB(dialogContext, clientFactory);
+
                         break;
                 }
             }
             else
             {
-                     ExecuteRabbitMqQueryAsync(dialogContext);
-
-
+                await MainDialog.SearchKB(dialogContext, clientFactory);
             }
         }
 

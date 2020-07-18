@@ -1,10 +1,13 @@
-﻿using IndianBank_ChatBOT.Middleware.Telemetry;
+﻿using System;
+using System.Collections.Generic;
+
+using IndianBank_ChatBOT.Middleware.Telemetry;
+
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Configuration;
 using Microsoft.Extensions.Configuration;
+
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 
 namespace IndianBank_ChatBOT
 {

@@ -1,12 +1,14 @@
-﻿using IndianBank_ChatBOT.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+
+using IndianBank_ChatBOT.Models;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -20,7 +22,7 @@ namespace IndianBank_ChatBOT.Controllers
             this._dbContext = _dbContext;
             _appSettings = appsettings.Value;
         }
-        
+
         public ActionResult Index()
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();

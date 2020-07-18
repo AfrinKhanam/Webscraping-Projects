@@ -1,10 +1,12 @@
-﻿using IndianBank_ChatBOT.Models;
+﻿using System;
+using System.Linq;
+
+using IndianBank_ChatBOT.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Linq;
 
 namespace IndianBank_ChatBOT.PartialViews
 {

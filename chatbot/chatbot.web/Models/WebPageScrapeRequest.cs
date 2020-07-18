@@ -1,10 +1,4 @@
-﻿using IndianBank_ChatBOT.Utils;
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace IndianBank_ChatBOT.Models
+﻿namespace IndianBank_ChatBOT.Models
 {
     //public class WebPageScrapeRequest
     //{

@@ -1,8 +1,10 @@
-﻿using IndianBank_ChatBOT.Models;
+﻿using System.Collections.Generic;
+using System.IO;
+
+using IndianBank_ChatBOT.Models;
+
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System.Collections.Generic;
-using System.IO;
 
 namespace IndianBank_ChatBOT.ExcelExport
 {
