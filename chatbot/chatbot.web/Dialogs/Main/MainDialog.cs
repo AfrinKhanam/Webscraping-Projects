@@ -1,24 +1,24 @@
-﻿using IndianBank_ChatBOT.Dialogs.EMI;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Dialogs.EMI;
 using IndianBank_ChatBOT.Dialogs.Loans;
 using IndianBank_ChatBOT.Dialogs.Onboarding;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RabbitMQ.Client;
-using ServiceStack.Redis;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -363,7 +363,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
                     }
                 }
                 else if (generalIntent == "thankyouintent")
@@ -373,31 +373,31 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
                 else if (entityType == "scrollbar_entity")
                 {
-                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName);
+                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, clientFactory);
                     await dc.EndDialogAsync();
                 }
                 else if (utterance.Split(" ")[utterance_word_count - 1].Equals("services") || (utterance.Split(" ")[utterance_word_count - 1].Equals("plus")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("banking")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("payment")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("trust")))
                 {
                     if (utterance.Trim() == "premium services" || utterance.Trim() == "insurance services" || utterance.Trim() == "cms plus" || utterance.Trim() == "doorstep banking" || utterance.Trim() == "tax payment" || utterance.Trim() == "debenture trust")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
                     }
                 }
                 else if (utterance.Split(" ")[utterance_word_count - 1].Equals("products"))
                 {
                     if (utterance.Trim() == "loan products" || utterance.Trim() == "deposit products" || utterance.Trim() == "digital products" || utterance.Trim() == "feature products")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
 
                     }
                 }
@@ -405,12 +405,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "deposit rates" || utterance.Trim() == "lending rates" || utterance.Trim() == "service charges")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
 
                     }
                 }
@@ -418,12 +418,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management" || utterance.Trim() == "management" || utterance.Trim() == "corporate governance" || utterance.Trim() == "mutual fund" || utterance.Trim() == "annual report")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
 
                     }
                 }
@@ -431,18 +431,18 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "online service" || utterance.Trim() == "related sites" || utterance.Trim() == "alliances")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await ExecuteRabbitMqQueryAsync(dc);
+                        await SearchKB(dc, clientFactory);
 
                     }
                 }
                 else
                 {
-                    await ExecuteRabbitMqQueryAsync(dc);
+                    await SearchKB(dc, clientFactory);
                 }
             }
             else
@@ -452,17 +452,28 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             await Task.FromResult(true);
         }
 
-        public async Task ExecuteRabbitMqQueryAsync(DialogContext dc)
+        public static async Task SearchKB(DialogContext dc, IHttpClientFactory clientFactory)
         {
             var rabbitMqQuery = dc.Context.Activity.Text;
 
             var context = string.Empty;
 
-            Console.WriteLine(dc.Context.Activity.ChannelData);
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{appSettings.QAEndPoint}?query={query}&context={context}"))
+            {
+                using (var client = clientFactory.CreateClient())
+                {
+                    var response = await client.SendAsync(request);
 
-            var data = GetRabbitMqResponse(rabbitMqQuery, context);
+                    var data = string.Empty;
 
-            await DisplayBackendResult(dc, context, data);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        data = await response.Content.ReadAsStringAsync();
+                    }
+
+                    await DisplayBackendResult(dc, context, data);
+                }
+            }
         }
 
         /// <summary>
