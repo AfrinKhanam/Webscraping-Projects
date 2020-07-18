@@ -3,7 +3,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from autocorrect import spell
 from nltk.corpus import stopwords
 from gingerit.gingerit import GingerIt
-from api.autocorrect import w_autocorrect
+from search.autocorrect import w_autocorrect
 
 import re
 
