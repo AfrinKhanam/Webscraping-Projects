@@ -27,7 +27,6 @@ class Subtitle():
         subtitle_pattern = self.get_subtitle_pattern(document)
 
         if subtitle_pattern == None:
-            print("SUBTITLE NOT FOUND")
             subtitle_pattern, dummy_subtitle_tag = self.add_dummy_subtitle(document)
         #-----------------------------------------------------------------#
 
@@ -40,7 +39,6 @@ class Subtitle():
                 break
 
         if subtitle_pattern_index != 0:
-            print('Adding new element :::', subtitle_pattern)
             dummy_subtitle_tag = BeautifulSoup(subtitle_pattern, features="html5lib")
             document['html']['main_content']['elements'].insert(0, dummy_subtitle_tag)
         #-----------------------------------------------------------------#

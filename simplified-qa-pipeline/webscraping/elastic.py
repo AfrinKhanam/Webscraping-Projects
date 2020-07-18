@@ -13,10 +13,6 @@ class Elastic():
     def index_document(self, document):
         # --------------------------------------------------------- #
         for document in document['document_list']:
-            print('--------------------- DOCUMENT PUSHED ----------------------')
-            print(json.dumps(document, indent=4))
-            print('------------------------------------------------------------\n\n')
-
             self.es.index(index=self.index, doc_type=self.doc_type,
                           id=str(uuid1()), body=document)
 
@@ -55,18 +51,11 @@ class Elastic():
         return string
 
     def document_out_of_content(self, document):
-        # --------------------------------------------------------- #
-        print("START---------------------------")
-        print(json.dumps(document, indent=4))
-        print("END---------------------------")
-
         document_list = []
 
         for element in document['subtitle']['elements']:
             for content in element['content']:
                 for text, text_stem in zip(content['text'], content['text_stem']):
-                    print("text is---------> ", text)
-                    print("text stem is------->", text_stem)
                     document_list.append({
                         "document_name": self.get_document_name(document),
                         "url": self.get_url(document),
@@ -130,11 +119,6 @@ class Elastic():
 
     def document_out_of_inner_table(self, inner_table, inner_table_stem, document, element, table_row):
         document_list = []
-
-        # print('------------------------------------------------')
-        # print(inner_table['table']['keys'])
-        # print(inner_table_stem)
-        # print('------------------------------------------------')
 
         keys = inner_table['table']['keys']
         values = inner_table['table']['values']

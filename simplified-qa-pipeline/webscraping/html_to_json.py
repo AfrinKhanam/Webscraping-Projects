@@ -11,20 +11,8 @@ import requests
 
 class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
-    def __init__(self, document, source):
+    def __init__(self, html):
         PostProcessing.__init__(self)
-        if source is 'local':
-            with open(document['filename']) as file:
-                html = file.read()
-        elif source is 'web':
-            print("000000000000000000000000000000000000000000000")
-            print(requests)
-            response = requests.get(document['url'], verify=False)
-            print("***********************************")
-            html = response.content
-            # print(html)
-        else:
-            raise('INVALID SOURCE IS DEFINED')
 
         self.dom = BeautifulSoup(html, features="html5lib")
     #-----------------------------------------------------------------#
@@ -34,7 +22,6 @@ class HtmlToJson(Subtitle, PostProcessing):
     def main_title(self, document):
         main_title = self.dom.find(document['html']['main_title']['tag'], attrs={
                                    "class": document['html']['main_title']['class']})
-        print("main title is----> ", main_title)
 
         document['html']['main_title']['text'] = main_title.get_text()
         return document
@@ -83,7 +70,6 @@ class HtmlToJson(Subtitle, PostProcessing):
                 if len(content) != 0:
                     content_obj = {"text":content[2], "content":[{"text":[content[0]]}]}
                     document['subtitle']['elements'].insert(idx,content_obj)
-            # print("000000000",json.dumps(document,indent=4))
         except Exception as e:
             print("exception occurred..!!",e.args)
 
@@ -141,6 +127,5 @@ class HtmlToJson(Subtitle, PostProcessing):
             "subtitle": document["subtitle"]
         }
         #-----------------------------------------------------------#
-        # print(document)
         return document
     #-----------------------------------------------------------------#

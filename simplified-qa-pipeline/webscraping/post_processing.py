@@ -33,13 +33,9 @@ class PostProcessing():
 
 
     def post_processing(self, document):
-        #print("00000000000000000000MEOW000000000000000")
-        #print(document)
         #if document['url'] in self.url_to_function_mapper and document['post_processing'] == True:
         if document['url'] in self.url_to_function_mapper and document['post_processing'] == True :
             self.url_to_function_mapper[document['url']](document)
-            #print("-----------------------------------------hey-------------------")
             return document
         else:
-            #print("------------------ELSE---------------")
             return document

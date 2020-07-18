@@ -15,14 +15,12 @@ def parse_inner_table(dom):
 
 
         if ele.name is not None:
-            #print("element :: {}".format(ele))
             table_dom = ele.find('table')
 
             if table_dom:
                 return parse_inner_table(table_dom)
 
             text['table']['keys'] = get_inner_table_keys(ele)
-            #print("table keys-->\n",text['table']['keys'])
     #--------------------------------------------------------------#
 
     #--------------------------------------------------------------#
@@ -105,8 +103,6 @@ def parse_table_to_json(dom):
                     if column.name is not None:
                         idx += 1
                         if idx % 2 == 0:
-                            #print("executing idx%2 condition")
-                            
 			
                             column = replace_tag(column)
 
@@ -119,18 +115,11 @@ def parse_table_to_json(dom):
                                     if text != None: value.append(text)
 
                                 elif ele.name == 'table':
-                                    #print("executing table condition")
-				    
                                     value.append(parse_inner_table(ele))
 
                                 elif len(ele) != 0 and ele != '\n':
-                                    #print("executing len condition")
-				    
-                                    #print([ele])
                                     value.append(ele)
                         else:
-                            #print("executing else condition")
-			    
                             if column.find('table'):
                                 key = ""
                                 return parse_table_to_json(column.find('table'))
@@ -139,30 +128,13 @@ def parse_table_to_json(dom):
 
                 table_data.append({ "key" : key, "value" : value})
 
-                #print('------------------------------------------------')
-                #print('\n\n {} \n\n'.format(table_data))
-
-                #print(json.dumps(table_data, indent=4))
-                #print('------------------------------------------------\n\n')
-    # ------------------------------------------------------------------------#
-
-    #print('-------------------------------------------------------')
-    #print(json.dumps(table_data, indent=4))
-    #print('-------------------------------------------------------')
-
     return table_data
 #-----------------------------------------------------------------------------------#
 
 
 #---------------------------------------------------------------------#
 def replace_tag(dom):
-    #------------------------------------------------------------#
-    #print('_______________________________________________')
     dom = strip_tags(dom, ['span', 'strong', 'a', 'h4', 'u', 'b'])
 
-    #print("\n\ncolumn elements ::  {} ".format(dom.contents))
-
-    #print('_______________________________________________\n\n')
-    #-------------------------------------------------------------#
     return dom
 #---------------------------------------------------------------------#
