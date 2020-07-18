@@ -4,9 +4,6 @@ import time
 from traceback import format_exc
 import requests
 
-# Disable the annoying "Unverified HTTPS request is being made" warning
-requests.packages.urllib3.disable_warnings()
-
 from elasticsearch import Elasticsearch
 
 from webscraping.html_to_json import HtmlToJson

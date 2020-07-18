@@ -3,6 +3,11 @@ from configparser import ConfigParser
 from typing import Optional
 from fastapi import BackgroundTasks, HTTPException, Response, FastAPI
 
+import requests
+
+# Disable the annoying "Unverified HTTPS request is being made" warning
+requests.packages.urllib3.disable_warnings()
+
 import uvicorn
 
 from search.qa_pipeline import QAPipeline
@@ -33,6 +38,8 @@ es_host = config.get("elastic_search_credentials", "host")
 es_port = config.getint("elastic_search_credentials", "port")
 es_index = config.get("elastic_search_credentials", "index")
 
+on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
+
 app = FastAPI()
 
 @app.get("/qa")
@@ -54,8 +61,13 @@ def __scrape_all_pages__():
         web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
         
         web_scraping_pipeline.scrape_all_pages()
+
+        requests.post(on_scraping_completed_url)
+
     except Exception as e:
-        print(f"Scraping error: {e.args}")
+        print(f"Scraping error: {repr(e)}")
+
+        requests.post(on_scraping_completed_url, repr(e))
 
     __scraping_in_progress = False
 
