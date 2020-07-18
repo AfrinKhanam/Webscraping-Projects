@@ -15,7 +15,7 @@ namespace IndianBank_ChatBOT.Controllers
         private readonly AppDbContext _dbContext;
         private readonly AppSettings _appSettings;
 
-        private static bool _isFullScrapingDone = false;
+        private static bool _isFullWebScrapingInProgress = false;
 
         public WebPageController(IOptions<AppSettings> appsettings, AppDbContext _dbContext)
         {
@@ -28,7 +28,14 @@ namespace IndianBank_ChatBOT.Controllers
         public ActionResult Index()
         {
             var webPages = _dbContext.WebScapeConfig.OrderBy(p => p.PageName).ToList();
-            return View(webPages);
+
+            WebPageViewModel vm = new WebPageViewModel
+            {
+                IsFullWebScrapingInProgress = _isFullWebScrapingInProgress,
+                WebScapeConfigs = webPages
+            };
+
+            return View(vm);
         }
 
         [HttpGet]
@@ -152,7 +159,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapeAllPages))]
         public IActionResult RescrapeAllPages()
         {
-            _isFullScrapingDone = false;
+            _isFullWebScrapingInProgress = false;
             string WebscrapeUrl = _appSettings.WebscrapeUrl;
             if (!string.IsNullOrEmpty(WebscrapeUrl))
             {
@@ -185,15 +192,15 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(UpdateFullScrapingStatus))]
         public IActionResult UpdateFullScrapingStatus()
         {
-            _isFullScrapingDone = true;
-            return Ok(_isFullScrapingDone);
+            _isFullWebScrapingInProgress = true;
+            return Ok(_isFullWebScrapingInProgress);
         }
 
         [HttpGet]
         [Route(nameof(GetFullScrapingStatus))]
         public IActionResult GetFullScrapingStatus()
         {
-            return Ok(_isFullScrapingDone);
+            return Ok(_isFullWebScrapingInProgress);
         }
     }
 }
