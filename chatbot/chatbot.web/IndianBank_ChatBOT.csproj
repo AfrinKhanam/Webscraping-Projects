@@ -14,9 +14,13 @@
 
   <ItemGroup>
     <Compile Remove="starter-pack-rasa-nlu\**" />
+    <Compile Remove="wwwroot\WebScrapingStaticFiles\**" />
     <Content Remove="starter-pack-rasa-nlu\**" />
+    <Content Remove="wwwroot\WebScrapingStaticFiles\**" />
     <EmbeddedResource Remove="starter-pack-rasa-nlu\**" />
+    <EmbeddedResource Remove="wwwroot\WebScrapingStaticFiles\**" />
     <None Remove="starter-pack-rasa-nlu\**" />
+    <None Remove="wwwroot\WebScrapingStaticFiles\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,10 +73,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
 </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\WebScrapingStaticFiles\" />
-    <Folder Include="wwwroot\WebScrapingStaticFiles\" />
-  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
