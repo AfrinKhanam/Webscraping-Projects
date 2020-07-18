@@ -1,13 +1,11 @@
+using System.Collections.Generic;
+using System.Net.Http;
+
 using IndianBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {

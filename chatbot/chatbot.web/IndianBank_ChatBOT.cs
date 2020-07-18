@@ -1,13 +1,15 @@
-﻿using IndianBank_ChatBOT.Dialogs.Main;
+﻿using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Dialogs.Main;
 using IndianBank_ChatBOT.Models;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net.Http;
 
 namespace IndianBank_ChatBOT
 {
@@ -40,7 +42,7 @@ namespace IndianBank_ChatBOT
             _userState = userState ?? throw new ArgumentNullException(nameof(userState));
             _services = botServices ?? throw new ArgumentNullException(nameof(botServices));
             _dialogs = new DialogSet(_conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
-            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings));
+            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, clientFactory));
             // _dialogs.Add(new VehicleLoanDialog(_services, _conversationState, _userState));
         }
 

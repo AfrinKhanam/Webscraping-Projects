@@ -1,11 +1,14 @@
-﻿using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.ViewModel;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Controllers
 {

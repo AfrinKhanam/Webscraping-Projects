@@ -225,12 +225,13 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <exception cref="ArgumentNullException">services</exception>
 
         private static AppSettings appSettings;
+        private readonly IHttpClientFactory clientFactory;
 
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings)
+        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings, IHttpClientFactory clientFactory)
             : base(nameof(MainDialog))
         {
             appSettings = appsettings;
-
+            this.clientFactory = clientFactory;
             _services = services ?? throw new ArgumentNullException(nameof(services));
             _conversationState = conversationState;
             _userState = userState;
@@ -454,7 +455,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         public static async Task SearchKB(DialogContext dc, IHttpClientFactory clientFactory)
         {
-            var rabbitMqQuery = dc.Context.Activity.Text;
+            var query = dc.Context.Activity.Text;
 
             var context = string.Empty;
 
@@ -617,18 +618,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             }
         }
 
-        //rabbitmq method
-        public static string GenerateCoupon(int length, Random random)
-        {
-            string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            StringBuilder result = new StringBuilder(length);
-            for (int i = 0; i < length; i++)
-            {
-                result.Append(characters[random.Next(characters.Length)]);
-            }
-            return result.ToString();
-        }
-
         public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
         {
             if (string.IsNullOrEmpty(backendResult))
@@ -728,82 +717,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
             }
         }
-
-
-        public static string GetRabbitMqResponse(string queryParam, string context)
-        {
-            Random rnd = new Random();
-            var coupon = GenerateCoupon(10, rnd);
-            var key = string.Join(Environment.NewLine, coupon);
-            var redisResponse = string.Empty;
-
-            ConnectionFactory factory = new ConnectionFactory
-            {
-                UserName = appSettings.RabbitmqUsername,
-                Password = appSettings.RabbitmqPassword,
-                VirtualHost = appSettings.RabbitmqVirtualHost,
-                HostName = appSettings.RabbitmqHostName
-            };
-
-            factory.HostName = appSettings.RabbitmqHostName;
-
-            Console.WriteLine($"Key Generated is {key}");
-
-            using (IConnection connection = factory.CreateConnection())
-            {
-                var model = connection.CreateModel();
-                Console.WriteLine("Creating Exchange");
-
-                // set up the properties
-                var properties = model.CreateBasicProperties();
-                properties.Persistent = true;
-
-                // Sending Message to Rabbitmq server 
-                var message = $@" {{""UUID"": ""{key}"", ""CONTEXT"": ""{context}"", ""QUERY_STRING"": ""{queryParam}"" }}";
-
-                byte[] messageBuffer = Encoding.Default.GetBytes(message);
-                model.BasicPublish("queryExchange", "query", properties, messageBuffer);
-                Console.WriteLine("Message Sent");
-
-                // string host = "ashutosh-redis";
-                string host = "localhost";
-
-                int count = 0;
-                while (count <= 25 && redisResponse == string.Empty)
-                {
-                    Thread.Sleep(2000);
-                    var keydata = GetRedisResponse(host, key.ToString());
-                    Console.WriteLine("FROM REDIS ************************************" + keydata);
-                    if (keydata != null)
-                    {
-                        redisResponse = Encoding.UTF8.GetString(keydata, 0, keydata.Length);
-                    }
-                    Console.WriteLine("FROM REDIS ************************************" + redisResponse);
-                    count++;
-                    Console.WriteLine($"redis_res==string.Empty = {redisResponse == string.Empty}");
-                }
-
-                //if (!string.IsNullOrEmpty(redis_res))
-                //{
-                //    var jObject = JObject.Parse(redis_res);
-                //    Console.WriteLine("AFTER PARSING ************************************" + jObject);
-                //}
-            }
-
-            return redisResponse;
-        }
-
-        //rabbitmq method ends here
-
-        //redis code
-        public static byte[] GetRedisResponse(string host, string UUID)
-        {
-            using (RedisClient redisClient = new RedisClient(host))
-            {
-                return redisClient.Get(UUID);
-            }
-        }
-        //redis code ends here 
 
         /// <summary>
         /// Displays User Form

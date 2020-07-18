@@ -1,8 +1,8 @@
-﻿using IndianBank_ChatBOT.Utils;
-using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using IndianBank_ChatBOT.Utils;
 
 namespace IndianBank_ChatBOT.Models
 {

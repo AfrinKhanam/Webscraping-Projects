@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Models
 {

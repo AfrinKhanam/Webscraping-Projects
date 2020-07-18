@@ -1,6 +1,7 @@
-﻿using Microsoft.Bot.Builder;
-using System;
+﻿using System;
 using System.Linq;
+
+using Microsoft.Bot.Builder;
 
 namespace IndianBank_ChatBOT.Dialogs.Loans
 {

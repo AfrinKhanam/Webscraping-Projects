@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System.IO;
+
 using IndianBank_ChatBOT.Dialogs.Main.Resources;
 using IndianBank_ChatBOT.Dialogs.Shared;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
+
 using Newtonsoft.Json;
-using System.IO;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {

@@ -1,6 +1,7 @@
-﻿using Microsoft.Bot.Builder.TemplateManager;
+﻿using System.Collections.Generic;
+
+using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
-using System.Collections.Generic;
 
 namespace IndianBank_ChatBOT.Dialogs.Shared
 {

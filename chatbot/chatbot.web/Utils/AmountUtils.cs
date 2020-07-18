@@ -1,6 +1,7 @@
-﻿using Microsoft.Recognizers.Text;
+﻿using System.Text.RegularExpressions;
+
+using Microsoft.Recognizers.Text;
 using Microsoft.Recognizers.Text.Number;
-using System.Text.RegularExpressions;
 
 namespace IndianBank_ChatBOT.Utils
 {

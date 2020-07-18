@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System;
+
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace IndianBank_ChatBOT.Controllers
 {
