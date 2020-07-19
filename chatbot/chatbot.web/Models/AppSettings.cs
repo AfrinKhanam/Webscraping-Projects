@@ -12,7 +12,8 @@
         public string DirectLineBaseUrl { get; set; }
         public string ChatBotBackEndUIEndPoint { get; set; }
         public string StaticFileSuspiciousContentsCSV { get; set; }
-        public string WebscrapeUrl { get; set; }
+        public string RescrapeAllPagesEndPoint { get; set; }
+        public string RescrapeWebPageEndPoint { get; set; }
         public string SynonymsSyncUrl { get; set; }
 
     }
