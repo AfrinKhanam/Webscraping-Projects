@@ -4,6 +4,8 @@ from typing import Optional
 from fastapi import BackgroundTasks, HTTPException, Response, FastAPI
 
 import requests
+import os
+import re
 
 # Disable the annoying "Unverified HTTPS request is being made" warning
 requests.packages.urllib3.disable_warnings()
@@ -39,6 +41,7 @@ es_port = config.getint("elastic_search_credentials", "port")
 es_index = config.get("elastic_search_credentials", "index")
 fetch_static_scraping_config_url = config.get("urls", "static_file_url")
 static_scraping_url = config.get("urls", "static_file_status_url")
+synonyms_url = config.get("urls", "synonyms_url")
 
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 
@@ -150,6 +153,35 @@ def scrape_page(page_config, background_tasks: BackgroundTasks):
             "status": "success",
             "detail": "Scraping Task Queued Successfully."
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=e.args)
+
+def __sync_synonyms__():
+    try:
+        root_directory = os.path.abspath(os.pardir)
+        print(root_directory+"/simplified-qa-pipeline/config_files/synonyms.txt")
+        response = requests.get(url=synonyms_url)
+        data = response.json()
+        synonyms = []
+        for synonym in data:
+            synonyms.append(re.sub(",", "=", synonym))
+        synonyms = "\n".join(synonyms)
+        file = open(
+            root_directory+"/simplified-qa-pipeline/config_files/synonyms.txt", "w+")
+        file.write(synonyms)
+        print("Added synonyms successfully..!!")
+        file.close()
+    except Exception as e:
+        print(f"Synonyms Syncing error: {e.args}")
+
+@app.get('/resync_synonyms')
+def resync_synonyms(background_tasks: BackgroundTasks):
+    try:
+        background_tasks.add_task(__sync_synonyms__)
+        return {
+                "status": "success",
+                "detail": "Syncing Synonyms Successfully.."
+            }
     except Exception as e:
         raise HTTPException(status_code=500, detail=e.args)
 
