@@ -1,4 +1,4 @@
-﻿@model List<StaticPage>
+﻿@model StaticPageViewModel
 @{
     ViewData["Title"] = "Static Files";
 }
@@ -9,6 +9,47 @@
 <input id="deleteFileId" type="hidden" value="" />
 
 <script type="text/javascript">
+    var isStaticPageScrapingInProgress = "@Model.IsStaticFilesScrapingInProgress".toLowerCase() == "true" ? true : false;
+    var fullScrapeCheckInterval;
+
+    if (isStaticPageScrapingInProgress) {
+        pollFullScrapeStatusCheck();
+    }
+
+    function pollFullScrapeStatusCheck() {
+        fullScrapeCheckInterval = setInterval(checkIsStaticPageWebScrapingInProgress, 15000);
+    }
+
+    function checkIsStaticPageWebScrapingInProgress() {
+        var request = $.ajax({
+            url: "/StaticFiles/IsStaticPagesWebScrapingInProgress",
+            type: "GET"
+        });
+
+        request.done(function (response) {
+            isStaticPageScrapingInProgress = response;
+            if (response == false) {
+                iziToast.success({
+                    title: 'Done!',
+                    position: 'topRight',
+                    message: 'Static Page Scraping has been completed!',
+                });
+                enableScraping();
+                stopFullScrapeCheckInterval();
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            console.log('Error occured while checking Scraping Status');
+            console.log(jqXHR);
+            isStaticPageScrapingInProgress = true;
+            stopFullScrapeCheckInterval();
+        });
+    }
+
+    function stopFullScrapeCheckInterval() {
+        clearInterval(fullScrapeCheckInterval);
+    }
 
     function viewStaticFile(url) {
         window.open(url, '_blank');
@@ -233,6 +274,11 @@
 
     $(document).ready(function () {
 
+        if (isStaticPageScrapingInProgress)
+            disableScraping();
+        else
+            enableScraping();
+
         $('#toggle-modal-uploadStaticFileModal').fireModal({
             title: 'Upload Static File',
             body: '<div class="input-group">' +
@@ -279,32 +325,118 @@
                 }
             ]
         });
+
+
+        var rescrapePageBody = '<div class="alert alert-warning">' +
+            '<b>Note! </b> Re-scrape static page using this feature is recommended only if your page content is changed with the same structure.' +
+            '</br> Rescrape of the static page will be happening in the background. Once it is completed, Status will be updated in the <b>Static Files</b> page.</div > ';
+
+        $('.toggle-modal-addAllWebPageModal').fireModal({
+            title: 'Request for Static Page Rescrape',
+            body: rescrapePageBody + '<b>Are you sure you want to rescrape all the Static Pages?</b>',
+            buttons: [
+                {
+                    text: 'Rescrape',
+                    class: 'btn btn-outline-warning',
+                    handler: rescrapeAllStaticPages
+                },
+                {
+                    text: 'Cancel',
+                    class: 'btn btn-outline-secondary',
+                    handler: function (current_modal) {
+                        $.destroyModal(current_modal);
+                    }
+                }
+            ]
+        });
     });
+
+
+    function rescrapeAllStaticPages(current_modal) {
+        $.destroyModal(current_modal);
+
+        disableScraping();
+
+        var request = $.ajax({
+            url: "/StaticFiles/RescrapeAllStaticPages",
+            type: "POST"
+        });
+
+        request.done(function (response) {
+            pollFullScrapeStatusCheck();
+            iziToast.success({
+                title: 'Done!',
+                position: 'topRight',
+                message: 'Static Page Scrape Request is queued successfully!',
+            });
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            enableScraping();
+            iziToast.error({
+                title: 'Error!',
+                position: 'topRight',
+                message: jqXHR.responseText,
+            });
+        });
+    }
 
     function setValidity() {
         if (je) $("#jsonValidity").html(JSON.stringify(je.isValid()));
     }
 
-</script>
 
+    function enableScraping() {
+        $("#RescrapeAllPagesBtn").show();
+        $("#WebScrapeInProgressDiv").hide();
+        $("#StaticfilesPageDiv").show();
+        $("#UploadNewStaticPageDiv").show();
+    }
+
+    function disableScraping() {
+        $("#RescrapeAllPagesBtn").hide();
+        $("#WebScrapeInProgressDiv").show();
+        $("#StaticfilesPageDiv").hide();
+        $("#UploadNewStaticPageDiv").hide();
+    }
+
+</script>
 
 
 <div class="section-header">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <h1>Static Files</h1>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-2 col-md-6 col-sm-6 col-12"></div>
+    <div class="col-lg-2 col-md-6 col-sm-6 col-12"></div>
 
-    </div>
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button onclick="resetFileuploadForm();" style="float:right; margin-bottom:10px;" id="toggle-modal-uploadStaticFileModal" class="btn btn-outline-primary">Upload File</button>
+        <button id="RescrapeAllPagesBtn" class="btn btn-icon icon-left btn-outline-warning toggle-modal-addAllWebPageModal"><i class="fas fa-sync-alt"></i> Rescrape All Static Pages</button>
+        @*<a id="RescrapeAllPagesBtn" href="" class="btn btn-icon icon-left btn-outline-warning toggle-modal-addAllWebPageModal"><i class="fas fa-sync-alt"></i>Rescrape All Static Pages</a>*@
+    </div>
+
+    <div style="display:none" id="UploadNewStaticPageDiv" class="col-lg-2 col-md-6 col-sm-6 col-12">
+        <button onclick="resetFileuploadForm();" style="float:right;" id="toggle-modal-uploadStaticFileModal" class="btn btn-icon icon-left btn-outline-primary"><i class="fas fa-file-upload"></i> Upload File</button>
     </div>
 </div>
 
 <div class="section-body">
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-            <div class="card">
+            <div style="display:none" id="WeScrapeWarningDiv">
+            </div>
+            <div class="card" style="display:none" id="WebScrapeInProgressDiv">
+                <div class="card-body">
+                    <div class="alert alert-warning alert-has-icon">
+                        <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="alert-body">
+                            <div class="alert-title">Web Scraping is in progress.</div>
+                            Please wait for the operation to complete.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="display:none" id="StaticfilesPageDiv">
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
@@ -331,7 +463,7 @@
                                 @{
                                     var index = 0;
                                 }
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.StaticPages)
                                 {
                                     {
                                         var className = "toggle-modal-setupPageConfigModel_" + item.Id.ToString();
@@ -380,7 +512,7 @@
                                     }
                                 }
 
-                                @if (Model.Count == 0)
+                                @if (Model.StaticPages.Count == 0)
                                 {
                                     <tr class="no-data" style="text-align:center">
                                         <td colspan="5">No data found !</td>

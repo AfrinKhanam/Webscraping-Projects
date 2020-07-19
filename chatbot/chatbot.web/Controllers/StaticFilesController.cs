@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
-
+using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 
@@ -19,6 +20,8 @@ namespace IndianBank_ChatBOT.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly AppSettings _appSettings;
+
+        private static bool _isStaticFilesScrapingInProgress = false;
 
         public StaticFilesController(AppDbContext dbContext, IOptions<AppSettings> appsettings)
         {
@@ -45,7 +48,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public IActionResult GetAllStaticFileInfo()
         {
-            var pageConfigarations = _dbContext.StaticPages.Where(s => s.ScrapeStatus == ScrapeStatus.YetToScrape).ToList();
+            var pageConfigarations = _dbContext.StaticPages.ToList();
             var configObjects = new List<object>();
             foreach (var item in pageConfigarations)
             {
@@ -56,7 +59,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         public IActionResult GetAllStaticFileInfoAsText()
         {
-            var staticPages = _dbContext.StaticPages.Where(s => s.ScrapeStatus == ScrapeStatus.YetToScrape).ToList();
+            var staticPages = _dbContext.StaticPages.ToList();
             var sb = new StringBuilder();
             sb.Append("{");
 
@@ -83,8 +86,14 @@ namespace IndianBank_ChatBOT.Controllers
 
         public ActionResult Index()
         {
-            var files = _dbContext.StaticPages.OrderByDescending(f => f.CreatedOn).ToList();
-            return View(files);
+            var staticPages = _dbContext.StaticPages.OrderByDescending(f => f.CreatedOn).ToList();
+            StaticPageViewModel vm = new StaticPageViewModel
+            {
+                StaticPages = staticPages,
+                IsStaticFilesScrapingInProgress = _isStaticFilesScrapingInProgress
+            };
+
+            return View(vm);
         }
 
         private string ToBase64Decode(string base64EncodedText)
@@ -97,7 +106,6 @@ namespace IndianBank_ChatBOT.Controllers
             byte[] base64EncodedBytes = Convert.FromBase64String(base64EncodedText);
             return Encoding.UTF8.GetString(base64EncodedBytes);
         }
-
 
         [HttpGet]
         public ContentResult GetStaticFileContent(int staticFileId)
@@ -185,7 +193,9 @@ namespace IndianBank_ChatBOT.Controllers
                         FileName = fileName,
                         CreatedOn = DateTime.Now,
                         FileType = fileExtension,
-                        ScrapeStatus = ScrapeStatus.YetToScrape
+                        ScrapeStatus = ScrapeStatus.YetToScrape,
+                        ErrorMessage = string.Empty,
+                        IsActive = true
                     };
 
                     using (var target = new MemoryStream())
@@ -234,14 +244,12 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid input!");
         }
 
-
         private string EncodeToBase64(string toEncode)
         {
             byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
             string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
             return returnValue;
         }
-
 
         [HttpGet]
         public IActionResult UpdatePageConfigById(int id, string pageConfig)
@@ -287,13 +295,80 @@ namespace IndianBank_ChatBOT.Controllers
             var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == vm.Id);
             if (staticFile != null)
             {
+                staticFile.ErrorMessage = vm.ErrorMessage;
                 staticFile.ScrapeStatus = vm.ScrapeStatus;
-                staticFile.LastScrapedOn = vm.LastScrapedOn;
+                staticFile.LastScrapedOn = DateTime.Now;
                 _dbContext.StaticPages.Update(staticFile);
                 _dbContext.SaveChanges();
                 return Ok();
             }
             return NotFound($"Static Page with the Id {vm.Id} is not found");
+        }
+
+        private void ResetStaticPageScrapeStatus()
+        {
+            var staticPages = _dbContext.StaticPages.ToList();
+
+            foreach (var webPage in staticPages)
+            {
+                webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+                webPage.ErrorMessage = string.Empty;
+            }
+
+            _dbContext.StaticPages.UpdateRange(staticPages);
+            _dbContext.SaveChanges();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> RescrapeAllStaticPages()
+        {
+            string rescrapeAllStaticPagesEndPoint = _appSettings.RescrapeAllStaticPagesEndPoint;
+
+            if (!string.IsNullOrEmpty(rescrapeAllStaticPagesEndPoint))
+            {
+                try
+                {
+                    ResetStaticPageScrapeStatus();
+                    _isStaticFilesScrapingInProgress = true;
+
+                    using var client = new HttpClient
+                    {
+                        BaseAddress = new Uri(rescrapeAllStaticPagesEndPoint)
+                    };
+
+                    var response = await client.GetAsync("");
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Ok(responseContent);
+                    }
+                    else
+                    {
+                        return BadRequest($"Failed to Start the Static Page Web Scraping. Error : {responseContent}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _isStaticFilesScrapingInProgress = false;
+                    return BadRequest($"Failed to Start the Static Page Web Scraping. Error : {ex.Message} ");
+                }
+            }
+            return BadRequest("Static Page Web Scrape Url not found. Please check the configuration");
+        }
+
+        [HttpPost]
+        public IActionResult OnScrapingCompleted()
+        {
+            _isStaticFilesScrapingInProgress = false;
+            return Ok(_isStaticFilesScrapingInProgress);
+        }
+
+        [HttpGet]
+        public IActionResult IsStaticPagesWebScrapingInProgress()
+        {
+            return Ok(_isStaticFilesScrapingInProgress);
         }
     }
 }

@@ -13,6 +13,7 @@
         public string ChatBotBackEndUIEndPoint { get; set; }
         public string StaticFileSuspiciousContentsCSV { get; set; }
         public string RescrapeAllPagesEndPoint { get; set; }
+        public string RescrapeAllStaticPagesEndPoint { get; set; }
         public string RescrapeWebPageEndPoint { get; set; }
         public string SynonymsSyncUrl { get; set; }
 
