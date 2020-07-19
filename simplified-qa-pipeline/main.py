@@ -54,7 +54,7 @@ def qa(query: str, context: Optional[str] = None):
     try:
         return qa_pipeline.search(query, context)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=e)
+        raise HTTPException(status_code=500, detail=e.args)
 
 __scraping_in_progress = False
 

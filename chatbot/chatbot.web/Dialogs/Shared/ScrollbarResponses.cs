@@ -23,7 +23,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                     new CardAction(type: ActionTypes.ImBack, title: "Management", value: "management"),
                     //new CardAction(type: ActionTypes.ImBack, title: "Finance Result", value: "finance result"),
                     new CardAction(type: ActionTypes.ImBack, title: "Corporate Governance", value: "corporate governance"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Mutual Fund", value: "mutual fund"),
+                    // new CardAction(type: ActionTypes.ImBack, title: "Mutual Fund", value: "mutual fund"),
                     new CardAction(type: ActionTypes.ImBack, title: "Annual Report", value: "annual report")
                 });
             }
@@ -65,8 +65,8 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                 return new SuggestedActions(actions: new List<CardAction>()
                 {
                     new CardAction(type: ActionTypes.ImBack, title: "Deposit Rates", value: "deposit rates"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Lending Rates", value: "lending rates"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Service Charges", value: "service charges")
+                    // new CardAction(type: ActionTypes.ImBack, title: "Lending Rates", value: "lending rates"),
+                    // new CardAction(type: ActionTypes.ImBack, title: "Service Charges", value: "service charges")
                 });
             }
         }
