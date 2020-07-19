@@ -46,17 +46,16 @@ class HtmlToJson(Subtitle, PostProcessing):
     #-----------------------------------------------------------------#
 
     #-----------------------------------------------------------------#
+
     def generate_json_for_general_managers(self,document):
         document['subtitle'] = {
             "html_tag": '',
             "elements": []
         }
         try:
-            main_title = self.dom.find(document['html']['main_title']['tag'], attrs={
-                                   "class": document['html']['main_title']['class']})
-            document["main_title"] = main_title.get_text()
-            document["domain"] = main_title.get_text()
-            document["class"] = main_title.get_text()
+            document["main_title"] = "general managers"
+            document["domain"] = "about us"
+            document["class"] = "general managers"
             document["document_name"] = document['document_name'] = document['filename'].split('/')[-2]
 
             contents = []

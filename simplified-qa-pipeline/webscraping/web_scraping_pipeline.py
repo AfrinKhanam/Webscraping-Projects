@@ -138,8 +138,12 @@ class WebScrapingPipeline:
 
 
     def __generate_json_structure__(self, document):
+        headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',
+        'X-Requested-With': 'XMLHttpRequest',
+        }
 
-        response = requests.get(document['url'], verify=False, proxies=self.__proxies)
+        response = requests.get(document['url'], verify=False, proxies=self.__proxies, headers=headers)
 
         html = response.content
 
