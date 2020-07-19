@@ -170,7 +170,7 @@
                         <div className="activity">{props.children}</div>
                         <ul className="button-bar">
                             <li>
-                                <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="satisfied with BOT's Response "></span></button>
+                                <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="Satisfied with BOT's response"></span></button>
                             </li>
                             <li>
                                 <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
@@ -185,7 +185,7 @@
         const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
             <ActivityWithFeedback {...props} />
         ));
-        let excludedText = [`Hi! My name is Iva 😃.
+        let excludedText = [`Hi! My name is ADYA 😃.
         Welcome to Indian Bank.
         I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
 
