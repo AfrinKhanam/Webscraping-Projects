@@ -20,7 +20,8 @@ namespace IndianBank_ChatBOT.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? LastScrapedOn { get; set; }
         public ScrapeStatus ScrapeStatus { get; set; }
-
+        public string ErrorMessage { get; set; }
+        public bool IsActive { get; set; }
         public string GetEnumDescription()
         {
             return ScrapeStatus.GetEnumDescription();

@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200719125333_StaticPageUpdates")]
+    partial class StaticPageUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,7 +225,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 7, 19, 19, 27, 42, 53, DateTimeKind.Local).AddTicks(2769));
+                        .HasDefaultValue(new DateTime(2020, 7, 19, 18, 23, 32, 818, DateTimeKind.Local).AddTicks(2812));
 
                     b.Property<string>("ErrorMessage")
                         .HasColumnType("text");
@@ -238,9 +240,7 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastScrapedOn")
                         .HasColumnType("timestamp without time zone");
@@ -393,7 +393,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 7, 19, 19, 27, 42, 55, DateTimeKind.Local).AddTicks(7180));
+                        .HasDefaultValue(new DateTime(2020, 7, 19, 18, 23, 32, 820, DateTimeKind.Local).AddTicks(8212));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -402,9 +402,7 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastScrapedOn")
                         .HasColumnType("timestamp without time zone");

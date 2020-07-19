@@ -45,6 +45,14 @@ namespace IndianBank_ChatBOT.Models
             modelBuilder.Entity<WebScapeConfig>()
                  .Property(e => e.CreatedOn)
                  .HasDefaultValue(DateTime.Now);
+
+            modelBuilder.Entity<StaticPage>()
+                .Property(s=>s.IsActive)
+                .HasDefaultValue(true);
+
+            modelBuilder.Entity<WebScapeConfig>()
+                   .Property(s => s.IsActive)
+                   .HasDefaultValue(true);
         }
 
         public DbSet<ChatLog> ChatLogs { get; set; }
