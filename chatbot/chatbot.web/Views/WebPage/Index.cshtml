@@ -211,7 +211,7 @@
                                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                     <a class="dropdown-item has-icon" href="@Url.Action("Edit", "WebPage", new { pageId=item.Id})"><i class="far fa-edit"></i> Edit</a>
                                                     <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-deleteWebPageModal" href="#"><i class="far fa-times-circle"></i> Delete</a>
-                                                    <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-reScrapePageRequest" href="#"><i class="fas fa-sync-alt"></i> Rescrape</a>
+                                                    <a style="display:none" onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-reScrapePageRequest" href="#"><i class="fas fa-sync-alt"></i> Rescrape</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -325,7 +325,7 @@
                 }
             ]
         });
-       
+
 
         $('.toggle-modal-reScrapePageRequest').fireModal({
             title: 'Request for Web Page Rescrape',
