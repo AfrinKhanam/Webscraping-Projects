@@ -33,27 +33,30 @@ class WebScrapingPipeline:
         time.sleep(db_sleep_time)
         self.__rescrape_all_pages__()
 
-    def scrape_page(self, page_config):
-        self.__delete_page_from_es_index__()
+    def scrape_page(self, document):
+        url = document['page_config']['url']
+        self.__delete_page_from_es_index__(url)
         time.sleep(db_sleep_time)
-        self.__rescrape_page__(page_config)
+        self.__rescrape_page__(document)
 
     def scrape_static_page(self):
         
         page_configs = self.__get_static_scraping_configuration__()
-        self.__delete_page_from_es_index__(page_configs)
-        time.sleep(db_sleep_time)
-        self.__rescrape_all_static_pages__(page_configs)
+        if page_configs != None:
+
+            url = page_configs[0]['url'].split("staticFileId")[0]
+
+            self.__delete_page_from_es_index__(url)
+            time.sleep(db_sleep_time)
+            self.__rescrape_all_static_pages__(page_configs)
 
     def __drop_database__(self):
         es = Elasticsearch(index=self.__es_index)
         es.indices.delete(index=self.__es_index, ignore=[400, 404]) 
 
 
-    def __delete_page_from_es_index__(self, configs):
+    def __delete_page_from_es_index__(self,url):
         # Delete an all static file url's documents from Elasticsearch index
-        url = configs[0]['url'].split("staticFileId")[0]
-
         query = {
             "query": {
                 "bool": {
@@ -156,7 +159,10 @@ class WebScrapingPipeline:
                     value += 1
                     time.sleep(5)
                     continue
-
+                except ConnectionResetError as e:
+                    value += 1
+                    time.sleep(5)
+                    continue
                 except Exception as e:
                     error_message = f"Scraping Error: {self.get_error_details(e)}"
                     # print("Scraping Error: ",e)
@@ -213,10 +219,13 @@ class WebScrapingPipeline:
                 value += 1
                 time.sleep(5)
                 continue
-
+            except ConnectionResetError as e:
+                value += 1
+                time.sleep(5)
+                continue
             except Exception as e:
-
                 error_message = f"Scraping Error: {self.get_error_details(e)}"
+                # print("exception occurred ..",e)
 
                 break
 

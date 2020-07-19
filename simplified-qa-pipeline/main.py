@@ -42,8 +42,9 @@ es_index = config.get("elastic_search_credentials", "index")
 fetch_static_scraping_config_url = config.get("urls", "static_file_url")
 static_scraping_url = config.get("urls", "static_file_status_url")
 synonyms_url = config.get("urls", "synonyms_url")
-
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
+on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
+
 
 app = FastAPI()
 
@@ -53,7 +54,7 @@ def qa(query: str, context: Optional[str] = None):
     try:
         return qa_pipeline.search(query, context)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+        raise HTTPException(status_code=500, detail=e)
 
 __scraping_in_progress = False
 
@@ -99,8 +100,13 @@ def __scrape_all_static_pages__():
         web_scraping_pipeline = WebScrapingPipeline(fetch_static_scraping_config_url, static_scraping_url, es_host, es_port, es_index, proxies)
         
         web_scraping_pipeline.scrape_static_page()
+
+        requests.post(on_static_file_scraping_completed_url)
     except Exception as e:
         print(f"Scraping error: {e.args}")
+
+        requests.post(on_static_file_scraping_completed_url, repr(e))
+
 
     __scraping_in_progress = False
 
