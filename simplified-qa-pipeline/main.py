@@ -37,6 +37,8 @@ scraping_status_url = config.get("urls", "rescrape_status_url")
 es_host = config.get("elastic_search_credentials", "host")
 es_port = config.getint("elastic_search_credentials", "port")
 es_index = config.get("elastic_search_credentials", "index")
+fetch_static_scraping_config_url = config.get("urls", "static_file_url")
+static_scraping_url = config.get("urls", "static_file_status_url")
 
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 
@@ -85,6 +87,20 @@ def __scrape_page__(page_config):
 
     __scraping_in_progress = False
 
+def __scrape_all_static_pages__():
+    global __scraping_in_progress
+
+    __scraping_in_progress = True
+
+    try:
+        web_scraping_pipeline = WebScrapingPipeline(fetch_static_scraping_config_url, static_scraping_url, es_host, es_port, es_index, proxies)
+        
+        web_scraping_pipeline.scrape_static_page()
+    except Exception as e:
+        print(f"Scraping error: {e.args}")
+
+    __scraping_in_progress = False
+
 @app.get("/scrape_all_pages")
 def scrape_all_pages(background_tasks: BackgroundTasks):
     global __scraping_in_progress
@@ -101,6 +117,24 @@ def scrape_all_pages(background_tasks: BackgroundTasks):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=e.args)
+
+@app.get("/scrape_static_pages")
+def scrape_static_page(background_tasks: BackgroundTasks):
+    global __scraping_in_progress
+    
+    if __scraping_in_progress:
+        raise HTTPException(status_code=406, detail="A previously queued scraping operation is already in progress")
+
+    try:
+        background_tasks.add_task(__scrape_all_static_pages__)
+
+        return {
+            "status": "success",
+            "detail": "Scraping Task Queued Successfully."
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=e.args)
+
 
 @app.get("/scrape_page")
 def scrape_page(page_config, background_tasks: BackgroundTasks):

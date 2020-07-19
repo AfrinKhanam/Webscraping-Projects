@@ -3,6 +3,7 @@ import sys
 import time
 from traceback import format_exc
 import requests
+from datetime import datetime
 
 from elasticsearch import Elasticsearch
 
@@ -37,16 +38,39 @@ class WebScrapingPipeline:
         time.sleep(db_sleep_time)
         self.__rescrape_page__(page_config)
 
-    def __drop_database__(self):
-        try:
-            es = Elasticsearch(index=self.__es_index)
-            es.indices.delete(index=self.__es_index)
-        except Exception as e:
-            print("No database found..!!", self.get_error_details(e))
+    def scrape_static_page(self):
+        
+        page_configs = self.__get_static_scraping_configuration__()
+        self.__delete_page_from_es_index__(page_configs)
+        time.sleep(db_sleep_time)
+        self.__rescrape_all_static_pages__(page_configs)
 
-    def __delete_page_from_es_index__(self, page_config):
-        # TODO: Delete an individual url's documents from Elasticsearch index
-        pass
+    def __drop_database__(self):
+        es = Elasticsearch(index=self.__es_index)
+        es.indices.delete(index=self.__es_index, ignore=[400, 404]) 
+
+
+    def __delete_page_from_es_index__(self, configs):
+        # Delete an all static file url's documents from Elasticsearch index
+        url = configs[0]['url'].split("staticFileId")[0]
+
+        query = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "match_phrase": {
+                                "url": url,
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+        es = Elasticsearch(index=self.__es_index)
+
+        result = es.delete_by_query(index=self.__es_index, body=query)
+        print("deleted urls ",url)
 
     def __get_scraping_configuration__(self):
         documents = []
@@ -78,6 +102,75 @@ class WebScrapingPipeline:
             return documents
 
         return None
+    
+    def __get_static_scraping_configuration__(self):
+        documents = []
+        path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
+
+        response = requests.get(url=self.__fetch_scraping_config_url)
+
+        json_configurations = (response.json())
+        if json_configurations != None:
+            for url in json_configurations:
+                document = json_configurations[url]
+                document['url'] = url
+                document['filename'] = path + \
+                    url.split('/')[-2] + '/index.html'
+                documents.append(document)
+            return documents
+        return None
+    
+    def __rescrape_all_static_pages__(self, page_configs):
+        documents = page_configs
+        for document in documents:
+            static_page_id = document['url'].split("=")[1]
+            doc_url = document['url']
+            print(f"Scraping {doc_url}...")
+
+            error_message = None
+            value = 1
+
+            while value <= 5:
+                try:
+                    document = self.__generate_json_structure__(document)
+
+                    document = self.__stemmer.w_stem(document)
+
+                    document = self.__pre_processor.process(document)
+
+                    self.__elastic.generate_individual_document(document)
+
+                    self.__elastic.index_document(document)
+
+                    static_file_status = {"id": static_page_id,
+                              "createdOn": datetime.now(), "scrapeStatus": 1}
+                    print(static_file_status)
+                    response = requests.put(self.__scraping_status_url,data=static_file_status)
+                    print(f"Success: {doc_url}")
+
+                    time.sleep(5)
+                    break
+                    #----------------------------------------------------------------#
+
+                except ConnectionError as e:
+                    value += 1
+                    time.sleep(5)
+                    continue
+
+                except Exception as e:
+                    error_message = f"Scraping Error: {self.get_error_details(e)}"
+                    # print("Scraping Error: ",e)
+                    break
+
+            if value > 5:
+                error_message = f"Scraping Error: Page not reachable. Max retries reached."
+
+            if error_message is not None:
+                print(f"{error_message}: {doc_url}")
+
+                static_file_status = {"id": static_page_id,
+                              "createdOn": datetime.now(), "scrapeStatus": 2}
+                response = requests.put(self.__scraping_status_url ,data=static_file_status)
 
     def __rescrape_all_pages__(self):
         documents = self.__get_scraping_configuration__()
@@ -153,12 +246,20 @@ class WebScrapingPipeline:
 
         if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
             html_to_json.generate_json_for_general_managers(document)
-
             return document
+        # pageConfig is none for static pages
+        if (document.get('pageConfig') is None):
+            html_to_json.main_title(document)
+            html_to_json.get_url(document)
+            html_to_json.get_document_name(document)
+            html_to_json.subtitles(document)
+            html_to_json.content(document)
+            html_to_json.post_processing(document)
+            html_to_json.frame_json(document)
+            return document['html_to_json']
 
+        #for rescrape all pages api
         document = document['pageConfig']
-
-        #---------------------------------------------------------------#
         html_to_json.main_title(document)
         html_to_json.get_url(document)
         html_to_json.get_document_name(document)
