@@ -279,8 +279,6 @@ class ESPostProcessing:
             for doc in document['ES_RESULT']['DOCUMENTS']:
                 if element_list.count(doc['stemmed_title'])>1:
                     duplicates.append(doc)
-            print("meow--> \n ",json.dumps(duplicates,indent=4))
-            print("end of meow")
             if len(duplicates)!=0:
                 print("duplicates are present---->>")
 
