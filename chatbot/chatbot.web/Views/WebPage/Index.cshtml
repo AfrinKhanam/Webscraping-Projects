@@ -11,11 +11,11 @@
     <div class="col-lg-2 col-md-6 col-sm-6 col-12"></div>
 
     <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button id="RescrapeAllPagesBtn" class="btn btn-outline-warning toggle-modal-addWebScrapeRequest">Rescrape All Web Pages</button>
+        <a id="RescrapeAllPagesBtn" href="" class="btn btn-icon icon-left btn-outline-warning toggle-modal-addAllWebPageModal"><i class="fas fa-sync-alt"></i> Rescrape All Web Pages</a>
     </div>
 
     <div style="display:none" id="AddNewWebPageBtn" class="col-lg-2 col-md-6 col-sm-6 col-12">
-        <button style="float:right;" class="btn btn-outline-primary" onclick="location.href='@Url.Action("addnew", "webpage")'">Add new web page</button>
+        <a href="@Url.Action("addnew", "webpage")" style="float:right;" class="btn btn-icon icon-left btn-outline-primary"><i class="fas fa-plus"></i>Add new web page</a>
     </div>
 
 </div>
@@ -23,8 +23,9 @@
 <div class="section-body">
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-            @*@if (Model.IsFullWebScrapingInProgress)
-                {*@
+            <div style="display:none" id="WeScrapeWarningDiv">
+            </div>
+
             <div class="card" style="display:none" id="WebScrapeInProgressDiv">
                 <div class="card-body">
                     <div class="alert alert-warning alert-has-icon">
@@ -36,9 +37,6 @@
                     </div>
                 </div>
             </div>
-            @*}
-                else
-                {*@
             <div class="card" style="display:none" id="WebScrapeConfigDiv">
                 <div class="card-header">
                     <h4>Pages</h4>
@@ -78,29 +76,29 @@
                         <table class="table table-striped table-md">
                             <tbody>
                                 <tr>
-                                    <th style="text-align:right">
+                                    <th width="8%" style="text-align:right">
                                         S No.
                                     </th>
-                                    <th>
+                                    <th width="23%">
                                         Page Name
                                     </th>
-                                    <th>
+                                    <th width="30%">
                                         Url
                                     </th>
-                                    <th>
-                                        Last Scraped On
+                                    <th width="13%">
+                                        Last Scraped
                                     </th>
-                                    <th>
+                                    <th width="2%">
                                         Scraping Status
                                     </th>
-                                    <th>
-                                        Error
+                                    <th width="15%">
+                                        Error Message
                                     </th>
-                                    <th>
+                                    <th width="1%">
                                         Active
                                     </th>
-                                    <th>
-                                        Action
+                                    <th width="8%">
+                                        Actions
                                     </th>
                                 </tr>
                                 @{
@@ -113,14 +111,43 @@
                                     }
                                     <tr>
                                         <td style="text-align:right">@index</td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PageName)
+                                        <td style="font-size:small">
+
+                                            @{
+                                                var isLengthyPageName = false;
+                                                var pageName = item.PageName;
+                                                var shortPageName = pageName;
+
+                                                if (!string.IsNullOrEmpty(pageName))
+                                                {
+                                                    if (pageName.Length > 65)
+                                                    {
+                                                        isLengthyPageName = true;
+                                                        shortPageName = pageName.Substring(0, 58) + "...";
+                                                    }
+                                                }
+                                            }
+
+                                            @shortPageName
+                                            @if (isLengthyPageName)
+                                            {
+                                                <a href="javascript:;" data-toggle="popover" title="" data-content="@item.PageName" data-trigger="focus" data-original-title="Page Name">read more</a>
+                                            }
+
                                         </td>
-                                        <td>
-                                            <a target="_blank" href="@item.Url">@item.Url</a>
+                                        <td style="font-size:small">
+                                            @{
+                                                string reducedText = item.Url;
+                                                string[] prefixArray = { "https://www.indianbank.in/", "https://indianbank.in/" };
+                                                foreach (var prefix in prefixArray)
+                                                {
+                                                    reducedText = reducedText.Replace(prefix, "");
+                                                }
+                                            }
+                                            <a target="_blank" href="@item.Url">@reducedText</a>
                                         </td>
 
-                                        <td>
+                                        <td style="font-size:smaller">
                                             @{
                                                 var lastScrapedOn = item.LastScrapedOn.HasValue ? item.LastScrapedOn.Value.ToString("dd-MMM-yyyy") : "N/A";
                                             }
@@ -148,18 +175,45 @@
                                             }
                                             <div class="badge @statusClass">@status</div>
                                         </td>
-                                        <td>
-                                            @item.ErrorMessage
+                                        <td style="font-size:smaller">
+                                            @{
+                                                var isLengthyText = false;
+                                                var error = item.ErrorMessage;
+                                                var shortErrorMessage = error;
+
+                                                if (!string.IsNullOrEmpty(error))
+                                                {
+                                                    if (error.Length > 50)
+                                                    {
+                                                        isLengthyText = true;
+                                                        shortErrorMessage = error.Substring(0, 35) + "...";
+                                                    }
+                                                }
+                                            }
+
+                                            @shortErrorMessage
+                                            @if (isLengthyText)
+                                            {
+                                                <a href="javascript:;" data-toggle="popover" title="" data-content="@item.ErrorMessage" data-trigger="focus" data-original-title="Error Message">read more</a>
+                                            }
                                         </td>
-                                        <td>
+                                        <td style="font-size:smaller">
                                             @{
                                                 string isActive = (item.IsActive) ? "Yes" : "No";
                                             }
                                             @isActive
                                         </td>
-                                        <td width="0%">
-                                            <button onclick="location.href='@Url.Action("Edit", "WebPage", new { pageId=item.Id})'" class="btn btn-sm btn-outline-primary">Edit</button>
-                                            <button onclick="setcurrentWebPageId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWebPageModal">Delete</button>
+                                        <td>
+                                            <div class="dropdown d-inline">
+                                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Page Actions
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <a class="dropdown-item has-icon" href="@Url.Action("Edit", "WebPage", new { pageId=item.Id})"><i class="far fa-edit"></i> Edit</a>
+                                                    <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-deleteWebPageModal" href="#"><i class="far fa-times-circle"></i> Delete</a>
+                                                    <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-reScrapePageRequest" href="#"><i class="fas fa-sync-alt"></i> Rescrape</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -174,8 +228,6 @@
                     </div>
                 </div>
             </div>
-            @*s }*@
-
         </div>
     </div>
 </div>
@@ -183,7 +235,6 @@
 <input id="currentWebPageId" type="hidden" value="" />
 
 <script type="text/javascript">
-
     var isFullWebScrapingInProgress = "@Model.IsFullWebScrapingInProgress".toLowerCase() == "true" ? true : false;
     var fullScrapeCheckInterval;
 
@@ -192,10 +243,10 @@
     }
 
     function pollFullScrapeStatusCheck() {
-        fullScrapeCheckInterval = setInterval(checkIfFullScrapingDone, 15000);
+        fullScrapeCheckInterval = setInterval(checkIsFullWebScrapingInProgress, 15000);
     }
 
-    function checkIfFullScrapingDone() {
+    function checkIsFullWebScrapingInProgress() {
         var request = $.ajax({
             url: "/WebPage/GetFullScrapingStatus",
             type: "GET"
@@ -226,14 +277,12 @@
         clearInterval(fullScrapeCheckInterval);
     }
 
-
     $(document).ready(function () {
 
         if (isFullWebScrapingInProgress)
             disableScraping();
          else
             enableScraping();
-
 
         $('.toggle-modal-deleteWebPageModal').fireModal({
             title: 'Delete Web Page',
@@ -254,18 +303,38 @@
             ]
         });
 
-        var body = '<div class="alert alert-warning">' +
+        var rescrapePageBody = '<div class="alert alert-warning">' +
             '<b>Note! </b> Re-scrape web page using this feature is recommended only if your page content is changed with the same structure.' +
             '</br> Rescrape of the web page will be happening in the background. Once it is completed, Status will be updated in the <b>Web scrape config</b> page.</div > ';
 
-        $('.toggle-modal-addWebScrapeRequest').fireModal({
+        $('.toggle-modal-addAllWebPageModal').fireModal({
             title: 'Request for Web Page Rescrape',
-            body: body + '<b>Are you sure you want to rescrape all the Web Pages?</b>',
+            body: rescrapePageBody + '<b>Are you sure you want to rescrape all the Web Pages?</b>',
             buttons: [
                 {
                     text: 'Rescrape',
                     class: 'btn btn-outline-warning',
-                    handler: rescrapeWebPages
+                    handler: rescrapeAllWebPages
+                },
+                {
+                    text: 'Cancel',
+                    class: 'btn btn-outline-secondary',
+                    handler: function (current_modal) {
+                        $.destroyModal(current_modal);
+                    }
+                }
+            ]
+        });
+       
+
+        $('.toggle-modal-reScrapePageRequest').fireModal({
+            title: 'Request for Web Page Rescrape',
+            body: rescrapePageBody + '<b>Are you sure you want to rescrape this Web Page?</b>',
+            buttons: [
+                {
+                    text: 'Rescrape',
+                    class: 'btn btn-outline-warning',
+                    handler: rescrapeWebPage
                 },
                 {
                     text: 'Cancel',
@@ -329,7 +398,7 @@
         $("#AddNewWebPageBtn").hide();
     }
 
-    function rescrapeWebPages(current_modal) {
+    function rescrapeAllWebPages(current_modal) {
         $.destroyModal(current_modal);
 
         disableScraping();
@@ -350,6 +419,38 @@
 
         request.fail(function (jqXHR, textStatus) {
             enableScraping();
+            iziToast.error({
+                title: 'Error!',
+                position: 'topRight',
+                message: jqXHR.responseText,
+            });
+        });
+    }
+
+    function rescrapeWebPage(current_modal) {
+        var warningHtml = '<div class="alert alert-warning alert-dismissible show fade"> <div class="alert-body">' + '<button class="close" data-dismiss="alert">' +
+            '<span>×</span></button>' + 'Rescrape of the web page will be happening in the background. Please wait for couple of minutes to complete.!</div></div>';
+
+        $("#WeScrapeWarningDiv").empty().append(warningHtml).show();
+
+        var webPageId = $('#currentWebPageId').val();
+        $.destroyModal(current_modal);
+
+        var request = $.ajax({
+            url: "/WebPage/RescrapePage?pageId=" + webPageId,
+            type: "POST"
+        });
+
+        request.done(function (response) {
+            pollFullScrapeStatusCheck();
+            iziToast.success({
+                title: 'Done!',
+                position: 'topRight',
+                message: 'Web Page Scrape Request is queued successfully!',
+            });
+        });
+
+        request.fail(function (jqXHR, textStatus) {
             iziToast.error({
                 title: 'Error!',
                 position: 'topRight',

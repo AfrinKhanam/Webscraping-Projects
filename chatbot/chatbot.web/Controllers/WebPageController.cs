@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -141,9 +143,9 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapeAllPages))]
         public async Task<IActionResult> RescrapeAllPages()
         {
-            string WebscrapeUrl = _appSettings.WebscrapeUrl;
+            string rescrapeAllPagesEndPoint = _appSettings.RescrapeAllPagesEndPoint;
 
-            if (!string.IsNullOrEmpty(WebscrapeUrl))
+            if (!string.IsNullOrEmpty(rescrapeAllPagesEndPoint))
             {
                 try
                 {
@@ -152,7 +154,7 @@ namespace IndianBank_ChatBOT.Controllers
 
                     using var client = new HttpClient
                     {
-                        BaseAddress = new Uri(WebscrapeUrl)
+                        BaseAddress = new Uri(rescrapeAllPagesEndPoint)
                     };
 
                     var response = await client.GetAsync("");
@@ -175,6 +177,57 @@ namespace IndianBank_ChatBOT.Controllers
             }
             return BadRequest("Web Scrape Url not found. Please check the configuration");
         }
+
+        [HttpPost]
+        [Route(nameof(RescrapePage))]
+        public async Task<IActionResult> RescrapePage(int pageId)
+        {
+            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(w => w.Id == pageId);
+            if (webPage == null)
+            {
+                return BadRequest($"Web Page with the Id {pageId} does not exists");
+            }
+
+            string WebscrapeUrl = _appSettings.RescrapeWebPageEndPoint;
+
+            if (!string.IsNullOrEmpty(WebscrapeUrl))
+            {
+                try
+                {
+                    webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+                    webPage.ErrorMessage = string.Empty;
+
+                    _dbContext.WebScapeConfig.Update(webPage);
+                    _dbContext.SaveChanges();
+
+                    using var client = new HttpClient
+                    {
+                        BaseAddress = new Uri(WebscrapeUrl)
+                    };
+
+                    var json = JsonConvert.SerializeObject(webPage);
+                    var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync("", data);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Ok(responseContent);
+                    }
+                    else
+                    {
+                        return BadRequest($"Failed to Start the Web Scraping. Error : {responseContent}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to Start the Web Scraping. Error : {ex.Message} ");
+                }
+            }
+            return BadRequest("Web Scrape Url not found. Please check the configuration");
+        }
+
 
         private void ResetWebPageScrapeStatus()
         {
@@ -199,8 +252,8 @@ namespace IndianBank_ChatBOT.Controllers
         }
 
         [HttpGet]
-        [Route(nameof(GetFullScrapingStatus))]
-        public IActionResult GetFullScrapingStatus()
+        [Route(nameof(IsFullWebScrapingInProgress))]
+        public IActionResult IsFullWebScrapingInProgress()
         {
             return Ok(_isFullWebScrapingInProgress);
         }
