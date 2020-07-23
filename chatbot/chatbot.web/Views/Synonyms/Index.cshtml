@@ -290,6 +290,7 @@
     }
 
     function addNewSynonymWord(e) {
+
         var word = $("#" + e[0].id + " .SynonymWord").val().trim();
         var synonymWord = { Id: 0, name: word, SynonymId: synonymDetails.id };
 
@@ -322,7 +323,9 @@
         });
     }
 
-    function resyncSynonyms() {
+    function resyncSynonyms(current_modal) {
+
+        $.destroyModal(current_modal);
 
         var request = $.ajax({
             url: "/Synonyms/ReSyncSynonyms",
@@ -342,7 +345,7 @@
                 iziToast.error({
                     title: 'Error!',
                     position: 'topRight',
-                    message: 'Failed to resync Synonyms.',
+                    message: jqXHR.responseText,
                 });
             });
         });

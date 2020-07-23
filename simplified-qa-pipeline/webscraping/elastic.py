@@ -5,8 +5,8 @@ import re
 
 class Elastic():
     def __init__(self, host="localhost", port=9200, index="aadya_indian_bank_db", doc_type='_doc'):
-
-        self.es = Elasticsearch([{'host': host, 'port': port}])
+        
+        self.es = Elasticsearch([{'host': host, 'port': port,"timeout":30, "max_retries":10, "retry_on_timeout":True}])
         self.index = index
         self.doc_type = doc_type
 

@@ -166,21 +166,34 @@ namespace IndianBank_ChatBOT.Controllers
 
 
         [HttpPost]
-        public IActionResult ReSyncSynonyms()
+        public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms()
         {
             string reSyncSynonymsUrl = _appSettings.SynonymsSyncUrl;
             if (!string.IsNullOrEmpty(reSyncSynonymsUrl))
             {
-                using var client = new HttpClient
+                try
                 {
-                    BaseAddress = new Uri(reSyncSynonymsUrl)
-                };
+                    using var client = new HttpClient
+                    {
+                        BaseAddress = new Uri(reSyncSynonymsUrl)
+                    };
 
-                var responseTask = client.GetAsync("");
-                responseTask.Wait();
+                    var response = await client.GetAsync("");
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
-                var result = responseTask.Result;
-                return Ok();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Ok(responseContent);
+                    }
+                    else
+                    {
+                        return BadRequest($"Failed to Sync Synonyms. Error : {responseContent}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to Sync Synonyms. Error : {ex.Message}");
+                }
             }
             return BadRequest("ReSync Synonyms Url not found. Please check the configuration");
         }

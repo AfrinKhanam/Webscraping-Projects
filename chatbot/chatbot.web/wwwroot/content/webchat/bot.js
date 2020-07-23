@@ -161,10 +161,16 @@ $(document).ready(function () {
                             var contextItems = [];
                             var alternateItems = [];
 
+                            var itemsAlreadyDisplayed = [];
+
                             for (var i = 0; i < suggestionList.length; i++) {
                                 // If we have 5 items (i.e., suggestionCountToDisplay) to display, then break out of the loop
                                 if (contextItems.length == suggestionCountToDisplay)
                                     break;
+
+                                // Do not display duplicate items. We do get duplicate items returned by ES from time-to-time!
+                                if (itemsAlreadyDisplayed.findIndex(item.value) >= 0)
+                                    continue;
 
                                 var item = suggestionList[i];
 
@@ -187,7 +193,7 @@ $(document).ready(function () {
                 });
             },
             // deferRequestBy - number of miliseconds to defer ajax request, default: 0
-            deferRequestBy: 300,
+            deferRequestBy: 150,
             // ajaxSettings - any additional ajax settings that configure the jQuery Ajax request,
             // see: from: http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings
             // END ajax settings

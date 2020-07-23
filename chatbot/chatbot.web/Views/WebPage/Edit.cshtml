@@ -44,7 +44,7 @@
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Edit New Web Page - @Model.PageName</h4>
+                        <h4>Edit Page - @Model.PageName</h4>
                     </div>
                     @Html.HiddenFor(m => m.Id)
                 <div class="card-body">
@@ -68,7 +68,7 @@
 
                     <div class="form-group">
                         <label>Scrape Config</label>
-                        @Html.TextAreaFor(m => m.PageConfig, new { @class = "form-control" })
+                        @Html.TextAreaFor(m => m.PageConfig, new { @class = "form-control", @rows = 10, style = "height:100% !important;" })
                     </div>
 
                     <div class="form-group">

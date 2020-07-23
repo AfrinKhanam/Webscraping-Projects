@@ -1,0 +1,14 @@
+[Unit]
+Description=RASA NLU
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/bin/integra-kbot/rasa-nlu
+ExecStart=python3.6 -m rasa_nlu.server --path /usr/local/bin/integra-kbot/rasa-nlu/models -e luis
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=default.target
