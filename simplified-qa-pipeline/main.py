@@ -1,14 +1,14 @@
-from configparser import ConfigParser
-
-from typing import Optional
-from fastapi import BackgroundTasks, HTTPException, Response, FastAPI
-
-import requests
-import os
+import json
 import re
+import requests
 
 # Disable the annoying "Unverified HTTPS request is being made" warning
 requests.packages.urllib3.disable_warnings()
+
+from configparser import ConfigParser
+
+from typing import Optional
+from fastapi import Request, BackgroundTasks, HTTPException, FastAPI
 
 import uvicorn
 
@@ -81,7 +81,7 @@ def __scrape_all_pages__():
 
     __scraping_in_progress = False
 
-def __scrape_page__(page_config):
+def __scrape_page__(json_config):
     global __scraping_in_progress
 
     __scraping_in_progress = True
@@ -89,7 +89,7 @@ def __scrape_page__(page_config):
     try:
         web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
         
-        web_scraping_pipeline.scrape_page(page_config)
+        web_scraping_pipeline.scrape_page(json_config)
 
         print(f"Scraping completed")
     except Exception:
@@ -154,15 +154,17 @@ def scrape_static_page(background_tasks: BackgroundTasks):
         raise HTTPException(status_code=500, detail=get_error_details())
 
 
-@app.get("/scrape_page")
-def scrape_page(page_config, background_tasks: BackgroundTasks):
+@app.post("/scrape_page")
+async def scrape_page(request: Request, background_tasks: BackgroundTasks):
     global __scraping_in_progress
     
     if __scraping_in_progress:
         raise HTTPException(status_code=406, detail="A previously queued scraping operation is already in progress")
 
     try:
-        background_tasks.add_task(__scrape_page__, page_config=page_config)
+        json_config = await request.json()
+
+        background_tasks.add_task(__scrape_page__, json_config=json_config)
 
         return {
             "status": "success",

@@ -210,14 +210,14 @@
                                                 </button>
                                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                     <a class="dropdown-item has-icon" href="@Url.Action("Edit", "WebPage", new { pageId=item.Id})"><i class="far fa-edit"></i> Edit</a>
+                                                    <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-reScrapePageRequest" href="#"><i class="fas fa-sync-alt"></i> Rescrape</a>
                                                     <a onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-deleteWebPageModal" href="#"><i class="far fa-times-circle"></i> Delete</a>
-                                                    <a style="display:none" onclick="setcurrentWebPageId('@item.Id')" class="dropdown-item has-icon toggle-modal-reScrapePageRequest" href="#"><i class="fas fa-sync-alt"></i> Rescrape</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                 }
-                                @if (Model.WebScapeConfigs.Count == 0)
+                                @if (Model.WebScapeConfigs.Length == 0)
                                 {
                                     <tr class="no-data" style="text-align:center">
                                         <td colspan="7">No data found !</td>

@@ -34,11 +34,12 @@ class WebScrapingPipeline:
         time.sleep(db_sleep_time)
         self.__rescrape_all_pages__()
 
-    def scrape_page(self, document):
-        url = document['page_config']['url']
+    def scrape_page(self, json_config):
+        json_config = self.__parse_page_config__(json_config)
+        url = json_config['pageConfig']['url']
         self.__delete_page_from_es_index__(url)
         time.sleep(db_sleep_time)
-        self.__rescrape_page__(document)
+        self.__rescrape_page__(json_config)
 
     def scrape_static_page(self):
 
@@ -87,24 +88,29 @@ class WebScrapingPipeline:
         if json_configurations != None:
             # ----------------------------------------------------------- #
             for json_config in json_configurations:
-                url_list = json.loads(json_config['pageConfig'])
-                if "document_name" not in url_list:
-                    for url in url_list:
-                        document = url_list[url]
-                        document['url'] = url
-                        document['filename'] = path + \
-                            url.split('/')[-2] + '/index.html'
-                        json_config['pageConfig'] = document
-                        documents.append(json_config)
-                else:
-                    document = url_list
-                    json_config['pageConfig'] = document
+                json_config = self.__parse_page_config__(json_config)
 
-                    documents.append(json_config)
+                documents.append(json_config)
 
             return documents
 
         return None
+
+    def __parse_page_config__(self, json_config):
+
+        url_list = json.loads(json_config['pageConfig'])
+
+        if "document_name" not in url_list:
+            for url in url_list:
+                document = url_list[url]
+                document['url'] = url
+                document['filename'] = url.split('/')[-2] + '/index.html'
+                json_config['pageConfig'] = document
+        else:
+            document = url_list
+            json_config['pageConfig'] = document
+
+        return json_config
 
     def __get_static_scraping_configuration__(self):
         documents = []
