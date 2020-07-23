@@ -1,0 +1,14 @@
+[Unit]
+Description=NLP QA API
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/bin/integra-kbot/nlp-qa-api
+ExecStart=gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=default.target
