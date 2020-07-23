@@ -25,13 +25,7 @@ api_port = config.get("application", "api_port")
 http_proxy = config.get("proxies", "http")
 https_proxy = config.get("proxies", "https")
 
-proxies = None
-
-if http_proxy is not None and https_proxy is not None:
-    proxies = {
-        "http": http_proxy,
-        "https": https_proxy
-    }
+proxies = { "http": http_proxy, "https": https_proxy } if (http_proxy and https_proxy) else None
 
 qa_pipeline = QAPipeline(config)
 
