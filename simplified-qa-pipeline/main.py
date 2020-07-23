@@ -12,10 +12,11 @@ requests.packages.urllib3.disable_warnings()
 
 import uvicorn
 
+from common.utils import get_error_details
 from search.qa_pipeline import QAPipeline
 from webscraping.web_scraping_pipeline import WebScrapingPipeline
 
-config_file_path = '../config.ini'
+config_file_path = './config.ini'
 config = ConfigParser()
 config.read(config_file_path)
 
@@ -45,7 +46,6 @@ synonyms_url = config.get("urls", "synonyms_url")
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
 
-
 app = FastAPI()
 
 @app.get("/qa")
@@ -53,8 +53,8 @@ def qa(query: str, context: Optional[str] = None):
 
     try:
         return qa_pipeline.search(query, context)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
 
 __scraping_in_progress = False
 
@@ -70,10 +70,14 @@ def __scrape_all_pages__():
 
         requests.post(on_scraping_completed_url)
 
-    except Exception as e:
-        print(f"Scraping error: {repr(e)}")
+        print(f"Scraping completed")
 
-        requests.post(on_scraping_completed_url, repr(e))
+    except Exception:
+        err_msg = get_error_details()
+
+        print(f"Scraping error: {err_msg}")
+
+        requests.post(on_scraping_completed_url, err_msg)
 
     __scraping_in_progress = False
 
@@ -86,8 +90,10 @@ def __scrape_page__(page_config):
         web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
         
         web_scraping_pipeline.scrape_page(page_config)
-    except Exception as e:
-        print(f"Scraping error: {e.args}")
+
+        print(f"Scraping completed")
+    except Exception:
+        print(f"Scraping error: {get_error_details()}")
 
     __scraping_in_progress = False
 
@@ -102,11 +108,14 @@ def __scrape_all_static_pages__():
         web_scraping_pipeline.scrape_static_page()
 
         requests.post(on_static_file_scraping_completed_url)
-    except Exception as e:
-        print(f"Scraping error: {e.args}")
 
-        requests.post(on_static_file_scraping_completed_url, repr(e))
+        print(f"Scraping completed")
+    except Exception:
+        err_msg = get_error_details()
 
+        print(f"Scraping error: {err_msg}")
+
+        requests.post(on_static_file_scraping_completed_url, err_msg)
 
     __scraping_in_progress = False
 
@@ -124,8 +133,8 @@ def scrape_all_pages(background_tasks: BackgroundTasks):
             "status": "success",
             "detail": "Scraping Task Queued Successfully."
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
 
 @app.get("/scrape_static_pages")
 def scrape_static_page(background_tasks: BackgroundTasks):
@@ -141,8 +150,8 @@ def scrape_static_page(background_tasks: BackgroundTasks):
             "status": "success",
             "detail": "Scraping Task Queued Successfully."
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
 
 
 @app.get("/scrape_page")
@@ -159,26 +168,25 @@ def scrape_page(page_config, background_tasks: BackgroundTasks):
             "status": "success",
             "detail": "Scraping Task Queued Successfully."
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
+
 
 def __sync_synonyms__():
     try:
-        root_directory = os.path.abspath(os.pardir)
-        print(root_directory+"/simplified-qa-pipeline/config_files/synonyms.txt")
         response = requests.get(url=synonyms_url)
+
         data = response.json()
-        synonyms = []
-        for synonym in data:
-            synonyms.append(re.sub(",", "=", synonym))
-        synonyms = "\n".join(synonyms)
-        file = open(
-            root_directory+"/simplified-qa-pipeline/config_files/synonyms.txt", "w+")
-        file.write(synonyms)
+
+        synonyms = "\n".join([re.sub(",", "=", synonym) for synonym in data])
+
+        with open("./config_files/synonyms.txt", "w+") as f:
+            f.write(synonyms)
+
         print("Added synonyms successfully..!!")
-        file.close()
-    except Exception as e:
-        print(f"Synonyms Syncing error: {e.args}")
+
+    except Exception:
+        print(f"Synonyms Syncing error: {get_error_details()}")
 
 @app.get('/resync_synonyms')
 def resync_synonyms(background_tasks: BackgroundTasks):
@@ -188,8 +196,8 @@ def resync_synonyms(background_tasks: BackgroundTasks):
                 "status": "success",
                 "detail": "Syncing Synonyms Successfully.."
             }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e.args)
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=int(api_port))

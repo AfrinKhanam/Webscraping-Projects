@@ -1,7 +1,6 @@
 import json
 import sys
 import time
-from traceback import format_exc
 import requests
 from datetime import datetime
 
@@ -11,8 +10,10 @@ from webscraping.html_to_json import HtmlToJson
 from webscraping.stemming import Stemmer
 from webscraping.pre_processing import PreProcessing
 from webscraping.elastic import Elastic
+from common.utils import get_error_details
 
 db_sleep_time = 2
+
 
 class WebScrapingPipeline:
 
@@ -40,7 +41,7 @@ class WebScrapingPipeline:
         self.__rescrape_page__(document)
 
     def scrape_static_page(self):
-        
+
         page_configs = self.__get_static_scraping_configuration__()
         if page_configs != None:
 
@@ -52,10 +53,9 @@ class WebScrapingPipeline:
 
     def __drop_database__(self):
         es = Elasticsearch(index=self.__es_index)
-        es.indices.delete(index=self.__es_index, ignore=[400, 404]) 
+        es.indices.delete(index=self.__es_index, ignore=[400, 404])
 
-
-    def __delete_page_from_es_index__(self,url):
+    def __delete_page_from_es_index__(self, url):
         # Delete an all static file url's documents from Elasticsearch index
         query = {
             "query": {
@@ -73,7 +73,7 @@ class WebScrapingPipeline:
         es = Elasticsearch(index=self.__es_index)
 
         result = es.delete_by_query(index=self.__es_index, body=query)
-        print("deleted urls ",url)
+        print("deleted urls ", url)
 
     def __get_scraping_configuration__(self):
         documents = []
@@ -82,8 +82,7 @@ class WebScrapingPipeline:
 
         json_configurations = response.json()
 
-        # TODO: Cleanup this hardcoded path!!!
-        path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
+        path = ""
 
         if json_configurations != None:
             # ----------------------------------------------------------- #
@@ -93,7 +92,8 @@ class WebScrapingPipeline:
                     for url in url_list:
                         document = url_list[url]
                         document['url'] = url
-                        document['filename'] = path + url.split('/')[-2] + '/index.html'
+                        document['filename'] = path + \
+                            url.split('/')[-2] + '/index.html'
                         json_config['pageConfig'] = document
                         documents.append(json_config)
                 else:
@@ -105,10 +105,10 @@ class WebScrapingPipeline:
             return documents
 
         return None
-    
+
     def __get_static_scraping_configuration__(self):
         documents = []
-        path = "../../indian-bank-web-scraped-data/www.indianbank.in.1-Dec-2019/departments/"
+        path = ""
 
         response = requests.get(url=self.__fetch_scraping_config_url)
 
@@ -122,7 +122,7 @@ class WebScrapingPipeline:
                 documents.append(document)
             return documents
         return None
-    
+
     def __rescrape_all_static_pages__(self, page_configs):
         documents = page_configs
         for document in documents:
@@ -146,25 +146,22 @@ class WebScrapingPipeline:
                     self.__elastic.index_document(document)
 
                     static_file_status = {"id": static_page_id,
-                              "createdOn": datetime.now(), "scrapeStatus": 1}
+                                          "createdOn": datetime.now(), "scrapeStatus": 1}
                     print(static_file_status)
-                    response = requests.put(self.__scraping_status_url,data=static_file_status)
+                    requests.put(
+                        self.__scraping_status_url, data=static_file_status)
                     print(f"Success: {doc_url}")
 
                     time.sleep(5)
                     break
                     #----------------------------------------------------------------#
 
-                except ConnectionError as e:
+                except (ConnectionError, ConnectionResetError):
                     value += 1
                     time.sleep(5)
                     continue
-                except ConnectionResetError as e:
-                    value += 1
-                    time.sleep(5)
-                    continue
-                except Exception as e:
-                    error_message = f"Scraping Error: {self.get_error_details(e)}"
+                except Exception:
+                    error_message = f"Scraping Error: {get_error_details()}"
                     # print("Scraping Error: ",e)
                     break
 
@@ -175,8 +172,9 @@ class WebScrapingPipeline:
                 print(f"{error_message}: {doc_url}")
 
                 static_file_status = {"id": static_page_id,
-                              "createdOn": datetime.now(), "scrapeStatus": 2}
-                response = requests.put(self.__scraping_status_url ,data=static_file_status)
+                                      "createdOn": datetime.now(), "scrapeStatus": 2}
+                requests.put(self.__scraping_status_url,
+                             data=static_file_status)
 
     def __rescrape_all_pages__(self):
         documents = self.__get_scraping_configuration__()
@@ -207,7 +205,8 @@ class WebScrapingPipeline:
 
                 scrape_status = 1
 
-                response = requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
+                requests.put(
+                    f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
 
                 print(f"Success: {doc_url}")
 
@@ -215,18 +214,12 @@ class WebScrapingPipeline:
                 break
                 #----------------------------------------------------------------#
 
-            except ConnectionError as e:
+            except (ConnectionError, ConnectionResetError):
                 value += 1
                 time.sleep(5)
                 continue
-            except ConnectionResetError as e:
-                value += 1
-                time.sleep(5)
-                continue
-            except Exception as e:
-                error_message = f"Scraping Error: {self.get_error_details(e)}"
-                # print("exception occurred ..",e)
-
+            except Exception:
+                error_message = f"Scraping Error: {get_error_details()}"
                 break
 
         if value > 5:
@@ -236,22 +229,24 @@ class WebScrapingPipeline:
             print(f"{error_message}: {doc_url}")
 
             scrape_status = 2
-            response = requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}&ErrorMessage={error_message}")
-
+            requests.put(
+                f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}&ErrorMessage={error_message}")
 
     def __generate_json_structure__(self, document):
         headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',
-        'X-Requested-With': 'XMLHttpRequest',
+            'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',
+            'X-Requested-With': 'XMLHttpRequest',
         }
 
-        response = requests.get(document['url'], verify=False, proxies=self.__proxies, headers=headers)
+        response = requests.get(
+            document['url'], verify=False, proxies=self.__proxies, headers=headers)
 
         html = response.content
 
         html_to_json = HtmlToJson(html)
 
-        manager_pages = ['/departments/general-managers/', '/departments/general-managers/']
+        manager_pages = ['/departments/general-managers/',
+                         '/departments/general-managers/']
 
         if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
             html_to_json.generate_json_for_general_managers(document)
@@ -267,7 +262,7 @@ class WebScrapingPipeline:
             html_to_json.frame_json(document)
             return document['html_to_json']
 
-        #for rescrape all pages api
+        # for rescrape all pages api
         document = document['pageConfig']
         html_to_json.main_title(document)
         html_to_json.get_url(document)
@@ -278,9 +273,3 @@ class WebScrapingPipeline:
         html_to_json.frame_json(document)
 
         return document['html_to_json']
-
-    def get_error_details(self, err):
-        return {
-            error: repr(err),
-            stacktrace: format_exc()
-        }

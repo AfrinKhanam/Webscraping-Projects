@@ -168,17 +168,19 @@ $(document).ready(function () {
                                 if (contextItems.length == suggestionCountToDisplay)
                                     break;
 
-                                // Do not display duplicate items. We do get duplicate items returned by ES from time-to-time!
-                                if (itemsAlreadyDisplayed.findIndex(item.value) >= 0)
-                                    continue;
-
                                 var item = suggestionList[i];
+
+                                // Do not display duplicate items. We do get duplicate items returned by ES from time-to-time!
+                                if (itemsAlreadyDisplayed.find(ele => ele === item.value))
+                                    continue;
 
                                 if ($.trim(item.context).length > 0 && item.context == curContext) {
                                     contextItems.push(item);
                                 } else {
                                     alternateItems.push(item);
                                 }
+
+                                itemsAlreadyDisplayed.push(item.value);
                             }
 
                             done({
@@ -233,9 +235,9 @@ $(document).ready(function () {
             // callback function invoked when user selects suggestion from the list, 'this' inside callback refers to input HtmlElement
             onSelect: function (suggestion) {
                 //debugger;
-                console.log("OLD CONTEXT:::::: " + window.current_Context);
+                //console.log("OLD CONTEXT:::::: " + window.current_Context);
                 window.current_Context = suggestion.context;
-                console.log("NEW CONTEXT:::: " + window.current_Context);
+                //console.log("NEW CONTEXT:::: " + window.current_Context);
 
                 //console.table(window.formattedResult.suggestions);
                 sendUserInputMessage(suggestion.value);
@@ -263,13 +265,13 @@ $(document).ready(function () {
             }
         }).bind("keypress", function (event) {
             if (event.which == 13 && window.suggested_items) {
-                console.log("OLD CONTEXT:::::: " + window.current_Context);
+                //console.log("OLD CONTEXT:::::: " + window.current_Context);
                 if (window.suggested_items.length > 0)
                     window.current_Context = window.suggested_items[0].context;
                 else
                     window.current_Context = "";
 
-                console.log("NEW CONTEXT:::: " + window.current_Context);
+                //console.log("NEW CONTEXT:::: " + window.current_Context);
             }
         });
 

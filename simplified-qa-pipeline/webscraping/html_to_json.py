@@ -52,51 +52,54 @@ class HtmlToJson(Subtitle, PostProcessing):
             "html_tag": '',
             "elements": []
         }
-        try:
-            document["main_title"] = "general managers"
-            document["domain"] = "about us"
-            document["class"] = "general managers"
-            document["document_name"] = document['document_name'] = document['filename'].split('/')[-2]
 
-            contents = []
-            main_content = self.dom.find("tbody")
-            for row in main_content:
-                if len(row) != 1:  # eleminating junk row value from table
-                    for idx, col in enumerate(row):
-                        if len(col) != 1:
-                            contents.append(col.contents)
-            for idx,content in enumerate(contents):
-                if len(content) != 0:
-                    content_obj = {"text":content[2], "content":[{"text":[content[0]]}]}
-                    document['subtitle']['elements'].insert(idx,content_obj)
-        except Exception as e:
-            print("exception occurred..!!",e.args)
+        def get_doc_name(doc):
+            if 'filename' in doc.keys():
+                return doc['filename'].split('/')[-2]
+            elif 'pageName' in doc.keys():
+                return doc['pageName']
+
+            return ""
+
+        document["main_title"] = "general managers"
+        document["domain"] = "about us"
+        document["class"] = "general managers"
+        document["document_name"] = get_doc_name(document)
+
+        contents = []
+        main_content = self.dom.find("tbody")
+        for row in main_content:
+            if len(row) != 1:  # eleminating junk row value from table
+                for idx, col in enumerate(row):
+                    if len(col) != 1:
+                        contents.append(col.contents)
+        for idx,content in enumerate(contents):
+            if len(content) != 0:
+                content_obj = {"text":content[2], "content":[{"text":[content[0]]}]}
+                document['subtitle']['elements'].insert(idx,content_obj)
 
     def subtitles(self, document):
-        try:
-            #-----------------------------------------------------------#
-            main_content = self.dom.find(document['html']['main_content']['tag'], attrs={"class" : document['html']['main_content']['class']})
+        #-----------------------------------------------------------#
+        main_content = self.dom.find(document['html']['main_content']['tag'], attrs={"class" : document['html']['main_content']['class']})
 
-            #if main_content.find('div', attrs={"class" : "table-responsive"}):
-                #main_content = main_content.find('div', attrs={"class" : "table-responsive"})
-            #elif main_content.find('div', attrs={"class" : "table-wraper"}):
-                #main_content = main_content.find('div', attrs={"class" : "table-wraper"})
-            #-----------------------------------------------------------#
+        #if main_content.find('div', attrs={"class" : "table-responsive"}):
+            #main_content = main_content.find('div', attrs={"class" : "table-responsive"})
+        #elif main_content.find('div', attrs={"class" : "table-wraper"}):
+            #main_content = main_content.find('div', attrs={"class" : "table-wraper"})
+        #-----------------------------------------------------------#
 
-            #-----------------------------------------------------------#
-            main_content_ele = []
-            for element in main_content.contents:
-                if element.name is not None:
-                    main_content_ele.append(element)
+        #-----------------------------------------------------------#
+        main_content_ele = []
+        for element in main_content.contents:
+            if element.name is not None:
+                main_content_ele.append(element)
 
-            document['html']['main_content']['elements'] = main_content_ele
+        document['html']['main_content']['elements'] = main_content_ele
 
-            self.extract_subtitles(document)
-            #-----------------------------------------------------------#
+        self.extract_subtitles(document)
+        #-----------------------------------------------------------#
 
-            return document
-        except Exception as e:
-            print("exception occurred at subtitles ", e)
+        return document
     #-----------------------------------------------------------------#
 
     #-----------------------------------------------------------------#
