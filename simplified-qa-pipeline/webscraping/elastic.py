@@ -1,4 +1,4 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch,ElasticsearchException
 from uuid import uuid1
 import json
 import re

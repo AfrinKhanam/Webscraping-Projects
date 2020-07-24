@@ -4,6 +4,7 @@ import time
 import requests
 from datetime import datetime
 
+from elasticsearch import ElasticsearchException
 from elasticsearch import Elasticsearch
 
 from webscraping.html_to_json import HtmlToJson
@@ -30,31 +31,21 @@ class WebScrapingPipeline:
         self.__proxies = proxies
 
     def scrape_all_pages(self):
-        self.__drop_database__()
-        time.sleep(db_sleep_time)
         self.__rescrape_all_pages__()
 
     def scrape_page(self, json_config):
         json_config = self.__parse_page_config__(json_config)
-        url = json_config['pageConfig']['url']
-        self.__delete_page_from_es_index__(url)
-        time.sleep(db_sleep_time)
         self.__rescrape_page__(json_config)
 
     def scrape_static_page(self):
 
         page_configs = self.__get_static_scraping_configuration__()
         if page_configs != None:
-
-            url = page_configs[0]['url'].split("staticFileId")[0]
-
-            self.__delete_page_from_es_index__(url)
-            time.sleep(db_sleep_time)
             self.__rescrape_all_static_pages__(page_configs)
 
-    def __drop_database__(self):
-        es = Elasticsearch(index=self.__es_index)
-        es.indices.delete(index=self.__es_index, ignore=[400, 404])
+    # def __drop_database__(self):
+    #     es = Elasticsearch(index=self.__es_index)
+    #     es.indices.delete(index=self.__es_index, ignore=[400, 404])
 
     def __delete_page_from_es_index__(self, url):
         # Delete an all static file url's documents from Elasticsearch index
@@ -72,9 +63,17 @@ class WebScrapingPipeline:
             }
         }
         es = Elasticsearch(index=self.__es_index)
+        matched_urls = es.search(index=self.__es_index, body=query)
+        # print("val--> ",matched_urls['hits']['hits'],"\n\n")
 
-        result = es.delete_by_query(index=self.__es_index, body=query)
-        print("deleted urls ", url)
+        print("matched urls",json.dumps(matched_urls,indent=4),"\n\n")
+        if matched_urls['hits']['hits'] != 0:
+            result = es.delete_by_query(index=self.__es_index, body=query)
+            print("deleted urls ", url)
+            return matched_urls['hits']['hits']
+        else:
+            print("0 records found")
+            return None
 
     def __get_scraping_configuration__(self):
         documents = []
@@ -146,11 +145,13 @@ class WebScrapingPipeline:
                     document = self.__stemmer.w_stem(document)
 
                     document = self.__pre_processor.process(document)
+                    global matched_docs
 
-                    self.__elastic.generate_individual_document(document)
-
+                    document = self.__elastic.generate_individual_document(document)
+                    #delete all the records by url
+                    matched_docs = self.__delete_page_from_es_index__(document['url'])
+                    time.sleep(db_sleep_time)
                     self.__elastic.index_document(document)
-
                     static_file_status = {"id": static_page_id,
                                           "createdOn": datetime.now(), "scrapeStatus": 1}
                     print(static_file_status)
@@ -166,6 +167,11 @@ class WebScrapingPipeline:
                     value += 1
                     time.sleep(5)
                     continue
+                except ElasticsearchException as err:
+                    if matched_docs != None:
+                        self.__elastic.index_document(matched_docs)
+                        print("saved successfully..!!")
+
                 except Exception:
                     error_message = f"Scraping Error: {get_error_details()}"
                     # print("Scraping Error: ",e)
@@ -205,8 +211,13 @@ class WebScrapingPipeline:
 
                 document = self.__pre_processor.process(document)
 
-                self.__elastic.generate_individual_document(document)
+                global matched_doc
 
+                document = self.__elastic.generate_individual_document(document)
+                #delete all the records by url
+                matched_doc = self.__delete_page_from_es_index__(document['url'])
+                time.sleep(db_sleep_time)
+                # raise ElasticsearchException(" ")
                 self.__elastic.index_document(document)
 
                 scrape_status = 1
@@ -224,6 +235,10 @@ class WebScrapingPipeline:
                 value += 1
                 time.sleep(5)
                 continue
+            except ElasticsearchException as err:
+                if matched_doc != None:
+                    self.__elastic.index_document(matched_doc)
+                    print("saved successfully..!!")
             except Exception:
                 error_message = f"Scraping Error: {get_error_details()}"
                 break
