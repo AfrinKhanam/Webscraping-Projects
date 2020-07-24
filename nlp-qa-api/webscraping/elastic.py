@@ -13,6 +13,8 @@ class Elastic():
     def index_document(self, document):
         # --------------------------------------------------------- #
         for document in document['document_list']:
+            print("doc pushed..!!")
+            # print(json.dumps(document,indent=4))
             self.es.index(index=self.index, doc_type=self.doc_type,
                           id=str(uuid1()), body=document)
 
