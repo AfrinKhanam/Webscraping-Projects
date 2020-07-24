@@ -4,8 +4,6 @@ from bs4 import BeautifulSoup
 from webscraping.subtitles import Subtitle
 from webscraping.content.content import extract_content
 from webscraping.post_processing import PostProcessing
-import json
-import requests
 #-----------------------------------------------------------------#
 
 

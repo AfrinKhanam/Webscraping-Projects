@@ -162,7 +162,7 @@ class WebScrapingPipeline:
                     break
                     #----------------------------------------------------------------#
 
-                except (ConnectionError, ConnectionResetError):
+                except (requests.exceptions.ConnectionError, ConnectionResetError):
                     value += 1
                     time.sleep(5)
                     continue
@@ -205,22 +205,34 @@ class WebScrapingPipeline:
 
                 document = self.__pre_processor.process(document)
 
+                post_processing_error = None
+
+                if 'post_processing_error' in document.keys():
+                    post_processing_error = document['post_processing_error']
+
+                    del document['post_processing_error']
+
                 self.__elastic.generate_individual_document(document)
 
                 self.__elastic.index_document(document)
 
-                scrape_status = 1
+                if post_processing_error is not None:
+                    error_message = f"""Postprocessing Error! Has the core structure of the page changed?
+If yes, this might require changes to post-processing functions. Please contact Integra and provide the following error details:
+{document['post_processing_error']}"""
 
-                requests.put(
-                    f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
+                else:
+                    scrape_status = 1
 
-                print(f"Success: {doc_url}")
+                    requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
+
+                    print(f"Success: {doc_url}")
 
                 time.sleep(5)
                 break
                 #----------------------------------------------------------------#
 
-            except (ConnectionError, ConnectionResetError):
+            except (requests.exceptions.ConnectionError, ConnectionResetError):
                 value += 1
                 time.sleep(5)
                 continue
@@ -244,8 +256,11 @@ class WebScrapingPipeline:
             'X-Requested-With': 'XMLHttpRequest',
         }
 
-        response = requests.get(
-            document['url'], verify=False, proxies=self.__proxies, headers=headers)
+        response = requests.get(document['url'], verify=False, proxies=self.__proxies, headers=headers)
+
+        if not response.ok:
+            msg = f"Error while getching the page: {response.content}"
+            raise Exception(msg)
 
         html = response.content
 

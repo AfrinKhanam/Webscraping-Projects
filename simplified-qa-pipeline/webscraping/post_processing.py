@@ -1,6 +1,8 @@
 import sys
 import json
 
+from common.utils import get_error_details
+
 from webscraping.post_processing_functions import post_processing_functions
 
 class PostProcessing():
@@ -34,8 +36,12 @@ class PostProcessing():
 
     def post_processing(self, document):
         #if document['url'] in self.url_to_function_mapper and document['post_processing'] == True:
-        if document['url'] in self.url_to_function_mapper and document['post_processing'] == True :
-            self.url_to_function_mapper[document['url']](document)
+        if document['url'] in self.url_to_function_mapper and document['post_processing'] == True:
+            try:
+                self.url_to_function_mapper[document['url']](document)
+            except Exception:
+                document['post_processing_error'] = get_error_details()
+
             return document
         else:
             return document

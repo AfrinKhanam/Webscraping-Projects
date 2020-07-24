@@ -16,5 +16,5 @@ def get_error_details():
     return {
         'error_type': str(ex_type),
         'error_message': ex_value,
-        'stacktrace': stack_trace
+        'stacktrace': "\n".join(stack_trace)
     }
