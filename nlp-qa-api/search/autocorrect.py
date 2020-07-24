@@ -12,7 +12,7 @@ ps = PorterStemmer()
 def new_string(text_string,limit):
     newstring=[]
     new_s = [(a, list(b)) for a, b in itertools.groupby(text_string)]
-    # print(f'new_s is {new_s}')
+
     for a, b in new_s:
 
         if len(b)>limit:
@@ -22,7 +22,7 @@ def new_string(text_string,limit):
             string="".join(b)
         newstring.append(string)
     newstring="".join(newstring)
-    # print(f'newstring is--->{newstring}')
+
     return newstring
 
 def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
@@ -65,7 +65,6 @@ def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
         Ratio = ((len(s)+len(t)) - distance[row][col]) / (len(s)+len(t))
         return Ratio
     else:
-        # print(distance) # Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
         # insertions and/or substitutions
         # This is the minimum number of edits needed to convert string a to string b
         return "The strings are {} edits away".format(distance[row][col])
@@ -140,10 +139,9 @@ def read_text_to_dict(filename):
     for line in f:
         k, v = line.strip().split(':')
         correct_word[k.strip()] = v.strip()
-    #print (correct_word)
     f.close()
     return correct_word
-#print ("sound_ex_strung,",query_string)       
+
 def autocorrect(query_string):
     word_list = query_string.split()
     auto_correct_string = ''
@@ -218,14 +216,14 @@ def autocorrect_module(word_list,setofwords,soundex_dict,query_string):
                                     
                 #query_string.replace(word,key)
 
-    #print ("soundex_query",query_string)
+    # ("soundex_query",query_string)
     import time
     import re
     start = time.process_time()
 
     update_output=[]
     correct_word=read_text_to_dict("./config_files/corrections_text.txt")
-    #print ("corrected",correct_word)
+
     for key,value in correct_word.items():
             
             if key.lower() in query_string.lower():
@@ -241,11 +239,8 @@ def autocorrect_module(word_list,setofwords,soundex_dict,query_string):
         update_output=query_string
     
     final_auto_corrected_string=autocorrect(update_output)
-    #print (final_auto_corrected_string)
-    return final_auto_corrected_string
 
-            
-    #start of the code
+    return final_auto_corrected_string
 
 setofwords = set(words.words()) 
 soundex_dict = soundex_dict("./config_files/scraped_text_from_bank_website1.txt")
@@ -254,13 +249,11 @@ def w_autocorrect(query_string):
 
     query_string = new_string(query_string,2)
     query_string = str(query_string).lower()
-    print(f"query_string {query_string}")
+
     word_list    = query_string.split()
 
     auto_correct_string = ''
 
-    #print('------------------->>>> ', query_string)
     auto_correct_string = autocorrect_module(word_list, setofwords, soundex_dict, query_string)
-    #print('--------------------->>>', auto_correct_string)
 
     return auto_correct_string

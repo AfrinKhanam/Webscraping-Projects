@@ -23,7 +23,6 @@ class DocPrioritizer:
             record['Questions'] = " ".join(word_list)
 
         #self.image_data = [self.image_data[11]]
-        #print(json.dumps(self.image_data, indent=4) )
 
     def create_regex(self, string):
         # ------------------------------------- #
@@ -74,14 +73,6 @@ class DocPrioritizer:
         document['ES_RESULT']['DOCUMENTS'] = documents
         # ----------------------------------------------------------- #
 
-        # ------------ FILTERING  TOP 10 RESULT --------------------- #
-        # print('___________________________________________________________________________\n')
-        # print(word_score)
-        # print(len(documents))
-        #print('---------------- PRIORTISE DOCUMENT BASED ON THE WORD SCORE ---------------\n')
-        #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
-        # print('---------------------------------------------------------------------------\n\n')
-
         if re.search(r'(fix deposit)', document['PARSED_QUERY_STRING']):
             documents = []
             for record in document['ES_RESULT']['DOCUMENTS']:
@@ -89,7 +80,7 @@ class DocPrioritizer:
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:10]
-            # print(json.dumps(document,indent=4))
+
         elif re.search(r'(chief execut offic)', document['QUERY_SYNONYMS']):
             # show me the MD & CEO message on amalgamation
             if re.search(r'(amalgam)', document['PARSED_QUERY_STRING']):
@@ -99,7 +90,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/annual-general-meeting/' or record['url'] == 'https://indianbank.in/departments/annual-general-meeting/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -123,7 +114,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/golden-harvest-scheme/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -131,60 +122,23 @@ class DocPrioritizer:
         elif re.search(r'(land deposit)', document['PARSED_QUERY_STRING']):
             documents = []
             for record in document['ES_RESULT']['DOCUMENTS']:
-                print("url--> ", record['url'])
                 if record['url'] == "https://www.indianbank.in/departments/loan-od-against-deposits/" or record['url'] == "https://indianbank.in/departments/loan-od-against-deposits/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         else:
             document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:250]
-# [0:250][]
-
-        # document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:10]
-        #print('---------------- PRIORTISE DOCUMENT BASED ON THE WORD SCORE ---------------\n')
-        #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
-        # print('---------------------------------------------------------------------------\n\n')
-        # ----------------------------------------------------------- #
-
-        # -------- PRIORTISE DOCUMENT BASED ON THE WORD SCORE [1, <1, ...] -- #
-        '''
-        documents = []
-        for record in document['ES_RESULT']['DOCUMENTS']:
-            if record['word_score'] < 1:
-
-                for search_word in record['word_match']:
-                    print(search_word, record['stemmed_main_title'], re.search(
-                        search_word, record['stemmed_main_title']))
-                    if re.search(search_word, record['stemmed_main_title']):
-                        documents.append(record)
-                    else:
-                        documents.
-            else:
-                documents.append(record)
-
-        document['ES_RESULT']['DOCUMENTS'] = documents
-        print("document['ES_RESULT']['DOCUMENTS'] :: ",
-              document['ES_RESULT']['DOCUMENTS'])
-
-        '''
-        # ----------------------------------------------------------- #
 
         # ----------------------------------------------------------- #
         document['ES_RESULT']['WORD_COUNT'] = document['ES_RESULT']['DOCUMENTS'][0]['word_count']
         document['ES_RESULT']['WORD_SCORE'] = document['ES_RESULT']['DOCUMENTS'][0]['word_score']
         # ----------------------------------------------------------- #
-        # print(json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
+
         # ------------ SENDING TOP 10 RESULT ------------------------ #
         document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][0:250]
         # document['ES_RESULT']['DOCUMENTS']  = document['ES_RESULT']['DOCUMENTS'][0:20]
 
-        #print('------------------ PRIORTISE DOCUMENT BASED ON THE WORD SCORE != 1 ------\n')
-        #print(json.dumps(document['ES_RESULT']['DOCUMENTS'], indent=4))
-        # print('---------------------------------------------------------------------------\n\n')
-        # print('___________________________________________________________________________\n')
-        # ----------------------------------------------------------- #
-        # print("document------------> ",json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
         return document
 
     def remove_unwanted_words(self, document):
@@ -243,13 +197,6 @@ class DocPrioritizer:
                 else:
                     record['word_not_match'] += list(
                         word_list_with_synonym.difference(chunk))
-
-                # print('-----------------------------------------------------------\n')
-                #print("word_list_with_synonym :: ", word_list_with_synonym)
-                #print("chunk ::", chunk)
-                #print("Intersection :: ", chunk.intersection(word_list_with_synonym))
-                #print("Difference :: ", record['word_not_match'])
-                # print('-----------------------------------------------------------\n\n')
             # ----------------------------------------------------------------------------- #
 
             # ----------------------------------------------------------------------------- #
@@ -277,24 +224,16 @@ class DocPrioritizer:
         word_list = [self.ps.stem(word) for word in word_list]
         key = " ".join(word_list)
 
-        #print('--------------> key : [{}] : '.format(key) )
-        #print('--------------> autocorrect : [{}] : '.format(document['AUTO_CORRECT_QUERY']) )
-
         for record in self.image_data:
             question = record['Questions']
 
-            #print('--------------> search'.format(re.search(key, question)) )
-
             if re.match(key, question):
-                #print('--------------> record : [{}]'.format(question) )
                 document['FILENAME'] = record['filename']
                 break
 
         return document
 
     def give_high_weightage_to_document(self, document):
-        # print(json.dumps(document['ES_RESULT']['DOCUMENTS'],indent=4))
-        # print(json.dumps(document[0:20],indent=4))
         '''
         "ib home loan"
         "ib home loan combo"
@@ -308,7 +247,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/corporate-credit-2/' or record['url'] == 'https://www.indianbank.in/departments/corporate-credit-2/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -316,7 +255,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/working-capital/' or record['url'] == 'https://www.indianbank.in/departments/working-capital/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -324,7 +263,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/term-loan/' or record['url'] == 'https://www.indianbank.in/departments/term-loan/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -333,14 +272,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if (record['url'] == 'https://indianbank.in/departments/bonus-loan/' and record['stemmed_title'].strip() == 'elig') or (record['url'] == 'https://www.indianbank.in/departments/bonus-loan/' and record['stemmed_title'].strip() == 'elig'):
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://indianbank.in/departments/bonus-loan/' or record['url'] == 'https://indianbank.in/departments/bonus-loan/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -349,14 +288,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if (record['url'] == 'https://indianbank.in/departments/ind-covid-emergency-credit-line/' and record['stemmed_title'].strip() == 'valid') or (record['url'] == 'https://www.indianbank.in/departments/ind-covid-emergency-credit-line/' and record['stemmed_title'].strip() == 'valid'):
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://indianbank.in/departments/ind-covid-emergency-credit-line/' or record['url'] == 'https://www.indianbank.in/departments/ind-covid-emergency-credit-line/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -364,7 +303,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://indianbank.in/departments/shg-covid-sahaya-loan/" or record['url'] == "https:www.//indianbank.in/departments/shg-covid-sahaya-loan/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         #-----------------------------------------------------------------------------------------------#
@@ -374,14 +313,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if (record['url'] == 'https://indianbank.in/departments/ib-sammaan/' and record['stemmed_title'].strip() == 'chequ') or (record['url'] == 'https://www.indianbank.in/departments/ib-sammaan/' and record['stemmed_title'].strip() == 'chequ'):
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://indianbank.in/departments/ib-sammaan/' or record['url'] == 'https://www.indianbank.in/departments/ib-sammaan/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -389,7 +328,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-mahila-shakti-for-women/' or record['url'] == 'https://www.indianbank.in/departments/ib-mahila-shakti-for-women/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -397,7 +336,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-kishore-savings-bank-account-for-minors/' or record['url'] == 'https://indianbank.in/departments/ib-kishore-savings-bank-account-for-minors/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -405,7 +344,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-gen-x-for-the-vibrant-youth/' or record['url'] == 'https://www.indianbank.in/departments/ib-gen-x-for-the-vibrant-youth/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -413,7 +352,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-salaam-special-account-for-defence-personnel/' or record['url'] == 'https://indianbank.in/departments/ib-salaam-special-account-for-defence-personnel/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -421,7 +360,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-digi-online-sb-account/' or record['url'] == 'https://indianbank.in/departments/ib-digi-online-sb-account/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -429,7 +368,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/small-account/' or record['url'] == 'https://www.indianbank.in/departments/small-account/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -437,7 +376,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/sb-for-students-under-govt-scholarship-sb-for-dbt/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -445,7 +384,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/48601/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -453,7 +392,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/mact-sb/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -463,7 +402,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         #-----------------------------------------------------------------------------------------------#
@@ -472,7 +411,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/short-term-deposits/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -480,7 +419,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/motor-accident-claim-tribunal-depositmacad-scheme/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         #-----------------------------------------------------------------------------------------------#
@@ -490,7 +429,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ind-mse-covid-emergency-loan/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -498,7 +437,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ind-covid-emergency-poultry-loan-icepl/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
         #-----------------------------------------------------------------------------------------------#
@@ -506,7 +445,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/debenture-trustee/#':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -514,7 +453,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/shareholding-pattern/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -523,14 +462,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/ind-mobile-banking/':
                         documents.append(record)
-                print(json.dumps(documents, indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -540,14 +479,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://indianbank.in/departments/ib-comfort-domestic-and-nre/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/ind-netbanking/':
                         documents.append(record)
-                print(json.dumps(documents, indent=4))
+
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -559,11 +498,10 @@ class DocPrioritizer:
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(standbi wc facil|wcdl)', document['PARSED_QUERY_STRING']):
-            print("hii")
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-standby-wc-facility-wcdl-for-msmes/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -571,7 +509,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-varishtha/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -579,7 +517,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-contractors-2/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -588,7 +526,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/atm-debit-cards/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -597,7 +535,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/money-gram/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -606,7 +544,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/xpress-money-inward-remittance-money-transfer-service-scheme/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -614,7 +552,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/sms-banking/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -622,7 +560,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/atm-debit-cards/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -631,7 +569,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ind-jet-remit-rtgs/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -640,7 +578,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/n-e-f-t/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -649,7 +587,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ib-tradewell/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -658,7 +596,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/ind-mobile-banking/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -666,7 +604,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/resident-foreign-currency-account-for-returning-indians/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -675,7 +613,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/nri-plot-loan/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -697,14 +635,14 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/' and record['stemmed_title'] == 'age group ':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/ib-home-security-group-insurance-scheme-for-mortgage-borrowers-launch-in-association-with-kotak-mahindra-old-mutual-life-insurance-limited/':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(combo)', document['PARSED_QUERY_STRING']):
@@ -725,7 +663,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/ib-home-loan-plus/':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -739,7 +677,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/ib-home-loan/' and re.search(r'(document)', record['stemmed_title']) != None:
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
@@ -761,7 +699,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/nre-fd-rip-rd-accounts/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -769,7 +707,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/nre-fd-rip-rd-accounts/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -777,7 +715,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/cvo/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -785,7 +723,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://www.indianbank.in/departments/nodal-officers/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -794,7 +732,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/board-of-directors/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -802,7 +740,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-standby-wc-facility-wcdl-for-msmes/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -810,7 +748,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/sb-for-students-under-govt-scholarship-sb-for-dbt/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -818,7 +756,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ind-surya-shakti/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -826,7 +764,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ind-sme-ease/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -834,7 +772,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/corporate-governance/' or record['url'] == 'https://www.indianbank.in/departments/corporate-governance/':
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -844,7 +782,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/cash-at-pos/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -853,7 +791,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-surabhi/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -861,14 +799,14 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/pos/' and record['stemmed_title'] == 'target custom ':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://www.indianbank.in/departments/pos/':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -877,14 +815,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/nre-sb-accounts/' and record['stemmed_title'] == 'benefit ':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/nre-sb-accounts/':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -895,7 +833,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://indianbank.in/departments/internet-banking/' and record['stemmed_title'] == 'non financi services account relat : ':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -903,7 +841,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://indianbank.in/departments/internet-banking/' and record['stemmed_title'] == 'financi services fund transfer within indian bank ':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -911,7 +849,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == 'https://indianbank.in/departments/internet-banking/':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -925,7 +863,7 @@ class DocPrioritizer:
                         else:
                             documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         # What is the min deposit required for the IB tax saver scheme?
@@ -935,7 +873,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-tax-saver-scheme/" and record['stemmed_title'] == 'min amt ':
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -943,7 +881,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-tax-saver-scheme/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -954,7 +892,7 @@ class DocPrioritizer:
                 if record['url'] == "https://www.indianbank.in/departments/facility-deposit/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(yatra suraksha|yatra)', document['PARSED_QUERY_STRING']):
@@ -964,7 +902,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ib-yatra-suraksha-with-uiic-ltd/" and record['stemmed_title'] == 'who is elig   ':
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(cm plu)', document['PARSED_QUERY_STRING']):
@@ -974,7 +912,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/cms-plus/" and record['stemmed_title'] == 'other requir detail ':
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'( recur deposit | recur )', document['PARSED_QUERY_STRING']):
@@ -983,14 +921,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/variable-recurring-deposit/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/recurring-deposit/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1000,7 +938,7 @@ class DocPrioritizer:
                 if record['url'] == "https://www.indianbank.in/departments/ib-jeevan-kalyan/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(capit gain)', document['PARSED_QUERY_STRING']):
@@ -1009,7 +947,7 @@ class DocPrioritizer:
                 if record['url'] == "https://www.indianbank.in/departments/capital-gains/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         # What is the rate of interest on IB contractors loan
@@ -1020,7 +958,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ib-contractors-2/":
                         if re.search(r'( interest rate )', record['stemmed_title']):
                             documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -1028,7 +966,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ib-contractors-2/":
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
          # What is the eligibility for net banking?
@@ -1038,28 +976,28 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ind-covid-emergency-pension-loan/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(save bank account pension)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/savings-bank-account-for-pensioners/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(central|download)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/centralized-pension-processing-system/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(calcul)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/centralized-pension-processing-system/" and record['stemmed_title'] == 'method of calcul of pension ':
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -1067,7 +1005,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ib-pension-loan/":
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
           # What is the min amount limit for IB smart kid savings bank account
@@ -1077,7 +1015,7 @@ class DocPrioritizer:
                 if record['url'] == "https://www.indianbank.in/departments/ib-smart-kid/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(current account)', document['PARSED_QUERY_STRING']):
@@ -1086,7 +1024,6 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/supreme-current-accounts/":
                         documents.append(record)
-                print(json.dumps(documents, indent=4))
 
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
@@ -1095,7 +1032,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-i-freedom-current-account/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(premium)', document['PARSED_QUERY_STRING']):
@@ -1103,7 +1040,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/premium-current-account/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'( term | term and condit | term | t&c | condit )', document['PARSED_QUERY_STRING']):
@@ -1111,7 +1048,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/important-terms-and-conditions-2/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -1119,7 +1056,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/current-account/":
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
           # I want to open a saving bank account with indian bank?
@@ -1129,7 +1066,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-corp-sb-payroll-package-scheme-for-salaried-class/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(basic save bank deposit account|deposit account)', document['PARSED_QUERY_STRING']):
@@ -1137,7 +1074,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/vikas-savings-khata-a-no-frills-savings-bank-account/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1145,9 +1082,8 @@ class DocPrioritizer:
                 documents = []
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/sb-platinum/":
-                        # print("herrrrrrrrllo")
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1156,7 +1092,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-surabhi/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1165,7 +1101,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/important-terms-and-conditions/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -1173,7 +1109,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/savings-bank/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1183,7 +1119,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/ib-corp-sb-payroll-package-scheme-for-salaried-class/":
                     documents.append(record)
-            # print(json.dumps(documents, indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1195,7 +1131,7 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ind-msme-vehicle/":
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         # What are the target groups for vidya mandir loan
@@ -1239,20 +1175,20 @@ class DocPrioritizer:
                     if record['url'] == "https://www.indianbank.in/departments/ib-micro/" and record['stemmed_title'] == 'target group ':
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                   # print(json.dumps(documents[0:3], indent=4))
+                   
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'( servic charg | interest rate )', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-micro/" and record['stemmed_title'] == 'servic charg ':
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
-                   # print(json.dumps(documents[0:3], indent=4))
+                   
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-micro/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1271,28 +1207,28 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ib-collect-plus-2/" and record['stemmed_title'] == 'target segment : ':
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(merchant)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ib-collect-plus-2/" and record['stemmed_title'] == 'benefit to institution merch : ':
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             elif re.search(r'(end user)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ib-collect-plus-2/" and record['stemmed_title'] == 'benefit to remitters end user : ':
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ib-collect-plus-2/":
                         documents.append(record)
-                # print(json.dumps(documents, indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1303,14 +1239,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/47556/" and record['stemmed_title'].strip() == 'repay term':
                         documents.append(record)
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/47556/":
                         documents.append(record)
-                # print(json.dumps(documents[0:3], indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1319,7 +1255,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://indianbank.in/departments/ind-sme-e-vaahan/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1329,14 +1265,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ind-sme-mortgage-2/" and record['stemmed_title'] == 'purpos ':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ind-sme-mortgage-2/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1345,7 +1281,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/ibex-gold-card-scheme-gcs-for-exporters/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1355,7 +1291,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-v-collect-plus-2/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1365,21 +1301,20 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/indpay/" and record['stemmed_title'] == 'languag avail : ':
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/indpay/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
          # What is the interest rate for the Ind reverse mortgage loan?
         if re.search(r'(mortgag)', document['PARSED_QUERY_STRING']):
             if re.search(r'(revers mortgag)', document['PARSED_QUERY_STRING']):
-                print("entering else if condition")
                 documents = []
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ind-reverse-mortgage/":
@@ -1418,7 +1353,7 @@ class DocPrioritizer:
                 if record['url'] == "https://indianbank.in/lending-rates/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(servic charg forex rate|servic charg|forex rate)', document['PARSED_QUERY_STRING']):
@@ -1427,7 +1362,7 @@ class DocPrioritizer:
                 if record['url'] == "https://indianbank.in/service-charges-forex-rates/":
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
-            # print(json.dumps(documents[0:3], indent=4))
+            
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         #-----------------------------------------------------------------------------------------------#
@@ -1436,7 +1371,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://indianbank.in/service-charges-forex-rates/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1445,7 +1380,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/ib-rent-encash/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1455,14 +1390,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/shg-covid-sahaya-loan/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/shg-bank-linkage-programme-direct-linkage-to-shgs/":
                         documents.append(record)
-                print(json.dumps(documents, indent=4))
+
                 # documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1493,14 +1428,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/ind-covid-kcc-sahaya-loan-icksl/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/rupay-kisan-card/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1510,7 +1445,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/rupay-kisan-card/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
@@ -1526,7 +1461,7 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == "https://www.indianbank.in/departments/credit-card/":
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1535,7 +1470,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/debit-cards/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1595,7 +1530,6 @@ class DocPrioritizer:
                     documents.append(record)
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-            # print(json.dumps(documents[0:count],indent=4))
 
         if re.search(r'(health|healthcare|health care|medi claim)', document['PARSED_QUERY_STRING']):
             documents = []
@@ -1638,7 +1572,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/ib-skill-loan-scheme/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1647,14 +1581,14 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://indianbank.in/departments/deposit-rates/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/terms-and-conditions-term-deposit-account/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1671,7 +1605,7 @@ class DocPrioritizer:
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == "https://www.indianbank.in/departments/applications-supported-by-blocked-amount/":
                     documents.append(record)
-            # print(json.dumps(documents,indent=4))
+            
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1681,7 +1615,6 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == "https://www.indianbank.in/departments/revised-iba-model-educational-loan-scheme-2015/" and record['stemmed_title'] =='secur ':
                             documents.append(record)
-                    print(json.dumps(documents, indent=4))
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
@@ -1696,14 +1629,14 @@ class DocPrioritizer:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/" and record['stemmed_title'] =='amount of loan':
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
                 else:
                     for record in document['ES_RESULT']['DOCUMENTS']:
                         if record['url'] == "https://www.indianbank.in/departments/ib-educational-loan-prime/":
                             documents.append(record)
-                    # print(json.dumps(documents,indent=4))
+                    
                     documents += document['ES_RESULT']['DOCUMENTS']
                     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1712,7 +1645,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/hindi-education-loan-interest-subsidies/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
@@ -1734,7 +1667,7 @@ class DocPrioritizer:
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == "https://www.indianbank.in/departments/ib-vidyarthi-suraksha-with-pnb-metlife/":
                         documents.append(record)
-                # print(json.dumps(documents,indent=4))
+                
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
             else:

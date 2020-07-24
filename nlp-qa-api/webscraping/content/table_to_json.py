@@ -1,10 +1,8 @@
 #---------------------------------------------------------------------#
-import json
 from webscraping.utils import strip_tags
 from webscraping.content.paragraph_to_json import parse_paragraph
 from webscraping.content.list_to_json import parse_ul_to_json
 #---------------------------------------------------------------------#
-
 
 #-----------------------------------------------------------------------------------#
 def parse_inner_table(dom):
@@ -117,7 +115,10 @@ def parse_table_to_json(dom):
                                 elif ele.name == 'table':
                                     value.append(parse_inner_table(ele))
 
-                                elif len(ele) != 0 and ele != '\n':
+                                elif ele.name:
+                                    value.append(ele.get_text())
+
+                                elif isinstance(ele, str) and len(ele.strip()) > 0:
                                     value.append(ele)
                         else:
                             if column.find('table'):
@@ -134,7 +135,7 @@ def parse_table_to_json(dom):
 
 #---------------------------------------------------------------------#
 def replace_tag(dom):
-    dom = strip_tags(dom, ['span', 'strong', 'a', 'h4', 'u', 'b'])
+    dom = strip_tags(dom, ['span', 'strong', 'em', 'a', 'h4', 'u', 'b', 'i'])
 
     return dom
 #---------------------------------------------------------------------#

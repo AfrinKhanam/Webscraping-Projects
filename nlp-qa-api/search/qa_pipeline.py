@@ -112,13 +112,11 @@ class QAPipeline:
         # result_documents = from_es['ES_RESULT']['DOCUMENTS']
 
         # for idx, document in enumerate(result_documents):
-        #     # print('-----------------------------------------------------------')
         #     if len(document['value'].split()) > 75:
         #         result = self.__summarizer_model(document['value'])
         #         final_data = sent_tokenize(result)
         #         from_es['ES_RESULT']['DOCUMENTS'][idx]['value'] = ''.join(
         #             i.capitalize() for i in final_data)
-        #     # print('-----------------------------------------------------------\n\n')
 
         #     if len(document['inner_table_values']) > 0:
         #         document['value'] = ' : '.join(document['inner_table_values'])

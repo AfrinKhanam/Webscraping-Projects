@@ -126,14 +126,27 @@ class Elastic():
         keys_stem = inner_table_stem['table_stem']['keys_stem']
         values_stem = inner_table_stem['table_stem']['values_stem']
 
+        prev_record = None
+        prev_record_stem = None
+
         for idx in range(1, len(keys)):
             inner_table_keys = [keys[0], keys[idx]]
             inner_table_keys_stem = [keys_stem[0], keys_stem[idx]]
 
             for record, record_stem in zip(values, values_stem):
 
-                inner_table_values = [record[0], record[idx]]
-                inner_table_values_stem = [record_stem[0], record_stem[idx]]
+                # Current record may not have all the columns if `rowspan` has been used.
+                # So we repeat fill data from previous row, if available.
+                # If not previous row is available, we simply skip this iteration
+                if idx < len(record):
+                    inner_table_values = [record[0], record[idx]]
+                    inner_table_values_stem = [record_stem[0], record_stem[idx]]
+                else:
+                    if prev_record is not None and prev_record_stem is not None:
+                        inner_table_values = [record[0], prev_record[idx]]
+                        inner_table_values_stem = [record_stem[0], prev_record_stem[idx]]
+                    else:
+                        continue
 
                 document_list.append({
                     "document_name": self.get_document_name(document),
@@ -153,5 +166,8 @@ class Elastic():
                     "inner_table_keys_stem": inner_table_keys_stem,
                     "inner_table_values_stem": inner_table_values_stem
                 })
+
+                prev_record = record
+                prev_record_stem = record_stem
 
         return document_list

@@ -1,7 +1,7 @@
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+from bs4.element import Tag
 import re
-
 
 class Stemmer():
     def __init__(self):
@@ -73,10 +73,16 @@ class Stemmer():
 
                         for value in row['value']:
                             if isinstance(value, dict) and 'table' in value:
-                                row['value_stem'].append(
-                                    {"table_stem": self.stem_inner_table(value)})
-                            else:
+                                row['value_stem'].append({ "table_stem": self.stem_inner_table(value) })
+                            elif isinstance(value, Tag):
+                                inner_text = value.get_text()
+                                row['value_stem'] += [self.stem(inner_text)]
+                            elif isinstance(value, str):
                                 row['value_stem'] += [self.stem(value)]
+                            else:
+                                forced_str = str(value)
+                                row['value_stem'] += [self.stem(forced_str)]
+                                
         #---------------------------------------------------------------#
 
         return document
@@ -116,6 +122,5 @@ class Stemmer():
 
 if __name__ == "__main__":
     stem = Stemmer()
-    parsed_string = stem.removeSpecialCharacters(
-        'OFFICE-INDIAN BANK MUTUAL FUND')
+    parsed_string = stem.removeSpecialCharacters('OFFICE-INDIAN BANK MUTUAL FUND')
     print(stem.stem(parsed_string))
