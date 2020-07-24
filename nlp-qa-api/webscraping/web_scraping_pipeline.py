@@ -43,10 +43,6 @@ class WebScrapingPipeline:
         if page_configs != None:
             self.__rescrape_all_static_pages__(page_configs)
 
-    # def __drop_database__(self):
-    #     es = Elasticsearch(index=self.__es_index)
-    #     es.indices.delete(index=self.__es_index, ignore=[400, 404])
-
     def __delete_page_from_es_index__(self, url):
         # Delete an all static file url's documents from Elasticsearch index
         query = {
@@ -64,17 +60,13 @@ class WebScrapingPipeline:
         }
         es = Elasticsearch(index=self.__es_index)
         matched_urls = es.search(index=self.__es_index, body=query)
-        if matched_urls['hits']['hits'] != 0:
+        if len(matched_urls['hits']['hits']) == 0:
+            print("0 records found")
+            return None
+        else:
             result = es.delete_by_query(index=self.__es_index, body=query)
             print("deleted urls ", url)
             return matched_urls['hits']['hits']
-        else:
-            print("0 records found")
-            return None
-
-        es.delete_by_query(index=self.__es_index, body=query)
-
-        print("deleted urls ", url)
 
     def __get_scraping_configuration__(self):
         documents = []
@@ -141,12 +133,13 @@ class WebScrapingPipeline:
 
             while value <= 5:
                 try:
+                    global matched_docs
+
                     document = self.__generate_json_structure__(document)
 
                     document = self.__stemmer.w_stem(document)
 
                     document = self.__pre_processor.process(document)
-                    global matched_docs
 
                     document = self.__elastic.generate_individual_document(document)
                     #delete all the records by url
@@ -171,8 +164,6 @@ class WebScrapingPipeline:
                 except ElasticsearchException as err:
                     if matched_docs != None:
                         self.__elastic.index_document(matched_docs)
-                        print("saved successfully..!!")
-
                 except Exception:
                     error_message = f"Scraping Error: {get_error_details()}"
                     break
@@ -205,6 +196,7 @@ class WebScrapingPipeline:
 
         while value <= 5:
             try:
+                global matched_doc
                 document = self.__generate_json_structure__(document)
 
                 document = self.__stemmer.w_stem(document)
@@ -218,13 +210,10 @@ class WebScrapingPipeline:
 
                     del document['post_processing_error']
 
-                self.__elastic.generate_individual_document(document)
-
                 document = self.__elastic.generate_individual_document(document)
                 #delete all the records by url
                 matched_doc = self.__delete_page_from_es_index__(document['url'])
                 time.sleep(db_sleep_time)
-                # raise ElasticsearchException(" ")
                 self.__elastic.index_document(document)
 
                 if post_processing_error is not None:
@@ -250,7 +239,6 @@ If yes, this might require changes to post-processing functions. Please contact 
             except ElasticsearchException as err:
                 if matched_doc != None:
                     self.__elastic.index_document(matched_doc)
-                    print("saved successfully..!!")
             except Exception:
                 error_message = f"Scraping Error: {get_error_details()}"
                 break
