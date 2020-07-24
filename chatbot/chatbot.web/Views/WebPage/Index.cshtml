@@ -91,9 +91,7 @@
                                     <th width="2%">
                                         Scraping Status
                                     </th>
-                                    <th width="15%">
-                                        Error Message
-                                    </th>
+
                                     <th width="1%">
                                         Active
                                     </th>
@@ -172,29 +170,18 @@
                                                         break;
                                                 }
 
-                                            }
-                                            <div class="badge @statusClass">@status</div>
-                                        </td>
-                                        <td style="font-size:smaller">
-                                            @{
-                                                var isLengthyText = false;
-                                                var error = item.ErrorMessage;
-                                                var shortErrorMessage = error;
-
-                                                if (!string.IsNullOrEmpty(error))
+                                                if (item.ScrapeStatus == ScrapeStatus.ScrapeFailed)
                                                 {
-                                                    if (error.Length > 50)
-                                                    {
-                                                        isLengthyText = true;
-                                                        shortErrorMessage = error.Substring(0, 35) + "...";
-                                                    }
-                                                }
-                                            }
+                                                    var className = "toggle-modal-WebPageErrorModal-" + item.Id;
+                                                    var errorId = "toggle-modal-WebPageError-" + item.Id;
 
-                                            @shortErrorMessage
-                                            @if (isLengthyText)
-                                            {
-                                                <a href="javascript:;" data-toggle="popover" title="" data-content="@item.ErrorMessage" data-trigger="focus" data-original-title="Error Message">read more</a>
+                                                    <input type="hidden" id="@errorId" value="@item.ErrorMessage" />
+                                                    <div data-toggle="tooltip" title="" data-original-title="Click to view Error Message" style="cursor:pointer" class="badge @statusClass @className">@status</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="badge @statusClass">@status</div>
+                                                }
                                             }
                                         </td>
                                         <td style="font-size:smaller">
@@ -205,8 +192,8 @@
                                         </td>
                                         <td>
                                             <div class="dropdown d-inline">
-                                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Page Actions
+                                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownmenubutton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog"></i>
                                                 </button>
                                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                     <a class="dropdown-item has-icon" href="@Url.Action("Edit", "WebPage", new { pageId=item.Id})"><i class="far fa-edit"></i> Edit</a>
@@ -345,6 +332,27 @@
                 }
             ]
         });
+
+        //Adding the Web page error popup modal
+        var errorElements = $("div[class*='toggle-modal-WebPageErrorModal']");
+        for (var i = 0; i < errorElements.length; i++) {
+            var el = errorElements[i];
+            var id = el.classList[2].split("-")[3];
+            var errorMessage = $("#toggle-modal-WebPageError-" + id).val();
+            $(el).fireModal({
+                title: 'Web Page Scrape Error',
+                body: '<code>' + errorMessage +'</code>',
+                buttons: [
+                    {
+                        text: 'Close',
+                        class: 'btn btn-outline-secondary',
+                        handler: function (current_modal) {
+                            $.destroyModal(current_modal);
+                        }
+                    }
+                ]
+            });
+        }
     });
 
     var synonymDetails = {};
