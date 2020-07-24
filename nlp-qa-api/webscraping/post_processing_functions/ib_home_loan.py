@@ -21,6 +21,5 @@ def ib_home_loan(document):
     for e in document['subtitle']['elements'][0]['content'][0]['table'][13]['value'][0]['table']['values']:
         value.append(e[0])
     record['value'] = value
-    # print(record)
-    return document
 
+    return document

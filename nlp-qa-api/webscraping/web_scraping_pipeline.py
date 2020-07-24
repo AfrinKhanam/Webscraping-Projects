@@ -73,7 +73,8 @@ class WebScrapingPipeline:
         }
         es = Elasticsearch(index=self.__es_index)
 
-        result = es.delete_by_query(index=self.__es_index, body=query)
+        es.delete_by_query(index=self.__es_index, body=query)
+
         print("deleted urls ", url)
 
     def __get_scraping_configuration__(self):
@@ -153,9 +154,9 @@ class WebScrapingPipeline:
 
                     static_file_status = {"id": static_page_id,
                                           "createdOn": datetime.now(), "scrapeStatus": 1}
-                    print(static_file_status)
-                    requests.put(
-                        self.__scraping_status_url, data=static_file_status)
+
+                    requests.put(self.__scraping_status_url, data=static_file_status)
+
                     print(f"Success: {doc_url}")
 
                     time.sleep(5)
@@ -168,7 +169,6 @@ class WebScrapingPipeline:
                     continue
                 except Exception:
                     error_message = f"Scraping Error: {get_error_details()}"
-                    # print("Scraping Error: ",e)
                     break
 
             if value > 5:

@@ -25,13 +25,11 @@ class QueryPreprocessor:
         f = open('./config_files/synonyms.txt', 'r')
         content = f.read()
         self.synonyms_repo = content.split('\n')
-        # print("synonyms------------->\n",self.synonyms_repo[0])
         f.close()
 
         # Creating list of synonyms words
         for idx, record in enumerate(self.synonyms_repo):
             self.synonyms_repo[idx] = re.split(r'=+', record)
-        # print(f"synonyms repo--->{self.synonyms_repo}")
 
         # Stemming words
         synonyms_repo = []
@@ -58,11 +56,6 @@ class QueryPreprocessor:
 
         '''
 
-
-
-        #print(self.synonyms_repo)
-        #--------------------------------------------------------------------#
-
         #--------------------------------------------------------------------#
         self.parser = GingerIt()
         f = open("./config_files/corrections_text.txt", 'r')
@@ -71,11 +64,9 @@ class QueryPreprocessor:
         for line in f:
             k, v = line.strip().split(':')
             correct_word[k.strip()] = v.strip()
-            #print (correct_word)
 
         f.close()
         self.correct_word = correct_word
-        #print(correct_word)
         #--------------------------------------------------------------------#
 
     def remove_hyphen(self,query):
@@ -90,11 +81,7 @@ class QueryPreprocessor:
     def process(self, query_string):
         #--------------------------------------------------------------------#
         # preprocessedQuery= self.remove_hyphen(query_string)
-        # print("after removing hyphen------> ",preprocessedQuery)
         query_string = self.remove_unwanted_charater(query_string)
-        print(f'after removing unwanted characters {query_string}')
-       
-        #print("unwanted charater removed :: ", query_string)
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -103,22 +90,12 @@ class QueryPreprocessor:
 
         try:
             auto_correct_string = w_autocorrect(query_string)
-            print('Autocorrected query :: ' , auto_correct_string)
         except:
-            #print('!!!!!!!!!!!!!!!! unable to do autocorrect')
             auto_correct_string = query_string
-        
-        #print('Autocorrected query[new] :: ' , auto_correct_string)
         #--------------------------------------------------------------------#
         
-
         #--------------------------------------------------------------------#
         parsed_query_string = self.remove_stopword(auto_correct_string)
-        print('After removing stop words :: ' , parsed_query_string)
-        #--------------------------------------------------------------------#
-
-        #--------------------------------------------------------------------#
-        #print(self.add_synonym_to_words(parsed_query_string))
         #--------------------------------------------------------------------#
 
         #--------------------------------------------------------------------#
@@ -157,12 +134,8 @@ class QueryPreprocessor:
 
         #stemmed_synonym_query = " ".join(stemmed_list)
         #---------------------------------------------#
-        # print('query_synonyms_dict :: ', query_synonyms_dict)
-        # print("QUERY WITH SYNONYMS :: ", synonym_query)
-        # print("QUERY WITH SYNONYMS :: ", stemmed_synonym_query)
 
         return synonym_query
-
 
     def remove_stopword(self, query_string):
         #---------------------------------------------#
@@ -178,26 +151,21 @@ class QueryPreprocessor:
         #---------------------------------------------#
 
         #---------------------------------------------#
-        print(f'word_tokens --> {word_tokens}')
         stemmed_list=[]
         for w in word_tokens:
             stemmed_list.append(self.ps.stem(w))
 
         stemmed_string= " ".join(stemmed_list)
         word_tokens = word_tokenize(stemmed_string)
-        print(f'stemmed word tokens --{word_tokens}')
         #---------------------------------------------#
 
         #----------------------------------------------------------------------------------#
         filtered_sentence = []
 
         filtered_sentence_stemming = [w for w in word_tokens if not w in self.bag_of_words]
-        print(f'filtered_sentence_stemming ---> {filtered_sentence_stemming}')
         filtered_sentence = [w for w in filtered_sentence_stemming if not w in stop_words]
-        print(f'filtered_sentence ---> {filtered_sentence}')
         
         parsed_query_string = " ".join(filtered_sentence)
-        # print(f'parsed_query_string --> {parsed_query_string}')
         #----------------------------------------------------------------------------------#
 
         return parsed_query_string
@@ -214,19 +182,13 @@ class QueryPreprocessor:
         for key,value in self.correct_word.items():
 
             if key.lower() in auto_correct_string.split():
-                #print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
                 auto_correct_string = (re.sub(key.lower(), value.lower(), auto_correct_string))
-                #print(auto_correct_string)
         #---------------------------------------------------------------#
-
-        #print('auto correct string :: ', auto_correct_string)
 
         return auto_correct_string
 
 
     def add_synonym_to_input_query(self, query):
-        #print("--> parsed query string : ",format(query) )
-
         #-----------------------------------------------------------#
         query_synonyms_dict = []
 
@@ -239,17 +201,10 @@ class QueryPreprocessor:
                 if len(query_synonyms_dict) == 0: 
                     if re.findall(regex, query) and len(word) != 0:
                     #if re.search(regex, query) and len(word) != 0:
-                        #print('------> : word : ', word)
-                        #print('------> : record : ', record)
                         query_synonyms_dict.append(record)
                 else:
                     if re.findall(regex, query) and len(word) != 0:
                     #if re.search(regex, query) and len(word) != 0:
-                        #print('\n\n')
-                        #print('------> : word : ', word)
-                        #print('------> : record : ', record)
-                        #print('------> : query :', query)
-                        #print('\n\n')
                         for element in query_synonyms_dict:
                             element = set(element)
 
@@ -257,15 +212,11 @@ class QueryPreprocessor:
                             query_synonyms_dict.append(record)
         #-----------------------------------------------------------#
 
-
         #-----------------------------------------------------------#
         query_with_synonym = ''
         for record in query_synonyms_dict:
             query_with_synonym += " ".join(record) + ' ' 
         #-----------------------------------------------------------#
-
-
-
 
         #-----------------------------------------------------------#
         query_with_synonym = set(query_with_synonym.split())
@@ -274,8 +225,6 @@ class QueryPreprocessor:
         for word in query.difference(query_with_synonym):
             query_synonyms_dict.append([word])
         #-----------------------------------------------------------#
-
-
 
         #-----------------------------------------------------------#
         query_with_synonym = list(query_with_synonym)
@@ -289,16 +238,9 @@ class QueryPreprocessor:
         query_with_synonym +=  ' ' + query
         query_with_synonym = set(query_with_synonym.split())
         query_with_synonym = " ".join(query_with_synonym)
-        #print('-------> query_with_synonyms : ', query_with_synonym)
         #-----------------------------------------------------------#
 
-        #print('-------> query_synonyms_dict : ', query_synonyms_dict)
-
-
-
         return  query_synonyms_dict, query_with_synonym
-
-
 
     def generate_potential_queries(self, parsed_query_string):
         #-------------------------------------------#
@@ -308,7 +250,6 @@ class QueryPreprocessor:
 
         #-------------------------------------------#
         query_synonyms_dict = []
-        #print("world list out of input query : {}".format(parsed_query_words))
 
         for query_word in parsed_query_words:
             for record in self.synonyms_repo:
@@ -316,27 +257,11 @@ class QueryPreprocessor:
                     record = list(set(record))
                     query_synonyms_dict.append(record)
 
-                    #print('\n\n')
-                    #print('record ::', record)
-                    #print('query_word :: ', [query_word])
-                    #print('parsed word ::', parsed_query_words_copy)
-                    #print('\n\n')
-
-                    #if query_word not in parsed_query_words_copy:
-                        #print("NOT IN LIST")
-                    #else:
-                        #print('IT IS IN LIST')
-
                     parsed_query_words_copy.remove(query_word)
 
         if len(parsed_query_words_copy) != 0:
             for word in parsed_query_words_copy:
                 query_synonyms_dict.append([word])
-        #-------------------------------------------#
-
-        #-------------------------------------------#
-        #print([x for x  in query_synonyms_dict if len(x) == 1])
-        #print('QUERY DICT :::', query_synonyms_dict)
         #-------------------------------------------#
 
         #-------------------------------------------#
@@ -347,26 +272,15 @@ class QueryPreprocessor:
                 for temp_word in potential_query_list:
                     temp_word = temp_word + ' ' + word
                     temp_list.append(temp_word)
-            #print(temp_list)
+
             potential_query_list = temp_list
             temp_list = []
-        #-------------------------------------------#
-
-        #-------------------------------------------#
-
-
-        #print('--------------------------------------------------')
-        #print('PARSED QUERY STRING :: ', parsed_query_words)
-        #print('QUERY(SYNONYMS) DICT :: ', query_synonyms_dict)
-        #print('POTENTIAL QUERY :: ', potential_query_list)
-        #print('--------------------------------------------------\n\n\n')
         #-------------------------------------------#
 
         return query_synonyms_dict, potential_query_list
 
     def add_synonym_to_words(self, parsed_query_string):
         #-------------------------------------------#
-        #print('parsed_query_string == ', parsed_query_string)
         parsed_query_words = parsed_query_string.split()
         parsed_query_words_copy = parsed_query_words.copy()
         query_synonyms_dict = []
@@ -385,20 +299,14 @@ class QueryPreprocessor:
         #-------------------------------------------#
         
         #-------------------------------------------#
-        #print(set(query_synonyms_dict))
         return query_synonyms_dict
         #-------------------------------------------#
-
-
-
-        
 
     def ginger_autocorrection(self, query_string):
         word_list = query_string.split()
         auto_correct_string = ''
 
         #---------------------------------------------------------------#
-        #print('parsing....')
         for word in word_list:
             auto_correct_string += self.parser.parse(word)['result'] + ' '
         auto_correct_string = auto_correct_string.lower()
@@ -409,9 +317,7 @@ class QueryPreprocessor:
         for key,value in self.correct_word.items():
 
             if key.lower() in auto_correct_string.split():
-                #print("key : {} value : {} autostring : {}".format(key, value, auto_correct_string))
                 auto_correct_string = (re.sub(key.lower(), value.lower(), auto_correct_string))
-                #print(auto_correct_string)
         #---------------------------------------------------------------#
 
         return auto_correct_string

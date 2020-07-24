@@ -7,30 +7,11 @@ class Elastic:
         self.index = index
 
     def w_search(self, query):
-        #print('----------------- TRYING WITH ORIGINAL QUERY ---------------------')
-        #search_string = query['QUERY_SYNONYMS'] + ' ' + query['CONTEXT'] 
-        #es_result = self.search_with_original_query(search_string)
-
         es_result = self.search_with_original_query(query['QUERY_SYNONYMS'])
-        #es_result = self.search_with_original_query(query['PARSED_QUERY_STRING'])
-
-        #print(json.dumps(es_result, indent=4, sort_keys=True))
-        #print('------------------------------------------------------------------\n\n')
 
         if es_result == None:
             return None
 
-        '''
-        if es_result == None:
-            print('--------------- TRYING WITH EQUIVALENT QUERY -----------------')
-            print(query['QUERY_SYNONYMS'])
-            es_result = self.search_with_equivalent_query(query['QUERY_SYNONYMS'])
-            print(json.dumps(es_result, indent=4, sort_keys=True))
-            print('------------------------------------------------------------------\n\n')
-            if es_result == None:
-                return []
-
-        '''
         #---------------------------------------------------------------#
         documents = []
         for record in es_result['hits']['hits']:
@@ -45,10 +26,6 @@ class Elastic:
                 value_stem = record['_source']['text_stem']
                 title = record['_source']['subtitle']
                 title_stem = record['_source']['subtitle_stem']
-
-            #print('----------------------------- record ----------------------')
-            #print(record)
-            #print('-----------------------------------------------------------\n\n')
 
             documents.append({
                 'main_title'        : record['_source']['main_title'],
@@ -68,8 +45,6 @@ class Elastic:
         return documents
 
     def search_with_original_query(self, search_string):
-        #---------------------------------------------------------------#
-        #print("SEARCH STRING :: ", search_string)
 
         es_result = self.es.search(
             index = self.index, 
@@ -89,25 +64,6 @@ class Elastic:
                 }
             })
 
-        '''
-        es_result = self.es.search(
-            index = self.index, 
-            body = 
-            {
-                "query": {
-                    "multi_match" : {
-                    "query":    search_string,
-                    "fields": ["text_stem", "subtitle_stem^2", "main_title_stem"]
-                    }
-                }
-            }
-            )
-        '''
-
-        '''
-        body = {"query": {"match_phrase": {"stemmed_value": {
-            "query": "*" + search_string.lower() + "*" ,"slop": 30}}}})
-        '''
         #---------------------------------------------------------------#
 
         if len(es_result['hits']['hits']) == 0:
@@ -128,21 +84,7 @@ class Elastic:
 
     def search_with_equivalent_query(self, synonyms_dict):
         query = self.create_equivalent_query(synonyms_dict)
-        #print('EQUIVALENT QUERY ::: ', query)
-
-        #---------------------------------------------------------------#
-        # parsed_query = ''
-        # for record in synonyms_dict:
-            # parsed_query += " ".join(record) + ' '
-        #---------------------------------------------------------------#
-
-        #---------------------------------------------------------------#
-        # es_result = self.es.search(
-            # index = "indianbankdata1", 
-            # body = {"query": {"match": {"stemmed_value": {
-                # "query": query}}}})
-        #---------------------------------------------------------------#
-
+        
         #---------------------------------------------------------------#
         es_result = self.es.search(
             index = "database", 
