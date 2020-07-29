@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace IndianBank_ChatBOT.Migrations
+namespace UjjivanBank_ChatBOT.Migrations
 {
     public partial class StaticPageIsActiveToTrueByDefault : Migration
     {

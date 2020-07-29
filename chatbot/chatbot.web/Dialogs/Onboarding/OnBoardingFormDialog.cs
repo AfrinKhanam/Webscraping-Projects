@@ -4,16 +4,16 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Dialogs.Main;
-using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
+using UjjivanBank_ChatBOT.Dialogs.Main;
+using UjjivanBank_ChatBOT.Dialogs.Shared;
+using UjjivanBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.Utils;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 
 
-namespace IndianBank_ChatBOT.Dialogs.Onboarding
+namespace UjjivanBank_ChatBOT.Dialogs.Onboarding
 {
     public class OnBoardingFormDialog : EnterpriseDialog
     {
@@ -65,13 +65,13 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 
             if (!Regex.IsMatch(mobileNumber, "^[0-9]"))
             {
-                await pc.Context.SendActivityAsync("Mobile Number can only contains digits. Please enter valid 10-Digit mobile number to proceed further.");
+                await pc.Context.SendActivityAsync("Sorry, Mobile Number can only contains digits. Please enter valid 10-Digit mobile number to proceed further.");
                 return false;
             }
             if (!Regex.IsMatch(mobileNumber, "^(\\+\\d{1,3}[- ]?)?\\d{10}$"))
             {
                 // await pc.Context.SendActivityAsync("Invalid Mobile Number. Please enter a valid 10-Digit number.");
-                await pc.Context.SendActivityAsync("Please enter a valid 10-Digit number");
+                await pc.Context.SendActivityAsync("Sorry, Please enter a valid 10-Digit number");
 
                 return false;
             }
@@ -106,11 +106,11 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             string userPhoneNumber = stepContext.Result as string;
             stepContext.Values["UserPhoneNumber"] = stepContext.Result;
             string ApplicantPhoneNumber = userPhoneNumber;
-            await stepContext.Context.SendActivityAsync($"Thanks {stepContext.Values["UserName"]} for providing all the information.\n  Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
+            await stepContext.Context.SendActivityAsync($"Thanks {stepContext.Values["UserName"]} for providing all the information.\n  I can answer your questions on bank accounts, Interest, Loan, EMI, branches, products,  services, administration, etcetera. I understand simple natural language");
             //await stepContext.Context.SendActivityAsync("Please find the menu.");
             //await _responder.ReplyWith(stepContext.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
 
-            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+            //var cs = "Server=localhost;Port=5432;Database=UjjivanBankDb;User Id=postgres;Password=postgres";
 
             var cs = _appSettings.ConnectionString;
 

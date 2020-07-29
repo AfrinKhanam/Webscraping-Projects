@@ -3,7 +3,7 @@
 using Microsoft.Recognizers.Text;
 using Microsoft.Recognizers.Text.Number;
 
-namespace IndianBank_ChatBOT.Utils
+namespace UjjivanBank_ChatBOT.Utils
 {
     public static class AmountUtils
     {

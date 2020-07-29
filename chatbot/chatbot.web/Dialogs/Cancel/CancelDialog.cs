@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Bot.Builder.Dialogs;
 
-namespace IndianBank_ChatBOT.Dialogs.Cancel
+namespace UjjivanBank_ChatBOT.Dialogs.Cancel
 {
     public class CancelDialog : ComponentDialog
     {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
+using UjjivanBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.Utils;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
 
-namespace IndianBank_ChatBOT.Controllers
+namespace UjjivanBank_ChatBOT.Controllers
 {
     public class StaticFilesController : Controller
     {

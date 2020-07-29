@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace IndianBank_ChatBOT
+namespace UjjivanBank_ChatBOT
 {
     public class Program
     {

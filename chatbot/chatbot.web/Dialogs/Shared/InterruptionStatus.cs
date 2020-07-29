@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace IndianBank_ChatBOT.Dialogs.Shared
+namespace UjjivanBank_ChatBOT.Dialogs.Shared
 {
     public enum InterruptionStatus
     {

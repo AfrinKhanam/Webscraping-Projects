@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.Models;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Utils
+namespace UjjivanBank_ChatBOT.Utils
 {
     public class BotChatActivityLogger : ITranscriptLogger
     {

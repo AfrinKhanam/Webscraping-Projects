@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using IndianBank_ChatBOT.Dialogs.Main;
+using UjjivanBank_ChatBOT.Dialogs.Main;
 
 using Microsoft.Bot.Builder;
 
-namespace IndianBank_ChatBOT.Dialogs.Contacts
+namespace UjjivanBank_ChatBOT.Dialogs.Contacts
 {
     public class ContactsDialog
     {

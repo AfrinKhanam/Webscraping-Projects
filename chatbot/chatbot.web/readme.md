@@ -61,7 +61,7 @@ Run the following command referencing the folder of the language you want to use
 > Once deployed, review the Pricing Tiers for the created services and adjust to suit your scenario.
 
 ```shell
-msbot clone services --name "IndianBank_ChatBOT" --luisAuthoringKey "YOUR_AUTHORING_KEY" --folder "DeploymentScripts\YOUR_LOCALE_FOLDER" --location "westus"
+msbot clone services --name "UjjivanBank_ChatBOT" --luisAuthoringKey "YOUR_AUTHORING_KEY" --folder "DeploymentScripts\YOUR_LOCALE_FOLDER" --location "westus"
 ```
 
 Once this is complete ensure that you make a note of the .bot file secret provided as this will be required for later steps. At this time, take the secret and update the `botFileSecret` entry in your `appsettings.json` file. This will ensure your Bot can decrypt the secrets.
@@ -86,7 +86,7 @@ Then type ```hi``` to verify everything is working.
 Testing can be performed end to end locally, when your ready to deploy your Bot to Azure for additional testing you can use the following command to publish the source code
 
 ```shell
-az bot publish --name "IndianBank_ChatBOT" --resource-group "IndianBank_ChatBOT"
+az bot publish --name "UjjivanBank_ChatBOT" --resource-group "UjjivanBank_ChatBOT"
 ```
 
 ## Analytics

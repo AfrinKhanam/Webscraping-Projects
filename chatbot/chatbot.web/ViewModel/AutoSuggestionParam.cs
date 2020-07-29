@@ -1,4 +1,4 @@
-﻿namespace IndianBank_ChatBOT.ViewModel
+﻿namespace UjjivanBank_ChatBOT.ViewModel
 {
     public class AutoSuggestionParam
     {

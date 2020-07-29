@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using IndianBank_ChatBOT.ExcelExport;
-using IndianBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.ExcelExport;
+using UjjivanBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace IndianBank_ChatBOT.Controllers
+namespace UjjivanBank_ChatBOT.Controllers
 {
     //[Route("[controller]")]
     public class ReportController : Controller

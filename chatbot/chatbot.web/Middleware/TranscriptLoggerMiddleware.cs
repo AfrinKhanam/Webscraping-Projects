@@ -10,7 +10,7 @@ using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 
 
-namespace IndianBank_ChatBOT.Middleware
+namespace UjjivanBank_ChatBOT.Middleware
 {
     public class TranscriptLoggerMiddleware : IMiddleware
     {

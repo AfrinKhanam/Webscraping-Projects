@@ -12,7 +12,7 @@ using Microsoft.Rest;
 
 using Newtonsoft.Json.Linq;
 
-namespace IndianBank_ChatBOT.Middleware.Telemetry
+namespace UjjivanBank_ChatBOT.Middleware.Telemetry
 {
     public class EmptyServiceCredentials : ServiceClientCredentials
     {

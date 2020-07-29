@@ -1,11 +1,19 @@
+eligibility=criteria=guidelines
+tenure=tenor=time period=tenure:=duration = repayment tenure = repayment duration
+rate of interest=roi:=roi
+rate of interest=interest rate
+maximum=maximum:=max=maxi=highest
+minimum=minimum:=min
+loan amount = loan amount:
+required=needed=wanted
+claims=claimants=settlement of claims
+page=link=url
+locate=find=place=places
 individual=single
-education=study
-four=4
-two=scooter=2
-three=3
+education = study
 week=7 days
 rfc=resident foreign currency
-vehicle=motor bike=motor cycle=mobike=car=bike
+vehicle=motor bike = motor cycle = mobike=car=bike=electric three wheeler=two wheeler
 healthcare=health care
 shareholder=share holder
 jewel=gold
@@ -15,77 +23,75 @@ doorstep=door step
 award=accolades
 mediclaim=medi claim
 beyond reach=cannot affort=can't afford
-managing director=MD
 ceo=chief executive officer
+cto = chief technology officer
 neft=n e f t
 fd=fixed deposit
 rd=recurring deposit
 sb=saving bank
 wc=working capital
 offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
+csr = corporate social responsibility
 wish=want=prefered
 look=see=view=lk
-agriculture=farming=crop production=horticulture=cultivation=agri=agriculture=agricultre
+agriculture=farming= crop production=horticulture=cultivation=agri=agriculture=agricultre=agro=kisan
 eligibility=ability=criteria=can
 minimum=min
-apply=place=join
+place=join
+register=registration
 criteria=norms=rule=prototype
 requirement=necessary=recommended=required
-objectives=aim=goal=intention=intention=purpose=information
-interest rate=interest
+objectives=aim=goal=intention=purpose=information
 margin=edge=border=scope=surplus
-security=safety=protection=collateral
-kcc=kisan credit card
-maximum=max=maxi=highest
+security=safety=protection=collateral   
+kcc=kisan credit card             
 repayment=paying back=compensate=compensation=reimbursement
 permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted
 maintenances=support=repairs=adjustment=replacement=maintain
 tractors=tractrs=tract
 associated=correlated=combined=joined=mixed=mingle
+products=options
 regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
 produce=production=yield=outcome
 know=be aware=inquire=have knowledge=understand
-tenure=period=duration=time=span
-purchase=buy
+tenure=term=period=time=span=duration=AM=PM
+purchase=buy=obtain
 involving=relate
-amount=atm=cash=money=payment
-rate of interest=interest rate
+amount=amt=cash=money=payment
 financing=funding=costs
-second hand=pre used=2nd hand
+categories=groups
+second hand=2nd hand=pre used
 documents=record=script=report=certificate=documentation
 shg=self help groups=sh group=shgs
-some=part of=few=little
-provide=serve=give=grant=add
+some=little=part of=few
+provide=serve=give=add=grant
 DRI=differential RI
-targets=goal
-harvest=golden harvest scheme=gh scheme=ghs
-Jewel loan=Agricultural Jewel Loan=AGL
+targets=goals
+harvest=golden harvest scheme=ghs=gh scheme
+Jewel loan=Agricultural Jewel Loan
 get=have=take=receive=earn
-categories=types=list=group=features
-repayment=compensation=paying back
+repayment=paying back=compensation
 prepayment=advance payment
 policy=procedure=plan=method
 salient=important=noticeable
 against=opposite to
-terms and conditions=terms=terms & conditions=T and C=T&C=conditions
+terms and conditions=terms=terms & conditions=conditions=T and C=T&C
 quantum=amount
 submitted=given
 benefits=advantage
-additional=further=extra=other=supplementary
-Details=info=more about
+additional=extra=further=supplementary
 home=house=hm
-Non Resident Indian=NRI
-ib=IB=Indian Bank
+Non Resident Indian =NRI
 Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
 pos=point of sale
 asba=applications supported by Blocked Amount
-jlg=Joint Liability Group
-MACAD=Motor Accident Claim Tribunal Deposit
-tenure=tenor
-ICKSL=IND COVID KCC SAHAYA LOAN
-ICEPL=IND COVID EMERGENCY POULTRY LOAN
-frequently=Periodicity
-BSBDA=Basic Savings Bank Deposit Account
-cvo=Chief Vigilance officer
-image=Acronym For Indian Bank Management Academy For Growth And Excellence
+customer=beneficiary
+limit=revolving cre
+form=apply=apply now=enquiry form=application=open
+farming = kisan = mandi = soil = farmer = seed = livestock = farming related
+service=care
+customer service number = customer service number:
+agri group loan = AGL
+cfo = chief financial officer
+faq = frequently asked questions

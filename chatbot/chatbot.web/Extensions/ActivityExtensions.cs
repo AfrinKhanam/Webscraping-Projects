@@ -1,7 +1,7 @@
 ﻿using Microsoft.Bot.Connector;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Extensions
+namespace UjjivanBank_ChatBOT.Extensions
 {
     public static class ActivityExtensions
     {

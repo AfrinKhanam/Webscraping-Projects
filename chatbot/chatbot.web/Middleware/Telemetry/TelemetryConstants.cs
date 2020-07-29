@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace IndianBank_ChatBOT.Middleware.Telemetry
+namespace UjjivanBank_ChatBOT.Middleware.Telemetry
 {
     public static class TelemetryConstants
     {

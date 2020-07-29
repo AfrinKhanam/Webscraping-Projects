@@ -5,14 +5,14 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Dialogs.Cancel;
-using IndianBank_ChatBOT.Dialogs.Main;
+using UjjivanBank_ChatBOT.Dialogs.Cancel;
+using UjjivanBank_ChatBOT.Dialogs.Main;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Dialogs.Shared
+namespace UjjivanBank_ChatBOT.Dialogs.Shared
 {
     public class EnterpriseDialog : InterruptableDialog
     {

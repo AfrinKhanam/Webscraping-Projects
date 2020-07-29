@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using IndianBank_ChatBOT.Utils;
+using UjjivanBank_ChatBOT.Utils;
 
-namespace IndianBank_ChatBOT.Models
+namespace UjjivanBank_ChatBOT.Models
 {
     public class WebScapeConfig
     {

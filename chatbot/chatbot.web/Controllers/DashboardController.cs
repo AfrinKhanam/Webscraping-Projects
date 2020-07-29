@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using IndianBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace IndianBank_ChatBOT.Controllers
+namespace UjjivanBank_ChatBOT.Controllers
 {
     //[Route("[controller]")]
     public class DashboardController : Controller
