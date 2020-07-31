@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IndianBank_ChatBOT.Models
+namespace UjjivanBank_ChatBOT.Models
 {
     public class LeadGenerationAction
     {

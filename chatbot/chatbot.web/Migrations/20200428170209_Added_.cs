@@ -2,7 +2,7 @@
 
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace IndianBank_ChatBOT.Migrations
+namespace UjjivanBank_ChatBOT.Migrations
 {
     public partial class Added_ : Migration
     {

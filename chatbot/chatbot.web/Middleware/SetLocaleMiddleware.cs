@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Middleware
+namespace UjjivanBank_ChatBOT.Middleware
 {
     public class SetLocaleMiddleware : IMiddleware
     {

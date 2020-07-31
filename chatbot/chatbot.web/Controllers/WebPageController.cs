@@ -3,15 +3,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.ViewModel;
+using UjjivanBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.ViewModel;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace IndianBank_ChatBOT.Controllers
+namespace UjjivanBank_ChatBOT.Controllers
 {
     [Route("[controller]")]
     public class WebPageController : Controller

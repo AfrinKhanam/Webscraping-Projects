@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace IndianBank_ChatBOT.Migrations
+namespace UjjivanBank_ChatBOT.Migrations
 {
     public partial class StaticPageModelChages : Migration
     {

@@ -11,7 +11,7 @@ using Microsoft.Rest;
 
 using Newtonsoft.Json;
 
-namespace IndianBank_ChatBOT.Middleware.Telemetry
+namespace UjjivanBank_ChatBOT.Middleware.Telemetry
 {
     public class RasaPrediction : IPrediction
     {

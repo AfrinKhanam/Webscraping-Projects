@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-using IndianBank_ChatBOT.Dialogs.Shared;
+using UjjivanBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Dialogs.Contacts
+namespace UjjivanBank_ChatBOT.Dialogs.Contacts
 {
     public class ContactsResponse : TemplateManager
     {
@@ -150,27 +150,27 @@ namespace IndianBank_ChatBOT.Dialogs.Contacts
         public class ContactResponseLinks
         {
             // Links
-            public const string QuickContacts = "https://www.indianbank.in/departments/quick-contact/#!";
+            public const string QuickContacts = "https://www.ujjivanbank.in/departments/quick-contact/#!";
         }
 
         public class CustomerSupportResponseLinks
         {
-            public const string CustomerComplaints = "https://www.indianbank.in/customer-complaints/#!";
-            public const string ComplaintOfficersList = "https://www.indianbank.in/departments/complaints-officers-list/#!";
-            public const string ChiefVigilanceOfficer = "https://www.indianbank.in/departments/chief-vigilance-officer/#!";
+            public const string CustomerComplaints = "https://www.ujjivanbank.in/customer-complaints/#!";
+            public const string ComplaintOfficersList = "https://www.ujjivanbank.in/departments/complaints-officers-list/#!";
+            public const string ChiefVigilanceOfficer = "https://www.ujjivanbank.in/departments/chief-vigilance-officer/#!";
         }
 
         public class EmailIDsResponseLinks
         {
-            public const string HeadOffice = "https://www.indianbank.in/head-office/#!";
-            public const string Department = "https://www.indianbank.in/department/#!";
-            public const string Executives = "https://www.indianbank.in/executives/#!";
-            public const string IMAGE = "https://www.indianbank.in/image/#!";
-            public const string ForeignBranches = "https://www.indianbank.in/foreign-branches/#!";
-            public const string OverseasBranches = "https://www.indianbank.in/overseas-branches/#!";
-            public const string NRIBranches = "https://www.indianbank.in/nri-branches/#!";
-            public const string ZonalOffices = "https://www.indianbank.in/zonal-offices/#!";
-            public const string EConformationOfBankGuarantee = "https://www.indianbank.in/e-confirmation-of-bank-guarantee/#!";
+            public const string HeadOffice = "https://www.ujjivanbank.in/head-office/#!";
+            public const string Department = "https://www.ujjivanbank.in/department/#!";
+            public const string Executives = "https://www.ujjivanbank.in/executives/#!";
+            public const string IMAGE = "https://www.ujjivanbank.in/image/#!";
+            public const string ForeignBranches = "https://www.ujjivanbank.in/foreign-branches/#!";
+            public const string OverseasBranches = "https://www.ujjivanbank.in/overseas-branches/#!";
+            public const string NRIBranches = "https://www.ujjivanbank.in/nri-branches/#!";
+            public const string ZonalOffices = "https://www.ujjivanbank.in/zonal-offices/#!";
+            public const string EConformationOfBankGuarantee = "https://www.ujjivanbank.in/e-confirmation-of-bank-guarantee/#!";
         }
 
 

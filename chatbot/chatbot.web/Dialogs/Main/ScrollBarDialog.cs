@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Net.Http;
 
-using IndianBank_ChatBOT.Dialogs.Shared;
+using UjjivanBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
-namespace IndianBank_ChatBOT.Dialogs.Main
+namespace UjjivanBank_ChatBOT.Dialogs.Main
 {
     public class ScrollBarDialog
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Bot.Builder.Dialogs;
 
-namespace IndianBank_ChatBOT.Dialogs.Shared
+namespace UjjivanBank_ChatBOT.Dialogs.Shared
 {
     public abstract class InterruptableDialog : ComponentDialog
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace IndianBank_ChatBOT.Migrations
+namespace UjjivanBank_ChatBOT.Migrations
 {
     public partial class Init : Migration
     {

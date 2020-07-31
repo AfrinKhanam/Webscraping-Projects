@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IndianBank_ChatBOT.Models
+namespace UjjivanBank_ChatBOT.Models
 {
     public class VisitorsViewModel : ReportParams
     {

@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "IndianBank_ChatBOT": {
+    "UjjivanBank_ChatBOT": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

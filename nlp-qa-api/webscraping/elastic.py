@@ -1,10 +1,10 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch,ElasticsearchException
 from uuid import uuid1
 import json
 import re
 
 class Elastic():
-    def __init__(self, host="localhost", port=9200, index="aadya_indian_bank_db", doc_type='_doc'):
+    def __init__(self, host="localhost", port=9200, index="ujjivan_bank_v7", doc_type='_doc'):
         
         self.es = Elasticsearch([{'host': host, 'port': port,"timeout":30, "max_retries":10, "retry_on_timeout":True}])
         self.index = index
@@ -13,6 +13,8 @@ class Elastic():
     def index_document(self, document):
         # --------------------------------------------------------- #
         for document in document['document_list']:
+            print("doc pushed..!!")
+            # print(json.dumps(document,indent=4))
             self.es.index(index=self.index, doc_type=self.doc_type,
                           id=str(uuid1()), body=document)
 

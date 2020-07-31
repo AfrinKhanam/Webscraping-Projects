@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-using IndianBank_ChatBOT.Models;
+using UjjivanBank_ChatBOT.Models;
 
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
-namespace IndianBank_ChatBOT.ExcelExport
+namespace UjjivanBank_ChatBOT.ExcelExport
 {
     public interface IAbstractDataExport
     {

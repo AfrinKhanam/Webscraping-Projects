@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IndianBank_ChatBOT.Dialogs.Cancel.Resources {
+namespace UjjivanBank_ChatBOT.Dialogs.Cancel.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace IndianBank_ChatBOT.Dialogs.Cancel.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IndianBank_ChatBOT.Dialogs.Cancel.Resources.CancelStrings", typeof(CancelStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UjjivanBank_ChatBOT.Dialogs.Cancel.Resources.CancelStrings", typeof(CancelStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

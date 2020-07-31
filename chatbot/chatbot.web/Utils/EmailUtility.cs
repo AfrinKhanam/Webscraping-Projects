@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace IndianBank_ChatBOT.Utils
+namespace UjjivanBank_ChatBOT.Utils
 {
     public class EmailUtility
     {
