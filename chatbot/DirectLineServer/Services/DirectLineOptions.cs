@@ -27,6 +27,8 @@ namespace BOTAIML.ChatBot.DirectLineServer.Core.Services
         public int TokenExpiresIn { get; set; } = 36000;
         public int StreamUrlMustBeConnectedIn { get; set; } = 60;
 
+        public string StreamUrlRequestScheme { get; set; }
+
         public AttachmentUrls Attachments { get; set; }
     }
 

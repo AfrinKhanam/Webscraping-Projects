@@ -100,7 +100,7 @@ namespace BOTAIML.ChatBot.DirectLineServer.Core.Controllers
             //     - it might be different from the one exposed to client
             // so we should get the StreamURL from current URL
             var origin = $"{this.HttpContext.Request.Scheme}://{HttpContext.Request.Host}"; // note the Host has already included the PORT
-            origin = UtilsEx.GetWebSocketOrigin(origin);
+            origin = UtilsEx.GetWebSocketOrigin(_DirectLineSettings.StreamUrlRequestScheme, origin);
             this._logger.LogInformation($"the origin for streamUrl is {origin}");
             return new DirectLineConversation
             {
