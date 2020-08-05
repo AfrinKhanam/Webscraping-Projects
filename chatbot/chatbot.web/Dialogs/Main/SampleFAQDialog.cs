@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Net.Http;
 
-using UjjivanBank_ChatBOT.Dialogs.Shared;
+using IndianBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Main
+namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class SampleFAQDialog
     {

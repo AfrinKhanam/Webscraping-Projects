@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using UjjivanBank_ChatBOT.Middleware.Telemetry;
+using IndianBank_ChatBOT.Middleware.Telemetry;
 
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Configuration;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 using Newtonsoft.Json.Linq;
 
-namespace UjjivanBank_ChatBOT
+namespace IndianBank_ChatBOT
 {
     /// <summary>
     /// Represents references to external services.

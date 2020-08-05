@@ -58,14 +58,13 @@ select * from public."ChatLogs" t1
  on (t2."ConversationId" = t1."ConversationId")
 
  #command to take database backup
- pg_dump --dbname=UjjivanBankDb --username=postgres -h localhost --format=p  --file=/home/ubuntuvm/backup.sql
+ pg_dump --dbname=IndianBankDb --username=postgres -h localhost --format=p  --file=/home/ubuntuvm/backup.sql
 
 #pm2 to restart periodically every 5 minutes
 pm2 start elastic.py --name delete --cron "*/5 * * * *" --no-autorestart
 pm2 start main.py --name auto_scrape_at_12am  --cron "0 0 * * *" --no-autorestart 
 
-#fetch specific branch data
-git clone --single-branch --branch <branchname> <remote-repo>
+
 
 
 

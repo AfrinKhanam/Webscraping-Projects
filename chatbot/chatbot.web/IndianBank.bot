@@ -14,7 +14,7 @@
       "type": "luis",
       "appid": "",
       "RasaEndPoint": "http://localhost:5000/",
-      "RasaProjectName": "UjjivanBankProject",
+      "RasaProjectName": "IndianBankProject",
       "authoringkey": "",
       "id": "general",
       "name": "general",
@@ -26,5 +26,5 @@
   "padlock": "",
   "version": "2.0",
   "overrides": null,
-  "path": "D:\\Ujjivan Bank Workspace\\UjjivanBank ChatBOT\\UjjivanBank ChatBOT\\UjjivanBank_ChatBOT.bot"
+  "path": "D:\\Indian Bank Workspace\\IndianBank ChatBOT\\IndianBank ChatBOT\\IndianBank_ChatBOT.bot"
 }

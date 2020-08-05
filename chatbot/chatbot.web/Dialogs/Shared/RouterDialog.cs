@@ -4,13 +4,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using UjjivanBank_ChatBOT.Extensions;
+using IndianBank_ChatBOT.Extensions;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Shared
+namespace IndianBank_ChatBOT.Dialogs.Shared
 {
     public abstract class RouterDialog : ComponentDialog
     {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 
-using UjjivanBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace UjjivanBank_ChatBOT.Controllers
+namespace IndianBank_ChatBOT.Controllers
 {
     //[Route("[controller]")]
     public class SynonymsController : Controller

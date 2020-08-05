@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace UjjivanBank_ChatBOT.Utils
+namespace IndianBank_ChatBOT.Utils
 {
     public static class EnumExtensionMethods
     {

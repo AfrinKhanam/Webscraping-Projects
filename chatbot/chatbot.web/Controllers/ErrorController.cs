@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace UjjivanBank_ChatBOT.Controllers
+namespace IndianBank_ChatBOT.Controllers
 {
     public class ErrorController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UjjivanBank_ChatBOT.Models
+namespace IndianBank_ChatBOT.Models
 {
     public class UnAnsweredQueries
     {

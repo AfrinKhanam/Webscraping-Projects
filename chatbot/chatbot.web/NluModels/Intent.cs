@@ -172,7 +172,7 @@ public class NewsInfoEntities
     public const string AadhaarEnrolmentCorrectionForm = "aadhar enrolment correction form";
     public const string ProcedureOnLocker_SafeDeposit = "procedure on locker";
     public const string CoinVendingMachines = "coin vending machines";
-    public const string UjjivanBankTrustRuralDevelopment = "indian bank trust rural development";
+    public const string IndianBankTrustRuralDevelopment = "indian bank trust rural development";
     public const string MobileBankingThroughUSSD = "mobile banking through ussd";
 
     //related info entities constants
@@ -218,7 +218,7 @@ public class NewsInfoEntities
     public const string CentralizedPensionProcessing = "centralized pension processing";
     public const string AnotherOptionForPension = "another option for pension";
     public const string CitizensCharter = "citizens charter";
-    public const string UjjivanBankMutualFund = "indian bank mutual fund";
+    public const string IndianBankMutualFund = "indian bank mutual fund";
 }
 
 #endregion

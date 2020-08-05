@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 
-using UjjivanBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace UjjivanBank_ChatBOT.PartialViews
+namespace IndianBank_ChatBOT.PartialViews
 {
     public class ChatBOTVisitorsByMonth : ViewComponent
     {

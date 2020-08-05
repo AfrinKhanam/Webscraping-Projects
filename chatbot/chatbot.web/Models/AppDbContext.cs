@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using Newtonsoft.Json;
 
-namespace UjjivanBank_ChatBOT.Models
+namespace IndianBank_ChatBOT.Models
 {
     public class AppDbContext : DbContext
     {

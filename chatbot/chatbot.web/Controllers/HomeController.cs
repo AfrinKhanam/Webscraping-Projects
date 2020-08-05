@@ -1,9 +1,9 @@
-﻿using UjjivanBank_ChatBOT.Models;
+﻿using IndianBank_ChatBOT.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace UjjivanBank_ChatBOT.Controllers
+namespace IndianBank_ChatBOT.Controllers
 {
     public class HomeController : Controller
     {

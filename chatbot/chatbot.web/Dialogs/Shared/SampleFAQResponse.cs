@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Shared
+namespace IndianBank_ChatBOT.Dialogs.Shared
 {
     /// <summary>
     /// ScrollbarResponses class

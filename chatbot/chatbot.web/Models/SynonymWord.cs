@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UjjivanBank_ChatBOT.Models
+namespace IndianBank_ChatBOT.Models
 {
     public class SynonymWord
     {

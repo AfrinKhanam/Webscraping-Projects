@@ -1,4 +1,4 @@
-﻿namespace UjjivanBank_ChatBOT.Utils
+﻿namespace IndianBank_ChatBOT.Utils
 {
     public class EmailDetails
     {

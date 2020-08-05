@@ -4,7 +4,7 @@ using System.Xml;
 
 using HtmlAgilityPack;
 
-namespace UjjivanBank_ChatBOT.Utils
+namespace IndianBank_ChatBOT.Utils
 {
     public class HtmlSanitizer
     {

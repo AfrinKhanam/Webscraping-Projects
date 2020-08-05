@@ -36,7 +36,7 @@ class HtmlToJson(Subtitle, PostProcessing):
     def get_url(self, document):
         # url = self.dom.find("link",{"rel":"alternate"})['href']
         # url = url.split("feed")[0]
-        # url = url.replace("../../../", "https://www.ujjivanbank.in/")
+        # url = url.replace("../../../", "https://www.indianbank.in/")
         # document['url'] = url
 
         document['url'] = document['url']

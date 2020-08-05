@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using UjjivanBank_ChatBOT.Models;
-using UjjivanBank_ChatBOT.Utils;
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
-namespace UjjivanBank_ChatBOT
+namespace IndianBank_ChatBOT
 {
     /// <summary>
     /// Startup class
@@ -139,7 +139,7 @@ namespace UjjivanBank_ChatBOT
 
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
-            services.AddBot<UjjivanBank_ChatBOT>(options =>
+            services.AddBot<IndianBank_ChatBOT>(options =>
             {
                 // Load the connected services from .bot file.
                 var environment = _isProduction ? "production" : "development";

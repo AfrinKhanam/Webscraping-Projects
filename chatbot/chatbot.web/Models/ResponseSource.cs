@@ -1,4 +1,4 @@
-﻿namespace UjjivanBank_ChatBOT.Models
+﻿namespace IndianBank_ChatBOT.Models
 {
     public enum ResponseSource
     {

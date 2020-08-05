@@ -2,15 +2,15 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using UjjivanBank_ChatBOT.Models;
-using UjjivanBank_ChatBOT.ViewModel;
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.ViewModel;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
 
-namespace UjjivanBank_ChatBOT.Controllers
+namespace IndianBank_ChatBOT.Controllers
 {
     //[Route("[controller]")]
     public class AutoSuggestionController : Controller

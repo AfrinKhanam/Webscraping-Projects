@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
 
-namespace UjjivanBank_ChatBOT.Middleware.Telemetry
+namespace IndianBank_ChatBOT.Middleware.Telemetry
 {
     /// <summary>
     /// RasaRuntimeClient

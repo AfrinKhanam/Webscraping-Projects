@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-using UjjivanBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Models;
 
 using NPOI.SS.UserModel;
 
-namespace UjjivanBank_ChatBOT.ExcelExport
+namespace IndianBank_ChatBOT.ExcelExport
 {
     public class LeadGenerationExportBridge : AbstractDataExport
     {

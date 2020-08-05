@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace UjjivanBank_ChatBOT.Middleware.Telemetry
+namespace IndianBank_ChatBOT.Middleware.Telemetry
 {
     /// <summary>
     /// The Application Insights property names that we're logging.

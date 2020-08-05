@@ -7,12 +7,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-//using UjjivanBank_ChatBOT.Dialogs.EMI;
-//using UjjivanBank_ChatBOT.Dialogs.Loans;
-using UjjivanBank_ChatBOT.Dialogs.Onboarding;
-using UjjivanBank_ChatBOT.Dialogs.Shared;
-using UjjivanBank_ChatBOT.Models;
-using UjjivanBank_ChatBOT.Utils;
+using IndianBank_ChatBOT.Dialogs.EMI;
+using IndianBank_ChatBOT.Dialogs.Loans;
+using IndianBank_ChatBOT.Dialogs.Onboarding;
+using IndianBank_ChatBOT.Dialogs.Shared;
+using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.Utils;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
@@ -20,7 +20,7 @@ using Microsoft.Bot.Schema;
 
 using Newtonsoft.Json;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Main
+namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class MainDialog : RouterDialog
     {
@@ -235,9 +235,9 @@ namespace UjjivanBank_ChatBOT.Dialogs.Main
             _services = services ?? throw new ArgumentNullException(nameof(services));
             _conversationState = conversationState;
             _userState = userState;
-            //AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
+            AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
             AddDialog(new OnBoardingFormDialog(_services, conversationState, userState, appsettings));
-          //  AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
+            AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
         }
 
         #endregion
@@ -253,7 +253,7 @@ namespace UjjivanBank_ChatBOT.Dialogs.Main
         protected override async Task OnStartAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
             var view = new MainResponses();
-            await dc.Context.SendActivityAsync("Hi! \U0001F603.\n Welcome to Ujjivan Bank.\n I am your virtual assistant, here to assist you with all your banking queries 24x7");
+            await dc.Context.SendActivityAsync("Hi! My name is ADYA \U0001F603.\n Welcome to Indian Bank.\n I am your virtual assistant, here to assist you with all your banking queries 24x7");
             //  await view.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
 
             await dc.BeginDialogAsync(nameof(OnBoardingFormDialog));
@@ -356,7 +356,7 @@ namespace UjjivanBank_ChatBOT.Dialogs.Main
                     }
                     else if (entityType == "atm_entity")
                     {
-                        await dc.Context.SendActivityAsync("Please click on the URL below to find all Indian Bank ATM/Branch Locations. \n\n https://www.ujjivanbank.in/branch-atm/");
+                        await dc.Context.SendActivityAsync("Please click on the URL below to find all Indian Bank ATM/Branch Locations. \n\n https://www.indianbank.in/branch-atm/");
                     }
                     else if (entityType == "lost_entity")
                     {
@@ -671,8 +671,8 @@ namespace UjjivanBank_ChatBOT.Dialogs.Main
 
                     if (jsonObject.WORD_SCORE == 0)
                     {
-                        await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:1800 208 2121> \n\n Please click on the link below for futher contact details: \n\n https://www.ujjivansfb.in/customer-service");
-                        await dialogContext.Context.SendActivityAsync($"Please feel free to ask me anything else about Ujjivan Bank");
+                        await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:180042500000> /  <tel:18004254422> \n\n Please click on the link below for futher contact details: \n\n https://indianbank.in/departments/quick-contact/ ");
+                        await dialogContext.Context.SendActivityAsync($"Please feel free to ask me anything else about Indian Bank");
                     }
                     else if (jsonObject.WORD_SCORE < 0.6)
                     {

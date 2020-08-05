@@ -59,7 +59,7 @@ sendUserInputMessage = function (e) {
         type: "message",
         channelId: "webchat",
         from: {
-            id: "UjjivanBank_ChatBOT",
+            id: "IndianBank_ChatBOT",
             role: "user"
         },
         locale: "en-US",
@@ -79,7 +79,7 @@ function sendSuggestedMenuMessage(message) {
         type: "message",
         channelId: "webchat",
         from: {
-            id: "UjjivanBank_ChatBOT",
+            id: "IndianBank_ChatBOT",
             role: "user"
         },
         locale: "en-US",

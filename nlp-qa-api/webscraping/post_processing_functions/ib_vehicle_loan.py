@@ -1,16 +1,11 @@
 def ib_vehicle_loan(document):
-    record = document['subtitle']['elements'][0]['content'][0]['table'] 
-    record[0]['key'] =  record[0]['key']
-    record[0]['value'] = record[0]['value']
-    record[0]['value'].append(record[4]['key'])
+    inner_subtitle = document['subtitle']['elements'][0]['content'][0]['table'][0]['value'][0]
 
-    record[1]['key'] = record[1]['key'] +" "+ record[1]['value'][0]
-    record[1]['value'] = [record[2]['key'] +" " +"".join(record[2]['value'])]
-    record[1]['value'].insert(1, record[3]['key'] +" " +"".join(record[3]['value']))
+    value = document['subtitle']['elements'][0]['content'][0]['table'][0]['value']
+    value.remove(inner_subtitle)
 
-    record[6]['value'] = [" ".join(record[6]['value'])]
-    
-    for i in range(7,16):
-        del record[i]
+    record = document['subtitle']['elements'][0]['content'][0]['table'][0]
+    record['key'] += ' : ' + inner_subtitle 
+
 
     return document

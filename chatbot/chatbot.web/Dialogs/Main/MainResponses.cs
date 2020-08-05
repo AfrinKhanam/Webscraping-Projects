@@ -3,8 +3,8 @@
 
 using System.IO;
 
-using UjjivanBank_ChatBOT.Dialogs.Main.Resources;
-using UjjivanBank_ChatBOT.Dialogs.Shared;
+using IndianBank_ChatBOT.Dialogs.Main.Resources;
+using IndianBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
@@ -12,7 +12,7 @@ using Microsoft.Bot.Schema;
 
 using Newtonsoft.Json;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Main
+namespace IndianBank_ChatBOT.Dialogs.Main
 {
     /// <summary>
     /// MainResponses class

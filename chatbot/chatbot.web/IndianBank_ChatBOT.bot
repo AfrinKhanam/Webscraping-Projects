@@ -1,5 +1,5 @@
 ﻿{
-  "name": "UjjivanBank_ChatBOT",
+  "name": "IndianBank_ChatBOT",
   "description": "",
   "services": [
     {
@@ -14,7 +14,7 @@
     //  "type": "endpoint",
     //  "appId": "7fa94633-edef-4619-9314-d1875adbbdd2",
     //  "appPassword": "uiqoaKNS2(=(umFBMT9327?",
-    //  //"endpoint": "https://ujjivanbank.azurewebsites.net/api/messages",
+    //  //"endpoint": "https://indianbank.azurewebsites.net/api/messages",
     //  "endpoint": "https://465f3eeb.ngrok.io/api/messages",
     //  "id": "2",
     //  "name": "production"
@@ -23,7 +23,7 @@
       "type": "luis",
       "appid": "",
       "RasaEndPoint": "http://localhost:5000/",
-      "RasaProjectName": "UjjivanBankProject",
+      "RasaProjectName": "IndianBankProject",
       "authoringkey": "",
       "id": "general",
       "name": "general",
@@ -34,6 +34,6 @@
   ],
   "padlock": "",
   "version": "2.0",
-  "path": "D:\\Ujjivan Bank Workspace\\UjjivanBank ChatBOT\\UjjivanBank ChatBOT\\UjjivanBank_ChatBOT.bot",
+  "path": "D:\\Indian Bank Workspace\\IndianBank ChatBOT\\IndianBank ChatBOT\\IndianBank_ChatBOT.bot",
   "overrides": null
 }

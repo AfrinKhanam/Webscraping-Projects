@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace UjjivanBank_ChatBOT.Migrations
+namespace IndianBank_ChatBOT.Migrations
 {
     public partial class UpdatedDefaultValueForCreatedDateInStaticPage : Migration
     {

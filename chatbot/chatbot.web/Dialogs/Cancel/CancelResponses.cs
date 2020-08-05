@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using UjjivanBank_ChatBOT.Dialogs.Cancel.Resources;
+using IndianBank_ChatBOT.Dialogs.Cancel.Resources;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.TemplateManager;
 using Microsoft.Bot.Schema;
 
-namespace UjjivanBank_ChatBOT.Dialogs.Cancel
+namespace IndianBank_ChatBOT.Dialogs.Cancel
 {
     public class CancelResponses : TemplateManager
     {
