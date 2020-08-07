@@ -1,0 +1,12 @@
+elasticsearch
+nltk
+autocorrect
+gingerit
+bs4
+lxml
+html5lib
+torch
+bert-extractive-summarizer
+fastapi
+uvicorn
+gunicorn

@@ -7,7 +7,7 @@ namespace IndianBank_ChatBOT.Models
 {
     public class WebPageViewModel
     {
-        public List<WebScapeConfig> WebScapeConfigs { get; set; }
+        public WebScapeConfig[] WebScapeConfigs { get; set; }
         public bool IsFullWebScrapingInProgress { get; set; }
     }
 }

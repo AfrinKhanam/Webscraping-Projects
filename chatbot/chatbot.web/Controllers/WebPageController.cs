@@ -4,10 +4,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
+using IndianBank_ChatBOT.ViewModel;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace IndianBank_ChatBOT.Controllers
 {
@@ -29,7 +31,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebScapeConfig.OrderBy(p => p.PageName).ToList();
+            var webPages = _dbContext.WebScapeConfig.OrderBy(p => p.PageName).ToArray();
 
             WebPageViewModel vm = new WebPageViewModel
             {
@@ -110,7 +112,8 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(GetAllPages))]
         public IActionResult GetAllPages(bool isActive = true)
         {
-            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).OrderBy(p => p.PageName).ToList();
+            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).ToArray();
+
             return Ok(webPages);
         }
 
@@ -119,6 +122,7 @@ namespace IndianBank_ChatBOT.Controllers
         public IActionResult GetPageById(int pageId)
         {
             var webPage = _dbContext.WebScapeConfig.Find(pageId);
+
             return Ok(webPage);
         }
 
@@ -205,7 +209,14 @@ namespace IndianBank_ChatBOT.Controllers
                         BaseAddress = new Uri(WebscrapeUrl)
                     };
 
-                    var json = JsonConvert.SerializeObject(webPage);
+                    var json = JsonConvert.SerializeObject(webPage, new JsonSerializerSettings
+                    {
+                        ContractResolver = new DefaultContractResolver
+                        {
+                            NamingStrategy = new CamelCaseNamingStrategy()
+                        }
+                    });
+
                     var data = new StringContent(json, Encoding.UTF8, "application/json");
 
                     var response = await client.PostAsync("", data);
@@ -231,7 +242,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         private void ResetWebPageScrapeStatus()
         {
-            var webPages = _dbContext.WebScapeConfig.ToList();
+            var webPages = _dbContext.WebScapeConfig.ToArray();
 
             foreach (var webPage in webPages)
             {
