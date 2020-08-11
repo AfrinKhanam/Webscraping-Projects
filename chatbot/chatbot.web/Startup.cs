@@ -5,6 +5,7 @@ using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -38,20 +39,12 @@ namespace IndianBank_ChatBOT
 
         #region methods
 
-        public Startup(IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public Startup(IWebHostEnvironment env, IConfiguration config, ILoggerFactory loggerFactory)
         {
             _isProduction = env.IsProduction();
             _loggerFactory = loggerFactory;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
 
-            if (env.IsDevelopment())
-                builder.AddUserSecrets<Startup>();
-
-            Configuration = builder.Build();
+            Configuration = config;
         }
 
         /// <summary>
@@ -163,7 +156,7 @@ namespace IndianBank_ChatBOT
                     // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
                     // await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
                     //  await context.SendActivityAsync("Error occured..!!.");
-                    await context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.	");
+                    await context.SendActivityAsync("Sorry, I could not understand. Could you please rephrase the query.	");
                     //  await context.SendActivityAsync(exception.Message);
 
                 };
@@ -189,35 +182,32 @@ namespace IndianBank_ChatBOT
         {
             app.UseCors(MyAllowSpecificOrigins);
 
-            if (!env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            //var aspnetEnv = Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
 
-            //app.UseXContentTypeOptions();
-            //app.UseReferrerPolicy(opts => opts.NoReferrer());
+            //if (!string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    Console.WriteLine("UseDeveloperExceptionPage...");
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    Console.WriteLine("UseExceptionHandler...");
+            //    app.UseExceptionHandler("/Error");
+            //}
 
-            //app.UseHttpContext();
+            app.UseExceptionHandler("/Error");
+
             app.UseDefaultFiles()
                .UseStaticFiles()
-               //.UseXfo(xfo => xfo.SameOrigin())
                .UseBotFramework()
                .UseRouting();
 
-            //Security headers
-            app.UseHsts(hsts => hsts.MaxAge(hours: 8).IncludeSubdomains());
-            app.UseXContentTypeOptions();
-            app.UseReferrerPolicy(opts => opts.NoReferrer());
-            app.UseXXssProtection(options => options.EnabledWithBlockMode());
-            app.UseXfo(options => options.SameOrigin());
-            app.UseCsp(opts => opts
-            .BlockAllMixedContent()
-            .FrameAncestors(s => s.Self())
-            );
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
 
             app.UseEndpoints(endpoints =>
             {
