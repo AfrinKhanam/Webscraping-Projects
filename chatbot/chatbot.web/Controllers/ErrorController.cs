@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,13 @@ namespace IndianBank_ChatBOT.Controllers
         {
             var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerFeature>() as ExceptionHandlerFeature;
 
-            var path = exceptionHandler.Path;
+            //var path = exceptionHandler.Path;
 
-            var exception = exceptionHandler.Error;
+            //var exception = exceptionHandler.Error;
 
             var errorNumber = Guid.NewGuid();
+
+            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             return View(errorNumber);
         }

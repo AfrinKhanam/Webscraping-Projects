@@ -15,24 +15,17 @@ namespace BOTAIML.ChatBot.DirectLineServer.Core.Utils
             return b.Uri.ToString().TrimEnd('/');
         }
 
-        public static string GetWebSocketOrigin(string url)
+        public static string GetWebSocketOrigin(string scheme, string url)
         {
             var endpoint = new UriBuilder(url);
-            var b = new UriBuilder();
-            switch (endpoint.Scheme.ToLower())
+            
+            var b = new UriBuilder
             {
-                case "http":
-                    b.Scheme = "ws";
-                    break;
-                case "https":
-                    b.Scheme = "wss";
-                    break;
-                default:
-                    b.Scheme = "wss";
-                    break;
-            }
-            b.Host = endpoint.Host;
-            b.Port = endpoint.Port;
+                Scheme = scheme,
+                Host = endpoint.Host,
+                Port = endpoint.Port
+            };
+
             return b.Uri.ToString().TrimEnd('/');
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -230,6 +231,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             if (string.IsNullOrEmpty(@params.From) || string.IsNullOrEmpty(@params.To))
             {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return false;
             }
             else
@@ -248,9 +250,11 @@ namespace IndianBank_ChatBOT.Controllers
                 }
                 else
                 {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return false;
                 }
             }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return false;
         }
 
