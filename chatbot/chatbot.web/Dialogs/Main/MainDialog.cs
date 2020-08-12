@@ -334,7 +334,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 string conversationID = dc.Context.Activity.Conversation.Id;
                 UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
-                if (generalIntentScore > 0.7)
+                if (generalIntentScore > 0.3)
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     if (generalIntent == "greet")

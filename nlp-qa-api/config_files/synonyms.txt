@@ -5,10 +5,8 @@ two=scooter=2
 three=3
 week=7 days
 rfc=resident foreign currency
-vehicle=motor bike=motor cycle=mobike=car=bike
 healthcare=health care
 shareholder=share holder
-jewel=gold
 gcs=gold card scheme
 profit=gain
 doorstep=door step
@@ -18,9 +16,7 @@ beyond reach=cannot affort=can't afford
 managing director=MD
 ceo=chief executive officer
 neft=n e f t
-fd=fixed deposit
 rd=recurring deposit
-sb=saving bank
 wc=working capital
 offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
 wish=want=prefered
@@ -32,7 +28,6 @@ apply=place=join
 criteria=norms=rule=prototype
 requirement=necessary=recommended=required
 objectives=aim=goal=intention=intention=purpose=information
-interest rate=interest
 margin=edge=border=scope=surplus
 security=safety=protection=collateral
 kcc=kisan credit card
@@ -40,7 +35,6 @@ maximum=max=maxi=highest
 repayment=paying back=compensate=compensation=reimbursement
 permissible=acceptable=admissible=bearable=sanctioned=approved=confirmed=permitted
 maintenances=support=repairs=adjustment=replacement=maintain
-tractors=tractrs=tract
 associated=correlated=combined=joined=mixed=mingle
 regarding=in regard to=with respect to=with regard to=about=respecting=concerned=rg
 produce=production=yield=outcome
@@ -48,18 +42,16 @@ know=be aware=inquire=have knowledge=understand
 tenure=period=duration=time=span
 purchase=buy
 involving=relate
-amount=atm=cash=money=payment
-rate of interest=interest rate
+amount=cash=money=payment
 financing=funding=costs
 second hand=pre used=2nd hand
 documents=record=script=report=certificate=documentation
-shg=self help groups=sh group=shgs
 some=part of=few=little
 provide=serve=give=grant=add
 DRI=differential RI
 targets=goal
 harvest=golden harvest scheme=gh scheme=ghs
-Jewel loan=Agricultural Jewel Loan=AGL
+Jewel loan=Agricultural Jewel Loan=AGL=gold loan
 get=have=take=receive=earn
 categories=types=list=group=features
 repayment=compensation=paying back
@@ -78,9 +70,7 @@ Non Resident Indian=NRI
 ib=IB=Indian Bank
 Micro Small & Medium Enterprises=MSME
 different=distinct=dissimilar=separate=many
-pos=point of sale
 asba=applications supported by Blocked Amount
-jlg=Joint Liability Group
 MACAD=Motor Accident Claim Tribunal Deposit
 tenure=tenor
 ICKSL=IND COVID KCC SAHAYA LOAN
@@ -89,3 +79,59 @@ frequently=Periodicity
 BSBDA=Basic Savings Bank Deposit Account
 cvo=Chief Vigilance officer
 image=Acronym For Indian Bank Management Academy For Growth And Excellence
+
+Clean Loan to Salaried Class=personal loan=Salary Loan=Loan to Salaried employees=Corporate Employees Loan=Loan for marriage expenses=Marriage Loan=General Loan=Miscellaneous Loan=Quick Loan
+Agri Godowns Cold Storage = Godown=Store Room=Storage=Preservation =Ice store room=ice storage=Goods room=Storing Room
+Financing Agriculturists for Purchase Of Tractors & Other Farm Machinery = Tractor Loan =Farm machine=Farmer Loan=Farmer=Tiller=Farm vehicle
+shg=self help groups=sh group=shgs=Self Help Group Finance
+jlg=Joint Liability Group=Landless labourer=Crop Loan
+Agricultural Jewel Loan=Jewel Loan=Gold money=Ornament loan=Jewel money
+Loan / OD Against Deposits=Deposit Loan=Deposit advance=Deposit pledge=Loan on Deposit=Overdraft on Deposit=OD on Deposit=Overdraft on cumulative Deposit=Pledge of Deposit Receipt
+Ind Reverse Mortgage=House Mortgage=Property Mortgage=Flat Mortgage=Senior Citizens Mortgage Loan=Medical expenses for senior citizens=Mortgage Loan for 60 years and above
+vehicle=motor bike=motor cycle=mobike=car=bike=Motorbike loan=Transport
+Ind Mortgage=Medical expenses=Function
+Plot Loan=plot purchase=land purchase=loan for plot=loan for land=loan for property=loan to purchase house site
+IB Pension Loan=senior citizen=old age=pledge of PPO
+IB Home improve=furniture=interior=wall paper=furnishing=purchase of furniture=better home=borewell
+IB Tradewell=trade loan=traders loan
+IB MY OWN SHOP=business loan=premises loan=commercial
+IB Doctor Plus=Doctor=Advance to Doctor=Doctor finance=medical practitioner=medical=clinic=hospital=nursing home
+Ind surya Shakthi=surya=solar=electricity=solar panel=solar power
+IND GECLS COVID=COVID LOAN=CORONA LOAN
+pos=point of sale=machine payment=store payment
+Cash@POS=store cash=shop cash
+IB Collect plus=Tax Payer
+
+DEBIT Cards=PMJDY=plastic card=premium card=premium card=travel card
+Credit Cards=VISA
+Indpay=Indian Bank App=IB App=app for financial transaction=banking app=digital passbook=mobile app
+net banking=Internet banking=Form 15G=Form 15H=Form 15 G=26 AS=Aadhaar=Form 16A
+SMS Banking=debit alert=credit alert=cheque bounce
+IB CORP SB - PAYROLL Package scheme for salaried class=SB for corporates=savings bank account for corporates=savings account for salaried class=Professional account
+Basic Savings Bank Deposit Account=zero balance=basic account=no frill account
+IB Smart Kid=Children=Kid=Savings Bank for Kid=Minor account=Student account=Child account
+IB Mahila Shakthi for Women=account with salary=account without salary=girl=Female=working women
+IB GEN X - for the vibrant youth=Savings Bank Account for youth=Savings Bank Account for young=Account for youth
+IB Salaam - Special Account for Defence Personnel=Savings account for defence=Army=Navy=Air force=defence personnel=BSF=CRPF=CISF=ITBP=Indian Coast Guard=Para Military=Armed Forces
+IB DIGI - Online SB Account=Online SB Account=Online Savings Bank Account=e account
+Small Account=NREGA=Small Savings Bank Account=Small SB Account=Small Savings Account
+SB for central / state govt consular offices & IND PFMS=Central Government=State Government
+MACT SB=below 18=guardian
+IB i-Freedom Current Account=Current Account with flexibility=ca with flexibility=smart account=privileged current account=privileged ca
+Premium Current Account=MOD=Multi opition deposit
+IB Comfort - Domestic & NRE=Special current account=special ca
+Current Account=partnership=sole proprietor
+Money Multiplier Deposit=proceeds from sale of property=sale of property=cumulative deposit
+Terms and Conditions - Term Deposit Account=TD Account
+IB Tax Saver Scheme= tax avoidance=tax evasion=tax planning=tax exemption
+Money Multiplier Deposits=interest accumulated=compounded interest=interest compounding
+fd=fixed deposit=liquidity=bulk deposit
+rate of interest=interest rate=interest
+variable recurring deposit=varying installments=different installments
+short term deposits=STD
+Motor Accident Claim Tribunal Deposit (MACAD)=court
+Resident foreign Currency Account for returning Indians=Non Resident Indian=returning indian
+
+Non Resident ordinary account=rupee account
+sb=saving bank
+IB contractors loan=contractors loan

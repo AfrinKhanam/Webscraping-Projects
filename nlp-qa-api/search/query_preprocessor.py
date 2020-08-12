@@ -37,7 +37,14 @@ class QueryPreprocessor:
         for record in self.synonyms_repo:
             synonyms = []
             for word in record:
-                stem_word = [self.ps.stem(x) for x  in word.split()]
+                stop_words = set(stopwords.words('english'))
+                stop_word = stop_words.remove('can')
+                stop_word = stop_words.remove('what')
+
+                filtered_synonyms = [w.lower() for w in word.split() if not w in stop_words]
+                filtered_synonyms = " ".join(filtered_synonyms)
+                # print(f'filtered_synonyms ---> {filtered_synonyms}')
+                stem_word = [self.ps.stem(x) for x  in filtered_synonyms.split()]
                 synonyms.append( " ".join(stem_word) )
 
             synonyms_repo.append(synonyms)
