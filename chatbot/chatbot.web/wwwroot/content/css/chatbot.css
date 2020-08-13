@@ -82,7 +82,7 @@
     left: -33%;
 }
 
-@@media all and (transform-3d), (-webkit-transform-3d) {
+@media all and (transform-3d), (-webkit-transform-3d) {
     .multi-item-carousel .carousel-inner > .item {
         transition: 100ms ease-in-out left;
         transition: 100ms ease-in-out all;
@@ -123,6 +123,21 @@ h1 {
     width: 22.33%;
 }
 /*slider button group*/
+
+.btn-suggestion {
+    border-radius: 30px;
+    border-color: rgb(12, 77, 162);
+    margin-top: 3px;
+    background-color: white;
+    color: rgb(12, 77, 162);
+}
+
+@media (max-width:767px) {
+    .btn-suggestion {
+        width: auto !important;
+        padding: 6px 15px 6px 15px !important;
+    }
+}
 
 .carousel-inner > .item {
     padding: 0 9% !important;
