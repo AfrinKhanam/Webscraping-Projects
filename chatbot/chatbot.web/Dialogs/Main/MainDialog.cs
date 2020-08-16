@@ -334,48 +334,15 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 string conversationID = dc.Context.Activity.Conversation.Id;
                 UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
-                if (generalIntentScore > 0.3)
+                if (entityType == "scrollbar_entity")
                 {
-                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                    if (generalIntent == "greet")
-                    {
-
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
-                    }
-                    else if (generalIntent == "small_talks_intent")
-                    {
-                        await dc.Context.SendActivityAsync($"Hello!! I'm IVA, your Indian Bank Virtual Assistant");
-                    }
-                    else if (generalIntent == "capabilities_intent")
-                    {
-                        await dc.Context.SendActivityAsync($"I am here to assist you with all your banking queries 24x7. \n Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
-                    }
-                    else if (generalIntent == "bye_intent")
-                    {
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
-                    }
-                    else if (entityType == "atm_entity")
-                    {
-                        await dc.Context.SendActivityAsync("Please click on the URL below to find all Indian Bank ATM/Branch Locations. \n\n https://www.indianbank.in/branch-atm/");
-                    }
-                    else if (entityType == "lost_entity")
-                    {
-                        await dc.Context.SendActivityAsync($"Looks like your query requires futher assistance. Please contact customer care immediately on the following number's : \n\n <tel:180042500000> /  <tel:18004254422>");
-                    }
-                    else
-                    {
-                        await SearchKB(dc, clientFactory);
-                    }
+                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, clientFactory);
+                    await dc.EndDialogAsync();
                 }
                 else if (generalIntent == "thankyouintent")
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
-                }
-                else if (entityType == "scrollbar_entity")
-                {
-                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, clientFactory);
-                    await dc.EndDialogAsync();
                 }
                 else if (utterance.Split(" ")[utterance_word_count - 1].Equals("services") || (utterance.Split(" ")[utterance_word_count - 1].Equals("plus")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("banking")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("payment")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("trust")))
                 {
@@ -441,6 +408,39 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                     }
                 }
+                else if (generalIntentScore > 0.3)
+                {
+                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
+                    if (generalIntent == "greet")
+                    {
+                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
+                    }
+                    else if (generalIntent == "small_talks_intent")
+                    {
+                        await dc.Context.SendActivityAsync($"Hello!! I'm IVA, your Indian Bank Virtual Assistant");
+                    }
+                    else if (generalIntent == "capabilities_intent")
+                    {
+                        await dc.Context.SendActivityAsync($"I am here to assist you with all your banking queries 24x7. \n Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
+                    }
+                    else if (generalIntent == "bye_intent")
+                    {
+                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
+                    }
+                    else if (entityType == "atm_entity")
+                    {
+                        await dc.Context.SendActivityAsync("Please click on the URL below to find all Indian Bank ATM/Branch Locations. \n\n https://www.indianbank.in/branch-atm/");
+                    }
+                    else if (entityType == "lost_entity")
+                    {
+                        await dc.Context.SendActivityAsync($"Looks like your query requires futher assistance. Please contact customer care immediately on the following number's : \n\n <tel:180042500000> /  <tel:18004254422>");
+                    }
+                    else
+                    {
+                        await SearchKB(dc, clientFactory);
+                    }
+                }
+                
                 else
                 {
                     await SearchKB(dc, clientFactory);
