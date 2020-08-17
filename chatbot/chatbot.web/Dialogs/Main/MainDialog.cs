@@ -288,11 +288,13 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             {
                 string entityName = string.Empty;
                 string entityType = string.Empty;
-                var data = string.Empty;
+
+                var conversationID = dc.Context.Activity.Conversation.Id;
+                var userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
                 var result = await luisService.RecognizeAsync(dc.Context, CancellationToken.None);
 
-                List<string> entityTypes = new List<string>
+                var entityTypes = new List<string>
                 {
                     "what_entity",
                     "why_entity",
@@ -331,8 +333,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 // BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
                 // BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
                 // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
-                string conversationID = dc.Context.Activity.Conversation.Id;
-                UserInfo userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
 
                 if (entityType == "scrollbar_entity")
                 {
@@ -440,17 +440,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         await SearchKB(dc, clientFactory);
                     }
                 }
-                
                 else
                 {
                     await SearchKB(dc, clientFactory);
                 }
             }
-            else
-            {
-                await Task.FromResult(true);
-            }
-            await Task.FromResult(true);
         }
 
         public static async Task SearchKB(DialogContext dc, IHttpClientFactory clientFactory)
