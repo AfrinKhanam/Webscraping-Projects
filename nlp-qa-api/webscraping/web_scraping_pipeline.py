@@ -83,18 +83,20 @@ class WebScrapingPipeline:
             }
         }
         es = Elasticsearch(index=self.__es_index)
-        es_result = self.__fetch_page_from_es__(url)
+        if es.indices.exists(index=self.__es_index):
+            es_result = self.__fetch_page_from_es__(url)
 
-        if es_result == None:
-            print("0 records found")
-            return None
-        else:
-            result = es.delete_by_query(index=self.__es_index, body=query)
-            print("deleted urls ", url," length is : ",result['deleted'])
-            es_matched_docs = []
-            for doc in es_result['hits']['hits']:
-                es_matched_docs.append(doc['_source'])
-            return es_matched_docs
+            if es_result == None:
+                print("0 records found")
+                return None
+            else:
+                result = es.delete_by_query(index=self.__es_index, body=query)
+                print("deleted urls ", url," length is : ",result['deleted'])
+                es_matched_docs = []
+                for doc in es_result['hits']['hits']:
+                    es_matched_docs.append(doc['_source'])
+                return es_matched_docs
+        return None
 
     def __get_scraping_configuration__(self):
         documents = []
@@ -198,6 +200,8 @@ class WebScrapingPipeline:
                         error_message = f"Scraping Error: {get_error_details()}"
                 except Exception:
                     error_message = f"Scraping Error: {get_error_details()}"
+                    print(err)
+
                     break
 
             if value > 5:

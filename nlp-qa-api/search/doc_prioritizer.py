@@ -841,7 +841,7 @@ class DocPrioritizer:
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         if re.search(r'(director)', document['PARSED_QUERY_STRING']):
-            if re.search(r'(board|nomine|sharehold|non offici)', document['PARSED_QUERY_STRING']):
+            if re.search(r'(execut|board|nomine|sharehold|non offici)', document['PARSED_QUERY_STRING']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/board-of-directors/':
                         documents.append(record)
@@ -856,6 +856,15 @@ class DocPrioritizer:
             # print(json.dumps(documents,indent=4))
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
+        # if any(x in document['POTENTIAL_QUERY_LIST'] for x in ['manag','gener']):
+        #     for record in document['ES_RESULT']['DOCUMENTS']:
+        #         if record['url'] == 'https://www.indianbank.in/departments/general-managers/':
+        #             documents.append(record)
+        #     # print(json.dumps(documents,indent=4))
+        #     documents += document['ES_RESULT']['DOCUMENTS']
+        #     document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+
 
         if re.search(r'(sb student govt scholarship & sb debit|sb student govt scholarship and sb debit)', document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:

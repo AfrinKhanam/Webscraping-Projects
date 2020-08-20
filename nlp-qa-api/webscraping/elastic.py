@@ -4,7 +4,7 @@ import json
 import re
 
 class Elastic():
-    def __init__(self, host="localhost", port=9200, index="aadya_indian_bank_db", doc_type='_doc'):
+    def __init__(self, host, port, index, doc_type):
         
         self.es = Elasticsearch([{'host': host, 'port': port,"timeout":30, "max_retries":10, "retry_on_timeout":True}])
         self.index = index

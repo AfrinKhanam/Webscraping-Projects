@@ -21,7 +21,7 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
                     new CardAction(type: ActionTypes.ImBack, title: "Who is the Managing Director of Indian Bank?", value: "Who is the Managing Director of Indian Bank?"),
                     new CardAction(type: ActionTypes.ImBack, title: "Who all are the executive director of indian bank?", value: "Executive Director"),
                     new CardAction(type: ActionTypes.ImBack, title: "What is the Official address of chief vigiliance officer?", value: "What is the Official address of chief vigiliance officer?"),
-                    new CardAction(type: ActionTypes.ImBack, title: "Who all are the General Managers of indian bank?", value: "gm")
+                    new CardAction(type: ActionTypes.ImBack, title: "Who all are the General Managers of indian bank?", value: "general manager")
                 });
             }
         }
