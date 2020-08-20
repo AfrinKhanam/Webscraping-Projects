@@ -7,6 +7,7 @@ lxml
 html5lib
 torch
 bert-extractive-summarizer
+pip install bert-extractive-summarizer==0.1.1
 fastapi
 uvicorn
 gunicorn

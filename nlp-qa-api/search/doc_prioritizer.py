@@ -848,8 +848,9 @@ class DocPrioritizer:
                 # print(json.dumps(documents,indent=4))
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-                document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][::-1]
-
+                if re.search(r'(execut)', document['PARSED_QUERY_STRING']):
+                    document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][::-1]
+        
 
         if re.search(r'(standbi wc facil)', document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:
