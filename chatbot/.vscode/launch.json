@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/IndianBank ChatBOT/bin/Debug/netcoreapp2.1/IndianBank_ChatBOT.dll",
+            "program": "${workspaceFolder}/chatbot.web/bin/Debug/netcoreapp3.1/IndianBank_ChatBOT.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/IndianBank ChatBOT",
+            "cwd": "${workspaceFolder}/chatbot.web",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
