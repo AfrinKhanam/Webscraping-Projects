@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 
 using IndianBank_ChatBOT.ExcelExport;
 using IndianBank_ChatBOT.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    //[Route("[controller]")]
+
     public class ReportController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -23,12 +23,16 @@ namespace IndianBank_ChatBOT.Controllers
             this._dbContext = _dbContext;
         }
 
+        #region Public Methods
+
+        [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult FrequentlyAskedQueries(ReportParams @params)
         {
@@ -40,6 +44,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult FrequentlyAskedQueries()
         {
@@ -53,6 +58,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AppUsers(ReportParams @params)
         {
@@ -65,6 +71,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult AppUsers()
         {
@@ -73,6 +80,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult UnAnsweredQueries()
         {
@@ -81,6 +89,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult UnAnsweredQueries(ReportParams @params)
         {
@@ -93,6 +102,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult UnSatisfiedVisitors()
         {
@@ -101,6 +111,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult UnSatisfiedVisitors(ReportParams @params)
         {
@@ -113,6 +124,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult LeadGenerationReport(ReportParams @params)
         {
@@ -125,6 +137,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult ExportLeadGenerationReport(ReportParams @params)
         {
@@ -173,6 +186,7 @@ namespace IndianBank_ChatBOT.Controllers
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult UpdateFeedback([FromBody] ActivityFeedback activityFeedback)
         {
@@ -204,7 +218,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest(ModelState);
         }
 
-        //TODO Check for invalid request
+        [Authorize]
         [HttpPost]
         public ActionResult UpdateLeadGenerationAction(LeadGenerationActionViewModel vm)
         {
@@ -226,6 +240,19 @@ namespace IndianBank_ChatBOT.Controllers
             }
             return Ok();
         }
+
+        [Authorize]
+        public ActionResult LeadGenerationReport()
+        {
+            var @params = new ReportParams { From = null, To = null };
+            var vm = GetLeadGenerationReport(@params);
+            return View(vm);
+        }
+
+        #endregion
+
+        #region Private Methods
+
 
         private bool IsValidReportParams(ReportParams @params)
         {
@@ -458,13 +485,6 @@ namespace IndianBank_ChatBOT.Controllers
             };
 
             return vm;
-        }
-
-        public ActionResult LeadGenerationReport()
-        {
-            var @params = new ReportParams { From = null, To = null };
-            var vm = GetLeadGenerationReport(@params);
-            return View(vm);
         }
 
         private LeadGenerationReportViewModel GetLeadGenerationReport(ReportParams @params)
@@ -707,5 +727,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             return vm;
         }
+
+        #endregion
     }
 }

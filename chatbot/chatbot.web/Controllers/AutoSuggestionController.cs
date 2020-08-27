@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.ViewModel;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    //[Route("[controller]")]
+    [AllowAnonymous]
     public class AutoSuggestionController : Controller
     {
         private readonly AppSettings _appSettings;

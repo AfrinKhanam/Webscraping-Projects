@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -29,6 +29,9 @@ namespace IndianBank_ChatBOT.Controllers
             _appSettings = appsettings.Value;
         }
 
+        #region Public Methods
+
+        [Authorize]
         public IActionResult GetPageConfigById(int id)
         {
             if (ModelState.IsValid)
@@ -46,6 +49,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input");
         }
 
+        [Authorize]
         public IActionResult GetAllStaticFileInfo()
         {
             var pageConfigarations = _dbContext.StaticPages.ToList();
@@ -57,6 +61,7 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(configObjects);
         }
 
+        [AllowAnonymous]
         public IActionResult GetAllStaticFileInfoAsText()
         {
             var staticPages = _dbContext.StaticPages.ToList();
@@ -84,6 +89,7 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(dataString);
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             var staticPages = _dbContext.StaticPages.OrderByDescending(f => f.CreatedOn).ToList();
@@ -94,17 +100,6 @@ namespace IndianBank_ChatBOT.Controllers
             };
 
             return View(vm);
-        }
-
-        private string ToBase64Decode(string base64EncodedText)
-        {
-            if (string.IsNullOrEmpty(base64EncodedText))
-            {
-                return base64EncodedText;
-            }
-
-            byte[] base64EncodedBytes = Convert.FromBase64String(base64EncodedText);
-            return Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
         [HttpGet]
@@ -129,6 +124,7 @@ namespace IndianBank_ChatBOT.Controllers
             return result;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult DownLoadStaticFile(int staticFileId)
         {
@@ -142,20 +138,8 @@ namespace IndianBank_ChatBOT.Controllers
             return NotFound($"File with the Id {staticFileId} is not found");
         }
 
-        private bool IsFileHasDangerousContent(string fileContent)
-        {
-            string[] suspiciousContents = _appSettings.StaticFileSuspiciousContentsCSV.Split(',');
 
-            foreach (string x in suspiciousContents)
-            {
-                if (fileContent.Contains(x))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        [Authorize]
         [HttpPost]
         public IActionResult FileUpload(IFormFile file)
         {
@@ -244,13 +228,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid input!");
         }
 
-        private string EncodeToBase64(string toEncode)
-        {
-            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
-            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
-            return returnValue;
-        }
-
+        [Authorize]
         [HttpGet]
         public IActionResult UpdatePageConfigById(int id, string pageConfig)
         {
@@ -272,6 +250,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input");
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult DeleteStaticFileById(int id)
         {
@@ -289,6 +268,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input");
         }
 
+        [AllowAnonymous]
         [HttpPut]
         public IActionResult UpdateStatus(StaticPage vm)
         {
@@ -305,21 +285,7 @@ namespace IndianBank_ChatBOT.Controllers
             return NotFound($"Static Page with the Id {vm.Id} is not found");
         }
 
-        private void ResetStaticPageScrapeStatus()
-        {
-            var staticPages = _dbContext.StaticPages.ToList();
-
-            foreach (var webPage in staticPages)
-            {
-                webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
-                webPage.ErrorMessage = string.Empty;
-            }
-
-            _dbContext.StaticPages.UpdateRange(staticPages);
-            _dbContext.SaveChanges();
-        }
-
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> RescrapeAllStaticPages()
         {
@@ -358,6 +324,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Static Page Web Scrape Url not found. Please check the configuration");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult OnScrapingCompleted()
         {
@@ -365,10 +332,61 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(_isStaticFilesScrapingInProgress);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult IsStaticPagesWebScrapingInProgress()
         {
             return Ok(_isStaticFilesScrapingInProgress);
         }
+        
+        #endregion
+
+        #region Private Methods
+        private string ToBase64Decode(string base64EncodedText)
+        {
+            if (string.IsNullOrEmpty(base64EncodedText))
+            {
+                return base64EncodedText;
+            }
+
+            byte[] base64EncodedBytes = Convert.FromBase64String(base64EncodedText);
+            return Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        private bool IsFileHasDangerousContent(string fileContent)
+        {
+            string[] suspiciousContents = _appSettings.StaticFileSuspiciousContentsCSV.Split(',');
+
+            foreach (string x in suspiciousContents)
+            {
+                if (fileContent.Contains(x))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private string EncodeToBase64(string toEncode)
+        {
+            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
+        }
+
+        private void ResetStaticPageScrapeStatus()
+        {
+            var staticPages = _dbContext.StaticPages.ToList();
+
+            foreach (var webPage in staticPages)
+            {
+                webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+                webPage.ErrorMessage = string.Empty;
+            }
+
+            _dbContext.StaticPages.UpdateRange(staticPages);
+            _dbContext.SaveChanges();
+        }
+        #endregion
     }
 }

@@ -5,14 +5,13 @@ using System.Net.Http;
 using System.Text;
 
 using IndianBank_ChatBOT.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    //[Route("[controller]")]
     public class SynonymsController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -23,17 +22,23 @@ namespace IndianBank_ChatBOT.Controllers
             _appSettings = appsettings.Value;
         }
 
+        #region Public Methods
+
+        [Authorize]
         public ActionResult Index()
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 
+        [Authorize]
         public IActionResult GetAllWords()
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             return Ok(Synonyms);
         }
+
+        [AllowAnonymous]
         public IActionResult GetAllWordsCsv()
         {
             var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
@@ -54,6 +59,7 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(wordsCsv);
         }
 
+        [Authorize]
         [HttpDelete]
         public IActionResult DeleteWordById(int id)
         {
@@ -75,6 +81,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateWordById(Synonym synonym)
         {
@@ -96,6 +103,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddNewWord(Synonym synonym)
         {
@@ -109,6 +117,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddNewSynonymWord(SynonymWord synonymWord)
         {
@@ -122,6 +131,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateSynonymWord(SynonymWord synonymWord)
         {
@@ -143,6 +153,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
+        [Authorize]
         [HttpDelete]
         public IActionResult DeleteSynonymWordById(int id)
         {
@@ -164,7 +175,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid Input Data");
         }
 
-
+        [Authorize]
         [HttpPost]
         public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms()
         {
@@ -197,5 +208,7 @@ namespace IndianBank_ChatBOT.Controllers
             }
             return BadRequest("ReSync Synonyms Url not found. Please check the configuration");
         }
+
+        #endregion
     }
 }

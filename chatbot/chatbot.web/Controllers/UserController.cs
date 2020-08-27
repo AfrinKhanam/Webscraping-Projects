@@ -14,14 +14,6 @@ namespace IndianBank_ChatBOT.Controllers
 {
     public class UserController : Controller
     {
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult UserLogin(string returnUrl)
-        {
-            return View();
-        }
-
         private readonly AppDbContext _dbContext;
         private readonly AppSettings _appSettings;
 
@@ -31,9 +23,17 @@ namespace IndianBank_ChatBOT.Controllers
             _appSettings = appsettings.Value;
         }
 
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> UserLogin([Bind] UserViewModel vm)
+        public async Task<ActionResult> Login([Bind] UserViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -73,23 +73,23 @@ namespace IndianBank_ChatBOT.Controllers
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = "UserName or Password is incorrect!";
+                        ViewBag.ErrorMessage = "Username or Password is incorrect!";
                         return View(vm);
                     }
                 }
             }
 
-            ViewBag.ErrorMessage = "Form Validation Falied!";
+            ViewBag.ErrorMessage = "Invalid inputs!";
             return View(vm);
         }
 
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> UserLogout()
+        public async Task<ActionResult> Logout()
         {
             await HttpContext.SignOutAsync("CookieAuthentication");
-            return RedirectToAction("UserLogin");
+            return RedirectToAction("Login");
         }
     }
 }

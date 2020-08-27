@@ -1,10 +1,11 @@
 ﻿using IndianBank_ChatBOT.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 

@@ -99,7 +99,7 @@ namespace IndianBank_ChatBOT
                .AddCookie("CookieAuthentication", config =>
                {
                    config.Cookie.Name = "UserLoginCookie";
-                   config.LoginPath = "/User/UserLogin";
+                   config.LoginPath = "/User/Login";
                });
 
             if (_isProduction)
