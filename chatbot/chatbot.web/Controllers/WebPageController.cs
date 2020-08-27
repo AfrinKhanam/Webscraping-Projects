@@ -26,7 +26,7 @@ namespace IndianBank_ChatBOT.Controllers
             this._dbContext = _dbContext;
             _appSettings = appsettings.Value;
         }
-
+            
         [HttpGet]
         [Route(nameof(Index))]
         public ActionResult Index()

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
@@ -96,6 +94,14 @@ namespace IndianBank_ChatBOT
                 .AllowAnyHeader());
             });
 
+
+            services.AddAuthentication("CookieAuthentication")
+               .AddCookie("CookieAuthentication", config =>
+               {
+                   config.Cookie.Name = "UserLoginCookie";
+                   config.LoginPath = "/User/UserLogin";
+               });
+
             if (_isProduction)
             {
                 services.AddControllersWithViews()
@@ -182,32 +188,41 @@ namespace IndianBank_ChatBOT
         {
             app.UseCors(MyAllowSpecificOrigins);
 
-            //var aspnetEnv = Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+            var aspnetEnv = Configuration.GetValue<string>("Environment");
 
-            //if (!string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    Console.WriteLine("UseDeveloperExceptionPage...");
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    Console.WriteLine("UseExceptionHandler...");
-            //    app.UseExceptionHandler("/Error");
-            //}
+            var isProduction = string.Equals(aspnetEnv, "production", StringComparison.OrdinalIgnoreCase);
 
-            app.UseExceptionHandler("/Error");
+            if (!isProduction)
+            {
+                app.UseDeveloperExceptionPage();
+
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    HttpOnly = HttpOnlyPolicy.Always,
+                    Secure = CookieSecurePolicy.SameAsRequest,
+                    MinimumSameSitePolicy = SameSiteMode.Strict
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    HttpOnly = HttpOnlyPolicy.Always,
+                    Secure = CookieSecurePolicy.Always,
+                    MinimumSameSitePolicy = SameSiteMode.Strict
+                });
+            }
 
             app.UseDefaultFiles()
                .UseStaticFiles()
                .UseBotFramework()
                .UseRouting();
 
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                HttpOnly = HttpOnlyPolicy.Always,
-                Secure = CookieSecurePolicy.Always,
-                MinimumSameSitePolicy = SameSiteMode.Strict
-            });
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
