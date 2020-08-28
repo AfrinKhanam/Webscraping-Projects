@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.ViewModel;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -27,6 +27,9 @@ namespace IndianBank_ChatBOT.Controllers
             _appSettings = appsettings.Value;
         }
 
+        #region Private Methods
+
+        [Authorize]
         [HttpGet]
         [Route(nameof(Index))]
         public ActionResult Index()
@@ -42,6 +45,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(vm);
         }
 
+        [Authorize]
         [HttpGet]
         [Route(nameof(AddNew))]
         public ActionResult AddNew()
@@ -50,6 +54,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(webPage);
         }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(AddNew))]
         public ActionResult AddNew(WebScapeConfig webPage)
@@ -68,7 +73,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpGet]
         [Route(nameof(Edit))]
         public ActionResult Edit(int pageId)
@@ -77,6 +82,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(webPage);
         }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(Edit))]
         public ActionResult Edit(WebScapeConfig webPage)
@@ -90,7 +96,7 @@ namespace IndianBank_ChatBOT.Controllers
             return View(webPage);
         }
 
-
+        [Authorize]
         [HttpDelete]
         [Route(nameof(DeleteById))]
         public IActionResult DeleteById(int pageId)
@@ -108,6 +114,7 @@ namespace IndianBank_ChatBOT.Controllers
             return NotFound($"Web Page with the id {pageId} not found!");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route(nameof(GetAllPages))]
         public IActionResult GetAllPages(bool isActive = true)
@@ -117,6 +124,7 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(webPages);
         }
 
+        [Authorize]
         [HttpGet]
         [Route(nameof(GetPageById))]
         public IActionResult GetPageById(int pageId)
@@ -126,6 +134,7 @@ namespace IndianBank_ChatBOT.Controllers
             return Ok(webPage);
         }
 
+        [AllowAnonymous]
         [HttpPut]
         [Route(nameof(UpdateStatus))]
         public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage = null)
@@ -143,6 +152,7 @@ namespace IndianBank_ChatBOT.Controllers
             return NotFound($" Web Page with the Id {Id} is not found");
         }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(RescrapeAllPages))]
         public async Task<IActionResult> RescrapeAllPages()
@@ -182,6 +192,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Web Scrape Url not found. Please check the configuration");
         }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(RescrapePage))]
         public async Task<IActionResult> RescrapePage(int pageId)
@@ -239,6 +250,28 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Web Scrape Url not found. Please check the configuration");
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route(nameof(OnScrapingCompleted))]
+        public IActionResult OnScrapingCompleted()
+        {
+            _isFullWebScrapingInProgress = false;
+            return Ok(_isFullWebScrapingInProgress);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route(nameof(IsFullWebScrapingInProgress))]
+        public IActionResult IsFullWebScrapingInProgress()
+        {
+            return Ok(_isFullWebScrapingInProgress);
+        }
+
+        #endregion
+
+
+
+        #region Private Methods
 
         private void ResetWebPageScrapeStatus()
         {
@@ -254,19 +287,6 @@ namespace IndianBank_ChatBOT.Controllers
             _dbContext.SaveChanges();
         }
 
-        [HttpPost]
-        [Route(nameof(OnScrapingCompleted))]
-        public IActionResult OnScrapingCompleted()
-        {
-            _isFullWebScrapingInProgress = false;
-            return Ok(_isFullWebScrapingInProgress);
-        }
-
-        [HttpGet]
-        [Route(nameof(IsFullWebScrapingInProgress))]
-        public IActionResult IsFullWebScrapingInProgress()
-        {
-            return Ok(_isFullWebScrapingInProgress);
-        }
+        #endregion
     }
 }

@@ -47,6 +47,22 @@
                         <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
                     </ul>
                 </form>
+
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="d-sm-none d-lg-inline-block">Welcome @User.Identity.Name</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-divider"></div>
+
+                            @using (Html.BeginForm("Logout", "User", FormMethod.Post))
+                            {
+                                <button style="cursor:pointer;" class="dropdown-item has-icon text-danger text-center" type="submit">Logout</button>
+                            }
+                        </div>
+                    </li>
+                </ul>
             </nav>
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
@@ -87,7 +103,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2020 <div class="bullet"></div> Design By <a href="http://botaiml.com/">BOT AI ML</a>
+                    Copyright &copy; 2020 <div class="bullet"></div> <a href="http://botaiml.com/">BOT AI ML</a>
                 </div>
                 <div class="footer-right">
                 </div>

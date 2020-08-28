@@ -2,6 +2,7 @@
 {
     public class AppSettings
     {
+        public int LoginExpiryMinutes { get; set; }
         public string QAEndPoint { get; set; }
         public string ConnectionString { get; set; }
         public string RabbitmqUsername { get; set; }

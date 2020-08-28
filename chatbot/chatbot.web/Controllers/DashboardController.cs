@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using IndianBank_ChatBOT.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT.Controllers
 {
-    //[Route("[controller]")]
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly AppSettings _appSettings;

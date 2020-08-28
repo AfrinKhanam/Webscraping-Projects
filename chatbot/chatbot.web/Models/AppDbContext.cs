@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-
+using IndianBank_ChatBOT.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -38,6 +38,12 @@ namespace IndianBank_ChatBOT.Models
                 new LeadGenerationAction { Id = 4, Name = "ActedUpon", Description = "ActedUpon" }
             );
 
+            modelBuilder.Entity<User>().SeedWithSequence(
+                modelBuilder, r => r.Id,
+                new User { Id = 1, Name = "Admin", Username = "admin", Password = HashingUtils.Hash("admin@123$%^", "1") }
+            );
+
+
             modelBuilder.Entity<StaticPage>()
                    .Property(e => e.CreatedOn)
                    .HasDefaultValue(DateTime.Now);
@@ -64,6 +70,8 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<LeadGenerationAction> LeadGenerationActions { get; set; }
         //public DbSet<WebPageScrapeRequest> WebPageScrapeRequests { get; set; }
         public DbSet<WebScapeConfig> WebScapeConfig { get; set; }
+
+        public virtual DbSet<User> Users { get; set; }
 
         public DbQuery<FrequentlyAskedQueries> FrequentlyAskedQueries { get; set; }
 
