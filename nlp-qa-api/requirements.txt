@@ -11,3 +11,4 @@ pip install bert-extractive-summarizer==0.1.1
 fastapi
 uvicorn
 gunicorn
+dotnet add package Microsoft.AspNet.WebUtilities --version 1.0.0-rc1-final

@@ -113,7 +113,10 @@ class HtmlToJson(Subtitle, PostProcessing):
         del document['subtitle']['indices']
         for idx in range(len(document['subtitle']['elements'])):
             for ele in document['subtitle']['elements'][idx]['content']:
-                del ele['dom']
+                if 'dom' in ele.keys():
+                    # print("inside------------")
+                    # print(f"ele in frame_json is : {ele}")
+                    del ele['dom']
         #-----------------------------------------------------------#
 
         #-----------------------------------------------------------#

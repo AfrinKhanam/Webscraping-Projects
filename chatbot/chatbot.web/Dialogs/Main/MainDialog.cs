@@ -19,6 +19,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
 using Newtonsoft.Json;
+// using System.Net.WebUtility;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
@@ -408,14 +409,22 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                     }
                 }
-                else if (generalIntentScore > 0.3)
-                {
-                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                    if (generalIntent == "greet")
+                else if (utterance.Trim().ToLower() == "hi" || utterance.Trim().ToLower() == "hello" || utterance.Trim().ToLower() == "hey" || utterance.Trim().ToLower() == "good morning" || (utterance.Trim().ToLower() == "hii") || utterance.Trim().ToLower() == "greetings" || utterance.Trim().ToLower() == "whats up")
                     {
+                        var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                         await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
                     }
-                    else if (generalIntent == "small_talks_intent")
+                else if (utterance.Trim().ToLower() == "bye" || utterance.Trim().ToLower() == "bye bye" || utterance.Trim().ToLower() == "good bye" || utterance.Trim().ToLower() == "take care" || (utterance.Trim().ToLower() == "tata") )
+                    {
+                        var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
+                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
+                        
+                    }
+                else if (generalIntentScore > 0.75)
+                {
+                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
+                    
+                    if (generalIntent == "small_talks_intent")
                     {
                         await dc.Context.SendActivityAsync($"Hello!! I'm IVA, your Indian Bank Virtual Assistant");
                     }
@@ -453,7 +462,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
             var context = string.Empty;
 
-            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{appSettings.QAEndPoint}?query={query}&context={context}"))
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{appSettings.QAEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}&context={context}"))
             {
                 using (var client = clientFactory.CreateClient())
                 {

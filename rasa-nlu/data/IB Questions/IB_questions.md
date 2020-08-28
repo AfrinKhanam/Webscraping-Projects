@@ -22,6 +22,58 @@
 
 ## intent:greet
 - hi
+- hii
+- hi ya
+- hi good morning bot
+- hi greetings
+- hello greetings
+- what a great morning
+- good morning bot
+- hii yaa
+- hey you
+- very good morning
+- very good day
+- hiii
+- hey ya
+- hey there!
+- heyy
+- hey, hi
+- hey, hello
+- hello hello
+- greetings
+- halloo
+- salute
+- welcome
+- say hello
+- hello there
+- nice to meet you
+- how do you do
+- good
+- welcome to chatbot
+- great to see you
+- good to see you
+- hey buddy
+- hi friend
+- hi dear
+- hi there
+- great day
+- wonderful day
+- awesome day
+- awesome
+- amazing day
+- marvellous
+- good day
+- what's happening
+- shalom
+- howdy-do
+- welcome to bot
+- wow, what a day
+- hi bot
+- hey friend
+- good morning
+- good afternoon
+- good evening
+- good night
 - hello
 - greeting
 - hiya
@@ -34,7 +86,40 @@
 - good day
 
 ## intent:bye_intent
-- bye
+- [bye](bye_entity)
+- bye bye
+- bye, will talk later
+- bye my friend
+- good bye buddy
+- bye, see you again
+- tata 
+- tata my friend
+- bye will catch you later
+- so long
+- bye bye bot
+- bye bot
+- bye friend
+- bye buddy
+- bye visit you again
+- tata bot
+- tata friend
+- tata buddy
+- tata visit you again
+- goodbye bot
+- goodbye friend
+- goodbye buddy
+- goodbye visit you again
+- good bye bot
+- good bye friend
+- good bye buddy
+- good bye visit you again
+- bye my dear friend
+- bbye 
+- i got to go
+- good bye
+- great work, bye for now
+- bye for now
+- bye, will meet in sometime
 - goodbye
 - farewell
 - bye bye
@@ -123,6 +208,12 @@
 - bank branch
 - branch locator
 - ATM Locator
+
+## synonym:greet_entity
+- hi
+- hiii
+- good morning
+- great
  
 ## lookup:can_entity
 /home/shashank/Desktop/starter-pack-rasa-nlu/data/can_synonyms.txt

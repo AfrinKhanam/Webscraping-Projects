@@ -31,6 +31,21 @@ class PostProcessing():
             "https://indianbank.in/departments/mact-sb/":post_processing_functions.mact_sb,
             "https://indianbank.in/departments/ind-covid-emergency-credit-line-valid-till-30-9-20-only/":post_processing_functions.covid_emergency_credit_line, #corporate-covid
             "https://indianbank.in/departments/ca-for-state-central-govt-consular-ind-pfms/":post_processing_functions.ca_for_state_central_govt,
+            "https://www.indianbank.in/departments/general-managers/":post_processing_functions.general_managers,
+            
+            
+            "https://indianbank.in/HI/departments/agricultural-godowns-cold-storage/":post_processing_functions.hindi_agriculture_godowns,
+            "https://indianbank.in/HI/departments/capital-gains/":post_processing_functions.hindi_capital_gains,    
+            "https://indianbank.in/HI/departments/mca-payment/":post_processing_functions.hindi_mca_payment,
+            "https://indianbank.in/HI/departments/money-gram/" : post_processing_functions.hindi_money_gram,
+            "https://indianbank.in/HI/departments/atm-debit-cards/": post_processing_functions.hindi_atm_debit_cards,
+            "https://indianbank.in/HI/departments/ind-mobile-banking/": post_processing_functions.hindi_ind_mobile_banking,
+            "https://indianbank.in/HI/departments/ind-netbanking/":post_processing_functions.hindi_ind_netbanking,
+            "https://indianbank.in/HI/departments/xpress-money-inward-remittance-money-transfer-service-scheme/":post_processing_functions.hindi_xpress_money,
+            "https://indianbank.in/HI/departments/n-e-f-t/":post_processing_functions.hindi_neft,
+            
+            
+            
             }
 
 

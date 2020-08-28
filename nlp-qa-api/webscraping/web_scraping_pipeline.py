@@ -220,10 +220,11 @@ class WebScrapingPipeline:
 
         for idx in range(len(documents)):
             self.__rescrape_page__(documents[idx])
-
+    
     def __rescrape_page__(self, document):
         doc_id = document['id']
         doc_url = document['pageConfig']['url']
+
 
         print(f"Scraping {doc_url}...")
 
@@ -311,12 +312,12 @@ If yes, this might require changes to post-processing functions. Please contact 
 
         html_to_json = HtmlToJson(html)
 
-        manager_pages = ['/departments/general-managers/',
-                         '/departments/general-managers/']
+        # manager_pages = ['/departments/general-managers/',
+        #                  '/departments/general-managers/']
 
-        if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
-            html_to_json.generate_json_for_general_managers(document)
-            return document
+        # if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
+        #     html_to_json.generate_json_for_general_managers(document)
+        #     return document
         # pageConfig is none for static pages
         if (document.get('pageConfig') is None):
             html_to_json.main_title(document)
