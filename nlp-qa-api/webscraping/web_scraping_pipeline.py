@@ -42,7 +42,7 @@ class WebScrapingPipeline:
         page_configs = self.__get_static_scraping_configuration__()
         if page_configs != None:
             self.__rescrape_all_static_pages__(page_configs)
-    
+
     def __fetch_page_from_es__(self,url):
         es = Elasticsearch(index=self.__es_index)
         es_result = es.search(
@@ -61,7 +61,7 @@ class WebScrapingPipeline:
                     }
                 }
             })
-        print("length of matched urls is : ",len(es_result['hits']['hits']))
+        # print("length of matched urls is : ",len(es_result['hits']['hits']))
         if len(es_result['hits']['hits']) == 0:
             return None
         else:
@@ -104,8 +104,6 @@ class WebScrapingPipeline:
         response = requests.get(url=self.__fetch_scraping_config_url)
 
         json_configurations = response.json()
-
-        path = ""
 
         if json_configurations != None:
             # ----------------------------------------------------------- #
@@ -220,11 +218,10 @@ class WebScrapingPipeline:
 
         for idx in range(len(documents)):
             self.__rescrape_page__(documents[idx])
-    
+
     def __rescrape_page__(self, document):
         doc_id = document['id']
         doc_url = document['pageConfig']['url']
-
 
         print(f"Scraping {doc_url}...")
 
@@ -248,7 +245,7 @@ class WebScrapingPipeline:
                     del document['post_processing_error']
 
                 document = self.__elastic.generate_individual_document(document)
-                
+
                 #delete all the records by url
                 backup_docs = self.__search_and_delete_page_from_es_index__(document['url'])
                 time.sleep(db_sleep_time)
@@ -274,7 +271,7 @@ If yes, this might require changes to post-processing functions. Please contact 
                 value += 1
                 time.sleep(5)
                 continue
-            except ElasticsearchException as err:
+            except ElasticsearchException:
                 if backup_docs != None:
                     documents = {}
                     documents['document_list'] = backup_docs

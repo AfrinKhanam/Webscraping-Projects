@@ -190,7 +190,7 @@ namespace IndianBank_ChatBOT
 
             var aspnetEnv = Configuration.GetValue<string>("Environment");
 
-            var isProduction = string.Equals(aspnetEnv, "production", StringComparison.OrdinalIgnoreCase);
+            var isProduction = !string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase);
 
             if (!isProduction)
             {

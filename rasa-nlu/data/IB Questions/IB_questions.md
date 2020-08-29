@@ -4,13 +4,11 @@
 - what are you?
 - what will I call you?
 
-
 ## intent:capabilities_intent
 - what do you do?
 - what can you do?
 - What are your capabilities?
 - how can you help me today?
-
 
 ## intent:atm_locator
 - Show me the [branch locator](atm_entity)
@@ -22,18 +20,14 @@
 
 ## intent:greet
 - hi
-- hii
 - hi ya
 - hi good morning bot
 - hi greetings
 - hello greetings
 - what a great morning
 - good morning bot
-- hii yaa
-- hey you
 - very good morning
 - very good day
-- hiii
 - hey ya
 - hey there!
 - heyy
@@ -41,7 +35,6 @@
 - hey, hello
 - hello hello
 - greetings
-- halloo
 - salute
 - welcome
 - say hello
@@ -59,14 +52,11 @@
 - great day
 - wonderful day
 - awesome day
-- awesome
 - amazing day
 - marvellous
 - good day
 - what's happening
 - shalom
-- howdy-do
-- welcome to bot
 - wow, what a day
 - hi bot
 - hey friend
@@ -86,13 +76,13 @@
 - good day
 
 ## intent:bye_intent
-- [bye](bye_entity)
+- bye
 - bye bye
-- bye, will talk later
+- bye will talk later
 - bye my friend
 - good bye buddy
 - bye, see you again
-- tata 
+- tata
 - tata my friend
 - bye will catch you later
 - so long
@@ -114,7 +104,6 @@
 - good bye buddy
 - good bye visit you again
 - bye my dear friend
-- bbye 
 - i got to go
 - good bye
 - great work, bye for now
@@ -123,7 +112,6 @@
 - goodbye
 - farewell
 - bye bye
-- cya
 - see you later
 - adieu
 - see you
@@ -136,7 +124,6 @@
 ## intent:thankyouintent
 - thank you
 - thanks
-- ty
 
 ## intent:scrollbar_intent
 - [about us](scrollbar_entity)
@@ -171,9 +158,8 @@
 - [digital products](product_entity)
 - [feature products](product_entity)
 
-
 ## intent:services_intent
-- [premium services](services_entity) 
+- [premium services](services_entity)
 - [insurance services](services_entity)
 - [cms plus](services_entity)
 - [doorstep banking](services_entity)
@@ -200,6 +186,64 @@
 - [alliances](link_entity)
 - [challans](link_entity)
 
+## intent:none
+- gm
+- general manager
+- fgm
+- field general manager
+- gm [dbd](department_entity)
+- gm [cro](department_entity)
+- gm [cvo](department_entity)
+- gm [cmc](department_entity)
+- gm [credit monitoring cell](department_entity)
+- gm [cro](department_entity)
+- fgm [new delhi](city_entity)
+- gm [kyc aml](department_entity)
+- gm [kyc](department_entity)
+- gm [aml](department_entity)
+- gm [treasury](department_entity)
+- gm [mid corporate](department_entity)
+- gm [r&gr](department_entity)
+- gm [cdo](department_entity)
+- fgm [chennai](city_entity)
+- gm [ra](department_entity)
+- fgm [meerut](city_entity)
+- gm [clo](department_entity)
+- gm [estate](department_entity)
+- fgm [mumbai](city_entity)
+- gm [osd](department_entity)
+- gm [imo coordination](department_entity)
+- gm [recovery](department_entity)
+- fgm [lucknow](city_entity)
+- fgm [hyderabad](city_entity)
+- gm [corporate credit](department_entity)
+- fgm [kolkata](city_entity)
+- gm [credit review](department_entity)
+- fgm [patna](city_entity)
+- gm [planning & bi](department_entity)
+- gm [planning & business intelligence](department_entity)
+- gm [i&c](department_entity)
+- gm [r&l](department_entity)
+- gm [msme](department_entity)
+- fgm [allahabad](city_entity)
+- gm [dbd](department_entity)
+- gm [bpr](department_entity) & [imo](department_entity)
+- gm [chairman](designation_entity) tngb
+- gm [coo](designation_entity)
+- gm [chief operating officer](designation_entity)
+- gm [cro](designation_entity)
+- gm [chief risk officer](designation_entity)
+- gm [cfo](designation_entity)
+- gm [cfo](designation_entity)
+- fgm [kolkata](city_entity)
+- fgm [bengaluru](city_entity)
+- fgm [bhubaneswar](city_entity)
+- fgm [coimbatore](city_entity)
+- gm [cmc](designation_entity)
+- fgm [chandigarh](city_entity)
+- zonal manager [kolkata](city_entity)
+- zm [kolkata](city_entity)
+
 ## synonym:atm_entity
 - ATM
 - ATM branch
@@ -211,9 +255,7 @@
 
 ## synonym:greet_entity
 - hi
-- hiii
 - good morning
-- great
- 
+
 ## lookup:can_entity
-/home/shashank/Desktop/starter-pack-rasa-nlu/data/can_synonyms.txt
+../can_synonyms.txt
