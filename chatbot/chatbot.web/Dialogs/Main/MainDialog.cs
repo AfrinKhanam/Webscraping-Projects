@@ -13,12 +13,13 @@ using IndianBank_ChatBOT.Dialogs.Onboarding;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
-
+using IndianBank_ChatBOT.ViewModel;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 // using System.Net.WebUtility;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
@@ -629,18 +630,17 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             }
             else
             {
-                JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
+                var jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
 
                 if (jsonObject.DOCUMENTS.Count >= 1)
                 {
-                    var main_title = jsonObject.DOCUMENTS[0].main_title;
-                    var sub_title = jsonObject.DOCUMENTS[0].title;
-
-                    BotChatActivityLogger.UpdateRaSaData(main_title, 0, "");
-                    BotChatActivityLogger.UpdateMainTitle(main_title);
-                    BotChatActivityLogger.UpdateSubTitle(sub_title);
-                    BotChatActivityLogger.UpdateResponseJsonText(backendResult);
-                    BotChatActivityLogger.UpdateSource(ResponseSource.ElasticSearch);
+                    dialogContext.Context.Activity.Conversation.Properties.Add(nameof(ExtendedLogData), JToken.FromObject(new ExtendedLogData
+                    {
+                        IntentName = jsonObject.DOCUMENTS[0].main_title,
+                        SubTitle = jsonObject.DOCUMENTS[0].title,
+                        ResponseJson = backendResult,
+                        ResponseSource = ResponseSource.ElasticSearch
+                    }));
                 }
 
                 if (!String.IsNullOrEmpty(jsonObject.FILENAME))
@@ -709,7 +709,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             if (documentCount > 1 && documentCount <= 2 && jsonObject.DOCUMENTS[0].url != jsonObject.DOCUMENTS[1].url)
                             {
                                 message += $"\n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
-
                             }
 
                             if (documentCount > 2 && jsonObject.DOCUMENTS[1].url != jsonObject.DOCUMENTS[2].url)
