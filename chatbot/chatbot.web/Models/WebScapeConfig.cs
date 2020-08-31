@@ -7,7 +7,7 @@ using IndianBank_ChatBOT.Utils;
 
 namespace IndianBank_ChatBOT.Models
 {
-    public class WebScapeConfig
+    public class WebScrapeConfig
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -18,6 +18,7 @@ namespace IndianBank_ChatBOT.Models
         [Required]
         public string PageName { get; set; }
 
+        [Column(TypeName="jsonb")]
         public string PageConfig { get; set; }
 
         public string Description { get; set; }

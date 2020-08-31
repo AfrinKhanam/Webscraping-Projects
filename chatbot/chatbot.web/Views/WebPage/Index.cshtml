@@ -44,27 +44,27 @@
                         <div class="card-stats-items">
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Total Pages</div>
-                                <div class="card-stats-item-count">@Model.WebScapeConfigs.Count()</div>
+                                <div class="card-stats-item-count">@Model.WebScrapeConfigs.Count()</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Inactive Pages</div>
-                                <div class="card-stats-item-count">@Model.WebScapeConfigs.Count(a => a.IsActive == false)</div>
+                                <div class="card-stats-item-count">@Model.WebScrapeConfigs.Count(a => a.IsActive == false)</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Pending Requests</div>
-                                <div class="card-stats-item-count">@Model.WebScapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape && a.IsActive)</div>
+                                <div class="card-stats-item-count">@Model.WebScrapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.YetToScrape && a.IsActive)</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Successful Requests</div>
-                                <div class="card-stats-item-count">@Model.WebScapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess && a.IsActive)</div>
+                                <div class="card-stats-item-count">@Model.WebScrapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeSuccess && a.IsActive)</div>
                             </div>
 
                             <div class="card-stats-item">
                                 <div class="card-stats-item-label">Failed Requests</div>
-                                <div class="card-stats-item-count">@Model.WebScapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed && a.IsActive)</div>
+                                <div class="card-stats-item-count">@Model.WebScrapeConfigs.Count(a => a.ScrapeStatus == ScrapeStatus.ScrapeFailed && a.IsActive)</div>
                             </div>
 
                         </div>
@@ -102,7 +102,7 @@
                                 @{
                                     var index = 0;
                                 }
-                                @foreach (var item in Model.WebScapeConfigs)
+                                @foreach (var item in Model.WebScrapeConfigs)
                                 {
                                     {
                                         index += 1;
@@ -204,7 +204,7 @@
                                         </td>
                                     </tr>
                                 }
-                                @if (Model.WebScapeConfigs.Length == 0)
+                                @if (Model.WebScrapeConfigs.Length == 0)
                                 {
                                     <tr class="no-data" style="text-align:center">
                                         <td colspan="7">No data found !</td>

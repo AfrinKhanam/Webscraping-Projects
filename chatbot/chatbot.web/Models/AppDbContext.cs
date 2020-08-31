@@ -48,7 +48,7 @@ namespace IndianBank_ChatBOT.Models
                    .Property(e => e.CreatedOn)
                    .HasDefaultValue(DateTime.Now);
 
-            modelBuilder.Entity<WebScapeConfig>()
+            modelBuilder.Entity<WebScrapeConfig>()
                  .Property(e => e.CreatedOn)
                  .HasDefaultValue(DateTime.Now);
 
@@ -56,7 +56,7 @@ namespace IndianBank_ChatBOT.Models
                 .Property(s=>s.IsActive)
                 .HasDefaultValue(true);
 
-            modelBuilder.Entity<WebScapeConfig>()
+            modelBuilder.Entity<WebScrapeConfig>()
                    .Property(s => s.IsActive)
                    .HasDefaultValue(true);
         }
@@ -69,7 +69,7 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<LeadGenerationInfo> LeadGenerationInfos { get; set; }
         public DbSet<LeadGenerationAction> LeadGenerationActions { get; set; }
         //public DbSet<WebPageScrapeRequest> WebPageScrapeRequests { get; set; }
-        public DbSet<WebScapeConfig> WebScapeConfig { get; set; }
+        public DbSet<WebScrapeConfig> WebScrapeConfig { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
 

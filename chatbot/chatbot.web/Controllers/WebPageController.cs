@@ -34,12 +34,12 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebScapeConfig.OrderBy(p => p.PageName).ToArray();
+            var webPages = _dbContext.WebScrapeConfig.OrderBy(p => p.PageName).ToArray();
 
             WebPageViewModel vm = new WebPageViewModel
             {
                 IsFullWebScrapingInProgress = _isFullWebScrapingInProgress,
-                WebScapeConfigs = webPages
+                WebScrapeConfigs = webPages
             };
 
             return View(vm);
@@ -50,21 +50,21 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(AddNew))]
         public ActionResult AddNew()
         {
-            var webPage = new WebScapeConfig();
+            var webPage = new WebScrapeConfig();
             return View(webPage);
         }
 
         [Authorize]
         [HttpPost]
         [Route(nameof(AddNew))]
-        public ActionResult AddNew(WebScapeConfig webPage)
+        public ActionResult AddNew(WebScrapeConfig webPage)
         {
             webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
             webPage.CreatedOn = DateTime.Now;
             webPage.LastScrapedOn = null;
             webPage.IsActive = true;
 
-            _dbContext.WebScapeConfig.Add(webPage);
+            _dbContext.WebScrapeConfig.Add(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.insertWebPageStatus = "New Web Page is added successfully.";
@@ -78,16 +78,16 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Edit))]
         public ActionResult Edit(int pageId)
         {
-            var webPage = _dbContext.WebScapeConfig.Find(pageId);
+            var webPage = _dbContext.WebScrapeConfig.Find(pageId);
             return View(webPage);
         }
 
         [Authorize]
         [HttpPost]
         [Route(nameof(Edit))]
-        public ActionResult Edit(WebScapeConfig webPage)
+        public ActionResult Edit(WebScrapeConfig webPage)
         {
-            _dbContext.WebScapeConfig.Update(webPage);
+            _dbContext.WebScrapeConfig.Update(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.editWebPageStatus = "Web Page is updates successfully.";
@@ -103,10 +103,10 @@ namespace IndianBank_ChatBOT.Controllers
         {
             if (pageId != 0)
             {
-                var webpage = _dbContext.WebScapeConfig.FirstOrDefault(w => w.Id == pageId);
+                var webpage = _dbContext.WebScrapeConfig.FirstOrDefault(w => w.Id == pageId);
                 if (webpage != null)
                 {
-                    _dbContext.WebScapeConfig.Remove(webpage);
+                    _dbContext.WebScrapeConfig.Remove(webpage);
                     _dbContext.SaveChanges();
                     return Ok();
                 }
@@ -119,7 +119,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(GetAllPages))]
         public IActionResult GetAllPages(bool isActive = true)
         {
-            var webPages = _dbContext.WebScapeConfig.Where(w => w.IsActive == isActive).ToArray();
+            var webPages = _dbContext.WebScrapeConfig.Where(w => w.IsActive == isActive).ToArray();
 
             return Ok(webPages);
         }
@@ -129,7 +129,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(GetPageById))]
         public IActionResult GetPageById(int pageId)
         {
-            var webPage = _dbContext.WebScapeConfig.Find(pageId);
+            var webPage = _dbContext.WebScrapeConfig.Find(pageId);
 
             return Ok(webPage);
         }
@@ -139,13 +139,13 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(UpdateStatus))]
         public IActionResult UpdateStatus(int Id, ScrapeStatus ScrapeStatus, string ErrorMessage = null)
         {
-            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(s => s.Id == Id);
+            var webPage = _dbContext.WebScrapeConfig.FirstOrDefault(s => s.Id == Id);
             if (webPage != null)
             {
                 webPage.ErrorMessage = ErrorMessage;
                 webPage.ScrapeStatus = ScrapeStatus;
                 webPage.LastScrapedOn = DateTime.Now;
-                _dbContext.WebScapeConfig.Update(webPage);
+                _dbContext.WebScrapeConfig.Update(webPage);
                 _dbContext.SaveChanges();
                 return Ok();
             }
@@ -197,7 +197,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapePage))]
         public async Task<IActionResult> RescrapePage(int pageId)
         {
-            var webPage = _dbContext.WebScapeConfig.FirstOrDefault(w => w.Id == pageId);
+            var webPage = _dbContext.WebScrapeConfig.FirstOrDefault(w => w.Id == pageId);
             if (webPage == null)
             {
                 return BadRequest($"Web Page with the Id {pageId} does not exists");
@@ -212,7 +212,7 @@ namespace IndianBank_ChatBOT.Controllers
                     webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
                     webPage.ErrorMessage = string.Empty;
 
-                    _dbContext.WebScapeConfig.Update(webPage);
+                    _dbContext.WebScrapeConfig.Update(webPage);
                     _dbContext.SaveChanges();
 
                     using var client = new HttpClient
@@ -275,7 +275,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         private void ResetWebPageScrapeStatus()
         {
-            var webPages = _dbContext.WebScapeConfig.ToArray();
+            var webPages = _dbContext.WebScrapeConfig.ToArray();
 
             foreach (var webPage in webPages)
             {
@@ -283,7 +283,7 @@ namespace IndianBank_ChatBOT.Controllers
                 webPage.ErrorMessage = string.Empty;
             }
 
-            _dbContext.WebScapeConfig.UpdateRange(webPages);
+            _dbContext.WebScrapeConfig.UpdateRange(webPages);
             _dbContext.SaveChanges();
         }
 
