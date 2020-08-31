@@ -700,18 +700,21 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         {
                             var message = string.Empty;
                             var documentCount = jsonObject.DOCUMENTS.Count();
-                            if (documentCount == 1)
+
+                            if (documentCount > 0)
                             {
                                 message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}";
                             }
-                            else if (documentCount > 1 && documentCount <= 2)
+
+                            if (documentCount > 1 && documentCount <= 2 && jsonObject.DOCUMENTS[0].url != jsonObject.DOCUMENTS[1].url)
                             {
-                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
+                                message += $"\n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
 
                             }
-                            else
+
+                            if (documentCount > 2 && jsonObject.DOCUMENTS[1].url != jsonObject.DOCUMENTS[2].url)
                             {
-                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url} \n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}\n\n{jsonObject.DOCUMENTS[2].url}";
+                                message += $"\n\n{jsonObject.DOCUMENTS[2].url}";
                             }
 
                             await dialogContext.Context.SendActivityAsync(message);
