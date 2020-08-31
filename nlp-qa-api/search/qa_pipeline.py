@@ -6,6 +6,7 @@ from search.elastic_search import Elastic
 from search.doc_prioritizer import DocPrioritizer
 from search.doc_title_prioritizer import DocTitlePrioritizer
 
+
 class QAPipeline:
     def __init__(self, config):
         index = config.get('elastic_search_credentials', 'index')
@@ -21,7 +22,6 @@ class QAPipeline:
             'CONTEXT': query.strip(),
             'QUERY_STRING': context.strip()
         })
-
         result = self.__get_elasticsearch_results(result)
         result = self.__prioritize_results(result)
         result = self.__summarize_text(result)

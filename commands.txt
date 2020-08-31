@@ -64,7 +64,8 @@ select * from public."ChatLogs" t1
 pm2 start elastic.py --name delete --cron "*/5 * * * *" --no-autorestart
 pm2 start main.py --name auto_scrape_at_12am  --cron "0 0 * * *" --no-autorestart 
 
-
+#fetch specific branch data
+git clone --single-branch --branch <branchname> <remote-repo>
 
 
 
