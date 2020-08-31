@@ -42,6 +42,8 @@ namespace IndianBank_ChatBOT.Utils
             if (jToken != null)
             {
                 extendedLogData = jToken.ToObject<ExtendedLogData>();
+
+                activity.Conversation.Properties.Remove(nameof(ExtendedLogData));
             }
 
             if (msg != null)
