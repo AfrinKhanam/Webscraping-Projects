@@ -1,10 +1,12 @@
-from summarizer import SingleModel
+#from summarizer import SingleModel
+import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 from search.query_preprocessor import QueryPreprocessor
 from search.elastic_search import Elastic
 from search.doc_prioritizer import DocPrioritizer
 from search.doc_title_prioritizer import DocTitlePrioritizer
+
 
 class QAPipeline:
     def __init__(self, config):
@@ -14,14 +16,13 @@ class QAPipeline:
         self.__elastic = Elastic(index=index)
         self.__doc_prioritizer = DocPrioritizer()
         self.__doc_title_prioritizer = DocTitlePrioritizer()
-        self.__summarizer_model = SingleModel()
+        #self.__summarizer_model = SingleModel()
 
     def search(self, query: str, context: str):
         result = self.__preprocess_query({
             'CONTEXT': query.strip(),
             'QUERY_STRING': context.strip()
         })
-
         result = self.__get_elasticsearch_results(result)
         result = self.__prioritize_results(result)
         result = self.__summarize_text(result)
@@ -109,22 +110,22 @@ class QAPipeline:
         return document
 
     def __summarize_text(self, from_es):
-        result_documents = from_es['ES_RESULT']['DOCUMENTS']
+        # result_documents = from_es['ES_RESULT']['DOCUMENTS']
 
-        for idx, document in enumerate(result_documents):
-            if len(document['value'].split()) > 75:
-                result = self.__summarizer_model(document['value'])
-                final_data = sent_tokenize(result)
-                from_es['ES_RESULT']['DOCUMENTS'][idx]['value'] = ''.join(
-                    i.capitalize() for i in final_data)
+        # for idx, document in enumerate(result_documents):
+        #     if len(document['value'].split()) > 75:
+        #         result = self.__summarizer_model(document['value'])
+        #         final_data = sent_tokenize(result)
+        #         from_es['ES_RESULT']['DOCUMENTS'][idx]['value'] = ''.join(
+        #             i.capitalize() for i in final_data)
 
-            if len(document['inner_table_values']) > 0:
-                document['value'] = ' : '.join(document['inner_table_values'])
-        # # #---------------------------------------------------------------#
+        #     if len(document['inner_table_values']) > 0:
+        #         document['value'] = ' : '.join(document['inner_table_values'])
+        # # # #---------------------------------------------------------------#
 
-        if len(from_es['ES_RESULT']['DOCUMENTS']) > 0:
-            from_es['WORD_COUNT'] = len(
-                from_es['ES_RESULT']['DOCUMENTS'][0]['value'])
+        # if len(from_es['ES_RESULT']['DOCUMENTS']) > 0:
+        #     from_es['WORD_COUNT'] = len(
+        #         from_es['ES_RESULT']['DOCUMENTS'][0]['value'])
 
         return from_es
         #---------------------------------------------------------------#

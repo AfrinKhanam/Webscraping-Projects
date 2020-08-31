@@ -304,6 +304,24 @@ class DocPrioritizer:
         '''
         #-----------------------------------------------------------------------------------------------#
         documents = []
+        if re.search(r'(director)', document['PARSED_QUERY_STRING']):
+            documents = []
+            if re.search(r'(board|nomine|sharehold|non offici)', document['PARSED_QUERY_STRING']):
+                for record in document['ES_RESULT']['DOCUMENTS']:
+                    if record['url'] == "https://www.indianbank.in/departments/board-of-directors/":
+                        documents.append(record)
+                documents += document['ES_RESULT']['DOCUMENTS']
+                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+                
+        
+        if re.search(r'((\sed$)|(^ed\s)|(\sed\s)|(^ed$)|(\sed\?$))', document['POTENTIAL_QUERY_LIST']):
+            for record in document['ES_RESULT']['DOCUMENTS']:
+                if record['url'] == 'https://www.indianbank.in/departments/board-of-directors/' and len(record['word_match']) == 2:
+                    documents.append(record)
+            documents += document['ES_RESULT']['DOCUMENTS']
+            document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
+            document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][::-1]
+
         if any(x in document['POTENTIAL_QUERY_LIST'] for x in ['godown','cold','storag']):
             for record in document['ES_RESULT']['DOCUMENTS']:
                 # print(json.dumps(record,indent=4))
@@ -852,16 +870,6 @@ class DocPrioritizer:
             documents += document['ES_RESULT']['DOCUMENTS']
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
-        if re.search(r'(director)', document['PARSED_QUERY_STRING']):
-            if re.search(r'(execut|board|nomine|sharehold|non offici)', document['PARSED_QUERY_STRING']):
-                for record in document['ES_RESULT']['DOCUMENTS']:
-                    if record['url'] == 'https://www.indianbank.in/departments/board-of-directors/':
-                        documents.append(record)
-                documents += document['ES_RESULT']['DOCUMENTS']
-                document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-                if re.search(r'(execut)', document['PARSED_QUERY_STRING']):
-                    document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][::-1]
-
         if re.search(r'(standbi wc facil)', document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/ib-standby-wc-facility-wcdl-for-msmes/':
@@ -871,15 +879,14 @@ class DocPrioritizer:
             document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
 
         # ['gm ',' gm','gm','cro','cdo','ra','clo',' bi','coo','r&gr','i&c']
-        if re.search(r'((\scdo$)|(^cdo\s)|(\scdo\s)|(^cdo$)|(\scdo\?$)|(\sfgm$)|(^fgm\s)|(\sfgm\s)|(^fgm$)|(\sfgm\?$)|(\scro$)|(^cro\s)|(\scro\s)|(^cro$)|(\scro\?$)|(\sgm$)|(^gm\s)|(\sgm\s)|(^gm$)|(\sgm\?$)|(\sra$)|(^ra\s)|(\sra\s)|(^ra$)|(\sra\?$)|(\sclo$)|(^clo\s)|(\sclo\s)|(^clo$)|(\sclo\?$)|(\sbi$)|(^bi\s)|(\sbi\s)|(^bi$)|(\sbi\?$)|(\scoo$)|(^coo\s)|(\scoo\s)|(^coo$)|(\scoo\?$)|(\sr&gr$)|(^r&gr\s)|(\sr&gr\s)|(^r&gr$)|(\sr&gr\?$) |(\si&c$)|(^i&c\s)|(\si&c\s)|(^i&c$)|(\si&c\?$))',document['POTENTIAL_QUERY_LIST']):
+        if re.search(r'((\simo$)|(^imo\s)|(\simo\s)|(^imo$)|(\simo\?$)|(\sbpr$)|(^bpr\s)|(\sbpr\s)|(^bpr$)|(\sbpr\?$)|(\sdbd$)|(^dbd\s)|(\sdbd\s)|(^dbd$)|(\sdbd\?$)|(\scfo$)|(^cfo\s)|(\scfo\s)|(^cfo$)|(\scfo\?$)|(\scmc$)|(^cmc\s)|(\scmc\s)|(^cmc$)|(\scmc\?$)|(\scdo$)|(^cdo\s)|(\scdo\s)|(^cdo$)|(\scdo\?$)|(\sfgm$)|(^fgm\s)|(\sfgm\s)|(^fgm$)|(\sfgm\?$)|(\scro$)|(^cro\s)|(\scro\s)|(^cro$)|(\scro\?$)|(\sgm$)|(^gm\s)|(\sgm\s)|(^gm$)|(\sgm\?$)|(\sra$)|(^ra\s)|(\sra\s)|(^ra$)|(\sra\?$)|(\sclo$)|(^clo\s)|(\sclo\s)|(^clo$)|(\sclo\?$)|(\sbi$)|(^bi\s)|(\sbi\s)|(^bi$)|(\sbi\?$)|(\scoo$)|(^coo\s)|(\scoo\s)|(^coo$)|(\scoo\?$)|(\sr&gr$)|(^r&gr\s)|(\sr&gr\s)|(^r&gr$)|(\sr&gr\?$) |(\si&c$)|(^i&c\s)|(\si&c\s)|(^i&c$)|(\si&c\?$))',document['POTENTIAL_QUERY_LIST']):
             if not re.search(r'((\scvo$)|(^cvo\s)|(\scvo\s)|(^cvo$)|(\scvo\?$))',document['POTENTIAL_QUERY_LIST']):
                 for record in document['ES_RESULT']['DOCUMENTS']:
                     if record['url'] == 'https://www.indianbank.in/departments/general-managers/':
                         documents.append(record)
                 documents += document['ES_RESULT']['DOCUMENTS']
                 document['ES_RESULT']['DOCUMENTS'] = documents[0:3]
-                # document['ES_RESULT']['DOCUMENTS'] = document['ES_RESULT']['DOCUMENTS'][::-1]
-                # print(json.dumps(document,indent=4))
+                
         if re.search(r'((\scorpor credit$)|(^corpor credit\s)|(\scorpor credit\s)|(^corpor credit$)|(\scorpor credit\?$))',document['PARSED_QUERY_STRING']):
             for record in document['ES_RESULT']['DOCUMENTS']:
                 if record['url'] == 'https://indianbank.in/departments/corporate-credit-2/':
