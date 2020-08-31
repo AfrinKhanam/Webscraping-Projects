@@ -88,9 +88,10 @@ class HtmlToJson(Subtitle, PostProcessing):
 
         #-----------------------------------------------------------#
         main_content_ele = []
-        for element in main_content.contents:
-            if element.name is not None:
-                main_content_ele.append(element)
+        if main_content is not None:
+            for element in main_content.contents:
+                if element.name is not None:
+                    main_content_ele.append(element)
 
         document['html']['main_content']['elements'] = main_content_ele
 

@@ -1,5 +1,4 @@
-#from summarizer import SingleModel
-import json
+# from summarizer import SingleModel
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 from search.query_preprocessor import QueryPreprocessor
@@ -16,7 +15,7 @@ class QAPipeline:
         self.__elastic = Elastic(index=index)
         self.__doc_prioritizer = DocPrioritizer()
         self.__doc_title_prioritizer = DocTitlePrioritizer()
-        #self.__summarizer_model = SingleModel()
+        # self.__summarizer_model = SingleModel()
 
     def search(self, query: str, context: str):
         result = self.__preprocess_query({

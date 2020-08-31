@@ -19,7 +19,7 @@ class Elastic():
 
     def index_document(self, document):
         # --------------------------------------------------------- #
-            '--------------------- DOCUMENT PUSHED ----------------------')
+        print('--------------------- DOCUMENT PUSHED ----------------------')
         print(json.dumps(document, indent=4))
         print('------------------------------------------------------------\n\n')
 

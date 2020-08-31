@@ -4,6 +4,7 @@ using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -55,6 +56,10 @@ namespace IndianBank_ChatBOT
             {
                 options.AllowSynchronousIO = true;
             });
+
+            services.AddDataProtection()
+                .SetApplicationName("kbot-chatbot")
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(@"/var/dpkeys/"));
 
             var appSettings = Configuration.GetSection("AppSettings");
 
@@ -190,7 +195,7 @@ namespace IndianBank_ChatBOT
 
             var aspnetEnv = Configuration.GetValue<string>("Environment");
 
-            var isProduction = string.Equals(aspnetEnv, "production", StringComparison.OrdinalIgnoreCase);
+            var isProduction = !string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase);
 
             if (!isProduction)
             {

@@ -66,7 +66,7 @@ namespace IndianBank_ChatBOT.Controllers
                         await HttpContext.SignInAsync(userPrincipal, new AuthenticationProperties
                         {
                             IsPersistent = true,
-                            ExpiresUtc = DateTime.UtcNow.AddMinutes(loginExpiryMinutes)
+                            ExpiresUtc = DateTime.Now.AddMinutes(loginExpiryMinutes)
                         });
 
                         return RedirectToAction("RealTimeDashboard", "Dashboard");

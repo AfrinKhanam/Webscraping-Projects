@@ -6,9 +6,7 @@ bs4
 lxml
 html5lib
 torch
-bert-extractive-summarizer
-pip install bert-extractive-summarizer==0.1.1
+bert-extractive-summarizer==0.1.1
 fastapi
 uvicorn
 gunicorn
-dotnet add package Microsoft.AspNet.WebUtilities --version 1.0.0-rc1-final

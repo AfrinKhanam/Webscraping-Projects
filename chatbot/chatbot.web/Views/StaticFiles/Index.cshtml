@@ -51,8 +51,8 @@
         clearInterval(fullScrapeCheckInterval);
     }
 
-    function viewStaticFile(url) {
-        window.open(url, '_blank');
+    function viewStaticFile(pageId) {
+        window.open('/StaticFiles/GetStaticFileContent?staticFileId=' + pageId, '_blank');
     }
 
     function resetFileuploadForm() {
@@ -505,7 +505,7 @@
                                             </td>
                                             <td width="25%">
                                                 <button onclick="setFileDeleteId('@item.Id', '@item.PageUrl'); launchModal('@item.Id'); getPageConfigById();" class="btn btn-sm btn-outline-primary @className">Page Config</button>
-                                                <button onclick='viewStaticFile("@item.PageUrl")' class="btn btn-sm btn-outline-primary">View</button>
+                                                <button onclick='viewStaticFile("@item.Id")' class="btn btn-sm btn-outline-primary">View</button>
                                                 <button onclick="setFileDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteStaticFileModal">Delete</button>
                                             </td>
                                         </tr>
