@@ -24,6 +24,7 @@ wc=working capital
 offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
 wish=want=prefered
 look=see=view=lk
+agriculture=farming=crop production=horticulture=cultivation=agri=agriculture=agricultre
 eligibility=ability=criteria=can
 minimum=min
 apply=place=join
@@ -82,11 +83,9 @@ BSBDA=Basic Savings Bank Deposit Account=zero balance=basic account=no frill acc
 cvo=Chief Vigilance officer
 image=Acronym For Indian Bank Management Academy For Growth And Excellence
 ib home loan=Loan to purchase Flat=Loan to purchase house=take over
-Clean Loan to Salaried Class=corporate loan=personal loan=Salary Loan=Loan to Salaried employees=Corporate Employees Loan=Loan for marriage expenses=Marriage Loan=General Loan=Miscellaneous Loan=Quick Loan
-
-Agri Godowns Cold Storage=horticulture=agri=cultivation=Godown=Store Room=Storage=Preservation=Ice store room=ice storage=Goods room=Storing Room
+Clean Loan to Salaried Class=personal loan=Salary Loan=Loan to Salaried employees=Corporate Employees Loan=Loan for marriage expenses=Marriage Loan=General Loan=Miscellaneous Loan=Quick Loan=corporate loan
+Agri Godowns Cold Storage=Godown=Store Room=Storage=Preservation=Ice store room=ice storage=Goods room=Storing Room
 Financing Agriculturists for Purchase Of Tractors & Other Farm Machinery=Tractor Loan=Farm machine=Farmer Loan=Farmer=Tiller=Farm vehicle
-
 Agricultural Jewel Loan=Jewel Loan=Gold money=Ornament loan=Jewel money=gold
 Loan / OD Against Deposits=Deposit Loan=Deposit advance=Deposit pledge=Loan on Deposit=Overdraft on Deposit=OD on Deposit=Overdraft on cumulative Deposit=Pledge of Deposit Receipt
 Ind Reverse Mortgage=House Mortgage=Property Mortgage=Flat Mortgage=Senior Citizens Mortgage Loan=Medical expenses for senior citizens=Mortgage Loan for 60 years and above
@@ -145,6 +144,5 @@ R&GR=Resources & Govt Relationship
 I&C=Inspection and Control
 ed=executive director
 fgm=field general manager
-cfo = chief financial officer
-bpr = Business Process Reengineering
-
+cfo=chief financial officer
+bpr=Business Process Reengineering

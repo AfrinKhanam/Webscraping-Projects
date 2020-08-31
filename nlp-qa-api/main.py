@@ -170,6 +170,7 @@ async def scrape_page(request: Request, background_tasks: BackgroundTasks):
 
 def __sync_synonyms__():
     try:
+        global qa_pipeline
         response = requests.get(url=synonyms_url)
 
         data = response.json()
@@ -178,6 +179,7 @@ def __sync_synonyms__():
 
         with open("./config_files/synonyms.txt", "w+") as f:
             f.write(synonyms)
+        qa_pipeline = QAPipeline(config)
 
         print("Added synonyms successfully..!!")
 
