@@ -22,27 +22,27 @@ var chats = [
     position: 'left'
   }
 ];
-for(var i = 0; i < chats.length; i++) {
+for (var i = 0; i < chats.length; i++) {
   var type = 'text';
-  if(chats[i].typing != undefined) type = 'typing';
+  if (chats[i].typing != undefined) type = 'typing';
   $.chatCtrl('#mychatbox', {
     text: (chats[i].text != undefined ? chats[i].text : ''),
-    picture: (chats[i].position == 'left' ? '../dist/img/avatar/avatar-1.png' : '../dist/img/avatar/avatar-2.png'),
-    position: 'chat-'+chats[i].position,
+    picture: (chats[i].position == 'left' ? '../dist/img/avatar-1.png' : '../dist/img/avatar-2.png'),
+    position: 'chat-' + chats[i].position,
     type: type
   });
 }
 
-$("#chat-form").submit(function() {
+$("#chat-form").submit(function () {
   var me = $(this);
 
-  if(me.find('input').val().trim().length > 0) {      
+  if (me.find('input').val().trim().length > 0) {
     $.chatCtrl('#mychatbox', {
       text: me.find('input').val(),
       picture: '../dist/img/avatar/avatar-2.png',
     });
     me.find('input').val('');
-  } 
+  }
   return false;
 });
 
@@ -96,25 +96,25 @@ var chats = [
     position: 'right'
   },
 ];
-for(var i = 0; i < chats.length; i++) {
+for (var i = 0; i < chats.length; i++) {
   var type = 'text';
-  if(chats[i].typing != undefined) type = 'typing';
+  if (chats[i].typing != undefined) type = 'typing';
   $.chatCtrl('#mychatbox2', {
     text: (chats[i].text != undefined ? chats[i].text : ''),
-    picture: (chats[i].position == 'left' ? '../dist/img/avatar/avatar-5.png' : '../dist/img/avatar/avatar-2.png'),
-    position: 'chat-'+chats[i].position,
+    picture: (chats[i].position == 'left' ? '../dist/img/avatar/avatar-1.png' : '../dist/img/avatar/avatar-2.png'),
+    position: 'chat-' + chats[i].position,
     type: type
   });
 }
-$("#chat-form2").submit(function() {
+$("#chat-form2").submit(function () {
   var me = $(this);
 
-  if(me.find('input').val().trim().length > 0) {      
+  if (me.find('input').val().trim().length > 0) {
     $.chatCtrl('#mychatbox2', {
       text: me.find('input').val(),
       picture: '../dist/img/avatar/avatar-2.png',
     });
     me.find('input').val('');
-  } 
+  }
   return false;
 });

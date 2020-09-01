@@ -2,6 +2,7 @@
 using System.Linq;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.DataProtection;
@@ -34,6 +35,9 @@ namespace IndianBank_ChatBOT
         public IConfiguration Configuration { get; }
 
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+        private readonly bool isProduction;
+
         #endregion
 
         #region methods
@@ -44,6 +48,10 @@ namespace IndianBank_ChatBOT
             _loggerFactory = loggerFactory;
 
             Configuration = config;
+
+            var aspnetEnv = Configuration.GetValue<string>("Environment");
+
+            isProduction = !string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -99,13 +107,42 @@ namespace IndianBank_ChatBOT
                 .AllowAnyHeader());
             });
 
-
             services.AddAuthentication("CookieAuthentication")
                .AddCookie("CookieAuthentication", config =>
                {
-                   config.Cookie.Name = "UserLoginCookie";
+                   config.Cookie.Name = "xth"; //Security by obscurity :)
+                   config.Cookie.HttpOnly = true;
+                   config.Cookie.SameSite = SameSiteMode.Strict;
+
+                   if (!isProduction)
+                   {
+                       config.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                   }
+                   else
+                   {
+                       config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                   }
+
                    config.LoginPath = "/User/Login";
                });
+
+            services.Configure<AntiforgeryOptions>(config =>
+            {
+                config.Cookie.Name = "X-XSRF-TOKEN";
+                config.Cookie.HttpOnly = true;
+                config.Cookie.SameSite = SameSiteMode.Strict;
+
+                if (!isProduction)
+                {
+                    config.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                }
+                else
+                {
+                    config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                }
+
+                config.HeaderName = "X-XSRF-TOKEN";
+            });
 
             if (_isProduction)
             {
@@ -192,10 +229,6 @@ namespace IndianBank_ChatBOT
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(MyAllowSpecificOrigins);
-
-            var aspnetEnv = Configuration.GetValue<string>("Environment");
-
-            var isProduction = !string.Equals(aspnetEnv, "development", StringComparison.OrdinalIgnoreCase);
 
             if (!isProduction)
             {

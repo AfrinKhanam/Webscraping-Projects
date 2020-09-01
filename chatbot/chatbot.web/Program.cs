@@ -19,6 +19,7 @@ namespace IndianBank_ChatBOT
         {
             BuildWebHost(args).Run();
         }
+        
         /// <summary>
         /// Builds the web host.
         /// </summary>
@@ -35,7 +36,11 @@ namespace IndianBank_ChatBOT
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
-                .UseStartup<Startup>() // Note: Application Insights is added in Startup.  Disabling is also handled there.
+                .ConfigureKestrel(options =>
+                {
+                    options.AddServerHeader = false;
+                })
+                .UseStartup<Startup>()
                 .UseUrls("http://0.0.0.0:7512")
                 .Build();
         }

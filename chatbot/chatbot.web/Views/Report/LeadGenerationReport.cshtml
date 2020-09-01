@@ -57,7 +57,7 @@
                 if (chats[i].typing != undefined) type = 'typing';
                 $.chatCtrl('#' + 'chatbox-' + chatLog.id, {
                     text: (chats[i].text != undefined ? chats[i].text : ''),
-                    picture: (chats[i].position == 'left' ? '/botAvatar.png' : '/lib/stisla/img/avatar/avatar-1.png'),
+                    picture: (chats[i].position == 'left' ? '/botAvatar.png' : '/lib/stisla/img/avatar-1.png'),
                     position: 'chat-' + chats[i].position,
                     type: type,
                     time: chats[i].time
@@ -206,7 +206,7 @@
             <div class="form-group">
                 <label for="From">From</label>   &nbsp;
                 <div id="datepicker_from" class="input-group date" data-date-format="dd-mm-yyyy" data-date-end-date="0d">
-                    <input class="form-control" type="text" id="from_date_input" />
+                    <input class="form-control" type="text" id="from_date_input" autocomplete="off" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
@@ -215,7 +215,7 @@
             <div class="form-group">
                 <label for="To">To</label>   &nbsp;
                 <div id="datepicker_to" class="input-group date" data-date-format="dd-mm-yyyy" data-date-end-date="0d">
-                    <input class="form-control" type="text" id="to_date_input" />
+                    <input class="form-control" type="text" id="to_date_input" autocomplete="off" />
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
