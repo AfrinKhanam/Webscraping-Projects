@@ -110,38 +110,20 @@ namespace IndianBank_ChatBOT
             services.AddAuthentication("CookieAuthentication")
                .AddCookie("CookieAuthentication", config =>
                {
+                   config.LoginPath = "/User/Login";
+
                    config.Cookie.Name = "xat"; //Security by obscurity :)
                    config.Cookie.HttpOnly = true;
                    config.Cookie.SameSite = SameSiteMode.Strict;
-
-                   if (!isProduction)
-                   {
-                       config.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                   }
-                   else
-                   {
-                       config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                   }
-
-                   config.LoginPath = "/User/Login";
                });
 
             services.Configure<AntiforgeryOptions>(config =>
             {
+                config.HeaderName = "xsrft";
+
                 config.Cookie.Name = "xsrft";
                 config.Cookie.HttpOnly = true;
                 config.Cookie.SameSite = SameSiteMode.Strict;
-
-                if (!isProduction)
-                {
-                    config.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                }
-                else
-                {
-                    config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                }
-
-                config.HeaderName = "xsrft";
             });
 
             if (_isProduction)
