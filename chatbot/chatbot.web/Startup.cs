@@ -110,7 +110,7 @@ namespace IndianBank_ChatBOT
             services.AddAuthentication("CookieAuthentication")
                .AddCookie("CookieAuthentication", config =>
                {
-                   config.Cookie.Name = "xth"; //Security by obscurity :)
+                   config.Cookie.Name = "xat"; //Security by obscurity :)
                    config.Cookie.HttpOnly = true;
                    config.Cookie.SameSite = SameSiteMode.Strict;
 
@@ -128,7 +128,7 @@ namespace IndianBank_ChatBOT
 
             services.Configure<AntiforgeryOptions>(config =>
             {
-                config.Cookie.Name = "X-XSRF-TOKEN";
+                config.Cookie.Name = "xsrft";
                 config.Cookie.HttpOnly = true;
                 config.Cookie.SameSite = SameSiteMode.Strict;
 
@@ -141,7 +141,7 @@ namespace IndianBank_ChatBOT
                     config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 }
 
-                config.HeaderName = "X-XSRF-TOKEN";
+                config.HeaderName = "xsrft";
             });
 
             if (_isProduction)
