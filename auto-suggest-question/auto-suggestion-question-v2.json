@@ -128,7 +128,7 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "Please provide some details regarding the   loan",
+        "Questions": "Please provide some details regarding the kisan loan",
         "primary_context_and_keyword": " "
     },
     {
@@ -264,15 +264,15 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "Please provide some details regarding Loan/OD against Deposits",
+        "Questions": "what is the Amount of Loan of Loan/OD against Deposits",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Please provide some Information about Loan/OD against Deposits",
+        "Questions": "what is the Margin of Loan/OD against Deposits",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the eligibility criteria for Loan/OD against Deposits?",
+        "Questions": "what is the eligibility of Loan/OD against Deposits",
         "primary_context_and_keyword": " "
     },
     {
@@ -304,7 +304,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What all document is required to apply for Loan/OD against Deposits",
+        "Questions": "what is the Repayment period for Loan/OD against Deposits",
         "primary_context_and_keyword": " "
     },
     {
@@ -316,7 +316,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Please provide some information about IB clean loan(for salaried class)",
+        "Questions": "what is the minimum age entry for IB clean loan(for salaried class)",
         "primary_context_and_keyword": " "
     },
     {
@@ -500,7 +500,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the vehicle loan interest rate",
+        "Questions": "What is the ib vehicle loan interest rate",
         "primary_context_and_keyword": " "
     },
     {
@@ -555,22 +555,7 @@
         "Questions": "What is the maximum amount permissible under IB Home advantage?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "I need some information about IB Home enrich",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What is the eligibility to apply for an IB Home enrich",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What is the purpose of an IB Home enrich",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What is the maximum amount permissible under IB Home enrich",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What is the margin on IB home loan?",
         "primary_context_and_keyword": " "
@@ -980,25 +965,18 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "What can you tell me about the IB contractors loan?",
+        "Questions": "what is IB contractors loan?",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "where can i find IB contractors loan",
+        "Questions": "what is the Repayment terms of IB contractors loan?",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "who are the Target Groups of IB contractors",
+        "Questions": "what is the charges of IB contractors loan?",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the target group for the IB contractors Loan?",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the purpose of the IB contractors loan?",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the loan amount of IB contractors Loan",
         "primary_context_and_keyword": ""
@@ -1011,12 +989,9 @@
         "Questions": "What is Repayment terms for  IB contractors Loan?",
         "primary_context_and_keyword": ""
     },
+   
     {
-        "Questions": "What is the maximum period of repayment for the IB contractors Loan?",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Processing & other charges of IB contractors Loan",
+        "Questions": "What are the other charges of IB contractors Loan",
         "primary_context_and_keyword": ""
     },
     {
@@ -1040,7 +1015,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the type of facilities provided under ib tradewell loan?",
+        "Questions": "what is the Nature Of Facility provided by ib tradewell loan",
         "primary_context_and_keyword": " "
     },
     {
@@ -1084,10 +1059,6 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the purpose of the Ind SME secure loan?",
-        "primary_context_and_keyword": " "
-    },
-    {
         "Questions": "What are the facilities provided under the Ind SME secure loan?",
         "primary_context_and_keyword": " "
     },
@@ -1095,10 +1066,7 @@
         "Questions": "What is the maximum  amount permissible under thee Ind SME secure loan?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What is margin on the Ind SME secure loan?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What is the maximum period of repayment for the Ind SME secure loan?",
         "primary_context_and_keyword": " "
@@ -1180,11 +1148,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the interest rate for the IND SME E Vaahan loan?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "Where can one find the application for the IND SME E Vaahan loan?",
+        "Questions": "What is the security on IND SME E Vaahan loan?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1207,16 +1171,14 @@
         "Questions": "What is the purpose of the  IB Micro Loan?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What are the facilities provided under the  IB Micro Loan?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What is the maximum amount permissible under the  IB Micro Loan?",
         "primary_context_and_keyword": " "
     },
+ 
     {
-        "Questions": "What is margin on the  IB Micro Loan?",
+        "Questions": "What is repayment terms of IB Micro Loan?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1260,17 +1222,14 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the facilities provided under the Ind SME Mortgage loan?",
+        "Questions": "what is the type of facility provided by Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
     },
     {
         "Questions": "What is the maximum amount permissible under the Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What is margin on the Ind SME Mortgage loan?",
-        "primary_context_and_keyword": " "
-    },
+   
     {
         "Questions": "What is the maximum period of repayment for the Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
@@ -1279,16 +1238,13 @@
         "Questions": "What is the security deposit required for the Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What are service charges for the Ind SME Mortgage loan?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What is the interest rate for the Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Where can one find the application for the Ind SME Mortgage loan?",
+        "Questions": "what is the Repayment terms of Ind SME Mortgage loan?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1356,11 +1312,11 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is Savings Bank A/C?",
+        "Questions": "What is Savings Bank Account?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me the details regarding Savings Bank A/C for deposits",
+        "Questions": "Show me the details regarding Savings Bank Account for deposits",
         "primary_context_and_keyword": " "
     },
     {
@@ -1372,11 +1328,11 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want Savings Bank A/C",
+        "Questions": "I want Savings Bank Account",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I wish to open an indian bank Savings Bank A/C.",
+        "Questions": "I wish to open an indian bank Savings Bank Account.",
         "primary_context_and_keyword": " "
     },
     {
@@ -1424,7 +1380,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Can iI get details of IB Corp Sb -payroll Package scheme for salaried class ?",
+        "Questions": "Can i get details of IB Corp Sb -payroll Package scheme for salaried class ?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1445,7 +1401,7 @@
     },
     {
         "Questions": "What is the periodicity on the provision of interest of IB Corp Sb -payroll Package scheme for salaried class ?",
-        "primary_context_and_keyword": "Corporate saving bank, corp     sb, sb for salaried class"
+        "primary_context_and_keyword": ""
     },
     {
         "Questions": "What is the Min Amt one has to maintain in IB Corp Sb -payroll Package scheme for salaried class ?",
@@ -1524,11 +1480,11 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the Important Terms And Conditions of a savings bank A/C.",
+        "Questions": "What are the Important Terms And Conditions of a savings bank account",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Please provide the  Important Terms And Conditions of a savings bank A/C.",
+        "Questions": "Please provide the  Important Terms And Conditions of a savings bank Account.",
         "primary_context_and_keyword": " "
     },
     {
@@ -1540,7 +1496,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Terms and conditions of saving bank A/C",
+        "Questions": "Terms and conditions of saving bank Account",
         "primary_context_and_keyword": " "
     },
     {
@@ -1608,27 +1564,27 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is an IB I \ufffd Freedom Current Account?",
+        "Questions": "What is an IB  Freedom Current Account?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Please provide some details regarding  IB I \ufffd Freedom Current Accounts?",
+        "Questions": "Please provide some details regarding  IB I  Freedom Current Accounts?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me some information IB I \ufffd Freedom Current Account",
+        "Questions": "Show me some information IB I  Freedom Current Account",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Information about IB I \ufffd Freedom Current Account?",
+        "Questions": "Information about IB I  Freedom Current Account?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me plans of IB I \ufffd Freedom Current Account",
+        "Questions": "Show me plans of IB I  Freedom Current Account",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want IB I \ufffd Freedom Current Account details.",
+        "Questions": "I want IB I  Freedom Current Account details.",
         "primary_context_and_keyword": " "
     },
     {
@@ -1691,28 +1647,25 @@
         "Questions": "What are value added services in premium current accounts?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "Show me facilities of a Premium Current Account",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What are Capital Gains?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "how can I apply for Capital Gains?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What are the facilities provided under Capital Gains?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What is the interest rate on Capital Gains?",
+        "Questions": "what is the Interest Application of capital gains",
         "primary_context_and_keyword": " "
     },
     {
         "Questions": "What are the salient features of Capital Gains?",
+        "primary_context_and_keyword": " "
+    },
+    {
+        "Questions": "What is the minimum amount required for Capital Gains?",
+        "primary_context_and_keyword": " "
+    },
+    {
+        "Questions": "What is the minimum period of Capital Gains?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1736,7 +1689,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me the details regarding Terms and Conditions of Term Deposit account",
+        "Questions": "Show to open a TERM DEPOSIT ACCOUNT",
         "primary_context_and_keyword": " "
     },
     {
@@ -1756,15 +1709,15 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the facilities provided under Recurring Deposit?",
+        "Questions": "What are the Other Requirements Details provided under Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the interest rate of Recurring Deposit?",
+        "Questions": "What is the Min Period of Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "How can I find salient features of Recurring Deposits?",
+        "Questions": "what are the salient features of Recurring Deposits?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1772,7 +1725,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want to know the minimum deposit amount for Recurring Deposit",
+        "Questions": "what is the Interest Application of Recurring Deposit",
         "primary_context_and_keyword": " "
     },
     {
@@ -1796,7 +1749,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "How is the  interest rate paid under the IB tax saver scheme ?",
+        "Questions": "what is the interest Application of IB tax saver scheme ?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1812,13 +1765,10 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me min the period for the IB tax saver Scheme",
+        "Questions": "what is the minimum period of the IB tax saver Scheme",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What are other requirement/details for the Ib tax saver scheme?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What is Fixed Deposit?",
         "primary_context_and_keyword": " "
@@ -1840,39 +1790,33 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What is the min amt of deposit required under the Fixed Deposit scheme?",
+        "Questions": "What is the min amt deposit of a Fixed Deposit scheme?",
+        "primary_context_and_keyword": " "
+    },
+    
+    {
+        "Questions": "What is the maximum amount deposit of a Fixed Deposit scheme?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want to know the minimum deposit amount for a Fixed Deposit",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "Show me the min period of deposit for the Fixed Deposit scheme",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What is the maximum amount limit for a fixed deposit?",
+        "Questions": "What is the minimum period a fixed deposit?",
         "primary_context_and_keyword": " "
     },
     {
         "Questions": "What is Variable Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "How can I apply for a Variable Recurring Deposit?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What are the facilities provided under a Variable Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "How is the  interest paid in Variable Recurring Deposit?",
+        "Questions": "what is the  interest application in Variable Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the features of Variable Recurring Deposit?",
+        "Questions": "What are the salient features of Variable Recurring Deposit?",
         "primary_context_and_keyword": " "
     },
     {
@@ -1900,17 +1844,14 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "What are the facilities provided under Resident Foreign Currency Accounts for Returning Indians?",
+        "Questions": "What are the salient features of Resident Foreign Currency Accounts for Returning Indians?",
         "primary_context_and_keyword": " "
     },
     {
         "Questions": "What is the Eligibility criteria for Resident Foreign Currency Accounts pertaining to Returning Indians?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What are the salient features of Resident Foreign Currency Account for Returning Indians",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "Show me RFC deposit options for  Resident Foreign Currency Account pertaining to Returning Indians.",
         "primary_context_and_keyword": " "
@@ -1940,7 +1881,11 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want to know the minimum and maximum Period of deposits for NRE FD/RIP/RD Accounts",
+        "Questions": "what is the minimum Period of deposits for NRE FD/RIP/RD Accounts",
+        "primary_context_and_keyword": " "
+    },
+    {
+        "Questions": "what is the maximum Period of deposits for NRE FD/RIP/RD Accounts",
         "primary_context_and_keyword": " "
     },
     {
@@ -1968,7 +1913,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want to know Tax Benefit of NRE SB Accounts.",
+        "Questions": "what is the Tax Benefit of NRE SB Accounts.",
         "primary_context_and_keyword": " "
     },
     {
@@ -1980,7 +1925,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "Show me the details regarding Non-Resident Ordinary Accounts.",
+        "Questions": "what type of account can be opened by Non-Resident Ordinary Accounts.",
         "primary_context_and_keyword": " "
     },
     {
@@ -2028,17 +1973,14 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want the Key Features of IB POS",
+        "Questions": "what are the easy ways to avail pos",
         "primary_context_and_keyword": " "
     },
     {
         "Questions": "who are the Target Customers of Point of sale.",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What is the easiest way to available POS?",
-        "primary_context_and_keyword": " "
-    },
+   
     {
         "Questions": "What are the Benefits to Merchants?",
         "primary_context_and_keyword": " "
@@ -2056,7 +1998,7 @@
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "ib app",
+        "Questions": "where can i find ib app",
         "primary_context_and_keyword": " "
     },
     {
@@ -2103,22 +2045,12 @@
         "Questions": "What are the services offered under IndPay?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What are the Financial Services offered in IndPay?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What are the non-Financial Services of IndPay ?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What are the  value added services of IndPay",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "How many languages available in IndPay?",
-        "primary_context_and_keyword": " "
-    },
+   
     {
         "Questions": "What is IB Collect Plus?",
         "primary_context_and_keyword": " "
@@ -2143,12 +2075,9 @@
         "Questions": "What are the target segments of IB collect plus?",
         "primary_context_and_keyword": " "
     },
+    
     {
-        "Questions": "What are the benefits provided by IB collect plus?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What benefits  can I get as a remitter or end user with IB collect plus?",
+        "Questions": "what are the Benefits offered to Remitters/End Users by IB collect plus?",
         "primary_context_and_keyword": " "
     },
     {
@@ -2203,42 +2132,20 @@
         "Questions": "What is Internet Banking",
         "primary_context_and_keyword": " "
     },
+   
     {
-        "Questions": "how can I activate Internet Banking in indian bank?",
+        "Questions": "what is the eligibility for net banking",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "how can I apply for  Internet Banking?",
+        "Questions": "what are the salient features of net banking",
         "primary_context_and_keyword": " "
     },
     {
-        "Questions": "I want Internet Banking",
+        "Questions": "what are the Requirements/Details of net banking",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "Take me to the Internet Banking page",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What are the features of Internet Banking",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "How can i find features of Internet Banking ?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What are the find financial and non-financial Services offered under Internet Banking?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "What are the value added services offered under Internet Banking?",
-        "primary_context_and_keyword": " "
-    },
-    {
-        "Questions": "Where will i find a user guide for internet banking registration?",
-        "primary_context_and_keyword": " "
-    },
+
     {
         "Questions": "Show me the different type of Debit Cards",
         "primary_context_and_keyword": " "
@@ -2255,10 +2162,7 @@
         "Questions": "Show me all different card options for debit cards?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "How many types of debit cards can customers use?",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What are the mastercard debit card options offered by Indian Bank?",
         "primary_context_and_keyword": " "
@@ -2319,10 +2223,7 @@
         "Questions": "What are the benefits to the investor of Applications supported by Blocked Amount(ASBA)?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "Is there any list of FAQ for Applications supported by Blocked Amount(ASBA)",
-        "primary_context_and_keyword": " "
-    },
+   
     {
         "Questions": "What is the Central scheme to provide Interest subsidy(CSIS)?",
         "primary_context_and_keyword": " "
@@ -2331,10 +2232,7 @@
         "Questions": "Please provide some details about Central scheme to provide Interest subsidy(CSIS)?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "I want some information on CSIS",
-        "primary_context_and_keyword": " "
-    },
+    
     {
         "Questions": "What are the salient features of central scheme to provide interest subsidy?",
         "primary_context_and_keyword": " "
@@ -2363,11 +2261,7 @@
         "Questions": "How I can download pension slips?",
         "primary_context_and_keyword": " "
     },
-    {
-        "Questions": "What comes under agriculture godowns or cold storage loans?",
-        "primary_context_and_keyword": " ",
-        "filename": "AgriculturalGodowns.PNG"
-    },
+    
     {
         "Questions": "What is the purpose of a cold storage loan?",
         "primary_context_and_keyword": " ",
@@ -2539,22 +2433,18 @@
         "filename": "CurrentTermsAndConditions.PNG"
     },
     {
-        "Questions": "Please provide some details regarding customer complaints ",
+        "Questions": "Please provide some details regarding online customer complaints ",
+        "primary_context_and_keyword": "",
+        "filename": "customer_complaints.PNG"
+    },
+    
+    {
+        "Questions": "I need some information regarding online customer complaints",
         "primary_context_and_keyword": "",
         "filename": "customer_complaints.PNG"
     },
     {
-        "Questions": "What is the purpose of customer complaints?",
-        "primary_context_and_keyword": "",
-        "filename": "customer_complaints.PNG"
-    },
-    {
-        "Questions": "I need some information regarding customer complaints",
-        "primary_context_and_keyword": "",
-        "filename": "customer_complaints.PNG"
-    },
-    {
-        "Questions": "Please provide some details regarding Deposit Rates",
+        "Questions": "what is Deposit Rates",
         "primary_context_and_keyword": "",
         "filename": "depositRates.jpg"
     },
@@ -2569,7 +2459,7 @@
         "filename": "depositRates.jpg"
     },
     {
-        "Questions": "Please provide some details regarding Deposit Scheme for Senior Citizens",
+        "Questions": "what is the deposit scheme for senior citizens ",
         "primary_context_and_keyword": "",
         "filename": "DepositSchemeForSeniorCitizens.PNG"
     },
@@ -2578,11 +2468,7 @@
         "primary_context_and_keyword": "",
         "filename": "DepositSchemeForSeniorCitizens.PNG"
     },
-    {
-        "Questions": "I need some information regarding Deposit Scheme for Senior Citizens",
-        "primary_context_and_keyword": "",
-        "filename": "DepositSchemeForSeniorCitizens.PNG"
-    },
+    
     {
         "Questions": "Please provide some details regarding education loan interest subsidies ",
         "primary_context_and_keyword": "",
@@ -2599,17 +2485,17 @@
         "filename": "education_loan_interest_subsidies.PNG"
     },
     {
-        "Questions": "Please provide some details regarding epayment direct taxes",
+        "Questions": "Please provide some details regarding e payment direct taxes",
         "primary_context_and_keyword": "",
         "filename": "epayment_direct_taxes.PNG"
     },
     {
-        "Questions": "What can you tell me about epayment direct taxes?",
+        "Questions": "What can you tell me about e payment direct taxes?",
         "primary_context_and_keyword": "",
         "filename": "epayment_direct_taxes.PNG"
     },
     {
-        "Questions": "I need some information regarding  epayment direct taxes",
+        "Questions": "I need some information regarding  e payment direct taxes",
         "primary_context_and_keyword": "",
         "filename": "epayment_direct_taxes.PNG"
     },
@@ -2619,12 +2505,12 @@
         "filename": "epayment_indirect_taxes.PNG"
     },
     {
-        "Questions": "What can you tell me about epayment indirect taxes?",
+        "Questions": "What can you tell me about e payment indirect taxes?",
         "primary_context_and_keyword": "",
         "filename": "epayment_indirect_taxes.PNG"
     },
     {
-        "Questions": "I need some information regarding  epayment indirect taxes",
+        "Questions": "I need some information regarding  e payment indirect taxes",
         "primary_context_and_keyword": "",
         "filename": "epayment_indirect_taxes.PNG"
     },
@@ -2634,25 +2520,11 @@
         "filename": "FacilityDeposit.PNG"
     },
     {
-        "Questions": "I need some information regarding  epayment indirect taxes",
+        "Questions": "I need some information regarding  e payment indirect taxes",
         "primary_context_and_keyword": "",
         "filename": "FacilityDeposit.PNG"
     },
-    {
-        "Questions": "Please provide some details regarding Financial Inclusion Plan",
-        "primary_context_and_keyword": "",
-        "filename": "FinancialInclusionPlan.jpg"
-    },
-    {
-        "Questions": "What can you tell me about Financial Inclusion Plan?",
-        "primary_context_and_keyword": "",
-        "filename": "FinancialInclusionPlan.jpg"
-    },
-    {
-        "Questions": "I need some information regarding Financial Inclusion Plan",
-        "primary_context_and_keyword": "",
-        "filename": "FinancialInclusionPlan.jpg"
-    },
+    
     {
         "Questions": "Please provide some details regarding Fixed Deposit",
         "primary_context_and_keyword": "",
@@ -3093,16 +2965,7 @@
         "primary_context_and_keyword": "",
         "filename": "lendingRates.jpg"
     },
-    {
-        "Questions": "What can you tell me about Lending Rates ?",
-        "primary_context_and_keyword": "",
-        "filename": "lendingRates.jpg"
-    },
-    {
-        "Questions": "I need some information regarding Lending Rates",
-        "primary_context_and_keyword": "",
-        "filename": "lendingRates.jpg"
-    },
+    
     {
         "Questions": "Please provide some details regarding Loan OD Against Deposits",
         "primary_context_and_keyword": "",
@@ -3124,12 +2987,12 @@
         "filename": "Loan_OD_AgainstNSC.PNG"
     },
     {
-        "Questions": "What can you tell me about Loan OD Against NSC ?",
+        "Questions": "What can you tell me about Loan / OD Against NSC / KVP / Relief Bonds Of RBI / LIC Policies ?",
         "primary_context_and_keyword": "",
         "filename": "Loan_OD_AgainstNSC.PNG"
     },
     {
-        "Questions": "I need some information regarding Loan OD Against NSC",
+        "Questions": "I need some information regarding Loan / OD Against NSC / KVP / Relief Bonds Of RBI / LIC Policies",
         "primary_context_and_keyword": "",
         "filename": "Loan_OD_AgainstNSC.PNG"
     },
@@ -3163,11 +3026,7 @@
         "primary_context_and_keyword": "",
         "filename": "multicity_cheque_facility.PNG"
     },
-    {
-        "Questions": "Please provide some details regarding My Design Card",
-        "primary_context_and_keyword": "",
-        "filename": "MyDesignCard.PNG"
-    },
+   
     {
         "Questions": "Please provide some details regarding NEFT",
         "primary_context_and_keyword": "",
@@ -3319,6 +3178,11 @@
         "filename": "rtgs.PNG"
     },
     {
+        "Questions": "Please provide some details regarding Ind Jet Remit (RTGS)",
+        "primary_context_and_keyword": "",
+        "filename": "rtgs.PNG"
+    },
+    {
         "Questions": "What can you tell me about  RTGSs?",
         "primary_context_and_keyword": "",
         "filename": "rtgs.PNG"
@@ -3388,21 +3252,7 @@
         "primary_context_and_keyword": "",
         "filename": "SbPlatinum.PNG"
     },
-    {
-        "Questions": "Please provide some details regarding service charges",
-        "primary_context_and_keyword": "",
-        "filename": "serviceCharges.jpg"
-    },
-    {
-        "Questions": "What can you tell me about service charges?",
-        "primary_context_and_keyword": "",
-        "filename": "serviceCharges.jpg"
-    },
-    {
-        "Questions": "I need some information regarding service charges",
-        "primary_context_and_keyword": "",
-        "filename": "serviceCharges.jpg"
-    },
+    
     {
         "Questions": "Please provide some details regarding the SHG Bank Linkage Programme",
         "primary_context_and_keyword": "",
@@ -3488,11 +3338,7 @@
         "primary_context_and_keyword": "",
         "filename": "VikasSavingsKhata.PNG"
     },
-    {
-        "Questions": "I need some information regarding Vikas Savings Khata",
-        "primary_context_and_keyword": "",
-        "filename": "VikasSavingsKhata.PNG"
-    },
+    
     {
         "Questions": "Please provide some details regarding xpress money",
         "primary_context_and_keyword": "",
@@ -3508,21 +3354,13 @@
         "primary_context_and_keyword": "",
         "filename": "xpress_money.PNG"
     },
-    {
-        "Questions": "Please provide some details regarding Zonal Offices",
-        "primary_context_and_keyword": "",
-        "filename": "zonal_offices.PNG"
-    },
+    
     {
         "Questions": "Where are the Zonal Offices?",
         "primary_context_and_keyword": "",
         "filename": "zonal_offices.PNG"
     },
-    {
-        "Questions": "I need some information regarding Zonal Offices ",
-        "primary_context_and_keyword": "",
-        "filename": "zonal_offices.PNG"
-    },
+    
     {
         "Questions": "What is the Eligibility of Joint Liability Group ?",
         "primary_context_and_keyword": "",
@@ -3679,25 +3517,16 @@
         "filename": ""
     },
     {
-        "Questions": "Where can i get details of InvestorService?",
+        "Questions": "Where can i get details of Investor Service?",
         "primary_context_and_keyword": "",
         "filename": ""
     },
     {
-        "Questions": "Can i get Address of Investor?",
+        "Questions": "Can i get Address of Investor Service?",
         "primary_context_and_keyword": "",
         "filename": ""
     },
-    {
-        "Questions": "I want to know Financial Results of InvestorService?",
-        "primary_context_and_keyword": "",
-        "filename": ""
-    },
-    {
-        "Questions": "Where can i get Policy on Related Party Transactions of InvestorService??",
-        "primary_context_and_keyword": "",
-        "filename": ""
-    },
+    
     {
         "Questions": "who all are Eligible for IND COVID EMERGENCY POULTRY LOAN?",
         "primary_context_and_keyword": "",
@@ -3773,18 +3602,14 @@
         "primary_context_and_keyword": "",
         "filename": ""
     },
+    
     {
-        "Questions": "show me the MD & CEO message on amalgamation?",
+        "Questions": "Where can i get IB STANDBY WC FACILITY?",
         "primary_context_and_keyword": "",
         "filename": ""
     },
     {
-        "Questions": "Where can i get IB STANDBY WC FACILITY FOR MSMEs?",
-        "primary_context_and_keyword": "",
-        "filename": ""
-    },
-    {
-        "Questions": "What is the purpose of  IB STANDBY WC FACILITY FOR MSMEs?",
+        "Questions": "What is the purpose of  IB STANDBY WC FACILITY?",
         "primary_context_and_keyword": "",
         "filename": ""
     },
@@ -3811,87 +3636,87 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Godown",
+        "Questions": "what is the Purpose of Godown loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Godown",
+        "Questions": "what is the Eligibility of Godown loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Godown",
+        "Questions": "what are the Types Of Facility Available of Godown loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Storage",
+        "Questions": "what is the Purpose of Storage loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Storage",
+        "Questions": "what is the Eligibility of Storage loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Storage",
+        "Questions": "what are the Types Of Facility Available of Storage loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Preservation ",
+        "Questions": "what is the Purpose of Preservation loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Preservation ",
+        "Questions": "what is the Eligibility of Preservation loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Preservation ",
+        "Questions": "what are the Types Of Facility Available of Preservation loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Ice store room ",
+        "Questions": "what is the Purpose of Ice store room loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Ice store room ",
+        "Questions": "what is the Eligibility of Ice store room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Ice store room ",
+        "Questions": "what are the Types Of Facility Available of Ice store room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of ice storage ",
+        "Questions": "what is the Purpose of ice storage loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of ice storage ",
+        "Questions": "what is the Eligibility of ice storage loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of ice storage ",
+        "Questions": "what are the Types Of Facility Available of ice storage loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Goods room ",
+        "Questions": "what is the Purpose of Goods room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Goods room ",
+        "Questions": "what is the Eligibility of Goods room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Goods room ",
+        "Questions": "what are the Types Of Facility Available of Goods room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Storing Room ",
+        "Questions": "what is the Purpose of Storing Room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Storing Room ",
+        "Questions": "what is the Eligibility of Storing Room loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Types Of Facility Available of Storing Room ",
+        "Questions": "what are the Types Of Facility Available of Storing Room loan",
         "primary_context_and_keyword": ""
     },
     {
@@ -3906,28 +3731,17 @@
         "Questions": "what are the Security details of Tractor Loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Purpose of machine  ",
+        "Questions": "what is the Purpose of Farm machine loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of machine  ",
+        "Questions": "what is the Eligibility of Farm machine loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Security details of machine  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Farm machine ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Farm machine ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Security details of Farm machine ",
+        "Questions": "what are the Security details of Farm machine loan ",
         "primary_context_and_keyword": ""
     },
     {
@@ -3942,28 +3756,17 @@
         "Questions": "what are the Security details of Farmer Loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Purpose of Farmer ",
+        "Questions": "what is the Purpose of Tiller loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Farmer ",
+        "Questions": "what is the Eligibility of Tiller loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Security details of Farmer ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Tiller ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Tiller ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Security details of Tiller ",
+        "Questions": "what are the Security details of Tiller loan ",
         "primary_context_and_keyword": ""
     },
     {
@@ -3991,29 +3794,18 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of SHG Finance ",
+        "Questions": "what is the Purpose of SHG Bank Linkage Programme – Direct Linkage To SHGs ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of SHG Finance ",
+        "Questions": "what is the Eligibility of SHG Bank Linkage Programme – Direct Linkage To SHGs ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Security details of SHG Finance ",
+        "Questions": "what are the Security details of SHG Bank Linkage Programme – Direct Linkage To SHGs ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Purpose of Self Help Group Finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Self Help Group Finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Security details of Self Help Group Finance ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the Purpose of SHG Money ",
         "primary_context_and_keyword": ""
@@ -4039,15 +3831,15 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Landless labourer ",
+        "Questions": "what is the Purpose of Landless labourer loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Landless labourer ",
+        "Questions": "what is the Eligibility of Landless labourer loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Security details of Landless labourer ",
+        "Questions": "what are the Security details of Landless labourer loan",
         "primary_context_and_keyword": ""
     },
     {
@@ -4086,42 +3878,7 @@
         "Questions": "what are the Security details of KCC ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Purpose of PM Kisan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of PM Kisan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Security details of PM Kisan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Kisan Finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Kisan Finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Security details of Kisan Finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Jewellery mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Jewellery mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Features of Jewellery mortgage ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the Purpose of Jewel Loan ",
         "primary_context_and_keyword": ""
@@ -4182,18 +3939,7 @@
         "Questions": "what is the Features of Jewel money ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Purpose of Housing cum vehicle loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Benefits of Housing cum vehicle loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Housing cum vehicle loan ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the Purpose of House loan ",
         "primary_context_and_keyword": ""
@@ -4207,101 +3953,19 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose of Construction ",
+        "Questions": "what is the Purpose of Construction loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the Benefits of Construction ",
+        "Questions": "what are the Benefits of Construction loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Security details of Construction ",
+        "Questions": "what is the Security details of Construction loan",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Purpose of New home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the Benefits of New home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of New home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Deposit Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Deposit Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Deposit Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Deposit advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Deposit advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Deposit advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Loan on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Loan on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Loan on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Overdraft on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Overdraft on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Overdraft on Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Overdraft on cumulative Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Overdraft on cumulative Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Overdraft on cumulative Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Pledge of Deposit Receipt ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Salient Features of Pledge of Deposit Receipt ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Pledge of Deposit Receipt ",
-        "primary_context_and_keyword": ""
-    },
+    
+   
     {
         "Questions": "what is the Eligibility of Salary Loan ",
         "primary_context_and_keyword": ""
@@ -4435,30 +4099,6 @@
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of House Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of House Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of House Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Property Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Property Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Property Mortgage ",
-        "primary_context_and_keyword": ""
-    },
-    {
         "Questions": "what is the Eligibility of Flat Mortgage ",
         "primary_context_and_keyword": ""
     },
@@ -4518,18 +4158,7 @@
         "Questions": "what is the Interest Rates details of Vehicle Loan ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Eligibility of Car Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Car Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Car Loan ",
-        "primary_context_and_keyword": ""
-    },
+     
     {
         "Questions": "what is the Eligibility of Two wheeler loan ",
         "primary_context_and_keyword": ""
@@ -4538,10 +4167,7 @@
         "Questions": "what is the Purpose  of Two wheeler loan ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Interest Rates details of Two wheeler loan ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the Eligibility of Personal vehicle ",
         "primary_context_and_keyword": ""
@@ -4550,1042 +4176,147 @@
         "Questions": "what is the Purpose  of Personal vehicle ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Interest Rates details of Personal vehicle ",
+        "Questions": "what is the Eligibility of Personal car loan",
         "primary_context_and_keyword": ""
     },
+    
+    
     {
-        "Questions": "what is the Eligibility of Personal car ",
+        "Questions": "what is the Eligibility of Personal two wheeler loan",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Purpose  of Personal car ",
+        "Questions": "what is the Purpose  of Personal two wheeler loan",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Interest Rates details of Personal car ",
+        "Questions": "what is the Eligibility for Scooter / scooty/bike loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Personal two wheeler ",
+        "Questions": "what is the Purpose  for Scooter / scooty/bike loan",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Purpose  of Personal two wheeler ",
+        "Questions": "where can i find four wheeler loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Interest Rates details of Personal two wheeler ",
+        "Questions": "what is the Eligibility to apply for four wheeler loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Eligibility of Scooter / scooty/bike ",
+        "Questions": "where can i find Motorbike loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Purpose  of Scooter / scooty/bike ",
+        "Questions": "what is the loan for Repairs and renovations ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Interest Rates details of Scooter / scooty/bike ",
+        "Questions": "where can in find land purchase loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Four wheeler loan ",
+        "Questions": "land purchase loan ",
         "primary_context_and_keyword": ""
     },
+    
+    
     {
-        "Questions": "what is the Purpose  of Four wheeler loan ",
+        "Questions": "where can i find loan for property",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Interest Rates details of Four wheeler loan ",
+        "Questions": "how can i avail loan to purchase Flat ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Eligibility of Auto loan ",
+        "Questions": "how can i avail loan to purchase house ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Purpose  of Auto loan ",
+        "Questions": "how can i avail loan for construction of buildings ",
         "primary_context_and_keyword": ""
     },
+
     {
-        "Questions": "what is the Interest Rates details of Auto loan ",
+        "Questions": "marriage loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what is the Eligibility of Motorbike loan ",
+        "Questions": "how can i avail marriage loan ",
         "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Motorbike loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Motorbike loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Medical expenses ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Medical expenses ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Medical expenses ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Repairs and renovations ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Repairs and renovations ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Repairs and renovations ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Festival ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Festival ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Festival ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Function ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Function ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates details of Function ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of land purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of land purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of land purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of loan for land ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of loan for land ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of loan for land ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of loan for property ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of loan for property ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of loan for property ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Loan to purchase Flat ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Loan to purchase Flat ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Loan to purchase Flat ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Loan to purchase house ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of Loan to purchase house ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Loan to purchase house ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of construction ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose  of construction ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of construction ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of loan to purchase house site ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of extend ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of extend ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of extend ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of extension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of extension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of extension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of repair ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of repair ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of repair ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of renovate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of renovate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of renovate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of modify ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of modify ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of modify ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of take over ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of take over ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of take over ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Loan on pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Loan on pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Loan on pension ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of medical ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of medical ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of medical ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of loan on PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of loan on PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of loan on PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of marriage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of marriage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of marriage ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of family ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of family ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of family ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of pledge of PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of pledge of PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of pledge of PPO ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of aged ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of aged ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of aged ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of improve ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of interior ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of interior ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of interior ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of wall paper ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of wall paper ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of wall paper ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of furnishing ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of furnishing ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of furnishing ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of well ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of well ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of well ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of purchase of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of purchase of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of purchase of furniture ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of borewell ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of borewell ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of borewell ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of better home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of better home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of better home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of renovation ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of renovation ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of renovation ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of Loan on NSC ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Loan on NSC ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Loan on NSC ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of NSC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of NSC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of NSC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of KVP Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of KVP Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of KVP Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of KVP Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of KVP Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of KVP Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of RBI Bonds advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of RBI Bonds advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of RBI Bonds advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of RBI Bonds    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of RBI Bonds    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of RBI Bonds    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of LIC Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of LIC Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of LIC Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Processing fee of LIC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of LIC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of LIC Advance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Education ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of Education ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Education ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of Study ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of Study ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Study ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Eligibility of education loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of education loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of education loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of trade loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of trade loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of trade loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of SME ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of SME ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of SME ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Small and Medium enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of Small and Medium enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Small and Medium enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Interest Rates of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of contract ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of contract ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of contract ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Micro Small & Medium Enterprises ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of machinery ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of machinery ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of machinery ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of SOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of SOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of SOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Secured OD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Secured OD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Secured OD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Open Cash Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Open Cash Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Open Cash Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Bill Purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Bill Purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Bill Purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of bank Guarantee ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of bank Guarantee ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of bank Guarantee ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Letter of Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Letter of Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Letter of Credit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of commercial ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of commercial ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of commercial ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of business loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of business loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of business loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of premises loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of premises loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of premises loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of business ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of business ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of business ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Doctor Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Doctor Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Doctor Loan ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Advance to Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Advance to Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Advance to Doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Doctor finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Doctor finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Doctor finance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of Finance to doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of Finance to doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of Finance to doctor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of medical ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of medical ",
-        "primary_context_and_keyword": ""
-    },
+    },    
+
     {
-        "Questions": "what is the Security details of medical ",
+        "Questions": "furniture loan ",
         "primary_context_and_keyword": ""
     },
+   
     {
-        "Questions": "what is the Purpose of medical practitioner ",
+        "Questions": "loan for borewell",
         "primary_context_and_keyword": ""
     },
+   
     {
-        "Questions": "what are the types of Facility of medical practitioner ",
+        "Questions": "what is trade loan ",
         "primary_context_and_keyword": ""
     },
+       
+   
+  
     {
-        "Questions": "what is the Security details of medical practitioner ",
+        "Questions": "what is Letter of Credit ",
         "primary_context_and_keyword": ""
     },
+   
+   
     {
-        "Questions": "what is the Purpose of clinic ",
+        "Questions": "business loan ",
         "primary_context_and_keyword": ""
     },
     {
-        "Questions": "what are the types of Facility of clinic ",
+        "Questions": "where can i find business loan ",
         "primary_context_and_keyword": ""
-    },
+    }, 
+   
     {
-        "Questions": "what is the Security details of clinic ",
+        "Questions": "what is the purpose of Doctor loan ",
         "primary_context_and_keyword": ""
     },
+    
+   
     {
-        "Questions": "what is the Purpose of hospital ",
+        "Questions": "what is medical practitioner loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what are the types of Facility of hospital ",
+        "Questions": "clinical loan ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "what is the Security details of hospital ",
+        "Questions": "what is the Purpose of hospital loan",
         "primary_context_and_keyword": ""
     },
+    
     {
         "Questions": "what is the Purpose of nursing home ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what are the types of Facility of nursing home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of nursing home ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of surya ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of surya ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of surya ",
-        "primary_context_and_keyword": ""
-    },
+
     {
         "Questions": "what is the Purpose of Ind surya Shakthi ",
         "primary_context_and_keyword": ""
@@ -5610,42 +4341,12 @@
         "Questions": "what is the Security details of IND-GECLS-COVID-19 ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what is the Purpose of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of solar ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Purpose of electricity ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the types of Facility of electricity ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of electricity ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is the Purpose of solar panel ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "what are the types of Facility of solar panel ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Security details of solar panel ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is POS ",
         "primary_context_and_keyword": ""
@@ -5654,58 +4355,23 @@
         "Questions": "Can i get Key Features of POS ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the POS Benefits to the Merchants ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What is Point of Sale ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Can i get Key Features of Point of Sale ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Point of Sale of Benefits to the Merchants ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is Merchant ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get Key Features of Merchant ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the of Benefits of the Merchants ",
-        "primary_context_and_keyword": ""
-    },
+    
+    
     {
         "Questions": "Details of rupay card ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Key Features of rupay card  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": " Details of store payment",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "Key Features of store payment ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "how to do machine payment ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Key Features of machine payment  ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is POS ",
         "primary_context_and_keyword": ""
@@ -5722,14 +4388,7 @@
         "Questions": "What is Point of Sale  ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Point of Sale of Advantages for cardholder ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get Point of Sale of Merchants location details ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "Details about debit card ",
         "primary_context_and_keyword": ""
@@ -5738,237 +4397,21 @@
         "Questions": "What is the details of debit card of Advantages for cardholder ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Can i get debit card of Merchants location details ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is shop cash ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the shop cash of Advantages for cardholder ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get shop cash of Merchants location details ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "what is store cash ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the store cash of Advantages for cardholder ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get store cash of Merchants location details ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of remitter ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of remitter ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of remitter ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of college ",
-        "primary_context_and_keyword": ""
-    },
-   
-   
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of finance ",
-        "primary_context_and_keyword": ""
-    },
     
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of company ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of university ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of university ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of university ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of universities ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of universities ",
-        "primary_context_and_keyword": ""
-    },
     {
         "Questions": "What is the Benefits to Merchants/Institutions of universities ",
         "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Online fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Online fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Online fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of fee collection ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of fee ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of fee  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of fee  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of fees ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of fees ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of fees ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of online    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of online    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of online    ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of educational institutions ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of college ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of school ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of school ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of school ",
-        "primary_context_and_keyword": ""
-    },
+    }, 
     {
         "Questions": "What is the Key Features of Corporate loan",
         "primary_context_and_keyword": ""
@@ -5985,258 +4428,26 @@
         "Questions": "What is the Benefits to Merchants/Institutions of Corporate ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Key Features of Company ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Company ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Company ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Agency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Agency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Agency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Agents ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Agents ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Agents ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Distributor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Distributor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Distributor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Student ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Student ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Student ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Donor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Donor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Donor ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the Key Features of Subscriber ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Target Segment of Subscriber ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Subscriber ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Borrower ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Borrower ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Borrower ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Key Features of Tax Payer ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Segment of Tax Payer ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Benefits to Merchants/Institutions of Tax Payer ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of ATM ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of ATM available ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of ATM ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of POS ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of POS available ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of POS ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of e-commerce ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of e-commerce available ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of e-commerce ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of online ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants available of online ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of Master Card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of Master Card available ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What are the Variants of  Master Card ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Can i get details of wallet ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of gift ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of Rupay ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of Rupay  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  Rupay ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of PMJDY ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of PMJDY ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  PMJDY ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of MUDRA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of MUDRA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  MUDRA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  purchase ",
-        "primary_context_and_keyword": ""
-    },
+
     {
         "Questions": "Can i get details of plastic card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of plastic card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  plastic card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Can i get details of platinum card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the types of platinum card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  platinum card ",
         "primary_context_and_keyword": ""
     },
     {
         "Questions": "Can i get details of premium card ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the types of premium card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Variants of  premium card ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "Can i get details of travel card ",
         "primary_context_and_keyword": ""
@@ -6245,14 +4456,7 @@
         "Questions": "What are the types of travel card ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the Variants of  travel card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the different varieties of credit card offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What should i do if i lost my credit card ",
         "primary_context_and_keyword": ""
@@ -6261,10 +4465,7 @@
         "Questions": "Is there any pre-approved loan on my credit card? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the different varieties of VISA offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What should i do if i lost my VISA ",
         "primary_context_and_keyword": ""
@@ -6273,46 +4474,8 @@
         "Questions": "Is there any pre-approved loan on my VISA? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the different varieties of cash withdrawal offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What should i do if i lost my cash withdrawal ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any pre-approved loan on my cash withdrawal ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the different varieties of e-commerce offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What should i do if i lost my e-commerce ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any pre-approved loan on my e-commercel ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the different varieties of purchase offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What should i do if i lost my purchase ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any pre-approved loan on my purchase ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the different varieties of travel card offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
+  
+   
     {
         "Questions": "What should i do if i lost my travel card ",
         "primary_context_and_keyword": ""
@@ -6321,30 +4484,7 @@
         "Questions": "Is there any pre-approved loan on my travel card? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What are the different varieties of card offered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What should i do if i lost my card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any pre-approved loan on my card? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the different varieties of plastic cardoffered by Indian Bank? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What should i do if i lost my plastic card ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any pre-approved loan on my plastic card? ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "Do Indian bank has any mobile App ? ",
         "primary_context_and_keyword": ""
@@ -6353,10 +4493,7 @@
         "Questions": "Are my transactions done through mobile App are  protected ? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "How many languages are supported in IndPay App? ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "Do Indian bank has any Indian Bank`s App? ",
         "primary_context_and_keyword": ""
@@ -6365,314 +4502,26 @@
         "Questions": "Are my transactions done through Indian Bank`s App are  protected ? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "How many languages are supported in IndPay Indian Bank`s App ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any financial transaction ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through financial transaction are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay financial transaction ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any app for financial transaction ? ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is Indpay? ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "Are my transactions done through app for financial transaction are  protected ? ",
+        "Questions": "Does Indian bank has any mobile banking ? ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "How many languages are supported in IndPay app for financial transaction ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any mobile banking ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through mobile banking are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay mobile banking ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any mobile banking application ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through mobile banking application are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay mobile banking application ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any mob banking ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through mob banking are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay mob banking ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any fund transfer ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through fund transfer are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay fund transfer ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any send money ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through send money are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay send money ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any get money ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through get money are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay get money ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any beneficiary ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through beneficiary are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay beneficiary ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any recharge? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through recharge are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay recharge ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any bill pay ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through bill pay are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay bill pay? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any mini statement ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through mini statement are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay mini statement ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of balance ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay balance? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of cheque? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of complaint ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through complaint are  protected ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of banking app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through complaint are  banking app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay banking app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of digital passbook? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through digital passbook are  banking app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay digital passbook? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do Indian bank has any details of mobile app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Are my transactions done through digital passbook are  mobile app ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How many languages are supported in IndPay mobile app? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides net banking to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How can i do registration for net banking ? ",
+        "Questions": "Does Indian bank has any details of digital passbook? ",
         "primary_context_and_keyword": ""
     },
     {
         "Questions": "Where will i find a user guide for net banking registration? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Does Indian bank provides fund transfer to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How can i do registration for fund transfer ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for fund transfer? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides TDS to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for TDS? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides Form 15G to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for Form 15G ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides Form 15H to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for Form 15H? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides Form 15 G to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for Form 15 G ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides 26 AS to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for 26 AS ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides Aadhaar to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How can i do registration for Aadhaar ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for Aadhaar ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides Form 16A to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How can i do registration for Form 16A? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for Form 16A? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Does Indian bank provides ASBA to his customers? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How can i do registration for ASBA? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Where will i find a user guide for ASBA? ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the number for SMS ? ",
         "primary_context_and_keyword": ""
@@ -6681,74 +4530,9 @@
         "Questions": "How i can avail SMS service for my account? ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Is SMS is secured? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How i can avail detail service for my account? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the number for mobile alert? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How i can avail mobile alert service for my account? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is mobile alert is secured? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the number for alert? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How i can avail alert service for my account? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is alert is secured? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the number for debit alert? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How i can avail debit alert service for my account? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is debit alert is secured? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the number for credit alert ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How i can avail credit alert service for my account? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is credit alert is secured? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the number for cheque bounce ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about cheque bounce service . ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is cheque bounce is secured? ",
-        "primary_context_and_keyword": ""
-    },
+    
+    
+   
     {
         "Questions": "what are the salient features of SAVINGS ACCOUNT ",
         "primary_context_and_keyword": ""
@@ -6781,502 +4565,28 @@
         "Questions": "What is the interest rate on SB ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "should i have to maintain any minimum balance for SB ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what are the salient features of CASA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest rate on CASA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "should i have to maintain any minimum balance for CASA ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of SB for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any charges applicable if i didnt maintain minimum balance inSB for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest on overdraft facility of SB for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of savings bank account for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any charges applicable if i didnt maintain minimum balance in savings bank account for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest on overdraft facility of savings bank account for corporates ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of savings bank account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any charges applicable if i didnt maintain minimum balance in savings bank account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest on overdraft facility of savings bank account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of savings account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any charges applicable if i didnt maintain minimum balance in savings account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest on overdraft facility of savings account for salaried class ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of Professional account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Is there any charges applicable if i didnt maintain minimum balance in Professional account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the interest on overdraft facility of Professional account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of zero balance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do I have to maintain minimum balance in zero balance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of basic account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the salient features of basic account ",
-        "primary_context_and_keyword": ""
-    },
+    
+    
+   
     {
         "Questions": "What are the salient features of BASIC SAVINGS BANK ",
         "primary_context_and_keyword": ""
     },
+    
     {
-        "Questions": "Do I have to maintain minimum balance in BASIC SAVINGS BANK ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Do I have to maintain minimum balance in Basic Savings Bank Deposit Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the min amount limit for Children  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How much is interest paid on Children ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the min amount limit for SB of Kid ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How much is interest paid on SB of Kid ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the min amount limit for Savings Bank for Kid ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How much is interest paid on Savings Bank for Kid ",
+        "Questions": "What is the min amount limit for Children account  ",
         "primary_context_and_keyword": ""
     },
     {
         "Questions": "What is the min amount limit for Minor ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "How much is interest paid on Minor ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What is the min amount limit for Student account ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "How much is interest paid on Student account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the min amount limit for Child account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "How much is interest paid on Child account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the salient feature of sweep facility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is sweep facility  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the minimum period of term deposit associated with sweep facility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the salient feature of higher interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the minimum period of term deposit associated with higher interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of Savings Bank Account for Women ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for Savings Bank Account for Women         ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of Savings Bank Account for Women ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of account with salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for account with salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of account with salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of account without salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for account without salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of account without salary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of sweep ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for sweep ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of sweep ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of girl ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for girl ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of girl ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of Female ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for Female ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of Female ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target Customers details of working women ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Average monthly minimum balance for working women ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added details of working women ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Initial deposit of minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "can i get Cheque book details of Minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the NET/mobile banking details of minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Initial deposit of savings bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "can i get Cheque book details of savings bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the NET/mobile banking details of savings bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Initial deposit of youth ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "can i get services charges  details of youth? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Target customers details of youth ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Initial deposit of Savings Bank Account for youth ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "can i get services charges  details of Savings Bank Account for youth ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Target customers details of Savings Bank Account for youth ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Initial deposit of Savings Bank Account for young ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "can i get services charges  details of Savings Bank Account for young ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "what is the Target customers details of Savings Bank Account for young ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Savings account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Savings account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": " Target customers details for defence",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of SB Account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of SB Account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Savings Bank account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Savings Bank account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Savings Bank account for defence ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Army ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Army ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Army ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Navy ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Navy ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Navy ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Air force ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Air force ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Air force ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of defence personnel ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of defence personnel ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of defence personnel ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of BSF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of BSF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of BSF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of CRPF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of CRPF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of CRPF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of CISF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of CISF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of CISF ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of ITBP ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of ITBP ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of ITBP ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Indian Coast Guard ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Indian Coast Guard ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Indian Coast Guard ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Para Military ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Para Military ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Para Military ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Target customers details of Armed Forces ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Service charges of Armed Forces ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Rent on locker details of Armed Forces ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Pensioner ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Pensioner        ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Service charges of Pensioner ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "what is the Quarterly Average Balance of CA FOR STATE /CENTRAL GOVT & CONSULAR & IND PFMS ",
         "primary_context_and_keyword": ""
@@ -7305,32 +4615,9 @@
         "Questions": "What are the EXCLUSIVE PRIVILEGES of IB –COMFORT- DOMESTIC AND NRE ",
         "primary_context_and_keyword": ""
     },
+   
     {
-        "Questions": "What is the Target customers details of Senior Citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Senior Citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Service charges of Senior Citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of 60 years ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of 60 years ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Service charges of 60 years ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Online SB Account ",
+        "Questions": "Who are the Target customers details of Online SB Account ",
         "primary_context_and_keyword": ""
     },
     {
@@ -7341,126 +4628,14 @@
         "Questions": "What are the Types of account for Online SB Account ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Target customers details of Online Savings Bank Account",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Online Savings Bank Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Types of account for Online Savings Bank Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Online Savings account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Online Savings account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Types of account for Online Savings account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of e-account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of e-account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Types of account for e-account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of NREGA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of NREGA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the additional feature for NREGA ",
-        "primary_context_and_keyword": ""
-    },
+    
+   
     {
         "Questions": "What is the Target customers details of Small Savings Bank Account ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the KYC Requirement of Small Savings Bank Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the additional feature for Small Savings Bank Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Small SB Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Small SB Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the additional feature for Small SB Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Small Savings Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Small Savings Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the additional feature for Small Savings Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of student SB ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of student SB ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the special feature for student SB ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of STUDENT SAVINGS BANK ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of STUDENT SAVINGS BANK ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the special feature for STUDENT SAVINGS BANK ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Scholarship ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Scholarship ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the special feature for Scholarship ",
-        "primary_context_and_keyword": ""
-    },
+    
+  
     {
         "Questions": "What is the Target customers details of SB for students under scholarship and SB for DBT ",
         "primary_context_and_keyword": ""
@@ -7473,42 +4648,7 @@
         "Questions": "What are the special feature for SB for students under scholarship and SB for DBT ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Target customers details of direct benefit transfer beneficiary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of direct benefit transfer beneficiary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the special feature for direct benefit transfer beneficiary ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of DBT ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of DBT ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the special feature for DBT ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the eligibility of SB FOR CENTRAL / STATE GOVERNMENT / CONSULAR OFFICES & IND PFMS ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of SB FOR CENTRAL / STATE GOVERNMENT / CONSULAR OFFICES & IND PFMS ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the NATURE OF OPERATION of SB FOR CENTRAL / STATE GOVERNMENT / CONSULAR OFFICES & IND PFMS ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the eligibility of MACT SB",
         "primary_context_and_keyword": ""
@@ -7521,170 +4661,7 @@
         "Questions": "What is the Product Change of MACT SB",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Target customers details of Consulate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Consulate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the service charges  for Consulate ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of Central Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of Central Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the service charges  for Central Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers details of State Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the KYC Requirement of State Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the service charges  for State Government ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of below 18 ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on below 18 ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for below 18 ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of guardian ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on guardian ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for guardian ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of savings account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on savings account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for savings account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of SB for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on SB for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for SB for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility details of Savings Bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum / Maximum balance   requirement on Savings Bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other conditions for Savings Bank account for minor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of partnership ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Amt i can deposit for partnership  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the other details of partnership ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of sole proprietor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Amt i can deposit for sole proprietor",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the other details of sole proprietor ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about Current Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about Current Account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about Current Account with flexibility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about Current Account with flexibility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about CA with flexibility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about CA with flexibility ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about flexible ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about flexible ",
-        "primary_context_and_keyword": ""
-    },
+
     {
         "Questions": "Details about smart account ",
         "primary_context_and_keyword": ""
@@ -7693,250 +4670,13 @@
         "Questions": "Show me some information about smart account ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "Details about privileged current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about privileged current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Details about privileged CA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "Show me some information about privileged CA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the salient feature of convert Current Account to Term Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is sweep facility in convert Current Account to Term Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added features of convert Current Account to Term Deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the salient feature of MOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is sweep facility in MOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added features of MOD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the salient feature of Multi opition deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is sweep facility in Multi opition deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the value added features of Multi opition deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers of Special current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is KYC Requirement of Special current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the service charges of Special current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers of special CA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is KYC Requirement of special CA ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the service charges of special CA ",
-        "primary_context_and_keyword": ""
-    },
+    
+   
     {
         "Questions": "What is the Salient Features of term deposit ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What the Min Amt i should deposit in term deposit ? ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for term deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax saver ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax saver ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax saver ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax saving ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax saving ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax saving ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax benefit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax benefit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax benefit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax exemption ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax exemption ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax exemption ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax avoidance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax avoidance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax avoidance ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax evasion ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax evasion ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax evasion ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of tax planning ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in tax planning ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for tax planning ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other Requirements details of cumulative interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in cumulative interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for cumulative interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other Requirements details of interest accumulated ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in interest accumulated ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for interest accumulated ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other Requirements details of compounded interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in compounded interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for compounded interest ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Other Requirements details of interest compounding ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in interest compounding ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for interest compounding ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of liquidity ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in liquidity ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for liquidity ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of bulk deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in bulk deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for bulk deposit ",
-        "primary_context_and_keyword": ""
-    },
+
     {
         "Questions": "What is the Salient Features of FD ",
         "primary_context_and_keyword": ""
@@ -7949,54 +4689,7 @@
         "Questions": "What is the Min Period required for FD ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Salient Features of varying instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in varying instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for varying instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of different instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What the Min Amt i should deposit in different instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Min Period required for different instalments ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers of STD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the minimum amount i can deposit in STD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the maximum amount required for STD ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Target customers of court ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the minimum amount i can deposit in court ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the maximum amount required for court ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What is the Target customers of accident claim ",
         "primary_context_and_keyword": ""
@@ -8037,18 +4730,7 @@
         "Questions": "What is the maximum amount required for accident claim deposit ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Target customers of tribunal ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the minimum amount i can tribunal ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the maximum amount required for tribunal ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the Eligibility of NRI ",
         "primary_context_and_keyword": ""
@@ -8065,18 +4747,7 @@
         "Questions": "What is the Salient Features of Non Resident Indian ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Eligibility of foreign currency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of foreign currency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility of NRE ",
-        "primary_context_and_keyword": ""
-    },
+    
     {
         "Questions": "What is the Salient Features of Resident foreign Currency Account for returning Indians",
         "primary_context_and_keyword": ""
@@ -8085,10 +4756,7 @@
         "Questions": "What is the Eligibility of Resident foreign Currency Account for returning Indians ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Salient Features of NRE ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the Salient Features of NRE SB Account ",
         "primary_context_and_keyword": ""
@@ -8105,10 +4773,7 @@
         "Questions": "What is the Eligibility of NRE FD / RIP / RD Accounts ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Salient Features of FCNR ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the Eligibility of returning indian ",
         "primary_context_and_keyword": ""
@@ -8193,150 +4858,7 @@
         "Questions": "What is the Eligibility of Savings account ",
         "primary_context_and_keyword": ""
     },
-    {
-        "Questions": "What is the Salient Features of Savings account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in Savings account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility of FCNR ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of FCNR ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in FCNR ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Eligibility of Foregin currency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of Foregin currency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in Foregin currency ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in rupee account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in Non Resident ordinary account",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in rupee account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of Non Resident ordinary account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of rupee account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in rupee account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in rupee   ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of rupee   ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in rupee   ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in current account ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type Of Account  available in recurring deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Salient Features of recurring deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Benefits i will get in recurring deposit ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type of customers available in senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the SMS Alert charges for senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum Balance deposit required for senior citizen ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the SMS Alert charges for 60 years aged people. ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum Balance deposit required for 60 years aged people. ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Privileged Services for 60 years aged people. ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What are the Type of customers available in Savings Bank Account for Senior Citizens ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the SMS Alert charges for Savings Bank Account for Senior Citizens ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum Balance deposit required for Savings Bank Account for Senior Citizens ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Privileged Services for Savings Bank Account for Senior Citizens ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the SMS Alert charges for Old age  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Minimum Balance deposit required for Old age  ",
-        "primary_context_and_keyword": ""
-    },
-    {
-        "Questions": "What is the Privileged Services for SOld age  ",
-        "primary_context_and_keyword": ""
-    },
+   
     {
         "Questions": "What is the Monthly Average Balance of IB Sammaan",
         "primary_context_and_keyword": ""

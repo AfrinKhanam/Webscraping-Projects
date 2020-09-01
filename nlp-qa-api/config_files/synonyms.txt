@@ -20,11 +20,9 @@ neft=n e f t
 fd=fixed deposit=liquidity=bulk deposit
 rd=recurring deposit
 sb=saving bank
-wc=working capital
 offered=afforded=allowed=provided=submitted=bid=shown=given=suggested=granted=displayed
 wish=want=prefered
 look=see=view=lk
-agriculture=farming=crop production=horticulture=cultivation=agri=agriculture=agricultre
 eligibility=ability=criteria=can
 minimum=min
 apply=place=join
@@ -121,7 +119,7 @@ IB i-Freedom Current Account=Current Account with flexibility=ca with flexibilit
 Premium Current Account=MOD=Multi opition deposit
 IB Comfort - Domestic & NRE=Special current account=special ca
 Current Account=partnership=sole proprietor
-Capital Gains=Money Multiplier Deposit=proceeds from sale of property=sale of property=cumulative deposit
+Capital Gains=proceeds from sale of property=sale of property=cumulative deposit
 Terms and Conditions - Term Deposit Account=TD Account
 IB Tax Saver Scheme=tax avoidance=tax evasion=tax planning=tax exemption
 Money Multiplier Deposits=interest accumulated=compounded interest=interest compounding
