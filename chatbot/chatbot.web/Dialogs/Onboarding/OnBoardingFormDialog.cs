@@ -11,7 +11,7 @@ using IndianBank_ChatBOT.Utils;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-
+using Microsoft.Bot.Schema;
 
 namespace IndianBank_ChatBOT.Dialogs.Onboarding
 {
@@ -24,7 +24,8 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 
         private readonly AppSettings _appSettings;
 
-        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings) : base(services, nameof(OnBoardingFormDialog))
+        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings)
+        : base(services, nameof(OnBoardingFormDialog))
         {
 
             _appSettings = appsettings;
@@ -106,15 +107,19 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
             string userPhoneNumber = stepContext.Result as string;
             stepContext.Values["UserPhoneNumber"] = stepContext.Result;
             string ApplicantPhoneNumber = userPhoneNumber;
-            await stepContext.Context.SendActivityAsync($"Thanks {stepContext.Values["UserName"]} for providing all the information.\n  Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.");
-            //await stepContext.Context.SendActivityAsync("Please find the menu.");
-            //await _responder.ReplyWith(stepContext.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
 
-            //var cs = "Server=localhost;Port=5432;Database=IndianBankDb;User Id=postgres;Password=postgres";
+            var msg = $@"Thanks {stepContext.Values["UserName"]} for providing all the information.
+Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.";
 
-            var cs = _appSettings.ConnectionString;
+            var onboardingCompletedEvent = Activity.CreateEventActivity();
+            onboardingCompletedEvent.Value = "OnbardingCompleted";
 
-            using (var dbContext = new AppDbContext(cs))
+            await stepContext.Context.SendActivitiesAsync(
+                new [] { MessageFactory.Text(msg), onboardingCompletedEvent },
+                cancellationToken
+            );
+
+            using (var dbContext = new AppDbContext(_appSettings.ConnectionString))
             {
 
                 try

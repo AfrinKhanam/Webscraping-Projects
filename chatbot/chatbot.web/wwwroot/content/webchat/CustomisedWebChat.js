@@ -196,7 +196,6 @@
                 return;
             }
 
-            console.log('chatbot initialized');
             window.ReactDOM.render(
                 <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
                     activityMiddleware={activityMiddleware}

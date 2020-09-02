@@ -30,7 +30,6 @@ namespace IndianBank_ChatBOT
     {
         #region properties
         private ILoggerFactory _loggerFactory;
-        private bool _isProduction = false;
 
         public IConfiguration Configuration { get; }
 
@@ -44,7 +43,6 @@ namespace IndianBank_ChatBOT
 
         public Startup(IWebHostEnvironment env, IConfiguration config, ILoggerFactory loggerFactory)
         {
-            _isProduction = env.IsProduction();
             _loggerFactory = loggerFactory;
 
             Configuration = config;
@@ -126,7 +124,7 @@ namespace IndianBank_ChatBOT
                 config.Cookie.SameSite = SameSiteMode.Strict;
             });
 
-            if (_isProduction)
+            if (isProduction)
             {
                 services.AddControllersWithViews()
                         .AddNewtonsoftJson(o =>
@@ -148,9 +146,6 @@ namespace IndianBank_ChatBOT
                         });
             }
 
-            //services.AddDbContext<LogDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
-            //services.AddTransient<LogDataContext, LogDataContext>();
-
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
             services.AddTransient<AppDbContext, AppDbContext>();
 
@@ -165,7 +160,7 @@ namespace IndianBank_ChatBOT
             services.AddBot<IndianBank_ChatBOT>(options =>
             {
                 // Load the connected services from .bot file.
-                var environment = _isProduction ? "production" : "development";
+                var environment = isProduction ? "production" : "development";
                 var service = botConfig.Services.FirstOrDefault(s => s.Type == ServiceTypes.Endpoint && s.Name == environment);
 
                 if (!(service is EndpointService endpointService))
@@ -176,29 +171,20 @@ namespace IndianBank_ChatBOT
                 var connectionString = Configuration.GetConnectionString("connString");
                 var myLogger = new BotChatActivityLogger(connectionString);
 
-                options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
+                // options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
+
                 options.OnTurnError = async (context, exception) =>
                 {
                     var activity = context.Activity;
-                    // BotChatActivityLogger.UpdateRaSaData(exception.Message, 0, "");
 
-                    // BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
-                    // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
-                    // await BotChatActivityLogger.LogActivityCustom(activity, connectionString);
-                    //  await context.SendActivityAsync("Error occured..!!.");
                     await context.SendActivityAsync("Sorry, I could not understand. Could you please rephrase the query.	");
-                    //  await context.SendActivityAsync(exception.Message);
-
                 };
-
 
                 var transcriptMiddleware = new TranscriptLoggerMiddleware(myLogger);
                 options.Middleware.Add(transcriptMiddleware);
-                //Transcript store to log incoming and outgoing msg
-                var transcriptStore = new MemoryTranscriptStore();
+
                 // Typing Middleware (automatically shows typing when the bot is responding/working)
-                var typingMiddleware = new ShowTypingMiddleware();
-                options.Middleware.Add(typingMiddleware);
+                options.Middleware.Add(new ShowTypingMiddleware());
                 options.Middleware.Add(new AutoSaveStateMiddleware(userState, conversationState));
             });
         }
