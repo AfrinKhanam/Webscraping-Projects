@@ -1,24 +1,10 @@
-﻿$(document).ready(function () {
-    initializeBot();
+﻿var chatInputSelector = "input[data-id='webchat-sendbox-input']";
 
-    //setTimeout(function () {
-    //    $(chatInputSelector).keyup(function (event) {
-    //        if (event.keyCode === 13) {
-    //            sendUserInputMessage(event.target.value);
-    //            this.value = '';
-    //            window.formattedResult = { suggestions: [] };
-    //        }
-    //    });
-
-    //}, 1000);
-});
-
-var chatInputSelector = "div#webchat div.main form input[data-id='webchat-sendbox-input']";
 window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
 
-function initializeBot() {
+$(document).ready(function () {
     fetch('/Home/GetBotParams', {
         method: 'POST',
         headers: {
@@ -75,7 +61,7 @@ function initializeBot() {
                 }, document.getElementById('webchat'));
             }
         });
-}
+});
 
 sendUserInputMessage = function (msg_text) {
     window.directLine.postActivity({
