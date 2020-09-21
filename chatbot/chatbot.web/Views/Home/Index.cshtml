@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Indian Bank Bot</title>
 
-    <!--Links for slider-->
     <link href="~/content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/content/css/chatbot.css" rel="stylesheet" />
 
@@ -22,15 +21,12 @@
     <script src="content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/stisla/modules/jquery-ui/jquery-ui.min.js"></script>
 
-    <!--Ends-->
-    <!--React Libraries-->
     <script src="content/webchat/babel.min.js" charset="utf-8"></script>
     <script src="content/webchat/react.development.js"></script>
     <script src="content/webchat/react-dom.development.js"></script>
     <script src="content/webchat/react-redux.min.js"></script>
     <script src="content/webchat/index.js"></script>
-    <!--React Libraries ends-->
-    <!--Auto Suggesion-->
+    
     <script type="text/javascript" src="scripts/jquery.mockjax.js"></script>
     <script type="text/javascript" src="scripts/jquery.autocomplete.js"></script>
 </head>
@@ -38,65 +34,57 @@
 <body>
     <div id="webchat" role="main"></div>
 
-    <!--New Slider Starts-->
-    <div class="row" style="margin-right: 0px;margin-left: 0px;">
-        <div class="col-md-12">
-            <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel"
-                 style="position:absolute;bottom:40px;left:0px;width:100%;height: 50px;background-color: rgba(255,255,255,0.90);margin-top: -5px;padding-top:8px">
-
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <button onclick="sendSuggestedMenuMessage('about us')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            About Us
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('product')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Products
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('services')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Services
-                        </button>
-                    </div>
-
-                    <div class="item">
-                        <button onclick="sendSuggestedMenuMessage('product')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Products
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('services')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Services
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('links')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Links
-                        </button>
-                    </div>
-
-                    <div class="item">
-                        <button onclick="sendSuggestedMenuMessage('services')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Services
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('links')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Links
-                        </button>
-                        <button onclick="sendSuggestedMenuMessage('rates')" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                            Rates
-                        </button>
-
-                    </div>
+    <div id="carousel-container">
+        <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <button data-msg-text="about us" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        About Us
+                    </button>
+                    <button data-msg-text="product" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Products
+                    </button>
+                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Services
+                    </button>
                 </div>
 
-                <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                </a>
-                <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </a>
+                <div class="item">
+                    <button data-msg-text="product" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Products
+                    </button>
+                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Services
+                    </button>
+                    <button data-msg-text="links" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Links
+                    </button>
+                </div>
+
+                <div class="item">
+                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Services
+                    </button>
+                    <button data-msg-text="links" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Links
+                    </button>
+                    <button data-msg-text="rates" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                        Rates
+                    </button>
+                </div>
             </div>
+
+            <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+            </a>
+            <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
         </div>
     </div>
-    <!--New Slider Ends-->
 
     <script src="~/content/js/webchat-es5.js"></script>
-    <script src="~/content/webchat/CustomisedWebChat.js" type="text/babel">
-    </script>
+    <script src="~/content/webchat/CustomisedWebChat.js" type="text/babel"></script>
     <script src="~/content/webchat/bot.js"></script>
 </body>
 </html>

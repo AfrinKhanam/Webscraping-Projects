@@ -112,7 +112,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.";
 
             var onboardingCompletedEvent = Activity.CreateEventActivity();
-            onboardingCompletedEvent.Value = "OnbardingCompleted";
+            onboardingCompletedEvent.Value = "OnboardingCompleted";
 
             await stepContext.Context.SendActivitiesAsync(
                 new [] { MessageFactory.Text(msg), onboardingCompletedEvent },

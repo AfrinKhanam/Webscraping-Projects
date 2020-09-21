@@ -12,9 +12,7 @@
             botAvatarBackgroundColor: '#e2aa42ad'
         };
 
-
         const ACTIVITY_WITH_FEEDBACK_CSS = css({
-            minHeight: 60,
             position: 'relative',
 
             '& > .activity': {
@@ -44,7 +42,6 @@
                 }
             }
         });
-
 
         const ATTACHMENT_FEEDBACK = css({
             padding: 10,
@@ -100,30 +97,6 @@
             }
         }
 
-        const attachmentMiddleware = () => next => card => {
-            switch (card.attachment.contentType) {
-                case 'application/vnd.microsoft.card.hero': {
-                    console.log(card.attachment.contentType)
-                    console.log(card.attachment)
-                    console.log(card)
-                    return (
-                        <IntegraHeroCard buttons={card.attachment.content.buttons} />
-                    );
-                }
-
-                default:
-                    return next(card);
-            }
-        };
-
-        const REACTION_DISABLED = css({
-            enabled: false
-        });
-
-        const REACTION_SELECTED = css({
-            backgroundColor: 'red'
-        });
-
         class ActivityWithFeedback extends React.Component {
 
             constructor() {
@@ -157,7 +130,7 @@
             }
 
             handleUpvoteButton = () => {
-                this.setState({ upvote_class: 'reaction-upvote feedback-done ', downvote_class: 'feedback-done', disabled: 'disabled' });
+                this.setState({ upvote_class: 'reaction-upvote feedback-done', downvote_class: 'feedback-done', disabled: 'disabled' });
 
                 this.sendFeedback(1);
             }
@@ -165,29 +138,33 @@
             render() {
                 const { props } = this;
 
-                return (
-                    <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
-                        <div className="activity">{props.children}</div>
-                        <ul className="button-bar">
-                            <li>
-                                <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="Satisfied with BOT's response"></span></button>
-                            </li>
-                            <li>
-                                <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
-                            </li>
-                        </ul>
-
-                    </div>
-                );
+                if (props.activity.showFeedback) {
+                    return (
+                        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
+                            <div className="activity">{props.children}</div>
+                            <ul className="button-bar">
+                                <li>
+                                    <button className={this.state.upvote_class} disabled={false} onClick={this.handleUpvoteButton}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" title="Satisfied with BOT's response"></span></button>
+                                </li>
+                                <li>
+                                    <button className={this.state.downvote_class} disabled={false} onClick={this.handleDownvoteButton}><span className="glyphicon glyphicon-thumbs-down" aria-hidden="true" title="Not satisfied"></span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div className={ACTIVITY_WITH_FEEDBACK_CSS}>
+                            <div className="activity">{props.children}</div>
+                        </div>
+                    );
+                }
             }
         }
 
         const ConnectedActivityWithFeedback = connectToWebChat(({ postActivity }) => ({ postActivity }))(props => (
             <ActivityWithFeedback {...props} />
         ));
-        let excludedText = [`Hi! My name is ADYA 😃.
-        Welcome to Indian Bank.
-        I am your virtual assistant, here to assist you with all your banking queries 24x7`, "Please enter your name to get me started"];
 
         const checkDirectLine = function () {
 
@@ -197,7 +174,7 @@
             }
 
             window.ReactDOM.render(
-                <ReactWebChat // attachmentMiddleware={attachmentMiddleware}
+                <ReactWebChat
                     activityMiddleware={activityMiddleware}
                     directLine={window.directLine}
                     styleOptions={styleOptions}
@@ -209,9 +186,9 @@
         }
 
         const activityMiddleware = () => next => card => {
-            if (card.activity.from.role === 'bot' && !excludedText.includes(card.activity.text)) {
+            if (card.activity.type === 'message' && card.activity.from.role === 'bot') {
                 return children => (
-                    <ConnectedActivityWithFeedback key={card.activity.id} activityID={card.activity.id} replyId={card.activity.replyToId}>
+                    <ConnectedActivityWithFeedback key={card.activity.id} activity={card.activity} activityID={card.activity.id} replyId={card.activity.replyToId}>
                         {next(card)(children)}
                     </ConnectedActivityWithFeedback>
                 );

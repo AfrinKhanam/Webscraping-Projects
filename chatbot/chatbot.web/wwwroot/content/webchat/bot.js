@@ -1,21 +1,22 @@
 ﻿$(document).ready(function () {
     initializeBot();
 
-    setTimeout(function () {
-        $(chatInputSelector).keyup(function (event) {
-            if (event.keyCode === 13) {
-                sendUserInputMessage(event.target.value);
-                this.value = '';
-                window.formattedResult = { suggestions: [] };
-            }
-        });
+    //setTimeout(function () {
+    //    $(chatInputSelector).keyup(function (event) {
+    //        if (event.keyCode === 13) {
+    //            sendUserInputMessage(event.target.value);
+    //            this.value = '';
+    //            window.formattedResult = { suggestions: [] };
+    //        }
+    //    });
 
-    }, 1000);
+    //}, 1000);
 });
 
-var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+var chatInputSelector = "div#webchat div.main form input[data-id='webchat-sendbox-input']";
 window.directLine = null;
 window.current_Context = "undefined";
+window.botUserId = null;
 
 function initializeBot() {
     fetch('/Home/GetBotParams', {
@@ -32,11 +33,25 @@ function initializeBot() {
                 webSocket: true
             });
 
+            var onboardingCompleted = false;
+
             var subscription = directLine.activity$
-                .filter(activity => activity.type === 'event' && activity.value === 'OnbardingCompleted')
+                .filter(activity => activity.type === 'event' && activity.value === 'OnboardingCompleted')
                 .subscribe(_ => {
                     initializeAutoSuggest();
+                    displayCarousel();
+                    onboardingCompleted = true;
                     subscription.unsubscribe();
+                });
+
+            directLine.activity$
+                .filter(activity => activity.type === 'message')
+                .subscribe(activity => {
+                    activity.showFeedback = onboardingCompleted;
+
+                    if (activity.text && activity.text.toLowerCase().startsWith("this is what i found on ")) {
+                        activity.showFeedback = false;
+                    }
                 });
 
             if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
@@ -48,11 +63,13 @@ function initializeBot() {
                     botAvatarBackgroundColor: '#ffe8a3'
                 };
 
+                window.botUserId = res.userId;
+
                 window.WebChat.renderWebChat({
                     directLine: window.directLine,
                     userID: res.userId,
                     username: res.userId,
-                    locale: 'en-US',
+                    locale: 'en-IN',
                     styleOptions: styleOptions,
                     resize: 'detect'
                 }, document.getElementById('webchat'));
@@ -60,22 +77,31 @@ function initializeBot() {
         });
 }
 
-sendUserInputMessage = function (e) {
-    var activity = {
-        text: e,
+sendUserInputMessage = function (msg_text) {
+    window.directLine.postActivity({
+        text: msg_text,
         textFormat: "plain",
         channelData: [{ "context": window.current_Context }],
         type: "message",
         channelId: "webchat",
         from: {
-            id: "IndianBank_ChatBOT",
+            id: window.botUserId,
             role: "user"
         },
-        locale: "en-US",
+        locale: "en-IN",
         timestamp: new Date()
-    };
-    window.directLine.postActivity(activity).subscribe(function () {
+    }).subscribe(function () {
         $(chatInputSelector).val('');
+    });
+}
+
+function displayCarousel() {
+    var carousel = $("div#carousel-container").detach();
+    $("div#webchat div.main").parent().prepend(carousel);
+    carousel.show('fast');
+
+    carousel.find("button.btn-suggestion").on('click', function () {
+        sendUserInputMessage($(this).data("msg-text"));
     });
 }
 
@@ -131,7 +157,6 @@ function autoSuggestLookup(query, done) {
             }
         }
     };
-
 
     $.ajax({
         url: "/AutoSuggestion/Suggest",
