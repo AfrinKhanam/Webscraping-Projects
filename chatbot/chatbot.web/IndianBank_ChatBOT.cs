@@ -18,12 +18,6 @@ namespace IndianBank_ChatBOT
     /// </summary>
     public class IndianBank_ChatBOT : IBot
     {
-        private readonly BotServices _services;
-        private readonly ConversationState _conversationState;
-        private readonly UserState _userState;
-
-        private readonly AppSettings appSettings;
-        // private readonly IBotTelemetryClient _telemetryClient;
         private DialogSet _dialogs;
 
         /// <summary>
@@ -32,17 +26,11 @@ namespace IndianBank_ChatBOT
         /// <param name="botServices">Bot services.</param>
         /// <param name="conversationState">Bot conversation state.</param>
         /// <param name="userState">Bot user state.</param>
-        public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, UserState userState,
-            IOptions<AppSettings> appsettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
-
+        public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, 
+            IOptions<AppSettings> appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
         {
-            appSettings = appsettings.Value;
-
-            _conversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
-            _userState = userState ?? throw new ArgumentNullException(nameof(userState));
-            _services = botServices ?? throw new ArgumentNullException(nameof(botServices));
-            _dialogs = new DialogSet(_conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
-            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, dbContext, clientFactory));
+            _dialogs = new DialogSet(conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
+            _dialogs.Add(new MainDialog(botServices, appSettings.Value, dbContext, clientFactory));
         }
 
         /// <summary>

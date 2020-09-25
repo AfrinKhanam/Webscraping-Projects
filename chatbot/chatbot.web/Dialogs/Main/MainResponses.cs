@@ -3,7 +3,6 @@
 
 using System.IO;
 
-using IndianBank_ChatBOT.Dialogs.Main.Resources;
 using IndianBank_ChatBOT.Dialogs.Shared;
 
 using Microsoft.Bot.Builder;
@@ -29,33 +28,18 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 { ResponseIds.Cancelled,
                     (context, data) =>
                     MessageFactory.Text(
-                        text: MainStrings.CANCELLED,
-                        ssml: MainStrings.CANCELLED,
+                        text: "Ok, let's start over.",
+                        ssml: "Ok, let's start over.",
                         inputHint: InputHints.AcceptingInput)
                 },
-                //{ ResponseIds.Completed,
-                //    (context, data) =>
-                //    MessageFactory.Text(
-                //        text: "",
-                //        //ssml: MainStrings.COMPLETED,
-                //        inputHint: InputHints.AcceptingInput)
-                //},
-                //{ ResponseIds.Confused,
-                //    (context, data) =>
-                //    MessageFactory.Text(
-                //        text: MainStrings.CONFUSED,
-                //        ssml: MainStrings.CONFUSED,
-                //        inputHint: InputHints.AcceptingInput)
-                //},
                 { ResponseIds.Greeting,
                     (context, data) =>
                     MessageFactory.Text(
-                        text: MainStrings.GREETING,
-                        ssml: MainStrings.GREETING,
+                        text: "Hi there!",
+                        ssml: "Hi there!",
                         inputHint: InputHints.AcceptingInput)
                 },
                 { ResponseIds.Intro, (context, data) => BuildIntroductionCard(context, data) },
-                //{ ResponseIds.BuildEmiCalculatorCard, (context, data) => BuildEmiCalculatorCard(context, data) },
                 { ResponseIds.BuildWelcomeMenuCard, (context, data) => BuildWelcomeMenuCard(context) },
                 { ResponseIds.ServicesMenuCardDisplay, (context,data) => BuildServiceMenuCard(context) },
                 { ResponseIds.RatesMenuCardDisplay, (context,data) => BuildRatesMenuCard(context) },

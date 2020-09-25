@@ -11,7 +11,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class SampleFAQDialog
     {
-        public static async void DisplaySampleFAQ(DialogContext dialogContext, string EntityType, string EntityName, IHttpClientFactory clientFactory)
+        public static async void DisplaySampleFAQ(DialogContext dialogContext, string EntityType, string EntityName, string qaEndPoint, IHttpClientFactory clientFactory)
         {
             //await dialogContext.Context.SendActivityAsync($"This is what I received from main Dialog {EntityName} and {EntityType}");
 
@@ -55,7 +55,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
 
                         break;
                 }
@@ -85,7 +85,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
                         break;
                 }
             }
@@ -127,7 +127,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
 
                         break;
                 }
@@ -153,7 +153,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         }
 
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
 
                         break;
                 }
@@ -173,7 +173,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
 
                         break;
                 }
@@ -198,14 +198,14 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                             break;
                         }
                     default:
-                        await MainDialog.SearchKB(dialogContext, clientFactory);
+                        await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
 
                         break;
                 }
             }
             else
             {
-                await MainDialog.SearchKB(dialogContext, clientFactory);
+                await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
             }
         }
 
@@ -220,6 +220,4 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             await dialogContext.Context.SendActivityAsync(response);
         }
     }
-
-
 }

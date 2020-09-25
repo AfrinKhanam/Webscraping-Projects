@@ -11,10 +11,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 {
     public class ScrollBarDialog
     {
-        public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName, IHttpClientFactory clientFactory)
+        public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName, string qaEndPoint, IHttpClientFactory clientFactory)
         {
-            //await dialogContext.Context.SendActivityAsync($"This is what I received from main Dialog {EntityName}");
-
             switch (EntityName)
             {
                 case ScrollbarEntities.AboutUs:
@@ -48,9 +46,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         break;
                     }
                 default:
-                    await MainDialog.SearchKB(dialogContext, clientFactory);
-
-                    // await dialogContext.Context.SendActivityAsync("Sorry!! I could not understand the query. Could you please rephrase it and try again.");
+                    await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
                     break;
             }
         }

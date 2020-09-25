@@ -20,18 +20,13 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
     public class VehicleLoanDialog : EnterpriseDialog
     {
         private BotServices _services;
-        private UserState _userState;
-        private ConversationState _conversationState;
         private MainResponses _responder = new MainResponses();
 
-        public VehicleLoanDialog(BotServices services, ConversationState conversationState, UserState userState) : base(services, nameof(VehicleLoanDialog))
+        public VehicleLoanDialog(BotServices services) : base(services, nameof(VehicleLoanDialog))
         {
             InitialDialogId = nameof(VehicleLoanDialog);
 
             _services = services ?? throw new ArgumentNullException(nameof(services));
-            _conversationState = conversationState;
-            _userState = userState;
-
 
             var steps = new WaterfallStep[]
             {
@@ -43,10 +38,9 @@ namespace IndianBank_ChatBOT.Dialogs.Loans
 
                 AskApplicantName,
                 AskApplicantMobileNumber,
-               // AskApplicantEmailID,
                 CollectOthersInformation
+            };
 
-             };
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new ChoicePrompt(DialogIds.AskVehicleLoanType));
             AddDialog(new ChoicePrompt(DialogIds.AskOccupationType));

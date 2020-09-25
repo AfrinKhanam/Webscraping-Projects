@@ -29,11 +29,9 @@ namespace IndianBank_ChatBOT.Dialogs.Main
     {
         #region properties
 
-        private static readonly MemoryStorage _myStorage = new MemoryStorage();
-        private BotServices _services;
-        private UserState _userState;
-        private ConversationState _conversationState;
-        private MainResponses _responder = new MainResponses();
+        private readonly BotServices _services;
+        private readonly AppSettings appSettings;
+        private readonly MainResponses _responder = new MainResponses();
 
         public static Dictionary<string, ImageData> keyValuePairs = new Dictionary<string, ImageData>
         {
@@ -227,22 +225,19 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <param name="userState">State of the user.</param>
         /// <exception cref="ArgumentNullException">services</exception>
 
-        private static AppSettings appSettings;
         private readonly AppDbContext dbContext;
         private readonly IHttpClientFactory clientFactory;
 
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
+        public MainDialog(BotServices services, AppSettings appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
             : base(nameof(MainDialog))
         {
-            appSettings = appsettings;
             this.dbContext = dbContext;
             this.clientFactory = clientFactory;
             _services = services ?? throw new ArgumentNullException(nameof(services));
-            _conversationState = conversationState;
-            _userState = userState;
-            AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
+            this.appSettings = appSettings;
+            AddDialog(new VehicleLoanDialog(_services));
             AddDialog(new OnBoardingFormDialog(_services, dbContext));
-            AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
+            AddDialog(new EMICalculatorDialog(_services));
         }
 
         #endregion
@@ -338,7 +333,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 if (entityType == "scrollbar_entity")
                 {
-                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, clientFactory);
+                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, appSettings.QAEndPoint, clientFactory);
                     await dc.EndDialogAsync();
                 }
                 else if (generalIntent == "thankyouintent")
@@ -350,24 +345,24 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "premium services" || utterance.Trim() == "insurance services" || utterance.Trim() == "cms plus" || utterance.Trim() == "doorstep banking" || utterance.Trim() == "tax payment" || utterance.Trim() == "debenture trust")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
                     }
                 }
                 else if (utterance.Split(" ")[utterance_word_count - 1].Equals("products"))
                 {
                     if (utterance.Trim() == "loan products" || utterance.Trim() == "deposit products" || utterance.Trim() == "digital products" || utterance.Trim() == "feature products")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
 
                     }
                 }
@@ -375,12 +370,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "deposit rates" || utterance.Trim() == "lending rates" || utterance.Trim() == "service charges")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
 
                     }
                 }
@@ -388,12 +383,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management" || utterance.Trim() == "management" || utterance.Trim() == "corporate governance" || utterance.Trim() == "mutual fund" || utterance.Trim() == "annual report")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
 
                     }
                 }
@@ -401,12 +396,12 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     if (utterance.Trim() == "online service" || utterance.Trim() == "related sites" || utterance.Trim() == "alliances")
                     {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, clientFactory);
+                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
                         await dc.EndDialogAsync();
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
 
                     }
                 }
@@ -447,23 +442,23 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
                     }
                 }
                 else
                 {
-                    await SearchKB(dc, clientFactory);
+                    await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
                 }
             }
         }
 
-        public static async Task SearchKB(DialogContext dc, IHttpClientFactory clientFactory)
+        public static async Task SearchKB(DialogContext dc, string qaEndPoint, IHttpClientFactory clientFactory)
         {
             var query = dc.Context.Activity.Text;
 
             var context = string.Empty;
 
-            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{appSettings.QAEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}&context={context}"))
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{qaEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}&context={context}"))
             {
                 using (var client = clientFactory.CreateClient())
                 {

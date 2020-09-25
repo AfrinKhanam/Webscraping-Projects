@@ -14,18 +14,14 @@ namespace IndianBank_ChatBOT.Dialogs.EMI
     public class EMICalculatorDialog : EnterpriseDialog
     {
         private BotServices _services;
-        private UserState _userState;
-        private ConversationState _conversationState;
         private MainResponses _responder = new MainResponses();
 
-        public EMICalculatorDialog(BotServices services, ConversationState conversationState, UserState userState) : base(services, nameof(EMICalculatorDialog))
+        public EMICalculatorDialog(BotServices services) : base(services, nameof(EMICalculatorDialog))
         {
 
             InitialDialogId = nameof(EMICalculatorDialog);
 
             _services = services ?? throw new ArgumentNullException(nameof(services));
-            _conversationState = conversationState;
-            _userState = userState;
 
             var steps = new WaterfallStep[]
             {
