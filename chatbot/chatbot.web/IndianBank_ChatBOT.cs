@@ -16,9 +16,11 @@ namespace IndianBank_ChatBOT
     /// <summary>
     /// Main entry point and orchestration for bot.
     /// </summary>
-    public class IndianBank_ChatBOT : IBot
+    public class IndianBank_ChatBOT : IBot, IDisposable
     {
         private DialogSet _dialogs;
+        private readonly AppDbContext dbContext;
+        private bool dbContextDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IndianBank_ChatBOT"/> class.
@@ -29,7 +31,10 @@ namespace IndianBank_ChatBOT
         public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, 
             IOptions<AppSettings> appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
         {
+            this.dbContext = dbContext;
+
             _dialogs = new DialogSet(conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
+
             _dialogs.Add(new MainDialog(botServices, appSettings.Value, dbContext, clientFactory));
         }
 
@@ -57,6 +62,26 @@ namespace IndianBank_ChatBOT
             {
                 await dc.BeginDialogAsync(nameof(MainDialog));
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!dbContextDisposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+
+                dbContextDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

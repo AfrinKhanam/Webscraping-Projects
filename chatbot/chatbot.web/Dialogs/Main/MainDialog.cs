@@ -25,197 +25,14 @@ using Newtonsoft.Json.Linq;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
-    public class MainDialog : RouterDialog, IDisposable
+    public class MainDialog : RouterDialog
     {
-        #region properties
-
         private readonly BotServices _services;
         private readonly AppSettings appSettings;
         private readonly MainResponses _responder = new MainResponses();
 
-        public static Dictionary<string, ImageData> keyValuePairs = new Dictionary<string, ImageData>
-        {
-            //Contacts Menu Items
-            {"quick_contacts.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\QuickContacts", "quick_contacts.PNG")} },
-            {"customer_complaints.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\CustomerSupport", "customer_complaints.PNG")} },
-            {"complaints_officers_list.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\CustomerSupport", "complaints_officers_list.PNG")} },
-            {"chief_vigilance_officer.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\CustomerSupport", "chief_vigilance_officer.PNG")} },
-            {"head_office.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "head_office.PNG")} },
-            {"department.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "department.PNG")} },
-            {"executives.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "executives.PNG")} },
-            {"image.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "image.PNG")} },
-            {"foreign_branches.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "foreign_branches.PNG")} },
-            {"overseas_branches.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "overseas_branches.PNG")} },
-            {"nri_branches.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "nri_branches.PNG")} },
-            {"zonal_offices.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "zonal_offices.PNG")} },
-            {"econfirmation_of_bank_guarantee.PNG",new ImageData{ImagePath=Path.Combine(".",@"Resources\contacts\EmailIDs", "econfirmation_of_bank_guarantee.PNG")} },
-            {"SavingsBank.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "SavingsBank.PNG")} },
-            {"PayrollPackage.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "PayrollPackage.PNG")} },
-            {"VikasSavingsKhata.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "VikasSavingsKhata.PNG")} },
-            {"IbSmartKid.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "IbSmartKid.PNG")} },
-            {"SavingsTermsConditions.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "SavingsTermsConditions.PNG")} },
-            {"SbPlatinum.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "SbPlatinum.PNG")} },
-            {"IbSurabhi.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "IbSurabhi.PNG")} },
-
-             //Current Account
-            {"CurrentAccount.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "CurrentAccount.PNG")} },
-            {"FreedomCurrentAccount.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "FreedomCurrentAccount.PNG")} },
-            {"CurrentTermsAndConditions.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "CurrentTermsAndConditions.PNG")} },
-            {"PremiumCurrentAccount.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "PremiumCurrentAccount.PNG")} },
-
-            //term deposit entities constants
-            {"FacilityDeposit.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "FacilityDeposit.PNG")} },
-            {"CapitalGains.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "CapitalGains.PNG")} },
-            {"Term-TermsConditions.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "Term-TermsConditions.PNG")}  },
-            {"DepositSchemeForSeniorCitizens.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "DepositSchemeForSeniorCitizens.PNG")}  },
-
-            {"RecurringDeposit.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "RecurringDeposit.PNG")} },
-            {"IbTaxSaverScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "IbTaxSaverScheme.PNG")}},
-            {"InsuredRecurringDeposit.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "InsuredRecurringDeposit.PNG")}},
-            {"ReInvestmentPlan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "ReInvestmentPlan.PNG")}},
-            {"FixedDeposit.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "FixedDeposit.PNG")}},
-            {"VariableRecurringDeposit.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "VariableRecurringDeposit.PNG")}},
-
-            //nri accounts entities constants
-            {"ForeignCurrencyForReturningIndians.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "ForeignCurrencyForReturningIndians.PNG")}},
-            {"NRE_FD_RIP_RD_Accounts.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "NRE_FD_RIP_RD_Accounts.PNG")}},
-            {"NRE_SB_Accounts.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "NRE_SB_Accounts.PNG")}},
-            {"NonResidentOrdinaryAccount.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "NonResidentOrdinaryAccount.PNG")}},
-            {"FCNR_Accounts.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\deposits", "FCNR_Accounts.PNG")}},
-        
-            //agriculture
-            {"AgriculturalGodowns.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "AgriculturalGodowns.PNG")} },
-            {"LoansForMaintainenceOfTractorsUnderTie-UpWithSugarMills.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "LoansForMaintainenceOfTractorsUnderTie-UpWithSugarMills.PNG")} },
-            {"AgriculturalProduceMarketingLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "AgriculturalProduceMarketingLoan.PNG")} },
-            {"FinancingAgriculturistsForPurchaseOfTractors.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "FinancingAgriculturistsForPurchaseOfTractors.PNG")} },
-            {"PurchaseOfSecondHandTractorsByAgriculturists.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "PurchaseOfSecondHandTractorsByAgriculturists.PNG")} },
-            {"AgriClinicAndAgriBusinessCentres.PNG", new ImageData{ ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "AgriClinicAndAgriBusinessCentres.PNG")} },
-            {"SHG_BankLinkageProgramme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "SHG_BankLinkageProgramme.PNG")} },
-            {"JointLiabilityGroup.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "JointLiabilityGroup.PNG")} },
-            {"RupayKisanCard.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "RupayKisanCard.PNG")} },
-            {"DRI_SchemeRevisedNorms.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "DRI_SchemeRevisedNorms.PNG")} },
-            {"SHG_VidhyaShoba.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "SHG_VidhyaShoba.PNG")} },
-            {"GraminMahilaSowbhagyaScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "GraminMahilaSowbhagyaScheme.PNG")} },
-            {"SugarPremiumScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "SugarPremiumScheme.PNG")} },
-            {"GoldenHarvestScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "GoldenHarvestScheme.PNG")} },
-            {"AgriculturalJewelLoanScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\AgricultureImages", "AgriculturalJewelLoanScheme.PNG")} },
-
-            //groups
-            {"GroupsAgriculturalGodowns.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\GroupsImages", "GroupsAgriculturalGodowns.PNG")} },
-            {"GroupsSHG_BankLinkageProgrammeDirectLinkageToSHGS.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\GroupsImages", "GroupsSHG_BankLinkageProgrammeDirectLinkageToSHGS.PNG")} },
-            {"GroupsSHG_VidhyaShoba.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\GroupsImages", "GroupsSHG_VidhyaShoba.PNG")} },
-
-            //personal/individual
-            {"IbHomeLoanCombo.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbHomeLoanCombo.PNG")} },
-            {"IbRentEncash.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbRentEncash.PNG")} },
-            {"Loan_OD_AgainstDeposits.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "Loan_OD_AgainstDeposits.PNG")} },
-            {"IbCleanLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbCleanLoan.PNG")} },
-            {"IbBalavidhyaScheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbBalavidhyaScheme.PNG")} },
-            {"IndReverseMortgage.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IndReverseMortgage.PNG")} },
-            {"IbVehicleLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbVehicleLoan.PNG")} },
-            {"IndMortgage.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IndMortgage.PNG")} },
-            {"PlotLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "PlotLoan.PNG")} },
-            {"IbHomeLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbHomeLoan.PNG")} },
-            {"IbPensionLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbPensionLoan.PNG")} },
-            {"HomeImprove.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "HomeImprove.PNG")} },
-            {"IbHomeLoanPlus.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "IbHomeLoanPlus.PNG")} },
-            {"Loan_OD_AgainstNSC.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "Loan_OD_AgainstNSC.PNG")} },
-            {"HomeLoanAndVehicleLoan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\PersonalIndividualImages", "HomeLoanAndVehicleLoan.PNG")} },
-            
-            //59 minutes loans
-            {"59_min_loan_indian_bank.jpg",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\FNMinutesLoan", "indian_bank.jpg")} },
-            
-            //MSME Loan Menu Item
-            {"ib_vidhya_mandir.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "ib_vidhya_mandir.PNG")} },
-            {"ib_my_own_shop.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "ib_my_own_shop.PNG")} },
-            {"ib_doctor_plus.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "ib_doctor_plus.PNG")} },
-            {"ib_contractors.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "ib_contractors.PNG")} },
-            {"tradewell.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "tradewell.PNG")} },
-            {"ind_sme_secure.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\MSME", "ind_sme_secure.PNG")} },
-            //Education Loan Menu Item
-            {"iba_model_educational_loan_schema.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\Education", "iba_model_educational_loan_schema.PNG")} },
-            {"ib_educational_loan_prime.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\Education", "ib_educational_loan_prime.PNG")} },
-            {"ib_skill_loan_scheme.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\Education", "ib_skill_loan_scheme.PNG")} },
-            {"education_loan_interest_subsidies.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\Education", "education_loan_interest_subsidies.PNG")} },
-            //nri Loan Menu Item
-            {"nri_plot_loan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\NRI", "nri_plot_loan.PNG")} },
-            {"nri_home_loan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\loans\NRI", "nri_home_loan.PNG")} },
-        
-            //news/info Menu Items
-            //keys are same as entity
-            { "Notifications.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "Notifications.jpg")} },
-            { "NewsLetter.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "NewsLetter.jpg")} },
-            { "WhatsNew.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "WhatsNew.jpg")} },
-            { "SmsBanking.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "SmsBanking.jpg")} },
-            { "MyDesignCard.PNG",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "MyDesignCard.PNG")} },
-            { "PressReleases.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "PressReleases.jpg")} },
-            { "Downloads.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "Downloads.jpg")} },
-
-            //customer corner
-            { "OnlineCustomerComplaints.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "OnlineCustomerComplaints.jpg")} },
-            { "PrincipalCodeComplianceOfficer.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "PrincipalCodeComplianceOfficer.jpg")} },
-            { "DamodaranCommitteeRecommendations.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "DamodaranCommitteeRecommendations.jpg")} },
-            { "BankingOmbudsman.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "BankingOmbudsman.jpg")} },
-            { "RemitToIndia.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "RemitToIndia.jpg")} },
-
-            //related info
-            { "FAQs.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "FAQs.jpg")} },
-            { "Disclaimer.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "Disclaimer.jpg")} },
-
-            //codes/policy/disclosure
-            { "BestPracticesCodeOfTheBank.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "BestPracticesCodeOfTheBank.jpg")} },
-            { "CustomerCentricServices.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "CustomerCentricServices.jpg")} },
-
-            //charters/schemes
-            { "AgriculturalDebtWaiver.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "AgriculturalDebtWaiver.jpg")} },
-            { "FinancialInclusionPlan.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "FinancialInclusionPlan.jpg")} },
-            { "RestructuredAccounts.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "RestructuredAccounts.jpg")} },
-            { "ServicesRenderedFreeOfCharge.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "ServicesRenderedFreeOfCharge.jpg")} },
-            { "WelfareOfMinorities.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "WelfareOfMinorities.jpg")} },
-            { "WhistleBlowerPolicy.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "WhistleBlowerPolicy.jpg")} },
-            { "CentralizedPensionProcessingSystem.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "CentralizedPensionProcessingSystem.jpg")} },
-            { "AnotherOptionForPension.jpg",new ImageData{ImagePath=Path.Combine(".","Resources\\news_info", "AnotherOptionForPension.jpg")} },
-        
-            //Loan Menu Item
-            {"depositRates.jpg",new ImageData{ImagePath=Path.Combine(".", @"Resources\rates", "depositRates.jpg")} },
-            {"lendingRates.jpg",new ImageData{ImagePath=Path.Combine(".", @"Resources\rates", "lendingRates.jpg")} },
-            {"serviceCharges.jpg",new ImageData{ImagePath=Path.Combine(".", @"Resources\rates", "serviceCharges.jpg")} },
-
-            //Services Menu Items
-            {"cms_plus.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\CMS Plus", "cms_plus.PNG")} },
-            {"epayment_direct_taxes.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Direct Taxes", "epayment_direct_taxes.PNG")} },
-            {"epayment_indirect_taxes.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Indirect Taxes", "epayment_indirect_taxes.PNG")} },
-
-            //Preminum Services Menu Items
-            {"mca_payment.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "mca_payment.PNG")} },
-            {"money_gram.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "money_gram.PNG")} },
-            {"atm_debit_cards.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "atm_debit_cards.PNG")} },
-            {"ind_mobile_banking.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "ind_mobile_banking.PNG")} },
-            {"ind_net_banking.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "ind_net_banking.PNG")} },
-            {"credit_cards.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "credit_cards.PNG")} },
-            {"xpress_money.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "xpress_money.PNG")} },
-            {"neft.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "neft.PNG")} },
-            {"rtgs.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "rtgs.PNG")} },
-            {"multicity_cheque_facility.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Premium Services", "multicity_cheque_facility.PNG")} },
-
-            //Insurance Services Menu Items
-            {"ib_vidyarthi_suraksha.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_vidyarthi_suraksha.PNG")} },
-            {"ib_home_security.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_home_security.PNG")} },
-            {"universal_health_care.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "universal_health_care.PNG")} },
-            {"jana_shree_bima_yojana.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "jana_shree_bima_yojana.PNG")} },
-            {"new_ib_jeevan_vidya.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "new_ib_jeevan_vidya.PNG")} },
-            {"ib_jeevan_kalyan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_jeevan_kalyan.PNG")} },
-            {"ib_varishtha.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_varishtha.PNG")} },
-            {"arogya_raksha.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "arogya_raksha.PNG")} },
-            {"ib_chhatra.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_chhatra.PNG")} },
-            {"ib_griha_jeevan.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_griha_jeevan.PNG")} },
-            {"ib_yatra_suraksha.PNG",new ImageData{ImagePath=Path.Combine(".", @"Resources\services\Insurance Services", "ib_yatra_suraksha.PNG")} }
-
-        };
-
-        #endregion
-
-        #region Constructor
+        private readonly AppDbContext dbContext;
+        private readonly IHttpClientFactory clientFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainDialog"/> class.
@@ -224,10 +41,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <param name="conversationState">State of the conversation.</param>
         /// <param name="userState">State of the user.</param>
         /// <exception cref="ArgumentNullException">services</exception>
-
-        private readonly AppDbContext dbContext;
-        private readonly IHttpClientFactory clientFactory;
-
         public MainDialog(BotServices services, AppSettings appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
             : base(nameof(MainDialog))
         {
@@ -239,8 +52,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             AddDialog(new OnBoardingFormDialog(_services, dbContext));
             AddDialog(new EMICalculatorDialog(_services));
         }
-
-        #endregion
 
         #region methods
 
@@ -656,11 +467,9 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 {heroCard.Text}";
                     }
 
-                    var pathName = getImagePath(jsonObject.FILENAME);
-
-                    if (pathName.ImagePath != null)
+                    if (HeroCardImageMapping.MAPPING.TryGetValue(jsonObject.FILENAME, out var imgPath))
                     {
-                        heroCard.Images = new List<CardImage> { new CardImage(pathName.ImagePath) };
+                        heroCard.Images = new List<CardImage> { new CardImage(imgPath) };
                     }
 
                     var activity = MessageFactory.Attachment(heroCard.ToAttachment());
@@ -753,21 +562,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         }
 
-        public static ImageData getImagePath(string result)
-        {
-            ImageData image = new ImageData();
-            try
-            {
-                var res = keyValuePairs.TryGetValue(result, out image);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex);
-            }
-            return image;
-        }
-
         /// <summary>
         /// Completes the asynchronous.
         /// </summary>
@@ -821,29 +615,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             {
                 return ("Name :" + Name + "\t\t" + "PhoneNumber :" + "\t\t" + PhoneNumber + "\t\t" + "EmailId :" + EmailId);
             }
-        }
-
-        private bool dbContextDisposed;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!dbContextDisposed)
-            {
-                if (disposing)
-                {
-                    dbContext.Dispose();
-                }
-
-                dbContextDisposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-
-            GC.SuppressFinalize(this);
         }
 
         #endregion
