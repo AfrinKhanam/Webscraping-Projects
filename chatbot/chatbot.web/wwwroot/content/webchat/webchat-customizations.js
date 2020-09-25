@@ -1,32 +1,46 @@
 ﻿"use strict";
 
-function _defineProperty(obj, key, value) {
-    if (key in obj) {
-        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
-    } else {
-        obj[key] = value;
-    }
-    return obj;
-}
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () { })); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 (async function () {
     'use strict';
 
-    const {
-        connectToWebChat,
-        ReactWebChat
-    } = window.WebChat;
-    const {
-        css
-    } = window.Glamor;
-    const styleOptions = {
+    var _window$WebChat = window.WebChat,
+        connectToWebChat = _window$WebChat.connectToWebChat,
+        ReactWebChat = _window$WebChat.ReactWebChat;
+    var css = window.Glamor.css;
+    var styleOptions = {
         backgroundColor: '',
         hideUploadButton: true,
         botAvatarInitials: 'BOT',
         botAvatarImage: './botAvatar.png',
         botAvatarBackgroundColor: '#e2aa42ad'
     };
-    const ACTIVITY_WITH_FEEDBACK_CSS = css({
+    var ACTIVITY_WITH_FEEDBACK_CSS = css({
         position: 'relative',
         '& > .activity': {
             paddingLeft: 0
@@ -51,7 +65,7 @@ function _defineProperty(obj, key, value) {
             }
         }
     });
-    const ATTACHMENT_FEEDBACK = css({
+    var ATTACHMENT_FEEDBACK = css({
         padding: 10,
         margin: 0,
         textAlign: 'left',
@@ -73,47 +87,41 @@ function _defineProperty(obj, key, value) {
         }
     });
     window.current_Context = "";
-    const store = window.WebChat.createStore();
+    var store = window.WebChat.createStore({}, function (_ref) {
+        var dispatch = _ref.dispatch;
+        return function (next) {
+            return function (action) {
+                var actionTypesToHandle = ["DIRECT_LINE/INCOMING_ACTIVITY", "DIRECT_LINE/POST_ACTIVITY_FULFILLED", "DIRECT_LINE/INCOMING_ACTIVITY", "WEB_CHAT/SET_SUGGESTED_ACTIONS"];
 
-    class IntegraHeroCard extends React.Component {
-        constructor(...args) {
-            super(...args);
+                if (actionTypesToHandle.includes(action.type)) {
+                    var lastChild = document.querySelector('ul[role="list"]').lastChild;
 
-            _defineProperty(this, "sendMessageButton", e => {
-                return store.dispatch({
-                    type: 'WEB_CHAT/SEND_MESSAGE',
-                    payload: {
-                        text: e
+                    if (lastChild) {
+                        lastChild.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
-                });
-            });
-        }
+                }
 
-        render() {
-            const {
-                props
-            } = this;
-            const items = [];
+                return next(action);
+            };
+        };
+    });
 
-            for (const button of props.buttons) {
-                items.push(React.createElement("button", {
-                    onClick: () => this.sendMessageButton(button.value),
-                    key: button.title
-                }, button.title));
-            }
+    var ActivityWithFeedback = /*#__PURE__*/function (_React$Component) {
+        _inherits(ActivityWithFeedback, _React$Component);
 
-            return React.createElement("div", {
-                className: ATTACHMENT_FEEDBACK
-            }, items);
-        }
+        var _super = _createSuper(ActivityWithFeedback);
 
-    }
+        function ActivityWithFeedback() {
+            var _this;
 
-    class ActivityWithFeedback extends React.Component {
-        constructor() {
-            super();
+            _classCallCheck(this, ActivityWithFeedback);
 
-            _defineProperty(this, "sendFeedback", feedBack => {
+            _this = _super.call(this);
+
+            _defineProperty(_assertThisInitialized(_this), "sendFeedback", function (feedBack) {
                 fetch('/Report/UpdateFeedback', {
                     method: 'POST',
                     headers: {
@@ -121,90 +129,98 @@ function _defineProperty(obj, key, value) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        ActivityId: this.props.replyId,
+                        ActivityId: _this.props.replyId,
                         ResonseFeedback: feedBack
                     })
                 });
             });
 
-            _defineProperty(this, "handleDownvoteButton", () => {
-                this.setState({
+            _defineProperty(_assertThisInitialized(_this), "handleDownvoteButton", function () {
+                _this.setState({
                     upvote_class: 'feedback-done',
                     downvote_class: 'reaction-downvote feedback-done',
                     disabled: 'disabled'
                 });
-                this.sendFeedback(-1);
+
+                _this.sendFeedback(-1);
             });
 
-            _defineProperty(this, "handleUpvoteButton", () => {
-                this.setState({
+            _defineProperty(_assertThisInitialized(_this), "handleUpvoteButton", function () {
+                _this.setState({
                     upvote_class: 'reaction-upvote feedback-done',
                     downvote_class: 'feedback-done',
                     disabled: 'disabled'
                 });
-                this.sendFeedback(1);
+
+                _this.sendFeedback(1);
             });
 
-            this.state = {
+            _this.state = {
                 upvote_class: '',
                 downvote_class: '',
                 disabled: false
             };
+            return _this;
         }
 
-        render() {
-            const {
-                props
-            } = this;
+        _createClass(ActivityWithFeedback, [{
+            key: "render",
+            value: function render() {
+                var props = this.props;
 
-            if (props.activity.showFeedback) {
-                return React.createElement("div", {
-                    className: ACTIVITY_WITH_FEEDBACK_CSS
-                }, React.createElement("div", {
-                    className: "activity"
-                }, props.children), React.createElement("ul", {
-                    className: "button-bar"
-                }, React.createElement("li", null, React.createElement("button", {
-                    className: this.state.upvote_class,
-                    disabled: false,
-                    onClick: this.handleUpvoteButton
-                }, React.createElement("span", {
-                    className: "glyphicon glyphicon-thumbs-up",
-                    "aria-hidden": "true",
-                    title: "Satisfied with BOT's response"
-                }))), React.createElement("li", null, React.createElement("button", {
-                    className: this.state.downvote_class,
-                    disabled: false,
-                    onClick: this.handleDownvoteButton
-                }, React.createElement("span", {
-                    className: "glyphicon glyphicon-thumbs-down",
-                    "aria-hidden": "true",
-                    title: "Not satisfied"
-                })))));
-            } else {
-                return React.createElement("div", {
-                    className: ACTIVITY_WITH_FEEDBACK_CSS
-                }, React.createElement("div", {
-                    className: "activity"
-                }, props.children));
+                if (props.activity.showFeedback) {
+                    return /*#__PURE__*/React.createElement("div", {
+                        className: ACTIVITY_WITH_FEEDBACK_CSS
+                    }, /*#__PURE__*/React.createElement("div", {
+                        className: "activity"
+                    }, props.children), /*#__PURE__*/React.createElement("ul", {
+                        className: "button-bar"
+                    }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
+                        className: this.state.upvote_class,
+                        disabled: false,
+                        onClick: this.handleUpvoteButton
+                    }, /*#__PURE__*/React.createElement("span", {
+                        className: "glyphicon glyphicon-thumbs-up",
+                        "aria-hidden": "true",
+                        title: "Satisfied with BOT's response"
+                    }))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
+                        className: this.state.downvote_class,
+                        disabled: false,
+                        onClick: this.handleDownvoteButton
+                    }, /*#__PURE__*/React.createElement("span", {
+                        className: "glyphicon glyphicon-thumbs-down",
+                        "aria-hidden": "true",
+                        title: "Not satisfied"
+                    })))));
+                } else {
+                    return /*#__PURE__*/React.createElement("div", {
+                        className: ACTIVITY_WITH_FEEDBACK_CSS
+                    }, /*#__PURE__*/React.createElement("div", {
+                        className: "activity"
+                    }, props.children));
+                }
             }
-        }
+        }]);
 
-    }
+        return ActivityWithFeedback;
+    }(React.Component);
 
-    const ConnectedActivityWithFeedback = connectToWebChat(({
-        postActivity
-    }) => ({
-        postActivity
-    }))(props => React.createElement(ActivityWithFeedback, props));
+    var ConnectedActivityWithFeedback = connectToWebChat(function (_ref2) {
+        var postActivity = _ref2.postActivity;
+        return {
+            postActivity: postActivity
+        };
+    })(function (props) {
+        return /*#__PURE__*/React.createElement(ActivityWithFeedback, props);
+    });
 
-    const checkDirectLine = function checkDirectLine() {
+    var checkDirectLine = function checkDirectLine() {
         if (!window.directLine) {
             setTimeout(checkDirectLine, 100);
             return;
         }
 
-        ReactDOM.render(React.createElement(ReactWebChat, {
+        window.ReactDOM.render( /*#__PURE__*/React.createElement(ReactWebChat, {
             activityMiddleware: activityMiddleware,
             directLine: window.directLine,
             styleOptions: styleOptions,
@@ -213,20 +229,28 @@ function _defineProperty(obj, key, value) {
         document.querySelector('#webchat > *').focus();
     };
 
-    const activityMiddleware = () => next => card => {
-        if (card.activity.type === 'message' && card.activity.from.role === 'bot') {
-            return children => React.createElement(ConnectedActivityWithFeedback, {
-                key: card.activity.id,
-                activity: card.activity,
-                activityID: card.activity.id,
-                replyId: card.activity.replyToId
-            }, next(card)(children));
-        } else {
-            return next(card);
-        }
+    var activityMiddleware = function activityMiddleware() {
+        return function (next) {
+            return function (card) {
+                if (card.activity.type === 'message' && card.activity.from.role === 'bot') {
+                    return function (children) {
+                        return /*#__PURE__*/React.createElement(ConnectedActivityWithFeedback, {
+                            key: card.activity.id,
+                            activity: card.activity,
+                            activityID: card.activity.id,
+                            replyId: card.activity.replyToId
+                        }, next(card)(children));
+                    };
+                } else {
+                    return next(card);
+                }
+            };
+        };
     };
 
     setTimeout(function () {
         checkDirectLine();
     }, 100);
-})().catch(err => console.error(err));
+})().catch(function (err) {
+    return console.error(err);
+});
