@@ -37,9 +37,6 @@ namespace IndianBank_ChatBOT.Dialogs.EMI
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new TextPrompt(DialogIds.AskforPrincipalAmount, ValidatePrincipalAmount));
             AddDialog(new TextPrompt(DialogIds.AskDuration));
-            //AddDialog(new TextPrompt(DialogIds.CalculateEMI));
-
-
         }
 
         public async Task<DialogTurnResult> AskforPrincipalAmount(WaterfallStepContext stepContext, CancellationToken cancellationToken)

@@ -17,30 +17,23 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 {
     public class OnBoardingFormDialog : EnterpriseDialog
     {
-        private BotServices _services;
-        private UserState _userState;
-        private ConversationState _conversationState;
         private MainResponses _responder = new MainResponses();
 
-        private readonly AppSettings _appSettings;
+        private readonly AppDbContext dbContext;
 
-        public OnBoardingFormDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings)
+        public OnBoardingFormDialog(BotServices services, AppDbContext dbContext)
         : base(services, nameof(OnBoardingFormDialog))
         {
-
-            _appSettings = appsettings;
             InitialDialogId = nameof(OnBoardingFormDialog);
 
-            _services = services ?? throw new ArgumentNullException(nameof(services));
-            _conversationState = conversationState;
-            _userState = userState;
+            this.dbContext = dbContext;
 
             var steps = new WaterfallStep[]
-          {
+            {
                 AskforName,
                 AskPhoneNo,
                EndOnboardingDialog
-           };
+            };
 
             AddDialog(new WaterfallDialog(InitialDialogId, steps));
             AddDialog(new TextPrompt(DialogIds.AskforName, ValidateNameAsync));
@@ -105,8 +98,8 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         public async Task<DialogTurnResult> EndOnboardingDialog(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             string userPhoneNumber = stepContext.Result as string;
-            stepContext.Values["UserPhoneNumber"] = stepContext.Result;
-            string ApplicantPhoneNumber = userPhoneNumber;
+
+            stepContext.Values["UserPhoneNumber"] = userPhoneNumber;
 
             var msg = $@"Thanks {stepContext.Values["UserName"]} for providing all the information.
 Feel free to ask me any question by typing below or clicking on the dynamic scroll bar options for specific suggestions.";
@@ -115,37 +108,39 @@ Feel free to ask me any question by typing below or clicking on the dynamic scro
             onboardingCompletedEvent.Value = "OnboardingCompleted";
 
             await stepContext.Context.SendActivitiesAsync(
-                new [] { MessageFactory.Text(msg), onboardingCompletedEvent },
+                new[] { MessageFactory.Text(msg), onboardingCompletedEvent },
                 cancellationToken
             );
 
-            using (var dbContext = new AppDbContext(_appSettings.ConnectionString))
+            try
             {
+                var userName = stepContext.Values["UserName"].ToString();
 
-                try
+                var userInfo = new UserInfo
                 {
-                    var userName = stepContext.Values["UserName"].ToString();
-                    var userInfo = new UserInfo
-                    {
-                        Id = 0,
-                        Name = userName,
-                        PhoneNumber = userPhoneNumber,
-                        ConversationId = stepContext.Context.Activity.Conversation.Id,
-                        CreatedOn = DateTime.Now,
-                    };
+                    Id = 0,
+                    Name = userName,
+                    PhoneNumber = userPhoneNumber,
+                    ConversationId = stepContext.Context.Activity.Conversation.Id,
+                    CreatedOn = DateTime.Now,
+                };
 
-                    var data = await dbContext.UserInfos.AddAsync(userInfo);
+                await dbContext.UserInfos.AddAsync(userInfo);
 
-                    var result = await dbContext.SaveChangesAsync();
+                // Update all messages exchanged so far as Onboarding Messages, so that none of the reports or analytics consider these messages as chatbot queries by the user.
 
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                var conversationId = stepContext.Context.Activity.Conversation.Id;
+
+                var chatLogs = dbContext.ChatLogs.Where(c => c.ConversationId == conversationId).ToList();
+                chatLogs.ForEach(c => c.IsOnBoardingMessage = true);
+                dbContext.ChatLogs.UpdateRange(chatLogs);
+
+                await dbContext.SaveChangesAsync();
             }
-
-            BotChatActivityLogger.UpdateOnBoardingMessageFlag(stepContext.Context.Activity.Conversation.Id);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             return await stepContext.EndDialogAsync();
         }

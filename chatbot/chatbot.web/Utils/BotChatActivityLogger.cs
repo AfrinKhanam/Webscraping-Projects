@@ -19,16 +19,6 @@ namespace IndianBank_ChatBOT.Utils
                 connectionString = _connectionString;
         }
 
-        public static UserInfo GetUserDetails(string conversationId)
-        {
-            using (var dbContext = new AppDbContext(connectionString))
-            {
-                var userInfo = dbContext.UserInfos.FirstOrDefault(e => e.ConversationId == conversationId);
-
-                return userInfo;
-            }
-        }
-
         public async Task LogActivityAsync(IActivity activity)
         {
             var msg = activity.AsMessageActivity();
@@ -81,17 +71,6 @@ namespace IndianBank_ChatBOT.Utils
 
             if (extendedLogData != null)
                 activity.ChannelData = null;
-        }
-
-        public static void UpdateOnBoardingMessageFlag(string conversationId)
-        {
-            using (var dbContext = new AppDbContext(connectionString))
-            {
-                var chatLogs = dbContext.ChatLogs.Where(c => c.ConversationId == conversationId).ToList();
-                chatLogs.ForEach(c => c.IsOnBoardingMessage = true);
-                dbContext.ChatLogs.UpdateRange(chatLogs);
-                dbContext.SaveChanges();
-            }
         }
     }
 }

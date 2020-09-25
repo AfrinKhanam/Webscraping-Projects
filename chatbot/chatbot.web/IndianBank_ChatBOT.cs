@@ -33,7 +33,7 @@ namespace IndianBank_ChatBOT
         /// <param name="conversationState">Bot conversation state.</param>
         /// <param name="userState">Bot user state.</param>
         public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, UserState userState,
-            IOptions<AppSettings> appsettings, IHttpClientFactory clientFactory)
+            IOptions<AppSettings> appsettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
 
         {
             appSettings = appsettings.Value;
@@ -42,8 +42,7 @@ namespace IndianBank_ChatBOT
             _userState = userState ?? throw new ArgumentNullException(nameof(userState));
             _services = botServices ?? throw new ArgumentNullException(nameof(botServices));
             _dialogs = new DialogSet(_conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
-            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, clientFactory));
-            // _dialogs.Add(new VehicleLoanDialog(_services, _conversationState, _userState));
+            _dialogs.Add(new MainDialog(_services, _conversationState, _userState, appSettings, dbContext, clientFactory));
         }
 
         /// <summary>

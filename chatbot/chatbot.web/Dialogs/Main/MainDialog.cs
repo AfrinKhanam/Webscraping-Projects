@@ -24,7 +24,7 @@ using Newtonsoft.Json.Linq;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
-    public class MainDialog : RouterDialog
+    public class MainDialog : RouterDialog, IDisposable
     {
         #region properties
 
@@ -227,18 +227,20 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <exception cref="ArgumentNullException">services</exception>
 
         private static AppSettings appSettings;
+        private readonly AppDbContext dbContext;
         private readonly IHttpClientFactory clientFactory;
 
-        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings, IHttpClientFactory clientFactory)
+        public MainDialog(BotServices services, ConversationState conversationState, UserState userState, AppSettings appsettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
             : base(nameof(MainDialog))
         {
             appSettings = appsettings;
+            this.dbContext = dbContext;
             this.clientFactory = clientFactory;
             _services = services ?? throw new ArgumentNullException(nameof(services));
             _conversationState = conversationState;
             _userState = userState;
             AddDialog(new VehicleLoanDialog(_services, conversationState, userState));
-            AddDialog(new OnBoardingFormDialog(_services, conversationState, userState, appsettings));
+            AddDialog(new OnBoardingFormDialog(_services, dbContext));
             AddDialog(new EMICalculatorDialog(_services, conversationState, userState));
         }
 
@@ -292,7 +294,8 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 string entityType = string.Empty;
 
                 var conversationID = dc.Context.Activity.Conversation.Id;
-                var userInfo = BotChatActivityLogger.GetUserDetails(conversationID);
+
+                var userInfo = dbContext.UserInfos.FirstOrDefault(e => e.ConversationId == conversationID);
 
                 var result = await luisService.RecognizeAsync(dc.Context, CancellationToken.None);
 
@@ -331,10 +334,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 var generalIntentScore = result.GetTopScoringIntent().score;
 
                 Console.WriteLine(generalIntent, generalIntentScore);
-
-                // BotChatActivityLogger.UpdateRaSaData(generalIntent, generalIntentScore, entityName);
-                // BotChatActivityLogger.UpdateResponseJsonText(string.Empty);
-                // BotChatActivityLogger.UpdateSource(ResponseSource.Rasa);
 
                 if (entityType == "scrollbar_entity")
                 {
@@ -827,6 +826,29 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             {
                 return ("Name :" + Name + "\t\t" + "PhoneNumber :" + "\t\t" + PhoneNumber + "\t\t" + "EmailId :" + EmailId);
             }
+        }
+
+        private bool dbContextDisposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!dbContextDisposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+
+                dbContextDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion
