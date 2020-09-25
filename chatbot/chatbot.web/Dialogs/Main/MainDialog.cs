@@ -14,6 +14,7 @@ using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 using IndianBank_ChatBOT.ViewModel;
+
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
@@ -410,20 +411,20 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                 }
                 else if (utterance.Trim().ToLower() == "hi" || utterance.Trim().ToLower() == "hello" || utterance.Trim().ToLower() == "hey" || utterance.Trim().ToLower() == "good morning" || (utterance.Trim().ToLower() == "hii") || utterance.Trim().ToLower() == "greetings" || utterance.Trim().ToLower() == "whats up")
-                    {
-                        var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
-                    }
-                else if (utterance.Trim().ToLower() == "bye" || utterance.Trim().ToLower() == "bye bye" || utterance.Trim().ToLower() == "good bye" || utterance.Trim().ToLower() == "take care" || (utterance.Trim().ToLower() == "tata") )
-                    {
-                        var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                        await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
-                        
-                    }
+                {
+                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
+                    await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. How may I help you today?");
+                }
+                else if (utterance.Trim().ToLower() == "bye" || utterance.Trim().ToLower() == "bye bye" || utterance.Trim().ToLower() == "good bye" || utterance.Trim().ToLower() == "take care" || (utterance.Trim().ToLower() == "tata"))
+                {
+                    var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
+                    await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
+
+                }
                 else if (generalIntentScore > 0.75)
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
-                    
+
                     if (generalIntent == "small_talks_intent")
                     {
                         await dc.Context.SendActivityAsync($"Hello!! I'm IVA, your Indian Bank Virtual Assistant");
@@ -642,35 +643,37 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }));
                 }
 
+                var firstDoc = jsonObject.DOCUMENTS.First();
+
                 if (!String.IsNullOrEmpty(jsonObject.FILENAME))
                 {
-                    ImageData pathName = getImagePath(jsonObject.FILENAME);
+                    var heroCard = new HeroCard
+                    {
+                        Text = $@"For further details please visit the page [{firstDoc.url}]({firstDoc.url})"
+                    };
+
+                    if (!string.IsNullOrWhiteSpace(firstDoc.value))
+                    {
+                        heroCard.Title = firstDoc.main_title;
+                        heroCard.Subtitle = firstDoc.title;
+                        heroCard.Text = $@"{firstDoc.value}
+
+{heroCard.Text}";
+                    }
+
+                    var pathName = getImagePath(jsonObject.FILENAME);
 
                     if (pathName.ImagePath != null)
                     {
-                        var attachment = new HeroCard()
-                        {
-                            Images = new List<CardImage> { new CardImage(pathName.ImagePath) }
-                        }.ToAttachment();
-
-
-                        var result = MessageFactory.Attachment(attachment, ssml: null, inputHint: InputHints.AcceptingInput);
-                        await dialogContext.Context.SendActivityAsync(result);
+                        heroCard.Images = new List<CardImage> { new CardImage(pathName.ImagePath) };
                     }
 
-                    if (jsonObject.DOCUMENTS[0].value != null)
-                    {
-                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-                    }
-                    else
-                    {
-                        await dialogContext.Context.SendActivityAsync($"For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-                    }
+                    var activity = MessageFactory.Attachment(heroCard.ToAttachment());
 
+                    await dialogContext.Context.SendActivityAsync(activity);
                 }
                 else
                 {
-
                     if (jsonObject.WORD_SCORE == 0)
                     {
                         await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:180042500000> /  <tel:18004254422> \n\n Please click on the link below for futher contact details: \n\n https://indianbank.in/departments/quick-contact/ ");
@@ -678,22 +681,19 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else if (jsonObject.WORD_SCORE < 0.6)
                     {
-                        // await dialogContext.Context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
-
                         await dialogContext.Context.SendActivityAsync("I did not find an exact answer but here is something similar");
-                        await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
+                        await dialogContext.Context.SendActivityAsync($"{firstDoc.main_title}\n\n{firstDoc.title}\n\n{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}");
                     }
                     else
                     {
                         await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.AUTO_CORRECT_QUERY}\"");
                         if (jsonObject.WORD_COUNT > 100)
                         {
-                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].main_title}\n\n{jsonObject.DOCUMENTS[0].title}\n\n{jsonObject.DOCUMENTS[0].value} \n\n {jsonObject.DOCUMENTS[0].url}");
+                            await dialogContext.Context.SendActivityAsync($"{firstDoc.main_title}\n\n{firstDoc.title}\n\n{firstDoc.value} \n\n {firstDoc.url}");
                         }
                         else if (jsonObject.WORD_COUNT < 25)
                         {
-                            await dialogContext.Context.SendActivityAsync($"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}");
-
+                            await dialogContext.Context.SendActivityAsync($"{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}");
                         }
                         else
                         {
@@ -702,10 +702,10 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                             if (documentCount > 0)
                             {
-                                message = $"{jsonObject.DOCUMENTS[0].value}\n\n For further details please click on the link below:\n {jsonObject.DOCUMENTS[0].url}";
+                                message = $"{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}";
                             }
 
-                            if (documentCount > 1 && documentCount <= 2 && jsonObject.DOCUMENTS[0].url != jsonObject.DOCUMENTS[1].url)
+                            if (documentCount > 1 && documentCount <= 2 && firstDoc.url != jsonObject.DOCUMENTS[1].url)
                             {
                                 message += $"\n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
                             }
