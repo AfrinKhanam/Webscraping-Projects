@@ -26,22 +26,23 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         public ActionResult Index()
+
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 
-        [Authorize]
-        public IActionResult GetAllWords()
+       //[Authorize]
+        public IActionResult GetAllWords(int languageId)
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
             return Ok(Synonyms);
         }
 
         [AllowAnonymous]
-        public IActionResult GetAllWordsCsv()
+        public IActionResult GetAllWordsCsv(int languageId)
         {
-            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
+            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
             var wordsCsv = new List<string>();
             foreach (var synonym in synonyms)
             {

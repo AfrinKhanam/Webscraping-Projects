@@ -15,6 +15,11 @@ namespace IndianBank_ChatBOT.Models
         public string FileName { get; set; }
         public string FileType { get; set; }
 
+        public int? LanguageId { get; set; }
+
+        [ForeignKey(nameof(LanguageId))]
+        public virtual WebPageLanguage WebPageLanguage { get; set; }
+
         [Column(TypeName = "text")]
         public string FileData { get; set; }
         public DateTime CreatedOn { get; set; }

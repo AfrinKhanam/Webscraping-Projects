@@ -85,6 +85,9 @@
                                     <th width="30%">
                                         Url
                                     </th>
+                                    <th width="30%">
+                                        Language
+                                    </th>
                                     <th width="13%">
                                         Last Scraped
                                     </th>
@@ -143,6 +146,10 @@
                                                 }
                                             }
                                             <a target="_blank" href="@item.Url">@reducedText</a>
+                                        </td>
+
+                                        <td style="font-size:small">
+                                            @item.WebPageLanguage.LanguageName
                                         </td>
 
                                         <td style="font-size:smaller">
