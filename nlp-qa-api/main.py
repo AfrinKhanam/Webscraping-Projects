@@ -15,6 +15,7 @@ import uvicorn
 from common.utils import get_error_details
 from search.qa_pipeline import QAPipeline
 from webscraping.web_scraping_pipeline import WebScrapingPipeline
+from webscraping.scrape_menu import scrape_scrollbar_menu
 
 config_file_path = './config.ini'
 config = ConfigParser()
@@ -39,6 +40,9 @@ static_scraping_url = config.get("urls", "static_file_status_url")
 synonyms_url = config.get("urls", "synonyms_url")
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
+
+scrape_menu_url = config.get("scrape_menu","url")
+scrape_menu_id = config.get("scrape_menu","id")
 
 app = FastAPI()
 
@@ -127,6 +131,13 @@ def scrape_all_pages(background_tasks: BackgroundTasks):
             "status": "success",
             "detail": "Scraping Task Queued Successfully."
         }
+    except Exception:
+        raise HTTPException(status_code=500, detail=get_error_details())
+
+@app.get('/scrape_menu')
+def scrape_menu():
+    try:
+        return scrape_scrollbar_menu(url=scrape_menu_url,id=scrape_menu_id)
     except Exception:
         raise HTTPException(status_code=500, detail=get_error_details())
 
