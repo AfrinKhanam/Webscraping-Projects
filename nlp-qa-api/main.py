@@ -15,7 +15,7 @@ import uvicorn
 from common.utils import get_error_details
 from search.qa_pipeline import QAPipeline
 from webscraping.web_scraping_pipeline import WebScrapingPipeline
-from webscraping.scrape_menu import scrape_scrollbar_menu
+from webscraping.scrape_menu import ScrapeMenu
 
 config_file_path = './config.ini'
 config = ConfigParser()
@@ -134,10 +134,11 @@ def scrape_all_pages(background_tasks: BackgroundTasks):
     except Exception:
         raise HTTPException(status_code=500, detail=get_error_details())
 
-@app.get('/scrape_menu')
+@app.get('/get_ib_menu')
 def scrape_menu():
     try:
-        return scrape_scrollbar_menu(url=scrape_menu_url,id=scrape_menu_id)
+        ib_menu = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies).__fetch_page_from_es__(field='_id',value='menu_items')
+        return ib_menu['hits']['hits'][0]['_source']['ib_menu']
     except Exception:
         raise HTTPException(status_code=500, detail=get_error_details())
 
