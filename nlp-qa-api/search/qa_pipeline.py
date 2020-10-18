@@ -17,6 +17,7 @@ class QAPipeline:
         self.__doc_title_prioritizer = DocTitlePrioritizer()
         # self.__summarizer_model = SingleModel()
 
+        
     def search(self, query: str, context: str):
         result = self.__preprocess_query({
             'CONTEXT': query.strip(),

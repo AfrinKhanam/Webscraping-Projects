@@ -12,6 +12,7 @@ from webscraping.stemming import Stemmer
 from webscraping.pre_processing import PreProcessing
 from webscraping.elastic import Elastic
 from common.utils import get_error_details
+from webscraping.scrape_menu import ScrapeMenu
 
 db_sleep_time = 2
 
@@ -29,7 +30,8 @@ class WebScrapingPipeline:
         self.__elastic = Elastic(es_host, es_port, es_index, '_doc')
 
         self.__proxies = proxies
-
+        self.scrape_menu = ScrapeMenu(Elasticsearch([{'index':es_index,'host': es_host, 'port': es_port}]),self.__es_index)
+    
     def scrape_all_pages(self):
         self.__rescrape_all_pages__()
 
@@ -43,7 +45,7 @@ class WebScrapingPipeline:
         if page_configs != None:
             self.__rescrape_all_static_pages__(page_configs)
 
-    def __fetch_page_from_es__(self,url):
+    def __fetch_page_from_es__(self,field,value):
         es = Elasticsearch(index=self.__es_index)
         es_result = es.search(
             index=self.__es_index,
@@ -54,7 +56,8 @@ class WebScrapingPipeline:
                         "must": [
                             {
                                 "match_phrase": {
-                                    "url": url
+                                    field: value
+                                
                                 }
                             }
                         ]
@@ -67,7 +70,7 @@ class WebScrapingPipeline:
         else:
             return es_result
 
-    def __search_and_delete_page_from_es_index__(self, url):
+    def __search_and_delete_page_from_es_index__(self,field,value):
         # Delete an all static file url's documents from Elasticsearch index
         query = {
             "query": {
@@ -75,7 +78,7 @@ class WebScrapingPipeline:
                     "must": [
                         {
                             "match_phrase": {
-                                "url": url,
+                                field: value
                             }
                         }
                     ]
@@ -84,14 +87,14 @@ class WebScrapingPipeline:
         }
         es = Elasticsearch(index=self.__es_index)
         if es.indices.exists(index=self.__es_index):
-            es_result = self.__fetch_page_from_es__(url)
+            es_result = self.__fetch_page_from_es__(field,value)
 
             if es_result == None:
                 print("0 records found")
                 return None
             else:
                 result = es.delete_by_query(index=self.__es_index, body=query)
-                print("deleted urls ", url," length is : ",result['deleted'])
+                print("deleted urls ", value," length is : ",result['deleted'])
                 es_matched_docs = []
                 for doc in es_result['hits']['hits']:
                     es_matched_docs.append(doc['_source'])
@@ -171,7 +174,7 @@ class WebScrapingPipeline:
 
                     document = self.__elastic.generate_individual_document(document)
                     #delete all the records by url
-                    static_backup_docs = self.__search_and_delete_page_from_es_index__(document['url'])
+                    static_backup_docs = self.__search_and_delete_page_from_es_index__(field='url',value=document['url'])
                     time.sleep(db_sleep_time)
                     self.__elastic.index_document(document)
 
@@ -195,7 +198,8 @@ class WebScrapingPipeline:
                         documents = {}
                         documents['document_list'] = static_backup_docs
                         self.__elastic.index_document(documents)
-                        error_message = f"Scraping Error: {get_error_details()}"
+                    error_message = f"Scraping Error: {get_error_details()}"
+                    break
                 except Exception:
                     error_message = f"Scraping Error: {get_error_details()}"
                     print(err)
@@ -231,37 +235,49 @@ class WebScrapingPipeline:
         while value <= 5:
             backup_docs = []
             try:
+                
                 document = self.__generate_json_structure__(document)
+ 
+                if "scrollbar_menus" in document:
+                    backup_docs = self.__search_and_delete_page_from_es_index__(field='_id',value='menu_items')
 
-                document = self.__stemmer.w_stem(document)
+                    self.scrape_menu.index_document(menu=document['scrollbar_menus'])
 
-                document = self.__pre_processor.process(document)
-
-                post_processing_error = None
-
-                if 'post_processing_error' in document.keys():
-                    post_processing_error = document['post_processing_error']
-
-                    del document['post_processing_error']
-
-                document = self.__elastic.generate_individual_document(document)
-
-                #delete all the records by url
-                backup_docs = self.__search_and_delete_page_from_es_index__(document['url'])
-                time.sleep(db_sleep_time)
-                self.__elastic.index_document(document)
-
-                if post_processing_error is not None:
-                    error_message = f"""Postprocessing Error! Has the core structure of the page changed?
-If yes, this might require changes to post-processing functions. Please contact Integra and provide the following error details:
-{document['post_processing_error']}"""
-
-                else:
                     scrape_status = 1
 
                     requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
 
-                    print(f"Success: {doc_url}")
+                else:
+
+                    document = self.__stemmer.w_stem(document)
+
+                    document = self.__pre_processor.process(document)
+
+                    post_processing_error = None
+
+                    if 'post_processing_error' in document.keys():
+                        post_processing_error = document['post_processing_error']
+
+                        del document['post_processing_error']
+
+                    document = self.__elastic.generate_individual_document(document)
+
+                    #delete all the records by url
+                    backup_docs = self.__search_and_delete_page_from_es_index__(field='url',value=document['url'])
+                    time.sleep(db_sleep_time)
+                    self.__elastic.index_document(document)
+
+                    if post_processing_error is not None:
+                        error_message = f"""Postprocessing Error! Has the core structure of the page changed?
+    If yes, this might require changes to post-processing functions. Please contact Integra and provide the following error details:
+    {document['post_processing_error']}"""
+
+                    else:
+                        scrape_status = 1
+
+                        requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
+
+                print(f"Success: {doc_url}")
 
                 time.sleep(5)
                 break
@@ -271,15 +287,17 @@ If yes, this might require changes to post-processing functions. Please contact 
                 value += 1
                 time.sleep(5)
                 continue
-            except ElasticsearchException:
+            except ElasticsearchException as e:
                 if backup_docs != None:
-                    documents = {}
-                    documents['document_list'] = backup_docs
-                    self.__elastic.index_document(documents)
-                    error_message = f"Scraping Error: {get_error_details()}"
-                    print("--------------------\n")
-
-            except Exception:
+                    if "scrollbar_menus" in document:
+                        self.scrape_menu.index_document(menu=backup_docs[0]['ib_menu'])
+                    else:
+                        documents = {}
+                        documents['document_list'] = backup_docs
+                        self.__elastic.index_document(documents)
+                error_message = f"Scraping Error: {get_error_details()}"
+                break
+            except Exception as e:
                 error_message = f"Scraping Error: {get_error_details()}"
                 break
 
@@ -307,14 +325,14 @@ If yes, this might require changes to post-processing functions. Please contact 
 
         html = response.content
 
+        if "menu" in document['pageConfig']:
+            scrollbar_menus = self.scrape_menu.scrape_scrollbar_menu(document,html)
+            document['scrollbar_menus'] = scrollbar_menus
+            return document
+
+
         html_to_json = HtmlToJson(html)
 
-        # manager_pages = ['/departments/general-managers/',
-        #                  '/departments/general-managers/']
-
-        # if any([u for u in manager_pages if document['url'].lower().endswith(u)]):
-        #     html_to_json.generate_json_for_general_managers(document)
-        #     return document
         # pageConfig is none for static pages
         if (document.get('pageConfig') is None):
             html_to_json.main_title(document)
