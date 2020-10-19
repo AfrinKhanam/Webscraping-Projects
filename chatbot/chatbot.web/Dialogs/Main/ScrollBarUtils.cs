@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Dialogs.Shared;
-using IndianBank_ChatBOT.Migrations;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.ViewModel;
 
@@ -20,7 +17,7 @@ using Newtonsoft.Json.Linq;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
-    public class ScrollBarDialog
+    public class ScrollBarUtils
     {
         public static async Task DisplayScrollBarMenu(DialogContext dialogContext, SelectedMenuItem selectedMenu,
             AppSettings appSettings, IMemoryCache memoryCache, IHttpClientFactory clientFactory)
@@ -184,58 +181,5 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
             await dialogContext.Context.SendActivityAsync(response);
         }
-
-        public static async void DisplayScrollBarMenu(DialogContext dialogContext, string EntityName, string qaEndPoint, IHttpClientFactory clientFactory)
-        {
-            switch (EntityName)
-            {
-                case ScrollbarEntities.AboutUs:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForAboutUs.Actions);
-                        break;
-                    }
-                case ScrollbarEntities.Products:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForProduct.Actions);
-                        break;
-                    }
-                case ScrollbarEntities.Services:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForServices.Actions);
-                        break;
-                    }
-                case ScrollbarEntities.Rates:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForRates.Actions);
-                        break;
-                    }
-                case ScrollbarEntities.Contacts:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForContacts.Actions);
-                        break;
-                    }
-                case ScrollbarEntities.Links:
-                    {
-                        BuildScrollBarMenu(dialogContext, ScrollbarResponses.SuggestedActionsForLinks.Actions);
-                        break;
-                    }
-                default:
-                    await MainDialog.SearchKB(dialogContext, qaEndPoint, clientFactory);
-                    break;
-            }
-        }
-
-        public static async void BuildScrollBarMenu(DialogContext dialogContext, IList<CardAction> cardAction)
-        {
-            var attachment = new HeroCard()
-            {
-                Buttons = cardAction
-            }.ToAttachment();
-
-            var response = MessageFactory.Attachment(attachment, ssml: null, inputHint: InputHints.AcceptingInput);
-            await dialogContext.Context.SendActivityAsync(response);
-        }
     }
-
-
 }

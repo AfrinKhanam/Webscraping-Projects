@@ -4,10 +4,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Dialogs.Main;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
@@ -17,8 +15,6 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
 {
     public class OnBoardingFormDialog : EnterpriseDialog
     {
-        private MainResponses _responder = new MainResponses();
-
         private readonly AppDbContext dbContext;
 
         public OnBoardingFormDialog(BotServices services, AppDbContext dbContext)

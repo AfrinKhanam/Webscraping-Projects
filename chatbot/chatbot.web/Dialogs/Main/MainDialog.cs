@@ -6,12 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-using IndianBank_ChatBOT.Dialogs.EMI;
-using IndianBank_ChatBOT.Dialogs.Loans;
 using IndianBank_ChatBOT.Dialogs.Onboarding;
 using IndianBank_ChatBOT.Dialogs.Shared;
 using IndianBank_ChatBOT.Models;
-using IndianBank_ChatBOT.Utils;
 using IndianBank_ChatBOT.ViewModel;
 
 using Microsoft.Bot.Builder;
@@ -28,7 +25,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
     {
         private readonly BotServices _services;
         private readonly AppSettings appSettings;
-        private readonly MainResponses _responder = new MainResponses();
 
         private readonly AppDbContext dbContext;
         private readonly IMemoryCache memoryCache;
@@ -49,9 +45,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             this.clientFactory = clientFactory;
             _services = services ?? throw new ArgumentNullException(nameof(services));
             this.appSettings = appSettings;
-            AddDialog(new VehicleLoanDialog(_services));
             AddDialog(new OnBoardingFormDialog(_services, dbContext));
-            AddDialog(new EMICalculatorDialog(_services));
         }
 
         #region methods
@@ -64,9 +58,15 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <returns></returns>
         protected override async Task OnStartAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var view = new MainResponses();
-            await dc.Context.SendActivityAsync("Hi! My name is ADYA \U0001F603.\n Welcome to Indian Bank.\n I am your virtual assistant, here to assist you with all your banking queries 24x7");
-            //  await view.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
+            var heroCard = new HeroCard
+            {
+                Title = "Hi! My name is ADYA \U0001F603. Welcome to Indian Bank.",
+                Text = "I am your virtual assistant, here to assist you with all your banking queries 24x7."
+            };
+
+            var activity = MessageFactory.Attachment(heroCard.ToAttachment());
+
+            await dc.Context.SendActivityAsync(activity);
 
             await dc.BeginDialogAsync(nameof(OnBoardingFormDialog));
         }
@@ -106,7 +106,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 var result = await luisService.RecognizeAsync(dc.Context, CancellationToken.None);
 
-                var entityTypes = new List<string>
+                var entityTypes = new string[]
                 {
                     "what_entity",
                     "why_entity",
@@ -115,16 +115,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     "when_entity",
                     "where_entity",
                     "which_entity",
-                    "who_entity",
-                    "scrollbar_entity",
-                    "aboutus_entity",
-                    "product_entity",
-                    "services_entity",
-                    "rates_entity",
-                    "customersupport_entity",
-                    "link_entity",
-                    "atm_entity",
-                    "lost_entity"
+                    "who_entity"
                 };
 
                 foreach (var entity in entityTypes)
@@ -142,79 +133,10 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 Console.WriteLine(generalIntent, generalIntentScore);
 
-                if (entityType == "scrollbar_entity")
-                {
-                    ScrollBarDialog.DisplayScrollBarMenu(dc, entityName, appSettings.QAEndPoint, clientFactory);
-                    await dc.EndDialogAsync();
-                }
-                else if (generalIntent == "thankyouintent")
+                if (generalIntent == "thankyouintent")
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
-                }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("services") || (utterance.Split(" ")[utterance_word_count - 1].Equals("plus")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("banking")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("payment")) || (utterance.Split(" ")[utterance_word_count - 1].Equals("trust")))
-                {
-                    if (utterance.Trim() == "premium services" || utterance.Trim() == "insurance services" || utterance.Trim() == "cms plus" || utterance.Trim() == "doorstep banking" || utterance.Trim() == "tax payment" || utterance.Trim() == "debenture trust")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
-                        await dc.EndDialogAsync();
-                    }
-                    else
-                    {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
-                    }
-                }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("products"))
-                {
-                    if (utterance.Trim() == "loan products" || utterance.Trim() == "deposit products" || utterance.Trim() == "digital products" || utterance.Trim() == "feature products")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
-                        await dc.EndDialogAsync();
-                    }
-                    else
-                    {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
-
-                    }
-                }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("rates") || utterance.Split(" ")[utterance_word_count - 1].Equals("charges"))
-                {
-                    if (utterance.Trim() == "deposit rates" || utterance.Trim() == "lending rates" || utterance.Trim() == "service charges")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
-                        await dc.EndDialogAsync();
-                    }
-                    else
-                    {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
-
-                    }
-                }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("profiles") || utterance.Split(" ")[utterance_word_count - 1].Equals("mission") || utterance.Split(" ")[utterance_word_count - 1].Equals("management") || utterance.Split(" ")[utterance_word_count - 1].Equals("governance") || utterance.Split(" ")[utterance_word_count - 1].Equals("fund") || utterance.Split(" ")[utterance_word_count - 1].Equals("report"))
-                {
-                    if (utterance.Trim() == "profiles" || utterance.Trim() == "vision and mission" || utterance.Trim() == "management" || utterance.Trim() == "management" || utterance.Trim() == "corporate governance" || utterance.Trim() == "mutual fund" || utterance.Trim() == "annual report")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
-                        await dc.EndDialogAsync();
-                    }
-                    else
-                    {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
-
-                    }
-                }
-                else if (utterance.Split(" ")[utterance_word_count - 1].Equals("service") || utterance.Split(" ")[utterance_word_count - 1].Equals("sites") || utterance.Split(" ")[utterance_word_count - 1].Equals("alliances"))
-                {
-                    if (utterance.Trim() == "online service" || utterance.Trim() == "related sites" || utterance.Trim() == "alliances")
-                    {
-                        SampleFAQDialog.DisplaySampleFAQ(dc, entityType, entityName, appSettings.QAEndPoint, clientFactory);
-                        await dc.EndDialogAsync();
-                    }
-                    else
-                    {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
-
-                    }
                 }
                 else if (utterance.Trim().ToLower() == "hi" || utterance.Trim().ToLower() == "hello" || utterance.Trim().ToLower() == "hey" || utterance.Trim().ToLower() == "good morning" || (utterance.Trim().ToLower() == "hii") || utterance.Trim().ToLower() == "greetings" || utterance.Trim().ToLower() == "whats up")
                 {
@@ -225,7 +147,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 {
                     var messageData = result.Text.First().ToString().ToUpper() + result.Text.Substring(1);
                     await dc.Context.SendActivityAsync($"{messageData}!!! {userInfo.Name}. It was nice talking to you today.");
-
                 }
                 else if (generalIntentScore > 0.75)
                 {
@@ -305,133 +226,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
                 if (dc.Context.Activity.Value != null)
                 {
-                    if (value.action == "submit")
-                    {
-                        string name = value.name;
-                        string phone = value.phone;
-                        string email = value.email;
-                        //checks if no fields are emplty
-                        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(email))
-                        {
-                            int phoneLength = phone.Length;
-                            if (phoneLength == 10)
-                            {
-                                bool result = Int64.TryParse(phone, out long number);
-                                if (result)
-                                {
-                                    bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-                                    if (isEmail)
-                                    {
-                                        await StoreUserDataAndDisplayFormAsync(dc, name, phone, email);
-                                    }
-                                    else
-                                    {
-                                        await dc.Context.SendActivityAsync("Please enter valid Email ID.");
-                                        await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                                    }
-                                }
-                                else
-                                {
-                                    await dc.Context.SendActivityAsync("Phone Number cannot contain alphabets. Please enter a vaild mobile number");
-                                    await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                                }
-
-                            }
-                            else
-                            {
-                                await dc.Context.SendActivityAsync("Your Mobile Number doesn't contain 10 digits. Please enter valid Mobile Number.");
-                                await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                            }
-
-                        }
-                        else if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
-                        {
-                            await dc.Context.SendActivityAsync("Please fill the form");
-                            await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                        }
-                        else
-                        {
-                            //checks if either one of the fields is empty
-                            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
-                            {
-                                if (string.IsNullOrEmpty(name))
-                                {
-                                    await dc.Context.SendActivityAsync("Name field cannot be empty.");
-                                    await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                                }
-                                else if (string.IsNullOrEmpty(phone))
-                                {
-                                    await dc.Context.SendActivityAsync("Phone field cannot be empty.");
-                                    await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                                }
-                                else
-                                {
-                                    await dc.Context.SendActivityAsync("Email field cannot be empty.");
-                                    await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Intro);
-                                }
-                            }
-                        }
-                    }
-
-                    else if (value.action == "VehicleLoanSubmit")
-                    {
-                        dynamic LoanDetails = dc.Context.Activity.Value;
-
-                        VehicleLoanDetails vehicleLoanDetails = new VehicleLoanDetails
-                        {
-                            Name = Convert.ToString(LoanDetails.name),
-                            Mobile = Convert.ToString(LoanDetails.mobile),
-                            Email = Convert.ToString(LoanDetails.email),
-                            Area = Convert.ToString(LoanDetails.area),
-                            Address = Convert.ToString(LoanDetails.address),
-                            LoanType = Convert.ToString(LoanDetails.loanType),
-                            LoanAmount = Convert.ToString(LoanDetails.loanAmount),
-                            State = Convert.ToString(LoanDetails.state),
-                            City = Convert.ToString(LoanDetails.city),
-                            Branch = Convert.ToString(LoanDetails.branch)
-                        };
-
-                        //Sending an Welcome Email to applicant
-                        if (!string.IsNullOrEmpty(vehicleLoanDetails.Email))
-                        {
-                            EmailDetails welcomeEmailDetails = new EmailDetails
-                            {
-                                To = vehicleLoanDetails.Email,
-                                From = "xxxxx",
-                                Subject = $"Request for the {vehicleLoanDetails.LoanType} is submitted.",
-                                Body = $"Your request for the {vehicleLoanDetails.LoanType} is submittd and we have started processing the loan request. Our loan team will get back to you soon."
-                            };
-
-                            EmailUtility.SendMail(welcomeEmailDetails);
-                        }
-
-                        //Sending an email to loan bot team
-                        EmailDetails loanTeamEmailDetails = new EmailDetails
-                        {
-                            To = "xxxxxx",
-                            From = "xxxxx",
-                            Subject = $"New Lead for the {vehicleLoanDetails.LoanType} is created by the Iva BOT.",
-                            Body = $"<html> <body> <table column=2> <tr> <th>Name</th> <td> {vehicleLoanDetails.Name}</td> </tr> <tr> <th>Mobile</th> <td> {vehicleLoanDetails.Mobile}</td> </tr> <tr> <th>Email</th> <td> {vehicleLoanDetails.Email}</td> </tr> <tr> <th>Area</th> <td> {vehicleLoanDetails.Area}</td> </tr> <tr> <th>Address</th> <td> {vehicleLoanDetails.Address}</td> </tr> <tr> <th>LoanType</th> <td> {vehicleLoanDetails.LoanType}</td> </tr> <tr> <th>LoanAmount</th> <td> {vehicleLoanDetails.LoanAmount}</td> </tr> <tr> <th>State</th> <td> {vehicleLoanDetails.State}</td> </tr> <tr> <th>City</th> <td> {vehicleLoanDetails.City}</td> </tr> <tr> <th>Branch</th> <td> {vehicleLoanDetails.Branch}</td> </tr> </table> </body> </html>"
-                        };
-
-                        EmailUtility.SendMail(loanTeamEmailDetails);
-
-                        await dc.Context.SendActivityAsync("Thanks for filling up the form, an Indian Bank representative will be reaching out to you at the earliest.");
-                        await dc.Context.SendActivityAsync("Thank you for talking to me. Hope you found this vehicle loan service useful.");
-                        await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.FeedBack);
-
-                    }
-                    else if (value.action == "feedback")
-                    {
-                        await dc.Context.SendActivityAsync("Thank you for your response.");
-                        await dc.Context.SendActivityAsync("Please find the menu as below");
-                        await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
-                    }
-                    else if (value.action == "menu")
+                    if (value.action == "menu")
                     {
                         var selectedMenu = (value as JObject).ToObject<SelectedMenuItem>();
 
-                        await ScrollBarDialog.DisplayScrollBarMenu(dc, selectedMenu, appSettings, memoryCache, clientFactory);
+                        await ScrollBarUtils.DisplayScrollBarMenu(dc, selectedMenu, appSettings, memoryCache, clientFactory);
                     }
                 }
             }
@@ -533,54 +332,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Displays User Form
-        /// </summary>
-        /// <param name="dc"></param>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        public async Task StoreUserDataAndDisplayFormAsync(DialogContext dc, string name, string phone, string email)
-        {
-            var localeChangedEventActivity = dc.Context.Activity.CreateReply();
-            localeChangedEventActivity.Type = ActivityTypes.Event;
-            localeChangedEventActivity.ValueType = "cardsubmission";
-            localeChangedEventActivity.Value = "somedata";
-            await dc.Context.SendActivityAsync(localeChangedEventActivity);
-            await dc.Context.SendActivityAsync($"Hi " + name + ", welcome to Indian Bank");
-            await dc.Context.SendActivityAsync("Please find the menu.");
-            await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
-        }
-
-        public async Task CalculateEmiCalculateFormAsync(DialogContext dc, int principal, int rate, int time)
-        {
-            var localeChangedEventActivity = dc.Context.Activity.CreateReply();
-            localeChangedEventActivity.Type = ActivityTypes.Event;
-            localeChangedEventActivity.ValueType = "cardsubmission";
-            localeChangedEventActivity.Value = "somedata";
-            await dc.Context.SendActivityAsync(localeChangedEventActivity);
-
-            double loanM = (rate / 1200.0);
-            double numberMonths = time * 12;
-            double negNumberMonths = 0 - numberMonths;
-            double monthlyPayment = principal * loanM / (1 - System.Math.Pow((1 + loanM), negNumberMonths));
-            await dc.Context.SendActivityAsync($"EMI per month : " + monthlyPayment.ToString());
-
-        }
-
-        /// <summary>
-        /// Completes the asynchronous.
-        /// </summary>
-        /// <param name="dc">The dc.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
-        protected override async Task CompleteAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            // The active dialog's stack ended with a complete status
-            await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.Completed);
         }
 
         #endregion

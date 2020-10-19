@@ -94,11 +94,10 @@ namespace IndianBank_ChatBOT.Dialogs.Shared
             return InterruptionStatus.NoAction;
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         protected virtual async Task<InterruptionStatus> OnHelp(DialogContext dc)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
-            var view = new MainResponses();
-            await view.ReplyWith(dc.Context, MainResponses.ResponseIds.Help);
-
             // Signal the conversation was interrupted and should immediately continue
             return InterruptionStatus.Interrupted;
         }
