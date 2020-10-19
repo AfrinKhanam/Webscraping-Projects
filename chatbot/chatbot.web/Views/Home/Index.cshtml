@@ -2,6 +2,8 @@
     Layout = null;
 }
 
+@model MenuViewModel[]
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
           Cache-Control:public;>
 <html lang="en">
@@ -24,52 +26,39 @@
     <div id="carousel-container">
         <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel">
             <div class="carousel-inner">
-                <div class="item active">
-                    <button data-msg-text="about us" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        About Us
-                    </button>
-                    <button data-msg-text="product" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Products
-                    </button>
-                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Services
-                    </button>
-                </div>
+                @{
+                    var itemsPerGroup = 3;
 
-                <div class="item">
-                    <button data-msg-text="product" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Products
-                    </button>
-                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Services
-                    </button>
-                    <button data-msg-text="links" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Links
-                    </button>
-                </div>
+                    var itemGroups = Model.Select((x, idx) => new { x, idx })
+                                        .GroupBy(x => x.idx / itemsPerGroup)
+                                        .Select(g => g.Select(a => a.x));
 
-                <div class="item">
-                    <button data-msg-text="services" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Services
-                    </button>
-                    <button data-msg-text="links" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Links
-                    </button>
-                    <button data-msg-text="rates" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                        Rates
-                    </button>
-                </div>
+                    var groupClass = "item active";
+                }
+
+                @foreach (var group in itemGroups)
+                {
+                    <div class="@groupClass">
+                        @foreach (var item in group)
+                        {
+                            <button data-msg-text="@item.Text" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                                @item.Text
+                            </button>
+                        }
+                    </div>
+
+                    groupClass = "item";
+                }
+
+                <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                </a>
+                <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
             </div>
-
-            <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-            </a>
-            <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
-                <i class="glyphicon glyphicon-chevron-right"></i>
-            </a>
         </div>
     </div>
-
 
     <script src="~/lib/stisla/modules/jquery.min.js"></script>
     <script src="content/bootstrap/js/bootstrap.min.js"></script>
@@ -79,7 +68,7 @@
     <script src="content/webchat/react-dom.development.js"></script>
     <script src="content/webchat/react-redux.min.js"></script>
     <script src="content/webchat/index.js"></script>
-    
+
     <script type="text/javascript" src="scripts/jquery.mockjax.js"></script>
     <script type="text/javascript" src="scripts/jquery.autocomplete.js"></script>
 

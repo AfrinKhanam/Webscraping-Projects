@@ -278,7 +278,7 @@ class WebScrapingPipeline:
                         requests.put(f"{self.__scraping_status_url}{doc_id}&ScrapeStatus={scrape_status}")
 
                 print(f"Success: {doc_url}")
-
+                
                 time.sleep(5)
                 break
                 #----------------------------------------------------------------#
@@ -287,7 +287,8 @@ class WebScrapingPipeline:
                 value += 1
                 time.sleep(5)
                 continue
-            except ElasticsearchException as e:
+
+            except ElasticsearchException:
                 if backup_docs != None:
                     if "scrollbar_menus" in document:
                         self.scrape_menu.index_document(menu=backup_docs[0]['ib_menu'])
@@ -297,7 +298,8 @@ class WebScrapingPipeline:
                         self.__elastic.index_document(documents)
                 error_message = f"Scraping Error: {get_error_details()}"
                 break
-            except Exception as e:
+            
+            except Exception:
                 error_message = f"Scraping Error: {get_error_details()}"
                 break
 
@@ -326,7 +328,7 @@ class WebScrapingPipeline:
         html = response.content
 
         if "menu" in document['pageConfig']:
-            scrollbar_menus = self.scrape_menu.scrape_scrollbar_menu(document,html)
+            scrollbar_menus = self.scrape_menu.scrape_scrollbar_menu(document, html)
             document['scrollbar_menus'] = scrollbar_menus
             return document
 

@@ -1,60 +1,98 @@
+import re
+from typing import List
+
 from bs4 import BeautifulSoup
+from bs4.element import Tag
+
+_RE_COMBINE_WHITESPACE = re.compile(r"\s+")
+_RE_REMOVE_NON_ALPHANUMERIC = re.compile(r'[^A-Za-z0-9 ]+')
 
 class ScrapeMenu:
-    def __init__(self,es,es_index):
+    def __init__(self, es, es_index):
         self.es = es
-        self.scrollbar_menus =  []
-        self.result = []
         self.es_index = es_index
-        self.doc = dict()
 
+    def __clean_text__(self, text: str):
+        # Remove non alphanumeric characters
+        retval = _RE_REMOVE_NON_ALPHANUMERIC.sub('', text)
 
-    def parse_unordered_elements(self,unordered_dict,menu,element):
-        for e in element.contents:
-            val = self.parse_list(e)
-            if val is not None:
-                unordered_dict[menu].append(val)
-        return unordered_dict
+        # Substitute multiple whitespaces with single whitespace
+        retval = _RE_COMBINE_WHITESPACE.sub(' ', retval)
 
-    def check_unorder(self,element):
-        if element.name == 'ul' or element['href'] == self.doc['url']:
-            return True
-        return False
+        # Finally, trim the string by removing any leading / trailing whitespace characters
+        retval = retval.lstrip().rstrip()
 
+        return retval
 
-    def parse_list(self,elements):
-        for element in elements.contents: 
-            dictionary = None
-            if not self.check_unorder(element):
-                menu = element.get_text()
-                dictionary = ({menu:element.get('href')})
+    def __parse_menu__(self, ele, menu_items_to_ignore: List[str] = []):
+        if not isinstance(ele, Tag) or ele.name != 'ul':
+            return None
+
+        menu_items = []
+
+        for item in ele.contents:
+            if not isinstance(item, Tag) or item.name != 'li':
+                continue
+
+            link_content = item.find('a')
+
+            text = self.__clean_text__(link_content.get_text())
+
+            if text in menu_items_to_ignore:
+                continue
+
+            menu_item = {'text': text}
+
+            child_menu_content = item.find('ul')
+
+            if child_menu_content is not None:
+                menu_item['childItems'] = self.__parse_menu__(child_menu_content)
             else:
-                if element.name == 'a':
-                    menu = element.get_text()
-                    continue
-                unordered_dict = {menu:[]}
-                if self.result != []:
-                    key = list(self.result[0].keys())[0]
-                    self.result[0][key].append(unordered_dict)
-                else:
-                    self.result.append(unordered_dict)
-                self.parse_unordered_elements(unordered_dict,menu,element)
+                menu_item['url'] = link_content['href']
 
-        return dictionary
+            menu_items.append(menu_item)
 
-    def scrape_scrollbar_menu(self,document,html):
+        return menu_items
+
+    def __tag_parents__(self, menu_items):
+        def __process_children(parent):
+            if 'childItems' in parent.keys() and len(parent['childItems']) > 0:
+                for child in parent['childItems']:
+                    if 'parents' not in parent.keys():
+                        child['parents'] = [parent['text']]
+                    else:
+                        child['parents'] = parent['parents'] + [parent['text']]
+
+                    __process_children(child)
+
+        for item in menu_items:
+            __process_children(item)
+
+        return menu_items
+
+    def scrape_scrollbar_menu(self, document, html: str):
         self.doc = document
-        soup = BeautifulSoup(html,features='html5lib')
-        main_content = soup.find('ul',attrs={"id":document['pageConfig']['id']})
-        for element in main_content.contents: #
-            contents = self.parse_list(element)
-            if contents is not None:
-                self.scrollbar_menus.append(contents)
-            if len(self.result) is not 0:
-                self.scrollbar_menus.append(self.result[0])
-            self.result = []
-        return self.scrollbar_menus
 
-    def index_document(self,menu):
-        self.es.index(index=self.es_index,doc_type='_doc',id="menu_items",body={'ib_menu':menu})
+        soup = BeautifulSoup(html, features='html5lib')
+
+        pageConfig = document['pageConfig']
+
+        main_content: Tag = soup.find(
+            'ul', attrs={"id": pageConfig['id']})
+
+        menu_items_to_ignore: List[str] = None
+
+        if 'menuItemsToIgnore' in pageConfig.keys():
+            menu_items_to_ignore = pageConfig['menuItemsToIgnore']
+
+        menu_items = self.__parse_menu__(main_content, menu_items_to_ignore)
+
+        menu_items = self.__tag_parents__(menu_items)
+
+        return menu_items
+
+    def index_document(self, menu):
+        self.es.index(index=self.es_index, doc_type='_doc',
+                      id="menu_items", body={'ib_menu': menu})
+
         print("menu items pushed into elastic db")
