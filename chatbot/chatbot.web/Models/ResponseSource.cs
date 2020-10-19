@@ -2,7 +2,8 @@
 {
     public enum ResponseSource
     {
+        Menu,
         Rasa,
-        ElasticSearch
+        ElasticSearch,
     }
 }

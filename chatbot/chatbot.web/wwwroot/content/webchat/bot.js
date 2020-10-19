@@ -87,7 +87,21 @@ function displayCarousel() {
     carousel.show('fast');
 
     carousel.find("button.btn-suggestion").on('click', function () {
-        sendUserInputMessage($(this).data("msg-text"));
+        var text = $(this).data("msg-text");
+
+        window.directLine.postActivity({
+            text: text,
+            textFormat: "plain",
+            value: { "action": "menu", "text": text },
+            type: "message",
+            channelId: "webchat",
+            from: {
+                id: window.botUserId,
+                role: "user"
+            },
+            locale: "en-IN",
+            timestamp: new Date()
+        }).subscribe();
     });
 }
 

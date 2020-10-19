@@ -42,32 +42,6 @@
         }
     });
 
-    const ATTACHMENT_FEEDBACK = css({
-        padding: 10,
-        margin: 0,
-        textAlign: 'left',
-        minHeight: 20,
-        position: 'relative',
-
-        '& > button': {
-
-            fontFamily: '"Calibri", "Helvetica Neue", "Arial", "sans-serif"',
-            padding: '2px 10px',
-            margin: '3px 3px',
-            fontSize: '16px',
-            color: 'black',
-            background: '#f1f0f0',
-            borderRadius: '5px',
-            weight: '400',
-
-            '&:hover': {
-                opacity: 0.50,
-                cursor: 'pointer',
-            }
-
-        }
-    });
-
     window.current_Context = "";
 
     const store = window.WebChat.createStore(

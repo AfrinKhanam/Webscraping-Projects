@@ -9,6 +9,7 @@ using IndianBank_ChatBOT.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace IndianBank_ChatBOT
@@ -29,13 +30,13 @@ namespace IndianBank_ChatBOT
         /// <param name="conversationState">Bot conversation state.</param>
         /// <param name="userState">Bot user state.</param>
         public IndianBank_ChatBOT(BotServices botServices, ConversationState conversationState, 
-            IOptions<AppSettings> appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
+            IOptions<AppSettings> appSettings, AppDbContext dbContext, IMemoryCache memoryCache, IHttpClientFactory clientFactory)
         {
             this.dbContext = dbContext;
 
             _dialogs = new DialogSet(conversationState.CreateProperty<DialogState>(nameof(IndianBank_ChatBOT)));
 
-            _dialogs.Add(new MainDialog(botServices, appSettings.Value, dbContext, clientFactory));
+            _dialogs.Add(new MainDialog(botServices, appSettings.Value, dbContext, memoryCache, clientFactory));
         }
 
         /// <summary>

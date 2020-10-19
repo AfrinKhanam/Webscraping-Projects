@@ -47,7 +47,7 @@ scrape_menu_id = config.get("scrape_menu","id")
 app = FastAPI()
 
 @app.get("/qa")
-def qa(query: str, context: Optional[str] = None):
+def qa(query: str, context: Optional[str] = ''):
 
     try:
         return qa_pipeline.search(query, context)

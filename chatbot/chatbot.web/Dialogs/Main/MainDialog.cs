@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -18,20 +17,21 @@ using IndianBank_ChatBOT.ViewModel;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
+using Microsoft.Extensions.Caching.Memory;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-// using System.Net.WebUtility;
 
 namespace IndianBank_ChatBOT.Dialogs.Main
 {
-    public class MainDialog : RouterDialog
+    public partial class MainDialog : RouterDialog
     {
         private readonly BotServices _services;
         private readonly AppSettings appSettings;
         private readonly MainResponses _responder = new MainResponses();
 
         private readonly AppDbContext dbContext;
+        private readonly IMemoryCache memoryCache;
         private readonly IHttpClientFactory clientFactory;
 
         /// <summary>
@@ -41,10 +41,11 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <param name="conversationState">State of the conversation.</param>
         /// <param name="userState">State of the user.</param>
         /// <exception cref="ArgumentNullException">services</exception>
-        public MainDialog(BotServices services, AppSettings appSettings, AppDbContext dbContext, IHttpClientFactory clientFactory)
+        public MainDialog(BotServices services, AppSettings appSettings, AppDbContext dbContext, IMemoryCache _memoryCache, IHttpClientFactory clientFactory)
             : base(nameof(MainDialog))
         {
             this.dbContext = dbContext;
+            memoryCache = _memoryCache;
             this.clientFactory = clientFactory;
             _services = services ?? throw new ArgumentNullException(nameof(services));
             this.appSettings = appSettings;
@@ -93,7 +94,6 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             if (luisService == null)
             {
                 throw new Exception("The specified LUIS Model could not be found in your Bot Services configuration.");
-
             }
             else if (luisService != null)
             {
@@ -267,24 +267,27 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         {
             var query = dc.Context.Activity.Text;
 
-            var context = string.Empty;
+            var data = await GetKnowledgeBaseResults(query, qaEndPoint, clientFactory);
 
-            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{qaEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}&context={context}"))
+            await DisplayBackendResult(dc, data);
+        }
+
+        public static async Task<string> GetKnowledgeBaseResults(string query, string qaEndPoint, IHttpClientFactory clientFactory)
+        {
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{qaEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}"))
             {
                 using (var client = clientFactory.CreateClient())
                 {
                     var response = await client.SendAsync(request);
 
-                    var data = string.Empty;
-
                     if (response.IsSuccessStatusCode)
                     {
-                        data = await response.Content.ReadAsStringAsync();
+                        return await response.Content.ReadAsStringAsync();
                     }
-
-                    await DisplayBackendResult(dc, context, data);
                 }
             }
+
+            throw new Exception("Error fetching results from Knowledge Base.");
         }
 
         /// <summary>
@@ -424,34 +427,40 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                         await dc.Context.SendActivityAsync("Please find the menu as below");
                         await _responder.ReplyWith(dc.Context, MainResponses.ResponseIds.BuildWelcomeMenuCard);
                     }
+                    else if (value.action == "menu")
+                    {
+                        var selectedMenu = (value as JObject).ToObject<SelectedMenuItem>();
+
+                        await ScrollBarDialog.DisplayScrollBarMenu(dc, selectedMenu, appSettings, memoryCache, clientFactory);
+                    }
                 }
             }
         }
 
-        public static async Task DisplayBackendResult(DialogContext dialogContext, string context, string backendResult)
+        public static async Task DisplayBackendResult(DialogContext dialogContext, string backendResult)
         {
             if (string.IsNullOrEmpty(backendResult))
             {
-                await dialogContext.Context.SendActivityAsync("Sorry,I could not understand. Could you please rephrase the query.");
+                await dialogContext.Context.SendActivityAsync("Sorry, I could not understand. Could you please rephrase the query.");
             }
             else
             {
-                var jsonObject = JsonConvert.DeserializeObject<JsonObject>(backendResult);
+                var kbResult = JsonConvert.DeserializeObject<KnowledgeBaseResult>(backendResult);
 
-                if (jsonObject.DOCUMENTS.Count >= 1)
+                if (kbResult.DOCUMENTS.Count >= 1)
                 {
                     dialogContext.Context.Activity.Conversation.Properties.Add(nameof(ExtendedLogData), JToken.FromObject(new ExtendedLogData
                     {
-                        IntentName = jsonObject.DOCUMENTS[0].main_title,
-                        SubTitle = jsonObject.DOCUMENTS[0].title,
+                        IntentName = kbResult.DOCUMENTS[0].main_title,
+                        SubTitle = kbResult.DOCUMENTS[0].title,
                         ResponseJson = backendResult,
                         ResponseSource = ResponseSource.ElasticSearch
                     }));
                 }
 
-                var firstDoc = jsonObject.DOCUMENTS.First();
+                var firstDoc = kbResult.DOCUMENTS.First();
 
-                if (!String.IsNullOrEmpty(jsonObject.FILENAME))
+                if (!String.IsNullOrEmpty(kbResult.FILENAME))
                 {
                     var heroCard = new HeroCard
                     {
@@ -467,7 +476,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 {heroCard.Text}";
                     }
 
-                    if (HeroCardImageMapping.MAPPING.TryGetValue(jsonObject.FILENAME, out var imgPath))
+                    if (HeroCardImageMapping.MAPPING.TryGetValue(kbResult.FILENAME, out var imgPath))
                     {
                         heroCard.Images = new List<CardImage> { new CardImage(imgPath) };
                     }
@@ -478,45 +487,45 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                 }
                 else
                 {
-                    if (jsonObject.WORD_SCORE == 0)
+                    if (kbResult.WORD_SCORE == 0)
                     {
                         await dialogContext.Context.SendActivityAsync($"Your query seems to require further assistance. Please feel free to contact customer support on the following toll free numbers: <tel:180042500000> /  <tel:18004254422> \n\n Please click on the link below for futher contact details: \n\n https://indianbank.in/departments/quick-contact/ ");
                         await dialogContext.Context.SendActivityAsync($"Please feel free to ask me anything else about Indian Bank");
                     }
-                    else if (jsonObject.WORD_SCORE < 0.6)
+                    else if (kbResult.WORD_SCORE < 0.6)
                     {
                         await dialogContext.Context.SendActivityAsync("I did not find an exact answer but here is something similar");
                         await dialogContext.Context.SendActivityAsync($"{firstDoc.main_title}\n\n{firstDoc.title}\n\n{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}");
                     }
                     else
                     {
-                        await dialogContext.Context.SendActivityAsync($"This is what I found on \"{jsonObject.AUTO_CORRECT_QUERY}\"");
-                        if (jsonObject.WORD_COUNT > 100)
+                        await dialogContext.Context.SendActivityAsync($"This is what I found on \"{kbResult.AUTO_CORRECT_QUERY}\"");
+                        if (kbResult.WORD_COUNT > 100)
                         {
                             await dialogContext.Context.SendActivityAsync($"{firstDoc.main_title}\n\n{firstDoc.title}\n\n{firstDoc.value} \n\n {firstDoc.url}");
                         }
-                        else if (jsonObject.WORD_COUNT < 25)
+                        else if (kbResult.WORD_COUNT < 25)
                         {
                             await dialogContext.Context.SendActivityAsync($"{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}");
                         }
                         else
                         {
                             var message = string.Empty;
-                            var documentCount = jsonObject.DOCUMENTS.Count();
+                            var documentCount = kbResult.DOCUMENTS.Count();
 
                             if (documentCount > 0)
                             {
                                 message = $"{firstDoc.value}\n\n For further details please click on the link below:\n {firstDoc.url}";
                             }
 
-                            if (documentCount > 1 && documentCount <= 2 && firstDoc.url != jsonObject.DOCUMENTS[1].url)
+                            if (documentCount > 1 && documentCount <= 2 && firstDoc.url != kbResult.DOCUMENTS[1].url)
                             {
-                                message += $"\n\n\n For additional info:\n\n{jsonObject.DOCUMENTS[1].url}";
+                                message += $"\n\n\n For additional info:\n\n{kbResult.DOCUMENTS[1].url}";
                             }
 
-                            if (documentCount > 2 && jsonObject.DOCUMENTS[1].url != jsonObject.DOCUMENTS[2].url)
+                            if (documentCount > 2 && kbResult.DOCUMENTS[1].url != kbResult.DOCUMENTS[2].url)
                             {
-                                message += $"\n\n{jsonObject.DOCUMENTS[2].url}";
+                                message += $"\n\n{kbResult.DOCUMENTS[2].url}";
                             }
 
                             await dialogContext.Context.SendActivityAsync(message);
@@ -575,54 +584,5 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         }
 
         #endregion
-
-
-        class JsonObject
-        {
-            public List<DOCUMENT> DOCUMENTS { get; set; }
-            public int WORD_COUNT { get; set; }
-            public double WORD_SCORE { get; set; }
-            public string FILENAME { get; set; }
-            public string AUTO_CORRECT_QUERY { get; set; }
-            public string CORRECT_QUERY { get; set; }
-        }
-
-        class DOCUMENT
-        {
-            public string main_title { get; set; }
-            public string title { get; set; }
-            public string url { get; set; }
-            public string value { get; set; }
-
-        }
-
-        public class ImageData
-        {
-
-            public string ImagePath { get; set; }
-        }
-
-        #region Class
-
-        public class Details
-        {
-            public string Name { get; set; }
-
-            public string PhoneNumber { get; set; }
-            public string EmailId { get; set; }
-
-            public override string ToString()
-            {
-                return ("Name :" + Name + "\t\t" + "PhoneNumber :" + "\t\t" + PhoneNumber + "\t\t" + "EmailId :" + EmailId);
-            }
-        }
-
-        #endregion
-    }
-
-    public class CustomChannelData
-    {
-        [JsonProperty("context")]
-        public string Context { get; set; }
     }
 }
