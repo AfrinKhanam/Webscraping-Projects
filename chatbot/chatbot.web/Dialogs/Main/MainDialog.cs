@@ -238,13 +238,20 @@ namespace IndianBank_ChatBOT.Dialogs.Main
 
         public static async Task DisplayBackendResult(DialogContext dialogContext, string backendResult)
         {
-            if (string.IsNullOrEmpty(backendResult))
+            var kbResult = JsonConvert.DeserializeObject<KnowledgeBaseResult>(backendResult);
+
+            if (kbResult.DOCUMENTS.Count == 0)
             {
+                dialogContext.Context.Activity.Conversation.Properties.Add(nameof(ExtendedLogData), JToken.FromObject(new ExtendedLogData
+                {
+                    IntentName = "bye_intent"
+                }));
+
                 await dialogContext.Context.SendActivityAsync("Sorry, I could not understand. Could you please rephrase the query.");
             }
             else
             {
-                var kbResult = JsonConvert.DeserializeObject<KnowledgeBaseResult>(backendResult);
+                // var kbResult = JsonConvert.DeserializeObject<KnowledgeBaseResult>(backendResult);
 
                 if (kbResult.DOCUMENTS.Count >= 1)
                 {

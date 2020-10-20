@@ -695,7 +695,7 @@ namespace IndianBank_ChatBOT.Controllers
                 }
             }
 
-            var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry,I could not understand. Could you please rephrase the query.' ) and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
+            var query = $"select * from \"ChatLogs\" where ( \"ActivityId\" is not null and \"ReplyToActivityId\" is null and coalesce(\"RasaIntent\", '') != '' and \"RasaIntent\" in ('bye_intent')) or (\"Text\" = 'Sorry, I could not understand. Could you please rephrase the query.' ) and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\"";
 
             var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
 
