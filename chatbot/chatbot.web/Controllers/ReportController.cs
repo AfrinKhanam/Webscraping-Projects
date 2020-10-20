@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -601,7 +601,7 @@ namespace IndianBank_ChatBOT.Controllers
 
             CleanChatLog();
             //var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') order by \"TimeStamp\" asc";
-            var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\" asc";
+            var query = $"select* from \"ChatLogs\" where \"ReplyToActivityId\" is null and \"IsOnBoardingMessage\" is null and coalesce(\"Text\", '') != '' and ( \"RasaIntent\" not in ('about_us_intent','greet', 'bye_intent') or coalesce( \"RasaIntent\", '') = '') and \"TimeStamp\" between '{fromDate}' AND '{toDate}' order by \"TimeStamp\" asc";
 
             var chatLogs = _dbContext.ChatLogs.FromSqlRaw(query).ToList();
             chatLogs = chatLogs.Where(c => c.Text != null && c.Text != "").ToList();
