@@ -327,16 +327,18 @@ class WebScrapingPipeline:
 
         html = response.content
 
-        if "menu" in document['pageConfig']:
-            scrollbar_menus = self.scrape_menu.scrape_scrollbar_menu(document, html)
-            document['scrollbar_menus'] = scrollbar_menus
-            return document
+        #scrape ib menu
+        if "pageConfig" in document:
+            if "menu" in document['pageConfig']:
+                scrollbar_menus = self.scrape_menu.scrape_scrollbar_menu(document, html)
+                document['scrollbar_menus'] = scrollbar_menus
+                return document
 
 
         html_to_json = HtmlToJson(html)
 
         # pageConfig is none for static pages
-        if (document.get('pageConfig') is None):
+        if document.get('pageConfig') is None:
             html_to_json.main_title(document)
             html_to_json.get_url(document)
             html_to_json.get_document_name(document)

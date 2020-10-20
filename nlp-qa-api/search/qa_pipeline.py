@@ -103,7 +103,7 @@ class QAPipeline:
         #---------------------------------------------------------------#
         #-------------Re-prioritize Documents by Main Title-------------#
         #---------------------------------------------------------------#
-        if len(document['ES_RESULT']['DOCUMENTS']) != 0:
+        if len(document['ES_RESULT']['DOCUMENTS']) != 0 and len(document['ES_RESULT']['DOCUMENTS']) >= 3:
             self.__doc_title_prioritizer.MainTitlePrioritization(document)
         #---------------------------------------------------------------#
 

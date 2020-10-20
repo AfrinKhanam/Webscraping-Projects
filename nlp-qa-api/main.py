@@ -41,9 +41,6 @@ synonyms_url = config.get("urls", "synonyms_url")
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
 
-scrape_menu_url = config.get("scrape_menu","url")
-scrape_menu_id = config.get("scrape_menu","id")
-
 app = FastAPI()
 
 @app.get("/qa")
