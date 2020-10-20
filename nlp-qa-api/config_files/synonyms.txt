@@ -144,3 +144,4 @@ ed=executive director
 fgm=field general manager
 cfo=chief financial officer
 bpr=Business Process Reengineering
+bplr=lending rate
