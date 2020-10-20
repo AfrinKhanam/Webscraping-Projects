@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -706,16 +706,19 @@ namespace IndianBank_ChatBOT.Controllers
             List<UnAnsweredQueries> unAnsweredQueries = new List<UnAnsweredQueries>();
             foreach (var log in chatLogs)
             {
-                var data = _dbContext.ChatLogs.Where(c => c.ReplyToActivityId == log.ActivityId).FirstOrDefault();
-                UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                var data = _dbContext.ChatLogs.Where(c => c.ActivityId == log.ReplyToActivityId).FirstOrDefault();
+                if (data != null)
                 {
-                    Query = log.Text,
-                    BotResponse = (data == null) ? string.Empty : data.Text,
-                    Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
-                    PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
-                    TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
-                };
-                unAnsweredQueries.Add(unAnsweredQuery);
+                    UnAnsweredQueries unAnsweredQuery = new UnAnsweredQueries
+                    {
+                        Query = data.Text,
+                        BotResponse = log?.Text,
+                        Name = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.Name).FirstOrDefault(),
+                        PhoneNumber = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.PhoneNumber).FirstOrDefault(),
+                        TimeStamp = userInfo.Where(u => u.ConversationId == log.ConversationId).Select(u => u.CreatedOn).FirstOrDefault(),
+                    };
+                    unAnsweredQueries.Add(unAnsweredQuery);
+                }
             }
 
             var vm = new UnAnsweredQueriesViewModel
