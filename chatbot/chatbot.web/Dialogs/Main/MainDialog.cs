@@ -58,15 +58,7 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <returns></returns>
         protected override async Task OnStartAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var heroCard = new HeroCard
-            {
-                Title = "Hi! My name is ADYA \U0001F603. Welcome to Indian Bank.",
-                Text = "I am your virtual assistant, here to assist you with all your banking queries 24x7."
-            };
-
-            var activity = MessageFactory.Attachment(heroCard.ToAttachment());
-
-            await dc.Context.SendActivityAsync(activity);
+            await dc.Context.SendActivityAsync($"Hi! My name is ADYA \U0001F603. Welcome to Indian Bank. I am your virtual assistant, here to assist you with all your banking queries 24x7.");
 
             await dc.BeginDialogAsync(nameof(OnBoardingFormDialog));
         }
