@@ -23,42 +23,45 @@
 <body>
     <div id="webchat" role="main"></div>
 
-    <div id="carousel-container">
-        <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel">
-            <div class="carousel-inner">
-                @{
-                    var itemsPerGroup = 3;
+    @if (Model != null && Model.Length > 0)
+    {
+        <div id="carousel-container">
+            <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel">
+                <div class="carousel-inner">
+                    @{
+                        var itemsPerGroup = 3;
 
-                    var itemGroups = Model.Select((x, idx) => new { x, idx })
-                                        .GroupBy(x => x.idx / itemsPerGroup)
-                                        .Select(g => g.Select(a => a.x));
+                        var itemGroups = Model.Select((x, idx) => new { x, idx })
+                                            .GroupBy(x => x.idx / itemsPerGroup)
+                                            .Select(g => g.Select(a => a.x));
 
-                    var groupClass = "item active";
-                }
+                        var groupClass = "item active";
+                    }
 
-                @foreach (var group in itemGroups)
-                {
-                    <div class="@groupClass">
-                        @foreach (var item in group)
-                        {
-                            <button data-msg-text="@item.Text" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
-                                @item.Text
-                            </button>
-                        }
-                    </div>
+                    @foreach (var group in itemGroups)
+                    {
+                        <div class="@groupClass">
+                            @foreach (var item in group)
+                            {
+                                <button data-msg-text="@item.Text" type="button" class="btn btn-xs btn-outline-primary btn-suggestion">
+                                    @item.Text
+                                </button>
+                            }
+                        </div>
 
-                    groupClass = "item";
-                }
+                        groupClass = "item";
+                    }
 
-                <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                </a>
-                <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </a>
+                    <a class="left carousel-control" href="#theCarousel" data-slide="prev" style=" color:#337ab7; ">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </a>
+                    <a class="right carousel-control" href="#theCarousel" data-slide="next" style=" color:#337ab7; ">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
     <script src="~/lib/stisla/modules/jquery.min.js"></script>
     <script src="content/bootstrap/js/bootstrap.min.js"></script>

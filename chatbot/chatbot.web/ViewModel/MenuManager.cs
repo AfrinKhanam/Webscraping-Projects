@@ -47,9 +47,16 @@ namespace IndianBank_ChatBOT.ViewModel
 
             var jsonResponse = await HttpRequestUtils.PostJsonBody(menuItemsUrl, requestParameters);
 
-            var jobject = JObject.Parse(jsonResponse);
+            try
+            {
+                var jobject = JObject.Parse(jsonResponse);
 
-            return jobject["hits"]["hits"][0]["_source"]["ib_menu"].ToObject<MenuViewModel[]>();
+                return jobject["hits"]["hits"][0]["_source"]["ib_menu"].ToObject<MenuViewModel[]>();
+            }
+            catch
+            {
+                return Array.Empty<MenuViewModel>();
+            }
         }
     }
 }
