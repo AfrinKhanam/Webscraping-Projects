@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
@@ -157,39 +158,48 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(RescrapeAllPages))]
         public async Task<IActionResult> RescrapeAllPages()
         {
+            try
+            {
+                await RescrapeAllPagesInternal();
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        public async Task RescrapeAllPagesInternal()
+        {
             string rescrapeAllPagesEndPoint = _appSettings.RescrapeAllPagesEndPoint;
 
-            if (!string.IsNullOrEmpty(rescrapeAllPagesEndPoint))
+            if (string.IsNullOrEmpty(rescrapeAllPagesEndPoint))
+                throw new Exception("Web Scrape Url not found. Please check the configuration");
+
+            try
             {
-                try
+                ResetWebPageScrapeStatus();
+                _isFullWebScrapingInProgress = true;
+
+                using var client = new HttpClient
                 {
-                    ResetWebPageScrapeStatus();
-                    _isFullWebScrapingInProgress = true;
+                    BaseAddress = new Uri(rescrapeAllPagesEndPoint)
+                };
 
-                    using var client = new HttpClient
-                    {
-                        BaseAddress = new Uri(rescrapeAllPagesEndPoint)
-                    };
+                var response = await client.GetAsync("");
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var response = await client.GetAsync("");
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return Ok(responseContent);
-                    }
-                    else
-                    {
-                        return BadRequest($"Failed to Start the Web Scraping. Error : {responseContent}");
-                    }
-                }
-                catch (Exception ex)
+                if (!response.IsSuccessStatusCode)
                 {
-                    _isFullWebScrapingInProgress = false;
-                    return BadRequest($"Failed to Start the Web Scraping. Error : {ex.Message} ");
+                    throw new Exception($"Failed to Start the Web Scraping. Error : {responseContent}");
                 }
             }
-            return BadRequest("Web Scrape Url not found. Please check the configuration");
+            catch (Exception ex)
+            {
+                _isFullWebScrapingInProgress = false;
+                throw new Exception($"Failed to Start the Web Scraping. Error : {ex.Message} ");
+            }
         }
 
         [Authorize]

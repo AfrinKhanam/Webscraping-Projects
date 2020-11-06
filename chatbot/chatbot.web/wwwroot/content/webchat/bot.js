@@ -77,7 +77,9 @@ sendUserInputMessage = function (msg_text) {
         locale: "en-IN",
         timestamp: new Date()
     }).subscribe(function () {
-        $(chatInputSelector).val('');
+        setTimeout(function () {
+            $(chatInputSelector).val('');
+        }, 200);
     });
 }
 

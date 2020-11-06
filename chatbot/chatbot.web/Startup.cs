@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Hangfire;
+using Hangfire.Common;
+using Hangfire.PostgreSql;
+using Hangfire.States;
+using IndianBank_ChatBOT.Controllers;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Antiforgery;
@@ -146,7 +151,9 @@ namespace IndianBank_ChatBOT
                         });
             }
 
-            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("connString")));
+            var dbConnectionString = Configuration.GetConnectionString("connString");
+
+            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(dbConnectionString));
             services.AddTransient<AppDbContext, AppDbContext>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
@@ -156,6 +163,8 @@ namespace IndianBank_ChatBOT
             connectedServices.ServiceProvider = services.BuildServiceProvider();
 
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
+            ConfigureHangfire(services, dbConnectionString);
 
             services.AddBot<IndianBank_ChatBOT>(options =>
             {
@@ -187,6 +196,43 @@ namespace IndianBank_ChatBOT
                 options.Middleware.Add(new ShowTypingMiddleware());
                 options.Middleware.Add(new AutoSaveStateMiddleware(userState, conversationState));
             });
+        }
+
+        private void ConfigureHangfire(IServiceCollection services, string dbConnectionString)
+        {
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseColouredConsoleLogProvider()
+                .UsePostgreSqlStorage(dbConnectionString, new PostgreSqlStorageOptions
+                {
+                    SchemaName = "hangfire",
+                    PrepareSchemaIfNecessary = Configuration.GetValue<bool>("Hangfire:PrepareSchemaIfNecessary")
+                })
+            );
+
+            var isAutoScrapingEnabled = Configuration.GetValue<bool>("AutoScrapingConfig:Enabled");
+
+            //Code Section for Enabling the AutoBackup via HangFire Service
+            if (isAutoScrapingEnabled)
+            {
+                var jobStorage = new PostgreSqlStorage(dbConnectionString, new PostgreSqlStorageOptions
+                {
+                    PrepareSchemaIfNecessary = Configuration.GetValue<bool>("Hangfire:PrepareSchemaIfNecessary"),
+                    SchemaName = "hangfire"
+                });
+
+                var cronExpression = Configuration.GetValue<string>("AutoScrapingConfig:CronExpression");
+
+                var jobManager = new RecurringJobManager(jobStorage);
+
+                var job = Job.FromExpression<WebPageController>(c => c.RescrapeAllPagesInternal());
+
+                var recurringJobId = "Auto Scrape Daily";
+
+                jobManager.AddOrUpdate(recurringJobId, job, cronExpression, TimeZoneInfo.Local, EnqueuedState.DefaultQueue);
+            }
         }
 
         /// <summary>
@@ -229,6 +275,9 @@ namespace IndianBank_ChatBOT
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseHangfireServer()
+               .UseHangfireDashboard();
 
             app.UseEndpoints(endpoints =>
             {

@@ -26,7 +26,14 @@ namespace IndianBank_ChatBOT.ViewModel
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
 
-                return await GetMenuItemsFromES();
+                try
+                {
+                    return await GetMenuItemsFromES();
+                }
+                catch
+                {
+                    return Array.Empty<MenuViewModel>();
+                }
             });
         }
 
@@ -47,16 +54,9 @@ namespace IndianBank_ChatBOT.ViewModel
 
             var jsonResponse = await HttpRequestUtils.PostJsonBody(menuItemsUrl, requestParameters);
 
-            try
-            {
-                var jobject = JObject.Parse(jsonResponse);
+            var jobject = JObject.Parse(jsonResponse);
 
-                return jobject["hits"]["hits"][0]["_source"]["ib_menu"].ToObject<MenuViewModel[]>();
-            }
-            catch
-            {
-                return Array.Empty<MenuViewModel>();
-            }
+            return jobject["hits"]["hits"][0]["_source"]["ib_menu"].ToObject<MenuViewModel[]>();
         }
     }
 }
