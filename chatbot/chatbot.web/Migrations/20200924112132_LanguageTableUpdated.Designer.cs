@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200924112132_LanguageTableUpdated")]
+    partial class LanguageTableUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,7 +227,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 30, 18, 45, 32, 628, DateTimeKind.Local).AddTicks(6013));
+                        .HasDefaultValue(new DateTime(2020, 9, 24, 16, 51, 32, 12, DateTimeKind.Local).AddTicks(8243));
 
                     b.Property<string>("ErrorMessage")
                         .HasColumnType("text");
@@ -437,7 +439,7 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.HasKey("LanguageId");
 
-                    b.ToTable("WebPageLanguages");
+                    b.ToTable("WebPageLanguage");
 
                     b.HasData(
                         new
@@ -462,7 +464,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 30, 18, 45, 32, 630, DateTimeKind.Local).AddTicks(7428));
+                        .HasDefaultValue(new DateTime(2020, 9, 24, 16, 51, 32, 14, DateTimeKind.Local).AddTicks(4056));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
