@@ -25,14 +25,14 @@ namespace IndianBank_ChatBOT.Controllers
         #region Public Methods
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int languageId)
 
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).OrderBy(s => s.Word).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).Where(s => s.LanguageId == languageId).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 
-       //[Authorize]
+        [Authorize]
         public IActionResult GetAllWords(int languageId)
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
@@ -56,7 +56,6 @@ namespace IndianBank_ChatBOT.Controllers
                 }
                 wordsCsv.Add(sb.ToString());
             }
-
             return Ok(wordsCsv);
         }
 
@@ -178,16 +177,18 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         [HttpPost]
-        public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms()
+        public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms(int LanguageId)
         {
             string reSyncSynonymsUrl = _appSettings.SynonymsSyncUrl;
-            if (!string.IsNullOrEmpty(reSyncSynonymsUrl))
+            string reSyncUrl = reSyncSynonymsUrl + "?LanguageId=" + LanguageId;
+
+            if (!string.IsNullOrEmpty(reSyncUrl))
             {
                 try
                 {
                     using var client = new HttpClient
                     {
-                        BaseAddress = new Uri(reSyncSynonymsUrl)
+                        BaseAddress = new Uri(reSyncUrl)
                     };
 
                     var response = await client.GetAsync("");

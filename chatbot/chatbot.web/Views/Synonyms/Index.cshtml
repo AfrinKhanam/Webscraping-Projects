@@ -179,7 +179,16 @@
 
         $('.toggle-modal-resyncAllSynonyms').fireModal({
             title: 'Request for Sync Synonyms',
-            body: body + '<b>Are you sure you want to Sync all the Synonyms?</b>',
+            body: body + 
+                '<div>' +
+                '<select class="custom-select">' +
+                '<option selected>Select the Language</option>' +
+                '<option class="lang" value="1">English</option>' +
+                '<option class="lang" value="2">Hindi</option>' +
+                '</select>' +
+                '</div>' +
+                '<br>' +
+                '<b>Are you sure you want to Sync all the Synonyms?</b>',
             buttons: [
                 {
                     text: 'Sync Synonyms',
@@ -288,8 +297,9 @@
             return;
         }
 
+
         var langId = parseInt(lang);
-       
+        console.log(langId);
         var request = $.ajax({
             url: "/Synonyms/AddNewWord",
             data: { Id: 0, Word: word, LanguageId: langId,  },
@@ -349,10 +359,19 @@
 
     function resyncSynonyms(current_modal) {
 
+        var lang = $("#" + current_modal[0].id + " .custom-select").val().trim();
+        if (lang.trim().length == 0 || lang == "Select the Language") {
+            alert('Please select the Language to Sync!');
+            return;
+        }
+
         $.destroyModal(current_modal);
 
+        var langId = parseInt(lang);
+        debugger;
         var request = $.ajax({
-            url: "/Synonyms/ReSyncSynonyms",
+            url: "/Synonyms/ReSyncSynonyms?LanguageId=",
+            data: { Id: 0, LanguageId: langId },
             type: "POST"
         });
 
