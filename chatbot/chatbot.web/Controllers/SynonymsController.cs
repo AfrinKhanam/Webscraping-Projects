@@ -25,14 +25,21 @@ namespace IndianBank_ChatBOT.Controllers
         #region Public Methods
 
         [Authorize]
-        public ActionResult Index(int languageId)
+        public ActionResult Index()
 
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).Where(s => s.LanguageId == languageId).OrderBy(s => s.Word).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 
-        [Authorize]
+        [AllowAnonymous]
+        public IActionResult GetAllLanguages()
+        {
+            var Languages = _dbContext.WebPageLanguages.OrderBy(l => l.LanguageName).ToList();
+            return Ok(Languages);
+        }
+
+        //[Authorize]
         public IActionResult GetAllWords(int languageId)
         {
             var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
