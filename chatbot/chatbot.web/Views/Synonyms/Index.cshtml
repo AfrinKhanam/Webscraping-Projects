@@ -50,41 +50,49 @@
             {
                 index += 1;
             }
-        <tr>
-            <td>@index</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Word)
-            </td>
-            <td>
-                @foreach (var sw in item.SynonymWords)
-                {
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            @sw.Name
-                            <button class="toggle-modal-deleteSynonymWordModal close" onclick="updateDeleteSynonymWordId('@sw.Id')" type="button">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </li>
-                    </ul>
+            <tr>
+                <td>@index</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Word)
+                </td>
+                <td>
+                    @foreach (var sw in item.SynonymWords)
+                    {
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @sw.Name
+                                <button class="toggle-modal-deleteSynonymWordModal close" onclick="updateDeleteSynonymWordId('@sw.Id')" type="button">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </li>
+                        </ul>
 
-                }
+                    }
 
-            </td>
-            <td width="30%">
-                <button onclick="updateSynonymDetails('@item.Id','@item.Word')" class="btn btn-sm btn-outline-primary toggle-modal-addNewSynonymWordModal">Add New Synonym Word</button>
-                <button onclick="setWordDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWordModal">Delete</button>
-            </td>
+                </td>
+                <td width="30%">
+                    <button onclick="updateSynonymDetails('@item.Id','@item.Word')" class="btn btn-sm btn-outline-primary toggle-modal-addNewSynonymWordModal">Add New Synonym Word</button>
+                    <button onclick="setWordDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWordModal">Delete</button>
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.WebPageLanguage.LanguageName)
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WebPageLanguage.LanguageName)
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
 <script type="text/javascript">
+    var synonymDetails = {};
+    var wordDetails = {};
+    var languages = [];
+
     $(document).ready(function () {
+        getLanguages();
+    });
+
+    function intializePageLoadFunctions() {
         $('#toggle-modal-addNewSynonymModal').fireModal({
             title: 'Add New Word',
             body: ' <div class="form-group">' +
@@ -92,9 +100,7 @@
                 '<input type="text" class="form-control" id="word" placeholder="Add new word" autocomplete="off" />' +
                 '<br>' +
                 '<select class="custom-select">' +
-                '<option selected>Select the Language</option>' +
-                '<option class="lang" value="1">English</option>' +
-                '<option class="lang" value="2">Hindi</option>' +
+                getLanguageDropdownOptions() +
                 '</select>' +
                 '</div>',
             buttons: [
@@ -179,12 +185,10 @@
 
         $('.toggle-modal-resyncAllSynonyms').fireModal({
             title: 'Request for Sync Synonyms',
-            body: body + 
+            body: body +
                 '<div>' +
                 '<select class="custom-select">' +
-                '<option selected>Select the Language</option>' +
-                '<option class="lang" value="1">English</option>' +
-                '<option class="lang" value="2">Hindi</option>' +
+                getLanguageDropdownOptions() +
                 '</select>' +
                 '</div>' +
                 '<br>' +
@@ -204,14 +208,27 @@
                 }
             ]
         });
-    });
+    }
 
-    var synonymDetails = {};
-    var wordDetails = {};
+    function getLanguages() {
+        var request = $.ajax({
+            url: "/Synonyms/GetAllLanguages",
+            type: "GET",
+            success: function (data) {
+                console.log('getLanguages');
+                languages = data;
+                intializePageLoadFunctions();
+            }
+        });
+    }
 
-    function English() {
-
-    };
+    function getLanguageDropdownOptions() {
+        var options = "<option selected>Select the Language</option>";
+        for (var i = 0; i < languages.length; i++) {
+            options += '<option class="lang" value="' + languages[i].languageId + '">' + languages[i].languageName + '</option>';
+        }
+        return options;
+    }
 
     function setWordDeleteId(id) {
         $('#wordDeleteId').val(id);
@@ -327,7 +344,6 @@
     function addNewSynonymWord(e) {
         var word = $("#" + e[0].id + " .SynonymWord").val().trim();
         var synonymWord = { Id: 0, name: word, SynonymId: synonymDetails.id };
-        debugger;
         if (word.trim().length == 0) {
             alert('Please enter the Synonym Word.');
             return;
@@ -368,10 +384,8 @@
         $.destroyModal(current_modal);
 
         var langId = parseInt(lang);
-        debugger;
         var request = $.ajax({
-            url: "/Synonyms/ReSyncSynonyms?LanguageId=",
-            data: { Id: 0, LanguageId: langId },
+            url: "/Synonyms/ReSyncSynonyms?LanguageId=" + langId,
             type: "POST"
         });
 
