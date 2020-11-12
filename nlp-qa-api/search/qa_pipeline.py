@@ -8,10 +8,12 @@ from search.doc_title_prioritizer import DocTitlePrioritizer
 
 
 class QAPipeline:
-    def __init__(self, config):
-        index = config.get('elastic_search_credentials', 'index')
+    def __init__(self, es_index,synonyms_file_path):
+        # index = config.get('elastic_search_credentials', 'index')
+        index = es_index
 
-        self.__query_preprocessor = QueryPreprocessor()
+
+        self.__query_preprocessor = QueryPreprocessor(synonyms_file_path)
         self.__elastic = Elastic(index=index)
         self.__doc_prioritizer = DocPrioritizer()
         self.__doc_title_prioritizer = DocTitlePrioritizer()
