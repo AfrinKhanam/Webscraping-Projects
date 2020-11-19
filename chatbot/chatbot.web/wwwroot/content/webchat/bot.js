@@ -16,26 +16,35 @@ function changeLanguage() {
             languages = data;
         }
     });
-    $('#webchat div.main').prepend('<div id="languages " style="display:block; position: absolute;  left: 10px; bottom: 45px;  background: white; width: auto; margin: 5px; padding: 10px; color:black;" > '+
-        '<div class="custom-control custom-radio" onClick="hideRadio()">' +
-        '<input class="custom-control-input" type="radio" id="english" value="1" name = "customRadio" checked onClick="hideRadio()">' +
-        '<label class="custom-control-label" for="english" onClick="hideRadio()"> English</label>' +
+    $('#webchat div.main').prepend('<div id="languages" style="display:block; position: absolute;  left: 10px; bottom: 45px;  background: white; width: auto; margin: 5px; padding: 10px; color:black;" > '+
+        '<div class="custom-control custom-radio" onClick="onLanguageSelect(1)">' +
+        '<input class="custom-control-input" type="radio" id="english" value="1" name = "customRadio" checked onClick="onLanguageSelect(1)">' +
+        '<label class="custom-control-label" for="english" onClick="onLanguageSelect(1)"> English</label>' +
         '</div>' +
-        '<div class="custom-control custom-radio" onClick="hideRadio()">' +
-        '<input class="custom-control-input" type="radio" id="hindi" value="2" name = "customRadio" onClick="hideRadio()">' +
-        '<label class="custom-control-label" for="hindi" onClick="hideRadio()"> हिंदी</label>' +
+        '<div class="custom-control custom-radio" onClick="onLanguageSelect(2)">' +
+        '<input class="custom-control-input" type="radio" id="hindi" value="2" name = "customRadio" onClick="onLanguageSelect(2)">' +
+        '<label class="custom-control-label" for="hindi" onClick="onLanguageSelect(2)"> हिंदी</label>' +
         '</div>' +
         '</div >' +
         '</div>'
     );
 }
 
-function hideRadio() {
+function onLanguageSelect(lang) {
     debugger;
-    $('#languages').hide();
+    window.selectedBotLanguage = lang
+    console.log("selected language is : ",window.selectedBotLanguage)
+    $('#languages').css('display','None')
+    // $('#languages').hide();
 }
 
 $(document).ready(function () {
+    // declare default language once chatbot gets loaded. 1 for english, 2 for hindi
+    window.selectedBotLanguage = 1 
+
+    // previous word
+    window.previousWord = null
+
     fetch('/Home/GetBotParams', {
         method: 'POST',
         headers: {
@@ -163,6 +172,23 @@ function initializeAutoSuggest() {
             window.formattedResult = { suggestions: [] };
         }
     }).bind("keypress", function (event) {
+
+        console.log(event)
+        debugger;
+        console.log(event['keyCode'] == 32 && window.previousWord != 32)
+        if (event['keyCode'] == 32 && window.previousWord != 32)
+        {
+            
+            var {lastWord,previousSentence} = getLastWord(event.target['value'])
+
+            //make api call to translator
+            var x = lastWord+"changed"
+            event.target['value'] = previousSentence + " " + x
+            
+        }
+        // after each key press
+        window.previousWord = event.keyCode
+
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0)
                 window.current_Context = window.suggested_items[0].context;
@@ -172,6 +198,15 @@ function initializeAutoSuggest() {
     });
 }
 
+function getLastWord(sentence)
+{
+    var wordArray = sentence.split(" ")
+    var lastWord = wordArray[wordArray.length-1]
+    wordArray.pop()
+    var previousSentence = wordArray.join(" ")
+    // console.log(lastWord)
+    return {lastWord, previousSentence}
+}
 function autoSuggestLookup(query, done) {
     var q = [{ wildcard: { "Questions": "*" + query + "*" } }];
 
