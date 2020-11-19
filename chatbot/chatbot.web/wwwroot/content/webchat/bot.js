@@ -1,8 +1,39 @@
-﻿var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+﻿
+var chatInputSelector = "input[data-id='webchat-sendbox-input']";
 
 window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
+
+var languages = [];
+
+function changeLanguage() {
+    debugger;
+    var request = $.ajax({
+        url: "/Synonyms/GetAllLanguages",
+        type: "GET",
+        success: function (data) {
+            languages = data;
+        }
+    });
+    $('#webchat div.main').prepend('<div id="languages " style="display:block; position: absolute;  left: 10px; bottom: 45px;  background: white; width: auto; margin: 5px; padding: 10px; color:black;" > '+
+        '<div class="custom-control custom-radio" onClick="hideRadio()">' +
+        '<input class="custom-control-input" type="radio" id="english" value="1" name = "customRadio" checked onClick="hideRadio()">' +
+        '<label class="custom-control-label" for="english" onClick="hideRadio()"> English</label>' +
+        '</div>' +
+        '<div class="custom-control custom-radio" onClick="hideRadio()">' +
+        '<input class="custom-control-input" type="radio" id="hindi" value="2" name = "customRadio" onClick="hideRadio()">' +
+        '<label class="custom-control-label" for="hindi" onClick="hideRadio()"> हिंदी</label>' +
+        '</div>' +
+        '</div >' +
+        '</div>'
+    );
+}
+
+function hideRadio() {
+    debugger;
+    $('#languages').hide();
+}
 
 $(document).ready(function () {
     fetch('/Home/GetBotParams', {
@@ -19,8 +50,11 @@ $(document).ready(function () {
                 webSocket: true
             });
 
-            var onboardingCompleted = false;
+            setTimeout(() => {
+                $('#webchat div.main').prepend('<button id="LanguageChange" onClick="changeLanguage()"> CL </button>');
+            }, 300)
 
+            var onboardingCompleted = false;
             var subscription = directLine.activity$
                 .filter(activity => activity.type === 'event' && activity.value === 'OnboardingCompleted')
                 .subscribe(_ => {

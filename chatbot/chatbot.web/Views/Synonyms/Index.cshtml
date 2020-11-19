@@ -215,7 +215,6 @@
             url: "/Synonyms/GetAllLanguages",
             type: "GET",
             success: function (data) {
-                console.log('getLanguages');
                 languages = data;
                 intializePageLoadFunctions();
             }
@@ -316,7 +315,6 @@
 
 
         var langId = parseInt(lang);
-        console.log(langId);
         var request = $.ajax({
             url: "/Synonyms/AddNewWord",
             data: { Id: 0, Word: word, LanguageId: langId,  },

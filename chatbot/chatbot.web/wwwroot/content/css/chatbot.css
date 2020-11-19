@@ -523,3 +523,15 @@ body {
 .css-y1c0xs, [data-css-y1c0xs] {
     height: 90%;
 }
+
+/*Language popup css*/
+.languages{
+    display: block;
+    position: absolute;
+    left: 10px;
+    bottom: 45px;
+    background: white;
+    width: auto;
+    margin: 5px;
+    padding: 10px;
+}
