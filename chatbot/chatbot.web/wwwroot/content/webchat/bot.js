@@ -5,10 +5,38 @@ window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
 
-var languages = [];
-
 function changeLanguage() {
-    debugger;
+    //debugger;
+    var languageDiv = $("#languages").length;
+    if (languageDiv == 0) {
+        $('#webchat div.main').prepend('<div id="languages"> ' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[0].languageName + '" value="' + languages[0].languageId + '" name = "customRadio" checked onClick="onLanguageSelect(1)">' +
+            '<label class="custom-control-label" for="' + languages[0].languageName + '"> English</label>' +
+            '</div>' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[1].languageName + '" value="' + languages[1].languageId + '" name = "customRadio" onClick="onLanguageSelect(2)">' +
+            '<label class="custom-control-label" for="' + languages[1].languageName + '"> हिंदी</label>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+    } else {
+        $("#languages").toggle();
+    }
+
+}
+
+function onLanguageSelect(lang) {
+    //debugger;
+    window.selectedBotLanguage = lang
+    console.log("selected language is : ",window.selectedBotLanguage)
+    $('#languages').css('display','None')
+    // $('#languages').hide();
+}
+//get languages from api
+function getLanguages() {
+    //debugger;
     var request = $.ajax({
         url: "/Synonyms/GetAllLanguages",
         type: "GET",
@@ -16,31 +44,15 @@ function changeLanguage() {
             languages = data;
         }
     });
-    $('#webchat div.main').prepend('<div id="languages" style="display:block; position: absolute;  left: 10px; bottom: 45px;  background: white; width: auto; margin: 5px; padding: 10px; color:black;" > '+
-        '<div class="custom-control custom-radio" onClick="onLanguageSelect(1)">' +
-        '<input class="custom-control-input" type="radio" id="english" value="1" name = "customRadio" checked onClick="onLanguageSelect(1)">' +
-        '<label class="custom-control-label" for="english" onClick="onLanguageSelect(1)"> English</label>' +
-        '</div>' +
-        '<div class="custom-control custom-radio" onClick="onLanguageSelect(2)">' +
-        '<input class="custom-control-input" type="radio" id="hindi" value="2" name = "customRadio" onClick="onLanguageSelect(2)">' +
-        '<label class="custom-control-label" for="hindi" onClick="onLanguageSelect(2)"> हिंदी</label>' +
-        '</div>' +
-        '</div >' +
-        '</div>'
-    );
-}
-
-function onLanguageSelect(lang) {
-    debugger;
-    window.selectedBotLanguage = lang
-    console.log("selected language is : ",window.selectedBotLanguage)
-    $('#languages').css('display','None')
-    // $('#languages').hide();
 }
 
 $(document).ready(function () {
     // declare default language once chatbot gets loaded. 1 for english, 2 for hindi
-    window.selectedBotLanguage = 1 
+    window.selectedBotLanguage = 1
+
+    //loads languages
+    window.languages = [];
+    getLanguages();
 
     // previous word
     window.previousWord = null
@@ -60,7 +72,7 @@ $(document).ready(function () {
             });
 
             setTimeout(() => {
-                $('#webchat div.main').prepend('<button id="LanguageChange" onClick="changeLanguage()"> CL </button>');
+                $('#webchat div.main').prepend('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
             }, 300)
 
             var onboardingCompleted = false;
@@ -93,7 +105,6 @@ $(document).ready(function () {
                 };
 
                 window.botUserId = res.userId;
-
                 window.WebChat.renderWebChat({
                     directLine: window.directLine,
                     userID: res.userId,
@@ -176,15 +187,14 @@ function initializeAutoSuggest() {
         console.log(event)
         debugger;
         console.log(event['keyCode'] == 32 && window.previousWord != 32)
-        if (event['keyCode'] == 32 && window.previousWord != 32)
-        {
-            
-            var {lastWord,previousSentence} = getLastWord(event.target['value'])
+        if (event['keyCode'] == 32 && window.previousWord != 32) {
+
+            var { lastWord, previousSentence } = getLastWord(event.target['value'])
 
             //make api call to translator
-            var x = lastWord+"changed"
+            var x = lastWord + "changed"
             event.target['value'] = previousSentence + " " + x
-            
+
         }
         // after each key press
         window.previousWord = event.keyCode
@@ -198,14 +208,13 @@ function initializeAutoSuggest() {
     });
 }
 
-function getLastWord(sentence)
-{
+function getLastWord(sentence) {
     var wordArray = sentence.split(" ")
-    var lastWord = wordArray[wordArray.length-1]
+    var lastWord = wordArray[wordArray.length - 1]
     wordArray.pop()
     var previousSentence = wordArray.join(" ")
     // console.log(lastWord)
-    return {lastWord, previousSentence}
+    return { lastWord, previousSentence }
 }
 function autoSuggestLookup(query, done) {
     var q = [{ wildcard: { "Questions": "*" + query + "*" } }];
