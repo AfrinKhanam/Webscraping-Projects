@@ -523,3 +523,8 @@ body {
 .css-y1c0xs, [data-css-y1c0xs] {
     height: 90%;
 }
+
+/*timestamp is visible in the last card response */
+.css-1s8geyi{
+    display: block !important;
+}
