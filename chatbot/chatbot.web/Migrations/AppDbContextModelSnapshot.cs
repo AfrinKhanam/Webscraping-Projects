@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using IndianBank_ChatBOT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IndianBank_ChatBOT.Migrations
@@ -20,8 +19,7 @@ namespace IndianBank_ChatBOT.Migrations
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("Relational:Sequence:.LeadGenerationAction_Id_Sequence", "'LeadGenerationAction_Id_Sequence', '', '5', '1', '', '', 'Int64', 'False'")
-                .HasAnnotation("Relational:Sequence:.User_Id_Sequence", "'User_Id_Sequence', '', '2', '1', '', '', 'Int64', 'False'")
-                .HasAnnotation("Relational:Sequence:.WebPageLanguage_Id_Sequence", "'WebPageLanguage_Id_Sequence', '', '3', '1', '', '', 'Int64', 'False'");
+                .HasAnnotation("Relational:Sequence:.User_Id_Sequence", "'User_Id_Sequence', '', '2', '1', '', '', 'Int64', 'False'");
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.ChatBotVisitorDetail", b =>
                 {
@@ -225,7 +223,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 30, 18, 45, 32, 628, DateTimeKind.Local).AddTicks(6013));
+                        .HasDefaultValue(new DateTime(2020, 8, 31, 23, 14, 34, 503, DateTimeKind.Local).AddTicks(6984));
 
                     b.Property<string>("ErrorMessage")
                         .HasColumnType("text");
@@ -244,9 +242,6 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("LastScrapedOn")
                         .HasColumnType("timestamp without time zone");
 
@@ -261,8 +256,6 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.ToTable("StaticPages");
                 });
 
@@ -273,15 +266,10 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Word")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("Synonyms");
                 });
@@ -425,33 +413,6 @@ namespace IndianBank_ChatBOT.Migrations
                     b.ToTable("VisitorsByYearMonthViewModels");
                 });
 
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebPageLanguage", b =>
-                {
-                    b.Property<int>("LanguageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"WebPageLanguage_Id_Sequence\"')");
-
-                    b.Property<string>("LanguageName")
-                        .HasColumnType("text");
-
-                    b.HasKey("LanguageId");
-
-                    b.ToTable("WebPageLanguages");
-
-                    b.HasData(
-                        new
-                        {
-                            LanguageId = 1,
-                            LanguageName = "English"
-                        },
-                        new
-                        {
-                            LanguageId = 2,
-                            LanguageName = "Hindi"
-                        });
-                });
-
             modelBuilder.Entity("IndianBank_ChatBOT.Models.WebScrapeConfig", b =>
                 {
                     b.Property<int>("Id")
@@ -462,7 +423,7 @@ namespace IndianBank_ChatBOT.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 30, 18, 45, 32, 630, DateTimeKind.Local).AddTicks(7428));
+                        .HasDefaultValue(new DateTime(2020, 8, 31, 23, 14, 34, 507, DateTimeKind.Local).AddTicks(4471));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -474,9 +435,6 @@ namespace IndianBank_ChatBOT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("LastScrapedOn")
                         .HasColumnType("timestamp without time zone");
@@ -497,23 +455,7 @@ namespace IndianBank_ChatBOT.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.ToTable("WebScrapeConfig");
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.StaticPage", b =>
-                {
-                    b.HasOne("IndianBank_ChatBOT.Models.WebPageLanguage", "WebPageLanguage")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.Synonym", b =>
-                {
-                    b.HasOne("IndianBank_ChatBOT.Models.WebPageLanguage", "WebPageLanguage")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("IndianBank_ChatBOT.Models.SynonymWord", b =>
@@ -523,13 +465,6 @@ namespace IndianBank_ChatBOT.Migrations
                         .HasForeignKey("SynonymId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("IndianBank_ChatBOT.Models.WebScrapeConfig", b =>
-                {
-                    b.HasOne("IndianBank_ChatBOT.Models.WebPageLanguage", "WebPageLanguage")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,7 +8,7 @@ from search.autocorrect import w_autocorrect
 import re
 
 class QueryPreprocessor:
-    def __init__(self,synonyms_file_path):
+    def __init__(self):
         #-------------- Initialise all custom stop words ---------------------#
         self.ps = PorterStemmer()
         self.bag_of_words = []
@@ -22,9 +22,7 @@ class QueryPreprocessor:
 
         # Reading Stemmed file
         self.synonyms_repo = []
-        # f = open('./config_files/synonyms.txt', 'r')
-        f = open(synonyms_file_path, 'r')
-
+        f = open('./config_files/synonyms.txt', 'r')
         content = f.read()
         self.synonyms_repo = content.split('\n')
         f.close()

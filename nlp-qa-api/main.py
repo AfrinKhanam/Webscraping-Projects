@@ -28,24 +28,18 @@ https_proxy = config.get("proxies", "https")
 
 proxies = { "http": http_proxy, "https": https_proxy } if (http_proxy and https_proxy) else None
 
-# qa_pipeline = QAPipeline(es_index,'./config_files/english_synonyms.txt')
+qa_pipeline = QAPipeline(config)
 
 fetch_scraping_config_url = config.get("urls", "rescrape_all_pages_url")
 scraping_status_url = config.get("urls", "rescrape_status_url")
 es_host = config.get("elastic_search_credentials", "host")
 es_port = config.getint("elastic_search_credentials", "port")
 es_index = config.get("elastic_search_credentials", "index")
-hindi_es_index = config.get("elastic_search_credentials", "hindi_index")
-
 fetch_static_scraping_config_url = config.get("urls", "static_file_url")
 static_scraping_url = config.get("urls", "static_file_status_url")
 synonyms_url = config.get("urls", "synonyms_url")
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
-
-
-qa_pipeline = QAPipeline(es_index,'./config_files/english_synonyms.txt')
-
 
 app = FastAPI()
 
@@ -183,26 +177,18 @@ async def scrape_page(request: Request, background_tasks: BackgroundTasks):
         raise HTTPException(status_code=500, detail=get_error_details())
 
 
-def __sync_synonyms__(lang):
+def __sync_synonyms__():
     try:
         global qa_pipeline
-
-        if lang == 1:
-            filename = './config_files/english_synonyms.txt'
-            index = es_index
-        else:
-            filename = './config_files/hindi_synonyms.txt'
-            index = hindi_es_index
-
-        response = requests.get(url=f'{synonyms_url}?LanguageId={lang}')
+        response = requests.get(url=synonyms_url)
 
         data = response.json()
 
         synonyms = "\n".join([re.sub(",", "=", synonym) for synonym in data])
 
-        with open(filename, "w+") as f:
+        with open("./config_files/synonyms.txt", "w+") as f:
             f.write(synonyms)
-        qa_pipeline = QAPipeline(index,filename)
+        qa_pipeline = QAPipeline(config)
 
         print("Added synonyms successfully..!!")
 
@@ -210,9 +196,9 @@ def __sync_synonyms__(lang):
         print(f"Synonyms Syncing error: {get_error_details()}")
 
 @app.get('/resync_synonyms')
-def resync_synonyms(LanguageId: int,background_tasks: BackgroundTasks):
+def resync_synonyms(background_tasks: BackgroundTasks):
     try:
-        background_tasks.add_task(__sync_synonyms__,lang=LanguageId)
+        background_tasks.add_task(__sync_synonyms__)
         return {
                 "status": "success",
                 "detail": "Syncing Synonyms Successfully.."

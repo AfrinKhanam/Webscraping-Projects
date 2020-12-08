@@ -12,6 +12,5 @@ namespace IndianBank_ChatBOT.Models
 
         [ForeignKey(nameof(SynonymId))]
         public virtual Synonym Synonym { get; set; }
-
     }
 }

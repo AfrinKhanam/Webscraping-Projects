@@ -29,11 +29,6 @@ namespace IndianBank_ChatBOT.Models
 
         public ScrapeStatus ScrapeStatus { get; set; }
 
-        public int? LanguageId { get; set; }
-
-        [ForeignKey(nameof(LanguageId))]
-        public virtual WebPageLanguage WebPageLanguage { get; set; }
-
         public string GetEnumDescription()
         {
             return ScrapeStatus.GetEnumDescription();
