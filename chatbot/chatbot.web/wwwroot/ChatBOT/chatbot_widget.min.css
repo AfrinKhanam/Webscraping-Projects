@@ -284,11 +284,25 @@ body {
 #chat::before {
 	border-color: transparent transparent transparent;
 }
-
 #chatbox {
 	box-shadow: rgba(0,0,0,.3) 0 0 12px;
 	border: none;
+
+	
 }
+@media (min-width: 768px) and (max-width: 1024px) { 
+  #chatbox {
+	
+	width: 100% !important;
+	max-height: 100vh !important;
+	height: 100vh !important;
+}
+  
+}
+
+
+
+
 
 .close-button-wraper {
 	width: 100%;
