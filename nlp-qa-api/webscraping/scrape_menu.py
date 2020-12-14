@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 from bs4.element import Tag
 
 _RE_COMBINE_WHITESPACE = re.compile(r"\s+")
-_RE_REMOVE_NON_ALPHANUMERIC = re.compile(r'[^A-Za-z0-9 ]+')
+_RE_REMOVE_NON_ALPHANUMERIC = re.compile(r"[^A-Za-z0-9 ]+")
+
 
 class ScrapeMenu:
     def __init__(self, es, es_index):
@@ -14,11 +15,12 @@ class ScrapeMenu:
 
     def __clean_text__(self, text: str):
         # Remove non alphanumeric characters
-        retval = _RE_REMOVE_NON_ALPHANUMERIC.sub('', text)
+        # retval = _RE_REMOVE_NON_ALPHANUMERIC.sub('', text)
 
         # Substitute multiple whitespaces with single whitespace
-        retval = _RE_COMBINE_WHITESPACE.sub(' ', retval)
+        # retval = _RE_COMBINE_WHITESPACE.sub(' ', text)
 
+        retval = text.replace('▼','')
         # Finally, trim the string by removing any leading / trailing whitespace characters
         retval = retval.lstrip().rstrip()
 
@@ -69,6 +71,11 @@ class ScrapeMenu:
             __process_children(item)
 
         return menu_items
+    
+    def __convert_to_upper_case__(self,menu_items):
+        for item in menu_items:
+            item['text'] = item['text'].upper()
+        return menu_items
 
     def scrape_scrollbar_menu(self, document, html: str):
         self.doc = document
@@ -86,6 +93,8 @@ class ScrapeMenu:
             menu_items_to_ignore = pageConfig['menuItemsToIgnore']
 
         menu_items = self.__parse_menu__(main_content, menu_items_to_ignore)
+
+        menu_items = self.__convert_to_upper_case__(menu_items)
 
         menu_items = self.__tag_parents__(menu_items)
 
