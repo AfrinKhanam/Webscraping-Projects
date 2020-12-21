@@ -26,6 +26,9 @@ $(document).ready(function () {
             subscription.unsubscribe();
         });
         directLine.activity$.filter(function (activity) {
+            setTimeout(function () {
+                $(chatInputSelector).val('');
+            }, 5);
             return activity.type === 'message';
         }).subscribe(function (activity) {
             activity.showFeedback = onboardingCompleted;
@@ -84,6 +87,9 @@ function displayCarousel() {
     $("div#webchat div.main").parent().prepend(carousel);
     carousel.show('fast');
     carousel.find("button.btn-suggestion").on('click', function () {
+        setTimeout(function () {
+            $(chatInputSelector).val('');
+        }, 5);
         var text = $(this).data("msg-text");
         window.directLine.postActivity({
             text: text,
