@@ -43,7 +43,7 @@ class ScrapeMenu:
             if text in menu_items_to_ignore:
                 continue
 
-            menu_item = {'text': text}
+            menu_item = {'text': text.title()}
 
             child_menu_content = item.find('ul')
 
