@@ -3,6 +3,7 @@ window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
 $(document).ready(function () {
+
     fetch('/Home/GetBotParams', {
         method: 'POST',
         headers: {
@@ -28,12 +29,13 @@ $(document).ready(function () {
         directLine.activity$.filter(function (activity) {
             setTimeout(function () {
                 $(chatInputSelector).val('');
-            }, 5);
+                window.suggested_items = [];
+            }, 1);
             return activity.type === 'message';
         }).subscribe(function (activity) {
             activity.showFeedback = onboardingCompleted;
-
-            if (activity.text && activity.text.toLowerCase().startsWith("this is what i found on ")) {
+            
+            if (activity.text && (activity.text.toLowerCase().startsWith("this is what i found on ") | activity.text.toLowerCase().startsWith("i did not find an exact answer but here is something similar"))) {
                 activity.showFeedback = false;
             }
         });
@@ -81,6 +83,17 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
         }, 200);
     });
 };
+var checkIfDomReady = function () {
+    if ($('.main button').length == 0) {
+    setTimeout(checkIfDomReady, 100);
+    return;
+    }
+    $('.main button').click((e)=>{
+    window.suggested_items = []
+    })
+    //Add Code Here
+    };
+    setTimeout(checkIfDomReady, 100);
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
@@ -89,7 +102,7 @@ function displayCarousel() {
     carousel.find("button.btn-suggestion").on('click', function () {
         setTimeout(function () {
             $(chatInputSelector).val('');
-        }, 5);
+        }, 1);
         var text = $(this).data("msg-text");
         window.directLine.postActivity({
             text: text,
@@ -135,8 +148,10 @@ function initializeAutoSuggest() {
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
+       
     });
 }
+
 
 function autoSuggestLookup(query, done) {
     var q = [{
