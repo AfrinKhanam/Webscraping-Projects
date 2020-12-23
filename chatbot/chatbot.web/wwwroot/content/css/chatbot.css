@@ -204,7 +204,8 @@ body {
     -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
     box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
     max-height: 400px;
-    width: 410px !important;
+    width: calc(100%-10px) !important;
+
 }
 
 .autocomplete-suggestion {
@@ -528,15 +529,4 @@ body {
 /*timestamp is visible in the last card response */
 .css-1s8geyi{
     display: block !important;
-}
-/*media query for auto question on tab*/
-@media only screen and (max-width: 1024px) and (orientation: portrait){
-	.autocomplete-suggestions{
-		width: 100% !important;
-	}
-}
-@media only screen and (max-width: 1024px) and (orientation: landscape){
-	.autocomplete-suggestions{
-		width: 100% !important;
-	}
 }
