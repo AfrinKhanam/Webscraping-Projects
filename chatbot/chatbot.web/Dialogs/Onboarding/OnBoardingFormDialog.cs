@@ -39,7 +39,7 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         private async Task<bool> ValidateNameAsync(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
         {
             string name = pc.Recognized.Value;
-            Regex r = new Regex("^[a-zA-Z ]+$");
+            Regex r = new Regex("^[a-zA-Z .]+$");
 
             if (!r.IsMatch(name))
             {
