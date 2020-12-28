@@ -29,7 +29,7 @@
             <div class="carousel slide multi-item-carousel" data-interval="false" id="theCarousel">
                 <div class="carousel-inner">
                     @{
-                        var itemsPerGroup = 3;
+                        var itemsPerGroup = 2;
 
                         var itemGroups = Model.Select((x, idx) => new { x, idx })
                                             .GroupBy(x => x.idx / itemsPerGroup)
