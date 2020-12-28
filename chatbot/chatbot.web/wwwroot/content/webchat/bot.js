@@ -88,28 +88,53 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
         }, 200);
     });
 };
-var checkIfDomReady = function () {
 
+var checkIfDomReady = function checkIfDomReady() {
     if ($('.main button').length == 0) {
         setTimeout(checkIfDomReady, 100);
         return;
     }
-    $('.main button').click((e) => {
+ 
+    $('.main button').click(function (e) {
         var field = document.createElement('input');
         field.setAttribute('type', 'text');
         document.body.appendChild(field);
-
         setTimeout(function () {
             field.focus();
             setTimeout(function () {
                 field.setAttribute('style', 'display:none;');
             }, 50);
         }, 50);
+    }); //Add Code Here
+ };
+ 
+ setTimeout(checkIfDomReady, 100);
+ 
 
-    })
-    //Add Code Here
-};
-setTimeout(checkIfDomReady, 100);
+
+
+// var checkIfDomReady = function () {
+
+//     if ($('.main button').length == 0) {
+//         setTimeout(checkIfDomReady, 100);
+//         return;
+//     }
+//     $('.main button').click((e) => {
+//         var field = document.createElement('input');
+//         field.setAttribute('type', 'text');
+//         document.body.appendChild(field);
+
+//         setTimeout(function () {
+//             field.focus();
+//             setTimeout(function () {
+//                 field.setAttribute('style', 'display:none;');
+//             }, 50);
+//         }, 50);
+
+//     })
+//     //Add Code Here
+// };
+// setTimeout(checkIfDomReady, 100);
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
@@ -163,6 +188,20 @@ function initializeAutoSuggest() {
     }).bind("keypress", function (event) {
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
+        }
+
+        if (event.which == 13)
+        {
+            var field = document.createElement('input');
+            field.setAttribute('type', 'text');
+            document.body.appendChild(field);
+            setTimeout(function () {
+                field.focus();
+                setTimeout(function () {
+                    field.setAttribute('style', 'display:none;');
+                }, 50);
+            }, 50);
+
         }
 
     });
