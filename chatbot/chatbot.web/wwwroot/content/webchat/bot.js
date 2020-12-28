@@ -165,6 +165,17 @@ function initializeAutoSuggest() {
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
+        if (event.which == 13){
+            var field = document.createElement('input');
+        field.setAttribute('type', 'text');
+        document.body.appendChild(field);
+        setTimeout(function () {
+            field.focus();
+            setTimeout(function () {
+                field.setAttribute('style', 'display:none;');
+            }, 50);
+        }, 50);
+        }
 
 
     });
