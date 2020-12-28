@@ -474,7 +474,7 @@ body {
 	width: 100%;
 	padding-bottom: 0;
 }
-@media only screen and (max-width: 1024px) and (orientation: portrait) {
+/*@media only screen and (max-width: 1024px) and (orientation: portrait) {
 	#chatbox{
 		right: 0px !important;
 		left: 0px !important;
@@ -509,6 +509,44 @@ body {
 		width: 100% !important;
 		max-height: 100% !important;
 		height: 100% !important;
+		display: none;
+	}
+}*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) {
+	#chatbox {
+		right: 0px !important;
+		top: 0px !important;
+		left: 0px !important;
+		bottom: 0px !important;
+		max-height: 100% !important;
+		height: 100%;
+		width: 100% !important;
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1112px) {
+	#chatbox {
+		right: 0px !important;
+		top: 0px !important;
+		left: 0px !important;
+		bottom: 0px !important;
+		max-height: 100% !important;
+		height: 100%;
+		width: 100% !important;
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (-webkit-min-device-pixel-ratio: 2) {
+	#chatbox {
+		right: 0px !important;
+		top: 0px !important;
+		left: 0px !important;
+		bottom: 0px !important;
+		max-height: 100% !important;
+		height: 100%;
+		width: 100% !important;
 		display: none;
 	}
 }
