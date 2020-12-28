@@ -89,6 +89,7 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
     });
 };
 
+
 var checkIfDomReady = function checkIfDomReady() {
     if ($('.main button').length == 0) {
         setTimeout(checkIfDomReady, 100);
@@ -109,6 +110,7 @@ var checkIfDomReady = function checkIfDomReady() {
  };
  
  setTimeout(checkIfDomReady, 100);
+
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
@@ -164,19 +166,6 @@ function initializeAutoSuggest() {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
 
-        if (event.which == 13)
-        {
-            var field = document.createElement('input');
-            field.setAttribute('type', 'text');
-            document.body.appendChild(field);
-            setTimeout(function () {
-                field.focus();
-                setTimeout(function () {
-                    field.setAttribute('style', 'display:none;');
-                }, 50);
-            }, 50);
-
-        }
 
     });
 }
