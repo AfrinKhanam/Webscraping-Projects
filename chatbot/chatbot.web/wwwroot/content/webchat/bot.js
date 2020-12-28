@@ -83,30 +83,6 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
         }, 200);
     });
 };
-//var checkIfDomReady = function () {
-//    if ($('.main button').length == 0) {
-//        setTimeout(checkIfDomReady, 100);
-//        return;
-//    }
-//    $('.main button').click((e) => {
-//        //alert("hiiiiiiiiiiii")
-//        // setTimeout(function () {
-//        //     window.suggested_items = [];
-//        // }, 0);
-//        //window.suggested_items = [];
-//        //console.log(window.suggested_items);
-//        debugger;
-//        //e.preventDefault();
-//        var ele = $(".autocomplete-suggestions").first().css('display', 'none');
-//        console.log("auto sugg display none ");
-//        //var ele = $('.css-1g3yky9 input');
-//        //ele[0].blur(function () {
-//        //    console.log('blur fn');
-//        //});
-//    })
-//    //Add Code Here
-//};
-//setTimeout(checkIfDomReady, 100);
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
