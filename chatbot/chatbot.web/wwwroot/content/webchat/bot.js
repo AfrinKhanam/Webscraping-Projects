@@ -29,14 +29,19 @@ $(document).ready(function () {
         directLine.activity$.filter(function (activity) {
             setTimeout(function () {
                 $(chatInputSelector).val('');
-                window.suggested_items = [];
+
+                $(chatInputSelector).autocomplete().hide();
+
             }, 1);
             return activity.type === 'message';
         }).subscribe(function (activity) {
+
             activity.showFeedback = onboardingCompleted;
 
             if (activity.text && (activity.text.toLowerCase().startsWith("this is what i found on ") | activity.text.toLowerCase().startsWith("i did not find an exact answer but here is something similar"))) {
                 activity.showFeedback = false;
+                $(chatInputSelector).autocomplete().hide();
+
             }
         });
 
@@ -83,6 +88,55 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
         }, 200);
     });
 };
+
+
+var checkIfDomReady = function checkIfDomReady() {
+    if ($('.main button').length == 0) {
+        setTimeout(checkIfDomReady, 100);
+        return;
+    }
+ 
+    $('.main button').click(function (e) {
+        var field = document.createElement('input');
+        field.setAttribute('type', 'text');
+        document.body.appendChild(field);
+        setTimeout(function () {
+            field.focus();
+            setTimeout(function () {
+                field.setAttribute('style', 'display:none;');
+            }, 50);
+        }, 50);
+    }); //Add Code Here
+ };
+ 
+ setTimeout(checkIfDomReady, 100);
+ 
+
+
+
+// var checkIfDomReady = function () {
+
+//     if ($('.main button').length == 0) {
+//         setTimeout(checkIfDomReady, 100);
+//         return;
+//     }
+//     $('.main button').click((e) => {
+//         var field = document.createElement('input');
+//         field.setAttribute('type', 'text');
+//         document.body.appendChild(field);
+
+//         setTimeout(function () {
+//             field.focus();
+//             setTimeout(function () {
+//                 field.setAttribute('style', 'display:none;');
+//             }, 50);
+//         }, 50);
+
+//     })
+//     //Add Code Here
+// };
+// setTimeout(checkIfDomReady, 100);
+
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
@@ -137,6 +191,7 @@ function initializeAutoSuggest() {
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
+
 
     });
 }
