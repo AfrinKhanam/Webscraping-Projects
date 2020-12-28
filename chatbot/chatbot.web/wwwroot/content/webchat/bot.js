@@ -109,32 +109,6 @@ var checkIfDomReady = function checkIfDomReady() {
  };
  
  setTimeout(checkIfDomReady, 100);
- 
-
-
-
-// var checkIfDomReady = function () {
-
-//     if ($('.main button').length == 0) {
-//         setTimeout(checkIfDomReady, 100);
-//         return;
-//     }
-//     $('.main button').click((e) => {
-//         var field = document.createElement('input');
-//         field.setAttribute('type', 'text');
-//         document.body.appendChild(field);
-
-//         setTimeout(function () {
-//             field.focus();
-//             setTimeout(function () {
-//                 field.setAttribute('style', 'display:none;');
-//             }, 50);
-//         }, 50);
-
-//     })
-//     //Add Code Here
-// };
-// setTimeout(checkIfDomReady, 100);
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
