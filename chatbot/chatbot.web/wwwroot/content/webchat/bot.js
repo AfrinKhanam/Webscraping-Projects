@@ -121,6 +121,7 @@ function initializeAutoSuggest() {
         noCache: false,
         minChars: 2,
         triggerSelectOnValidInput: true,
+        tabDisabled: true,
         preventBadQueries: true,
         autoSelectFirst: false,
         onSearchComplete: function onSearchComplete(query, suggestions) {
