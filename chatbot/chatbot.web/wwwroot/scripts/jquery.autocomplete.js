@@ -208,7 +208,22 @@
 
             $(window).on('resize.autocomplete', that.fixPositionCapture);
 
-            that.el.on('keydown.autocomplete', function (e) { that.onKeyPress(e); });
+            that.el.on('keydown.autocomplete', function (e) {
+                if (e.which == 13) {
+                    var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+                    var input = $(chatInputSelector);
+                    var defaultValue = $(input[0]).prop('defaultValue');
+
+                    var currentValue = $(e.currentTarget).val();
+
+                    if (defaultValue.trim().toLowerCase() == currentValue.trim().toLowerCase()) {
+                        return;
+                    } else {
+                        $(input[0]).prop('defaultValue', currentValue);
+                    }
+                }
+                that.onKeyPress(e);
+            });
             that.el.on('keyup.autocomplete', function (e) { that.onKeyUp(e); });
             that.el.on('blur.autocomplete', function () { that.onBlur(); });
             that.el.on('focus.autocomplete', function () { that.onFocus(); });
