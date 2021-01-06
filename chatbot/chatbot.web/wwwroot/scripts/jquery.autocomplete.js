@@ -695,7 +695,7 @@
                     html += formatGroup(suggestion, value, i);
                 }
 
-                html += '<div class="' + className + '" data-index="' + i + '">' + formatResult(suggestion, value, i) + '</div>';
+                html += '<div class="' + className + '" data-index="' + i + '"><span><img src="../../search.png" style=" width: 3.8%;height: 15px;margin-bottom: 3px;margin-right: 4px"></span>' + formatResult(suggestion, value, i) + '</div>';
             });
 
             this.adjustContainerWidth();
