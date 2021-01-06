@@ -105,6 +105,7 @@ var checkIfDomReady = function checkIfDomReady() {
         setTimeout(checkIfDomReady, 100);
         return;
     }
+}
 
     function displayCarousel() {
         var carousel = $("div#carousel-container").detach();
@@ -157,7 +158,7 @@ var checkIfDomReady = function checkIfDomReady() {
                 };
             }
         }).bind("keypress", function (event) {
-            $(chatInputSelecto).on('blur', function () {
+            $(chatInputSelector).on('blur', function () {
                 setTimeout(function () {
                     window.scrollTo(0, document.body.clientHeight);
                 }, 300);
@@ -268,4 +269,4 @@ var checkIfDomReady = function checkIfDomReady() {
         done({
             suggestions: contextItems.length > 0 ? contextItems : alternateItems.slice(0, 5)
         });
-    }}
+    }
