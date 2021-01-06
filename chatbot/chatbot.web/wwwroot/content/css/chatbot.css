@@ -213,7 +213,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
 }
-
+/*
     .autocomplete-suggestion::before {
         content: "";
         background: url('../../search.png');
@@ -230,7 +230,8 @@ body {
         border-width: 0;
         border-right-width: 0px;
         border-right-width: 20px;
-    }
+    }*/
+
 
 .autocomplete-no-suggestion {
     padding: 2px 5px;

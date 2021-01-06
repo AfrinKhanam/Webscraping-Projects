@@ -29,7 +29,7 @@ $(document).ready(function () {
         directLine.activity$.filter(function (activity) {
             setTimeout(function () {
                 $(chatInputSelector).val('');
-
+                
                 $(chatInputSelector).autocomplete().hide();
 
             }, 1);
