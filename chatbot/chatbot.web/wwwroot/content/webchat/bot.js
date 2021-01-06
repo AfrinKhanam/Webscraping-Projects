@@ -268,4 +268,4 @@ var checkIfDomReady = function checkIfDomReady() {
         done({
             suggestions: contextItems.length > 0 ? contextItems : alternateItems.slice(0, 5)
         });
-    }
+    }}
