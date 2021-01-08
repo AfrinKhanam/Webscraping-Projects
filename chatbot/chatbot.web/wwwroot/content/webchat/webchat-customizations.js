@@ -246,16 +246,13 @@ _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                             _this = _super.call(this);
 
                             _defineProperty(_assertThisInitialized(_this), "sendFeedback", function (feedBack) {
-                                fetch('/Report/UpdateFeedback', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        ActivityId: _this.props.replyId,
-                                        ResonseFeedback: feedBack
-                                    })
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Report/UpdateFeedback',
+                                    data: {
+                                        ActivityId: this.props.replyId,
+                                        ResonseFeedback: feedBack,
+                                    }
                                 });
                             });
 

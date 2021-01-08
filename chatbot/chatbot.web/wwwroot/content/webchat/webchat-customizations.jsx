@@ -80,17 +80,14 @@
         }
 
         sendFeedback = (feedBack) => {
-            fetch('/Report/UpdateFeedback', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            $.ajax({
+                type: "POST",
+                url: '/Report/UpdateFeedback',
+                data: {
                     ActivityId: this.props.replyId,
                     ResonseFeedback: feedBack,
-                })
-            })
+                }
+            });
         }
 
         handleDownvoteButton = () => {
