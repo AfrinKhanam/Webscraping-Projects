@@ -15,7 +15,6 @@ import uvicorn
 from common.utils import get_error_details
 from search.qa_pipeline import QAPipeline
 from webscraping.web_scraping_pipeline import WebScrapingPipeline
-from webscraping.scrape_menu import ScrapeMenu
 
 config_file_path = './config.ini'
 config = ConfigParser()
