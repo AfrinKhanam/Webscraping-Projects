@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -39,10 +39,11 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
         private async Task<bool> ValidateNameAsync(PromptValidatorContext<string> pc, CancellationToken cancellationToken)
         {
             string name = pc.Recognized.Value;
+            Regex r = new Regex("^[a-zA-Z .]+$");
 
-            if (name == "about us" || name == "product" || name == "services" || name == "rates" || name == "contacts" || name == "links")
+            if (!r.IsMatch(name))
             {
-                await pc.Context.SendActivityAsync("Please enter your name first to proceed further");
+                await pc.Context.SendActivityAsync("Name can have only alphabets. Please enter a valid name.");
                 return false;
             }
 
@@ -58,13 +59,16 @@ namespace IndianBank_ChatBOT.Dialogs.Onboarding
                 await pc.Context.SendActivityAsync("Mobile Number can only contains digits. Please enter valid 10-Digit mobile number to proceed further.");
                 return false;
             }
-            if (!Regex.IsMatch(mobileNumber, "^(\\+\\d{1,3}[- ]?)?\\d{10}$"))
+            if (!Regex.IsMatch(mobileNumber, "^(\\+\\d{1,3}[- ]?)?\\d{10}$") | (Regex.IsMatch(mobileNumber, "^[0]{10}$") | Regex.IsMatch(mobileNumber, "^[1]{10}$") | Regex.IsMatch(mobileNumber, "^[2]{10}$") |
+            Regex.IsMatch(mobileNumber, "^[3]{10}$") | Regex.IsMatch(mobileNumber, "^[4]{10}$") | Regex.IsMatch(mobileNumber, "^[5]{10}$") | Regex.IsMatch(mobileNumber, "^[6]{10}$") | Regex.IsMatch(mobileNumber, "^[7]{10}$") |
+            Regex.IsMatch(mobileNumber, "^[8]{10}$") | Regex.IsMatch(mobileNumber, "^[9]{10}$")))
             {
                 // await pc.Context.SendActivityAsync("Invalid Mobile Number. Please enter a valid 10-Digit number.");
                 await pc.Context.SendActivityAsync("Please enter a valid 10-Digit number");
 
                 return false;
             }
+            
             return true;
         }
 
@@ -149,3 +153,4 @@ Feel free to ask me any question by typing below or clicking on the dynamic scro
         }
     }
 }
+

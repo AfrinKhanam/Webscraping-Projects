@@ -89,40 +89,40 @@
     $.Autocomplete = Autocomplete;
 
     Autocomplete.defaults = {
-            ajaxSettings: {},
-            autoSelectFirst: false,
-            appendTo: 'body',
-            serviceUrl: null,
-            lookup: null,
-            onSelect: null,
-            width: 'auto',
-            minChars: 1,
-            maxHeight: 300,
-            deferRequestBy: 0,
-            params: {},
-            formatResult: _formatResult,
-            formatGroup: _formatGroup,
-            delimiter: null,
-            zIndex: 9999,
-            type: 'GET',
-            noCache: false,
-            onSearchStart: noop,
-            onSearchComplete: noop,
-            onSearchError: noop,
-            preserveInput: false,
-            containerClass: 'autocomplete-suggestions',
-            tabDisabled: false,
-            dataType: 'text',
-            currentRequest: null,
-            triggerSelectOnValidInput: true,
-            preventBadQueries: true,
-            lookupFilter: _lookupFilter,
-            paramName: 'query',
-            transformResult: _transformResult,
-            showNoSuggestionNotice: false,
-            noSuggestionNotice: 'No results',
-            orientation: 'bottom',
-            forceFixPosition: false
+        ajaxSettings: {},
+        autoSelectFirst: false,
+        appendTo: 'body',
+        serviceUrl: null,
+        lookup: null,
+        onSelect: null,
+        width: 'auto',
+        minChars: 1,
+        maxHeight: 300,
+        deferRequestBy: 0,
+        params: {},
+        formatResult: _formatResult,
+        formatGroup: _formatGroup,
+        delimiter: null,
+        zIndex: 9999,
+        type: 'GET',
+        noCache: false,
+        onSearchStart: noop,
+        onSearchComplete: noop,
+        onSearchError: noop,
+        preserveInput: false,
+        containerClass: 'autocomplete-suggestions',
+        tabDisabled: false,
+        dataType: 'text',
+        currentRequest: null,
+        triggerSelectOnValidInput: true,
+        preventBadQueries: true,
+        lookupFilter: _lookupFilter,
+        paramName: 'query',
+        transformResult: _transformResult,
+        showNoSuggestionNotice: false,
+        noSuggestionNotice: 'No results',
+        orientation: 'bottom',
+        forceFixPosition: false
     };
 
     function _lookupFilter(suggestion, originalQuery, queryLowerCase) {
@@ -167,7 +167,7 @@
 
             // html() deals with many types: htmlString or Element or Array or jQuery
             that.noSuggestionsContainer = $('<div class="autocomplete-no-suggestion"></div>')
-                                          .html(this.options.noSuggestionNotice).get(0);
+                .html(this.options.noSuggestionNotice).get(0);
 
             that.suggestionsContainer = Autocomplete.utils.createNode(options.containerClass);
 
@@ -208,7 +208,22 @@
 
             $(window).on('resize.autocomplete', that.fixPositionCapture);
 
-            that.el.on('keydown.autocomplete', function (e) { that.onKeyPress(e); });
+            that.el.on('keydown.autocomplete', function (e) {
+                if (e.which == 13) {
+                    var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+                    var input = $(chatInputSelector);
+                    var defaultValue = $(input[0]).prop('defaultValue');
+
+                    var currentValue = $(e.currentTarget).val();
+
+                    if (defaultValue.trim().toLowerCase() == currentValue.trim().toLowerCase()) {
+                        return;
+                    } else {
+                        $(input[0]).prop('defaultValue', currentValue);
+                    }
+                }
+                that.onKeyPress(e);
+            });
             that.el.on('keyup.autocomplete', function (e) { that.onKeyUp(e); });
             that.el.on('blur.autocomplete', function () { that.onBlur(); });
             that.el.on('focus.autocomplete', function () { that.onFocus(); });
@@ -336,20 +351,20 @@
 
             // If container is not positioned to body,
             // correct its position using offset parent offset
-            if(containerParent !== document.body) {
+            if (containerParent !== document.body) {
                 var opacity = $container.css('opacity'),
                     parentOffsetDiff;
 
-                    if (!that.visible){
-                        $container.css('opacity', 0).show();
-                    }
+                if (!that.visible) {
+                    $container.css('opacity', 0).show();
+                }
 
                 parentOffsetDiff = $container.offsetParent().offset();
                 styles.top -= parentOffsetDiff.top;
                 styles.top += containerParent.scrollTop;
                 styles.left -= parentOffsetDiff.left;
 
-                if (!that.visible){
+                if (!that.visible) {
                     $container.css('opacity', opacity).hide();
                 }
             }
@@ -554,7 +569,7 @@
 
             params = options.ignoreParams ? null : options.params;
 
-            if ($.isFunction(options.lookup)){
+            if ($.isFunction(options.lookup)) {
                 options.lookup(q, function (data) {
                     that.suggestions = data.suggestions;
                     that.suggest();
@@ -604,7 +619,7 @@
         },
 
         isBadQuery: function (q) {
-            if (!this.options.preventBadQueries){
+            if (!this.options.preventBadQueries) {
                 return false;
             }
 
@@ -658,16 +673,16 @@
                 html = '',
                 category,
                 formatGroup = function (suggestion, index) {
-                        var currentCategory = suggestion.data[groupBy];
+                    var currentCategory = suggestion.data[groupBy];
 
-                        if (category === currentCategory){
-                            return '';
-                        }
+                    if (category === currentCategory) {
+                        return '';
+                    }
 
-                        category = currentCategory;
+                    category = currentCategory;
 
-                        return options.formatGroup(suggestion, category);
-                    };
+                    return options.formatGroup(suggestion, category);
+                };
 
             if (options.triggerSelectOnValidInput && that.isExactMatch(value)) {
                 that.select(0);
@@ -676,11 +691,11 @@
 
             // Build suggestions inner HTML:
             $.each(that.suggestions, function (i, suggestion) {
-                if (groupBy){
+                if (groupBy) {
                     html += formatGroup(suggestion, value, i);
                 }
 
-                html += '<div class="' + className + '" data-index="' + i + '">' + formatResult(suggestion, value, i) + '</div>';
+                html += '<div class="' + className + '" data-index="' + i + '"><span><img src="../../search.png" style="width:16px; height:16px; margin-bottom:3px; margin-right:3px;"></span>' + formatResult(suggestion, value, i) + '</div>';
             });
 
             this.adjustContainerWidth();
@@ -706,11 +721,11 @@
             that.findBestHint();
         },
 
-        noSuggestions: function() {
-             var that = this,
-                 beforeRender = that.options.beforeRender,
-                 container = $(that.suggestionsContainer),
-                 noSuggestionsContainer = $(that.noSuggestionsContainer);
+        noSuggestions: function () {
+            var that = this,
+                beforeRender = that.options.beforeRender,
+                container = $(that.suggestionsContainer),
+                noSuggestionsContainer = $(that.noSuggestionsContainer);
 
             this.adjustContainerWidth();
 
@@ -732,7 +747,7 @@
             that.visible = true;
         },
 
-        adjustContainerWidth: function() {
+        adjustContainerWidth: function () {
             var that = this,
                 options = that.options,
                 width,
@@ -744,7 +759,7 @@
             if (options.width === 'auto') {
                 width = that.el.outerWidth();
                 container.css('width', width > 0 ? width : 300);
-            } else if(options.width === 'flex') {
+            } else if (options.width === 'flex') {
                 // Trust the source! Unset the width property so it will be the max length
                 // the containing elements.
                 container.css('width', '');
@@ -795,10 +810,10 @@
             return suggestions;
         },
 
-        validateOrientation: function(orientation, fallback) {
+        validateOrientation: function (orientation, fallback) {
             orientation = $.trim(orientation || '').toLowerCase();
 
-            if($.inArray(orientation, ['auto', 'bottom', 'top']) === -1){
+            if ($.inArray(orientation, ['auto', 'bottom', 'top']) === -1) {
                 orientation = fallback;
             }
 

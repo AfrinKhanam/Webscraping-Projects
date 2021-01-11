@@ -26,30 +26,22 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         public ActionResult Index()
-
         {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Include(l => l.WebPageLanguage).OrderBy(s => s.Word).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).OrderBy(s => s.Word).ToList();
             return View(Synonyms);
         }
 
-        [AllowAnonymous]
-        public IActionResult GetAllLanguages()
+        [Authorize]
+        public IActionResult GetAllWords()
         {
-            var Languages = _dbContext.WebPageLanguages.OrderBy(l => l.LanguageName).ToList();
-            return Ok(Languages);
-        }
-
-        //[Authorize]
-        public IActionResult GetAllWords(int languageId)
-        {
-            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
+            var Synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             return Ok(Synonyms);
         }
 
         [AllowAnonymous]
-        public IActionResult GetAllWordsCsv(int languageId)
+        public IActionResult GetAllWordsCsv()
         {
-            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).Where(s => s.LanguageId == languageId).ToList();
+            var synonyms = _dbContext.Synonyms.Include(s => s.SynonymWords).ToList();
             var wordsCsv = new List<string>();
             foreach (var synonym in synonyms)
             {
@@ -63,6 +55,7 @@ namespace IndianBank_ChatBOT.Controllers
                 }
                 wordsCsv.Add(sb.ToString());
             }
+
             return Ok(wordsCsv);
         }
 
@@ -184,18 +177,16 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         [HttpPost]
-        public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms(int LanguageId)
+        public async System.Threading.Tasks.Task<IActionResult> ReSyncSynonyms()
         {
             string reSyncSynonymsUrl = _appSettings.SynonymsSyncUrl;
-            string reSyncUrl = reSyncSynonymsUrl + "?LanguageId=" + LanguageId;
-
-            if (!string.IsNullOrEmpty(reSyncUrl))
+            if (!string.IsNullOrEmpty(reSyncSynonymsUrl))
             {
                 try
                 {
                     using var client = new HttpClient
                     {
-                        BaseAddress = new Uri(reSyncUrl)
+                        BaseAddress = new Uri(reSyncSynonymsUrl)
                     };
 
                     var response = await client.GetAsync("");

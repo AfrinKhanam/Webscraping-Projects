@@ -8,8 +8,6 @@ using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -37,7 +35,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Index))]
         public ActionResult Index()
         {
-            var webPages = _dbContext.WebScrapeConfig.Include(w => w.WebPageLanguage).OrderBy(p => p.PageName).ToArray();
+            var webPages = _dbContext.WebScrapeConfig.OrderBy(p => p.PageName).ToArray();
 
             WebPageViewModel vm = new WebPageViewModel
             {
@@ -53,29 +51,27 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(AddNew))]
         public ActionResult AddNew()
         {
-            var webPage = new WebScrapeConfigViewModel();
-            webPage.Languages = _dbContext.WebPageLanguages
-                                           .Select(s => new SelectListItem { Text = s.LanguageName, Value = s.LanguageId.ToString() })
-                                           .ToList();
+            var webPage = new WebScrapeConfig();
             return View(webPage);
         }
 
         [Authorize]
         [HttpPost]
         [Route(nameof(AddNew))]
-        public ActionResult AddNew(WebScrapeConfigViewModel vm)
+        public ActionResult AddNew(WebScrapeConfig webPage)
         {
-            vm.WebScrapeConfig.ScrapeStatus = ScrapeStatus.YetToScrape;
-            vm.WebScrapeConfig.CreatedOn = DateTime.Now;
-            vm.WebScrapeConfig.LastScrapedOn = null;
-            vm.WebScrapeConfig.IsActive = true;
-            _dbContext.WebScrapeConfig.Add(vm.WebScrapeConfig);
+            webPage.ScrapeStatus = ScrapeStatus.YetToScrape;
+            webPage.CreatedOn = DateTime.Now;
+            webPage.LastScrapedOn = null;
+            webPage.IsActive = true;
+
+            _dbContext.WebScrapeConfig.Add(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.insertWebPageStatus = "New Web Page is added successfully.";
             ModelState.Clear();
 
-            return RedirectToAction("AddNew");
+            return View();
         }
 
         [Authorize]
@@ -83,34 +79,22 @@ namespace IndianBank_ChatBOT.Controllers
         [Route(nameof(Edit))]
         public ActionResult Edit(int pageId)
         {
-            var webPage = new WebScrapeConfigViewModel
-            {
-                WebScrapeConfig = _dbContext.WebScrapeConfig.Find(pageId),
-                Languages = _dbContext.WebPageLanguages
-                                           .Select(s => new SelectListItem { Text = s.LanguageName, Value = s.LanguageId.ToString() })
-                                           .ToList()
-            };
-
+            var webPage = _dbContext.WebScrapeConfig.Find(pageId);
             return View(webPage);
         }
 
         [Authorize]
         [HttpPost]
         [Route(nameof(Edit))]
-        public ActionResult Edit(WebScrapeConfigViewModel vm)
+        public ActionResult Edit(WebScrapeConfig webPage)
         {
-            _dbContext.WebScrapeConfig.Update(vm.WebScrapeConfig);
+            _dbContext.WebScrapeConfig.Update(webPage);
             _dbContext.SaveChanges();
 
             ViewBag.editWebPageStatus = "Web Page is updates successfully.";
             ModelState.Clear();
 
-            var languages = _dbContext.WebPageLanguages
-                                          .Select(s => new SelectListItem { Text = s.LanguageName, Value = s.LanguageId.ToString() })
-                                          .ToList();
-            vm.Languages = languages;
-
-            return View(vm);
+            return View(webPage);
         }
 
         [Authorize]

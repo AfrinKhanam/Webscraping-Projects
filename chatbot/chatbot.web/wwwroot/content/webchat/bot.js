@@ -1,9 +1,11 @@
+
 ﻿
 var chatInputSelector = "input[data-id='webchat-sendbox-input']";
-
 window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
+window.autoSuggestControl = null;
+
 
 function changeLanguage() {
     //debugger;
@@ -115,13 +117,96 @@ $(document).ready(function () {
                 }, document.getElementById('webchat'));
             }
         });
+
+jQuery(function () {
+
+    $(chatInputSelector).on('blur', function () {
+        setTimeout(function () {
+            window.scrollTo(0, document.body.clientHeight);
+        }, 300);
+    });
+
+    $.ajax({
+        type: "POST",
+        url: '/Home/GetBotParams',
+        data: null,
+        success: function (res) {
+            setTimeout(function () {
+                initChatbot(res);
+            }, 100);
+        },
+        dataType: 'json'
+    });
+
 });
 
-sendUserInputMessage = function (msg_text) {
+initChatbot = function (options) {
+    if (!window.WebChat || !window.WebChat.createDirectLine) {
+        setTimeout(() => initChatbot(options), 100);
+        return;
+    }
+
+    window.directLine = window.WebChat.createDirectLine({
+        domain: options.directLineUrl,
+        token: options.directLineToken,
+        webSocket: true
+    });
+
+    var onboardingCompleted = false;
+
+    var subscription = directLine.activity$.filter(function (activity) {
+        return activity.type === 'event' && activity.value === 'OnboardingCompleted';
+    }).subscribe(function (_) {
+        initializeAutoSuggest();
+        displayCarousel();
+        onboardingCompleted = true;
+        subscription.unsubscribe();
+    });
+
+    directLine.activity$.filter(function (activity) {
+        setTimeout(function () {
+            $(chatInputSelector).val('');
+
+            hideAutosuggest();
+        }, 1);
+        return activity.type === 'message';
+    }).subscribe(function (activity) {
+
+        activity.showFeedback = onboardingCompleted;
+
+        if (activity.text && (activity.text.toLowerCase().startsWith("this is what i found on ") | activity.text.toLowerCase().startsWith("i did not find an exact answer but here is something similar"))) {
+            activity.showFeedback = false;
+            hideAutosuggest();
+        }
+    });
+
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        var styleOptions = {
+            backgroundColor: '',
+            hideUploadButton: true,
+            botAvatarInitials: 'BOT',
+            botAvatarImage: './botAvatar.png',
+            botAvatarBackgroundColor: '#ffe8a3'
+        };
+        window.botUserId = res.userId;
+        window.WebChat.renderWebChat({
+            directLine: window.directLine,
+            userID: res.userId,
+            username: res.userId,
+            locale: 'en-IN',
+            styleOptions: styleOptions,
+            resize: 'detect'
+        }, document.getElementById('webchat'));
+    }
+}
+
+sendUserInputMessage = function sendUserInputMessage(msg_text) {
     window.directLine.postActivity({
         text: msg_text,
         textFormat: "plain",
-        channelData: [{ "context": window.current_Context }],
+        channelData: [{
+            "context": window.current_Context
+        }],
         type: "message",
         channelId: "webchat",
         from: {
@@ -131,24 +216,40 @@ sendUserInputMessage = function (msg_text) {
         locale: "en-IN",
         timestamp: new Date()
     }).subscribe(function () {
+        window.suggested_items = []
         setTimeout(function () {
             $(chatInputSelector).val('');
         }, 200);
     });
-}
+};
+
+var hideKeyboard = function () {
+    document.activeElement.blur();
+    $("input").blur();
+};
+
+var hideAutosuggest = function () {
+    var autocomplete = $(chatInputSelector).autocomplete();
+    if (autocomplete)
+        autocomplete.hide();
+};
 
 function displayCarousel() {
     var carousel = $("div#carousel-container").detach();
     $("div#webchat div.main").parent().prepend(carousel);
     carousel.show('fast');
-
     carousel.find("button.btn-suggestion").on('click', function () {
+        setTimeout(function () {
+            $(chatInputSelector).val('');
+        }, 1);
         var text = $(this).data("msg-text");
-
         window.directLine.postActivity({
             text: text,
             textFormat: "plain",
-            value: { "action": "menu", "text": text },
+            value: {
+                "action": "menu",
+                "text": text
+            },
             type: "message",
             channelId: "webchat",
             from: {
@@ -162,7 +263,7 @@ function displayCarousel() {
 }
 
 function initializeAutoSuggest() {
-    $(chatInputSelector).autocomplete({
+    window.autoSuggestControl = $(chatInputSelector).autocomplete({
         orientation: 'top',
         // params - additional parameters to pass with the request, optional
         lookup: autoSuggestLookup,
@@ -170,18 +271,20 @@ function initializeAutoSuggest() {
         noCache: false,
         minChars: 2,
         triggerSelectOnValidInput: true,
+        tabDisabled: true,
         preventBadQueries: true,
         autoSelectFirst: false,
-        onSearchComplete: function (query, suggestions) {
+        onSearchComplete: function onSearchComplete(query, suggestions) {
             window.suggested_items = suggestions;
         },
-        onSelect: function (suggestion) {
+        onSelect: function onSelect(suggestion) {
             window.current_Context = suggestion.context;
-
             sendUserInputMessage(suggestion.value);
-
-            window.formattedResult = { suggestions: [] };
+            window.formattedResult = {
+                suggestions: []
+            };
         }
+
     }).bind("keypress", function (event) {
 
         console.log(event)
@@ -199,12 +302,20 @@ function initializeAutoSuggest() {
         // after each key press
         window.previousWord = event.keyCode
 
+
+    });
+
+    window.autoSuggestControl.bind("keypress", function (event) {
+        $(chatInputSelector).on('blur', function () {
+            setTimeout(function () {
+                window.scrollTo(0, document.body.clientHeight);
+            }, 300);
+        });
+
         if (event.which == 13 && window.suggested_items) {
-            if (window.suggested_items.length > 0)
-                window.current_Context = window.suggested_items[0].context;
-            else
-                window.current_Context = "";
+            if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
+
     });
 }
 
@@ -216,35 +327,45 @@ function getLastWord(sentence) {
     // console.log(lastWord)
     return { lastWord, previousSentence }
 }
+
 function autoSuggestLookup(query, done) {
-    var q = [{ wildcard: { "Questions": "*" + query + "*" } }];
+    var q = [{
+        wildcard: {
+            "Questions": "*" + query + "*"
+        }
+    }];
 
     if (query.split(" ").length > 1) {
         q = [];
         var words = query.split(" ");
 
         for (var i = 0; i < words.length; i++) {
-            q.push({ wildcard: { "Questions": "*" + words[i] + "*" } });
+            q.push({
+                wildcard: {
+                    "Questions": "*" + words[i] + "*"
+                }
+            });
         }
     }
 
-    var dataToPost =
-    {
-        "from": 0, "size": 200,
+    var dataToPost = {
+        "from": 0,
+        "size": 200,
         "query": {
             "bool": {
                 "should": q
             }
         }
     };
-
     $.ajax({
         url: "/AutoSuggestion/Suggest",
         type: "POST",
-        data: JSON.stringify({ "Query": JSON.stringify(dataToPost) }),
+        data: JSON.stringify({
+            "Query": JSON.stringify(dataToPost)
+        }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (result) {
+        success: function success(result) {
             processAutoSuggestResults(result, done);
         },
         processData: false
@@ -252,9 +373,10 @@ function autoSuggestLookup(query, done) {
 }
 
 function processAutoSuggestResults(result, done) {
-    if (!result) return
-
-    var empty_suggestions = { suggestions: [] };
+    if (!result) return;
+    var empty_suggestions = {
+        suggestions: []
+    };
 
     if (result.hits.hits.length < 1) {
         done(empty_suggestions);
@@ -262,7 +384,6 @@ function processAutoSuggestResults(result, done) {
     }
 
     var suggestionCountToDisplay = 5;
-
     var suggestionList = result.hits.hits;
 
     if (suggestionList.length < 1) {
@@ -271,29 +392,27 @@ function processAutoSuggestResults(result, done) {
     }
 
     var curContext = (current_Context || '').toLowerCase();
-
     suggestionList = $.map(suggestionList, function (item, i) {
         var src = item._source;
         var itemContext = src.primary_context_and_keyword.split(',', 1)[0].toLowerCase();
-
-        return { "value": src.Questions, "data": src.Questions, "context": itemContext };
+        return {
+            "value": src.Questions,
+            "data": src.Questions,
+            "context": itemContext
+        };
     });
-
     var contextItems = [];
     var alternateItems = [];
-
     var itemsAlreadyDisplayed = [];
 
     for (var i = 0; i < suggestionList.length; i++) {
         // If we have 5 items (i.e., suggestionCountToDisplay) to display, then break out of the loop
-        if (contextItems.length == suggestionCountToDisplay)
-            break;
+        if (contextItems.length == suggestionCountToDisplay) break;
+        var item = suggestionList[i]; // Do not display duplicate items. We do get duplicate items returned by ES from time-to-time!
 
-        var item = suggestionList[i];
-
-        // Do not display duplicate items. We do get duplicate items returned by ES from time-to-time!
-        if (itemsAlreadyDisplayed.find(ele => ele === item.value))
-            continue;
+        if (itemsAlreadyDisplayed.find(function (ele) {
+            return ele === item.value;
+        })) continue;
 
         if ($.trim(item.context).length > 0 && item.context == curContext) {
             contextItems.push(item);

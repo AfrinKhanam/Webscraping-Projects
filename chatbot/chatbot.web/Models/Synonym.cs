@@ -10,10 +10,5 @@ namespace IndianBank_ChatBOT.Models
         public int Id { get; set; }
         public string Word { get; set; }
         public virtual ICollection<SynonymWord> SynonymWords { get; set; }
-        public int? LanguageId { get; set; }
-
-        [ForeignKey(nameof(LanguageId))]
-        public virtual WebPageLanguage WebPageLanguage { get; set; }
-
     }
 }
