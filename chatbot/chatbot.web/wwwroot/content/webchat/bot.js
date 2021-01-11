@@ -1,8 +1,122 @@
-﻿var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+
+﻿
+var chatInputSelector = "input[data-id='webchat-sendbox-input']";
 window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
 window.autoSuggestControl = null;
+
+
+function changeLanguage() {
+    //debugger;
+    var languageDiv = $("#languages").length;
+    if (languageDiv == 0) {
+        $('#webchat div.main').prepend('<div id="languages"> ' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[0].languageName + '" value="' + languages[0].languageId + '" name = "customRadio" checked onClick="onLanguageSelect(1)">' +
+            '<label class="custom-control-label" for="' + languages[0].languageName + '"> English</label>' +
+            '</div>' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[1].languageName + '" value="' + languages[1].languageId + '" name = "customRadio" onClick="onLanguageSelect(2)">' +
+            '<label class="custom-control-label" for="' + languages[1].languageName + '"> हिंदी</label>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+    } else {
+        $("#languages").toggle();
+    }
+
+}
+
+function onLanguageSelect(lang) {
+    //debugger;
+    window.selectedBotLanguage = lang
+    console.log("selected language is : ",window.selectedBotLanguage)
+    $('#languages').css('display','None')
+    // $('#languages').hide();
+}
+//get languages from api
+function getLanguages() {
+    //debugger;
+    var request = $.ajax({
+        url: "/Synonyms/GetAllLanguages",
+        type: "GET",
+        success: function (data) {
+            languages = data;
+        }
+    });
+}
+
+$(document).ready(function () {
+    // declare default language once chatbot gets loaded. 1 for english, 2 for hindi
+    window.selectedBotLanguage = 1
+
+    //loads languages
+    window.languages = [];
+    getLanguages();
+
+    // previous word
+    window.previousWord = null
+
+    fetch('/Home/GetBotParams', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+        .then(function (res) { return res.json() })
+        .then(function (res) {
+            window.directLine = window.WebChat.createDirectLine({
+                domain: res.directLineUrl,
+                token: res.directLineToken,
+                webSocket: true
+            });
+
+            setTimeout(() => {
+                $('#webchat div.main').prepend('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
+            }, 300)
+
+            var onboardingCompleted = false;
+            var subscription = directLine.activity$
+                .filter(activity => activity.type === 'event' && activity.value === 'OnboardingCompleted')
+                .subscribe(_ => {
+                    initializeAutoSuggest();
+                    displayCarousel();
+                    onboardingCompleted = true;
+                    subscription.unsubscribe();
+                });
+
+            directLine.activity$
+                .filter(activity => activity.type === 'message')
+                .subscribe(activity => {
+                    activity.showFeedback = onboardingCompleted;
+
+                    if (activity.text && activity.text.toLowerCase().startsWith("this is what i found on ")) {
+                        activity.showFeedback = false;
+                    }
+                });
+
+            if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+                var styleOptions = {
+                    backgroundColor: '',
+                    hideUploadButton: true,
+                    botAvatarInitials: 'BOT',
+                    botAvatarImage: './botAvatar.png',
+                    botAvatarBackgroundColor: '#ffe8a3'
+                };
+
+                window.botUserId = res.userId;
+                window.WebChat.renderWebChat({
+                    directLine: window.directLine,
+                    userID: res.userId,
+                    username: res.userId,
+                    locale: 'en-IN',
+                    styleOptions: styleOptions,
+                    resize: 'detect'
+                }, document.getElementById('webchat'));
+            }
+        });
 
 jQuery(function () {
 
@@ -23,6 +137,7 @@ jQuery(function () {
         },
         dataType: 'json'
     });
+
 });
 
 initChatbot = function (options) {
@@ -169,6 +284,25 @@ function initializeAutoSuggest() {
                 suggestions: []
             };
         }
+
+    }).bind("keypress", function (event) {
+
+        console.log(event)
+        debugger;
+        console.log(event['keyCode'] == 32 && window.previousWord != 32)
+        if (event['keyCode'] == 32 && window.previousWord != 32) {
+
+            var { lastWord, previousSentence } = getLastWord(event.target['value'])
+
+            //make api call to translator
+            var x = lastWord + "changed"
+            event.target['value'] = previousSentence + " " + x
+
+        }
+        // after each key press
+        window.previousWord = event.keyCode
+
+
     });
 
     window.autoSuggestControl.bind("keypress", function (event) {
@@ -177,6 +311,7 @@ function initializeAutoSuggest() {
                 window.scrollTo(0, document.body.clientHeight);
             }, 300);
         });
+
         if (event.which == 13 && window.suggested_items) {
             if (window.suggested_items.length > 0) window.current_Context = window.suggested_items[0].context; else window.current_Context = "";
         }
@@ -184,6 +319,14 @@ function initializeAutoSuggest() {
     });
 }
 
+function getLastWord(sentence) {
+    var wordArray = sentence.split(" ")
+    var lastWord = wordArray[wordArray.length - 1]
+    wordArray.pop()
+    var previousSentence = wordArray.join(" ")
+    // console.log(lastWord)
+    return { lastWord, previousSentence }
+}
 
 function autoSuggestLookup(query, done) {
     var q = [{

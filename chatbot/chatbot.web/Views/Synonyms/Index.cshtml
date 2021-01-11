@@ -182,7 +182,22 @@
                 }
             ]
         });
+
+    }
+
+    function getLanguages() {
+        var request = $.ajax({
+            url: "/Synonyms/GetAllLanguages",
+            type: "GET",
+            success: function (data) {
+                languages = data;
+                intializePageLoadFunctions();
+            }
+        });
+    }
+
     });
+
 
     var synonymDetails = {};
     var wordDetails = {};
@@ -264,6 +279,15 @@
             alert('Please enter the Word.');
             return;
         }
+
+
+        if (lang.trim().length == 0 || lang == "Select the Language") {
+            alert('Please select the Language');
+            return;
+        }
+
+
+        var langId = parseInt(lang);
 
         var request = $.ajax({
             url: "/Synonyms/AddNewWord",

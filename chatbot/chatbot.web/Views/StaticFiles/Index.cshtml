@@ -12,6 +12,10 @@
     var isStaticPageScrapingInProgress = "@Model.IsStaticFilesScrapingInProgress".toLowerCase() == "true" ? true : false;
     var fullScrapeCheckInterval;
 
+    $(document).ready(function () {
+        getLanguages();
+    });
+
     if (isStaticPageScrapingInProgress) {
         pollFullScrapeStatusCheck();
     }
@@ -60,9 +64,16 @@
     }
 
     function uploadStaticFile() {
+        debugger;
+        var lang = $(".custom-select").val().trim();
+        var langId = parseInt(lang);
+
         if ($('#file').val() == "") {
             alert('Please choose the html file to upload.!');
-        } else {
+        }
+        if (lang.trim().length == 0 || lang == "Select the Language") {
+            alert('Please select the Language');
+        }else {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
             fd.append('file', files);
@@ -272,13 +283,28 @@
         }
     }
 
-    $(document).ready(function () {
+    var languages = [];
 
-        if (isStaticPageScrapingInProgress)
-            disableScraping();
-        else
-            enableScraping();
+    function getLanguages() {
+        var request = $.ajax({
+            url: "/Synonyms/GetAllLanguages",
+            type: "GET",
+            success: function (data) {
+                languages = data;
+                intializePageLoadFunctions();
+            }
+        });
+    }
 
+    function getLanguageDropdownOptions() {
+        var options = "<option selected>Select the Language</option>";
+        for (var i = 0; i < languages.length; i++) {
+            options += '<option class="lang" value="' + languages[i].languageId + '">' + languages[i].languageName + '</option>';
+        }
+        return options;
+    }
+
+    function intializePageLoadFunctions() {
         $('#toggle-modal-uploadStaticFileModal').fireModal({
             title: 'Upload Static File',
             body: '<div class="input-group">' +
@@ -290,7 +316,14 @@
                 'aria-describedby="inputGroupFileAddon01">' +
                 '<label class="custom-file-label" for="file">Choose a html file</label>' +
                 '</div>' +
+                '</div>' +
+                '<br>' +
+                '<div>' +
+                '<select class="custom-select">' +
+                getLanguageDropdownOptions() +
+                '</select>' +
                 '</div>',
+
             buttons: [
                 {
                     text: 'Upload',
@@ -349,6 +382,14 @@
                 }
             ]
         });
+    }
+
+    $(document).ready(function () {
+
+        if (isStaticPageScrapingInProgress)
+            disableScraping();
+        else
+            enableScraping();
     });
 
 
@@ -449,6 +490,9 @@
                                         File
                                     </th>
                                     <th>
+                                        Language
+                                    </th>
+                                    <th>
                                         Created On
                                     </th>
                                     <th>
@@ -473,6 +517,9 @@
                                             <td style="text-align:right">@index</td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.FileName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.WebPageLanguage.LanguageName)
                                             </td>
                                             <td>
                                                 @{
