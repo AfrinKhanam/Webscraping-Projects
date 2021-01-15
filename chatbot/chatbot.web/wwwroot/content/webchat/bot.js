@@ -1,8 +1,55 @@
-var chatInputSelector = "input[data-id='webchat-sendbox-input']";
+﻿var chatInputSelector = "input[data-id='webchat-sendbox-input']";
 window.directLine = null;
 window.current_Context = "undefined";
 window.botUserId = null;
+
+function changeLanguage() {
+    var languageDiv = $("#languages").length;
+    if (languageDiv == 0) {
+        $('#webchat div.main').prepend('<div id="languages"> ' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[0].languageName + '" value="' + languages[0].languageId + '" name = "customRadio" checked onClick="onLanguageSelect(1)">' +
+            '<label class="custom-control-label" for="' + languages[0].languageName + '"> English</label>' +
+            '</div>' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="' + languages[1].languageName + '" value="' + languages[1].languageId + '" name = "customRadio" onClick="onLanguageSelect(2)">' +
+            '<label class="custom-control-label" for="' + languages[1].languageName + '"> हिंदी</label>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+    } else {
+        $("#languages").toggle();
+    }
+}
+
+function onLanguageSelect(lang) {
+    window.selectedBotLanguage = lang
+    console.log("selected language is : ", window.selectedBotLanguage)
+    $('#languages').css('display', 'None')
+}
+//get languages from api
+function getLanguages() {
+    var request = $.ajax({
+        url: "/Synonyms/GetAllLanguages",
+        type: "GET",
+        success: function (data) {
+            languages = data;
+        }
+    });
+}
+
 $(document).ready(function () {
+
+    // declare default language once chatbot gets loaded. 1 for english, 2 for hindi
+    window.selectedBotLanguage = 1
+
+    //loads languages
+    window.languages = [];
+    getLanguages();
+
+    // previous word
+    window.previousWord = null
 
     $(chatInputSelector).on('blur', function () {
         setTimeout(function () {
@@ -28,6 +75,11 @@ $(document).ready(function () {
             token: res.directLineToken,
             webSocket: true
         });
+
+        setTimeout(() => {
+            $('#webchat div.main').prepend('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
+        }, 300)
+
         var onboardingCompleted = false;
         var subscription = directLine.activity$.filter(function (activity) {
             return activity.type === 'event' && activity.value === 'OnboardingCompleted';
@@ -163,6 +215,22 @@ var checkIfDomReady = function checkIfDomReady() {
                 };
             }
         }).bind("keypress", function (event) {
+
+            console.log(event)
+            debugger;
+            console.log(event['keyCode'] == 32 && window.previousWord != 32)
+            if (event['keyCode'] == 32 && window.previousWord != 32) {
+
+                var { lastWord, previousSentence } = getLastWord(event.target['value'])
+
+                //make api call to translator
+                var x = lastWord + "changed"
+                event.target['value'] = previousSentence + " " + x
+
+            }
+            // after each key press
+            window.previousWord = event.keyCode
+
             $(chatInputSelector).on('blur', function () {
                 setTimeout(function () {
                     window.scrollTo(0, document.body.clientHeight);
@@ -174,6 +242,15 @@ var checkIfDomReady = function checkIfDomReady() {
 
         });
     }
+
+function getLastWord(sentence) {
+    var wordArray = sentence.split(" ")
+    var lastWord = wordArray[wordArray.length - 1]
+    wordArray.pop()
+    var previousSentence = wordArray.join(" ")
+    // console.log(lastWord)
+    return { lastWord, previousSentence }
+}
 
 
     function autoSuggestLookup(query, done) {

@@ -338,7 +338,7 @@ namespace IndianBank_ChatBOT.Controllers
         {
             return Ok(_isStaticFilesScrapingInProgress);
         }
-        
+
         #endregion
 
         #region Private Methods

@@ -18,7 +18,7 @@ namespace IndianBank_ChatBOT.Models
         [Required]
         public string PageName { get; set; }
 
-        [Column(TypeName="jsonb")]
+        [Column(TypeName = "jsonb")]
         public string PageConfig { get; set; }
 
         public string Description { get; set; }
@@ -28,6 +28,11 @@ namespace IndianBank_ChatBOT.Models
         public DateTime? LastScrapedOn { get; set; }
 
         public ScrapeStatus ScrapeStatus { get; set; }
+
+        public int? LanguageId { get; set; }
+
+        [ForeignKey(nameof(LanguageId))]
+        public virtual WebPageLanguage WebPageLanguage { get; set; }
 
         public string GetEnumDescription()
         {

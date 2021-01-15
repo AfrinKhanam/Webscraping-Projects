@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using IndianBank_ChatBOT.Migrations;
 using IndianBank_ChatBOT.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -38,6 +39,13 @@ namespace IndianBank_ChatBOT.Models
                 new LeadGenerationAction { Id = 4, Name = "ActedUpon", Description = "ActedUpon" }
             );
 
+
+            modelBuilder.Entity<WebPageLanguage>().SeedWithSequence(
+                modelBuilder, r => r.LanguageId,
+                new WebPageLanguage { LanguageId = 1, LanguageName = "English" },
+                new WebPageLanguage { LanguageId = 2, LanguageName = "Hindi" }
+            );
+
             modelBuilder.Entity<User>().SeedWithSequence(
                 modelBuilder, r => r.Id,
                 new User { Id = 1, Name = "Admin", Username = "admin", Password = HashingUtils.Hash("admin@123$%^", "1") }
@@ -53,7 +61,7 @@ namespace IndianBank_ChatBOT.Models
                  .HasDefaultValue(DateTime.Now);
 
             modelBuilder.Entity<StaticPage>()
-                .Property(s=>s.IsActive)
+                .Property(s => s.IsActive)
                 .HasDefaultValue(true);
 
             modelBuilder.Entity<WebScrapeConfig>()
@@ -70,6 +78,8 @@ namespace IndianBank_ChatBOT.Models
         public DbSet<LeadGenerationAction> LeadGenerationActions { get; set; }
         //public DbSet<WebPageScrapeRequest> WebPageScrapeRequests { get; set; }
         public DbSet<WebScrapeConfig> WebScrapeConfig { get; set; }
+
+        public DbSet<WebPageLanguage> WebPageLanguages { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
 

@@ -36,6 +36,9 @@
             <th>
                 Actions
             </th>
+            <th>
+                Language
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -71,18 +74,34 @@
                     <button onclick="updateSynonymDetails('@item.Id','@item.Word')" class="btn btn-sm btn-outline-primary toggle-modal-addNewSynonymWordModal">Add New Synonym Word</button>
                     <button onclick="setWordDeleteId('@item.Id')" class="btn btn-sm btn-outline-danger toggle-modal-deleteWordModal">Delete</button>
                 </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.WebPageLanguage.LanguageName)
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
 <script type="text/javascript">
+    var synonymDetails = {};
+    var wordDetails = {};
+    var languages = [];
+
     $(document).ready(function () {
+        getLanguages();
+    });
+
+    function intializePageLoadFunctions() {
         $('#toggle-modal-addNewSynonymModal').fireModal({
             title: 'Add New Word',
             body: ' <div class="form-group">' +
                 '<label for="exampleFormControlInput1">Word</label>' +
                 '<input type="text" class="form-control" id="word" placeholder="Add new word" autocomplete="off" />' +
+                '<br>' +
+                '<select class="custom-select">' +
+                getLanguageDropdownOptions() +
+                '</select>' +
                 '</div>',
             buttons: [
                 {
@@ -166,7 +185,14 @@
 
         $('.toggle-modal-resyncAllSynonyms').fireModal({
             title: 'Request for Sync Synonyms',
-            body: body + '<b>Are you sure you want to Sync all the Synonyms?</b>',
+            body: body +
+                '<div>' +
+                '<select class="custom-select">' +
+                getLanguageDropdownOptions() +
+                '</select>' +
+                '</div>' +
+                '<br>' +
+                '<b>Are you sure you want to Sync all the Synonyms?</b>',
             buttons: [
                 {
                     text: 'Sync Synonyms',
@@ -182,10 +208,26 @@
                 }
             ]
         });
-    });
+    }
 
-    var synonymDetails = {};
-    var wordDetails = {};
+    function getLanguages() {
+        var request = $.ajax({
+            url: "/Synonyms/GetAllLanguages",
+            type: "GET",
+            success: function (data) {
+                languages = data;
+                intializePageLoadFunctions();
+            }
+        });
+    }
+
+    function getLanguageDropdownOptions() {
+        var options = "<option selected>Select the Language</option>";
+        for (var i = 0; i < languages.length; i++) {
+            options += '<option class="lang" value="' + languages[i].languageId + '">' + languages[i].languageName + '</option>';
+        }
+        return options;
+    }
 
     function setWordDeleteId(id) {
         $('#wordDeleteId').val(id);
@@ -257,17 +299,25 @@
         $('#addNewSynonymWordModalLabel').text('Add New Synonym Word for - ' + word);
     }
 
-    function addNewWord() {
+    function addNewWord(e) {
         var word = document.getElementById('word').value.trim();
+        var lang = $("#" + e[0].id + " .custom-select").val().trim();
 
         if (word.trim().length == 0) {
             alert('Please enter the Word.');
             return;
         }
 
+        if (lang.trim().length == 0 || lang == "Select the Language") {
+            alert('Please select the Language');
+            return;
+        }
+
+
+        var langId = parseInt(lang);
         var request = $.ajax({
             url: "/Synonyms/AddNewWord",
-            data: { Id: 0, Word: word },
+            data: { Id: 0, Word: word, LanguageId: langId,  },
             type: "POST"
         });
 
@@ -290,10 +340,8 @@
     }
 
     function addNewSynonymWord(e) {
-
         var word = $("#" + e[0].id + " .SynonymWord").val().trim();
         var synonymWord = { Id: 0, name: word, SynonymId: synonymDetails.id };
-
         if (word.trim().length == 0) {
             alert('Please enter the Synonym Word.');
             return;
@@ -325,10 +373,17 @@
 
     function resyncSynonyms(current_modal) {
 
+        var lang = $("#" + current_modal[0].id + " .custom-select").val().trim();
+        if (lang.trim().length == 0 || lang == "Select the Language") {
+            alert('Please select the Language to Sync!');
+            return;
+        }
+
         $.destroyModal(current_modal);
 
+        var langId = parseInt(lang);
         var request = $.ajax({
-            url: "/Synonyms/ReSyncSynonyms",
+            url: "/Synonyms/ReSyncSynonyms?LanguageId=" + langId,
             type: "POST"
         });
 
