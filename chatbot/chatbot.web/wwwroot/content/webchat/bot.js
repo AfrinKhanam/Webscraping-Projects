@@ -4,6 +4,8 @@ window.current_Context = "undefined";
 window.botUserId = null;
 // declare default language once chatbot gets loaded. 1 for english, 2 for hindi
 window.selectedBotLanguage = 1;
+//google transliteration control
+window.googleTransliterationControl = null;
 
 function changeLanguage() {
     var languageDiv = $("#languages").length;
@@ -26,12 +28,18 @@ function changeLanguage() {
 }
 
 function onLanguageSelect(lang) {
-    window.selectedBotLanguage = lang
+    window.selectedBotLanguage = lang;
     console.log("selected language is : ", window.selectedBotLanguage);
     $('#languages').hide('fast');
 
-    if (window.googleTransliterationControl == null)
+    if (window.googleTransliterationControl == null || window.selectedBotLanguage == 2) {
+        languageWarning();
         googleTransliterate();
+        if ($('#languageWarning').length == 1) {
+            $('#webchat').hide();
+            $('#languageWarning').show('fast');
+        }
+    }
     if (window.selectedBotLanguage == 1)
         window.googleTransliterationControl.disableTransliteration();
 }
@@ -46,7 +54,6 @@ function getLanguages() {
     });
 }
 
-window.googleTransliterationControl = null;
 function onLoad() {
     var options = {
         sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
@@ -61,11 +68,8 @@ function onLoad() {
     // Enable transliteration in the textbox with id
     var input = $(chatInputSelector);
    
-    if (window.selectedBotLanguage == 2) {
-        console.log('enabled');
-        control.enableTransliteration();
-        control.makeTransliteratable([input[0]]);
-    }
+    control.enableTransliteration();
+    control.makeTransliteratable([input[0]]);
 }
 
 
@@ -76,7 +80,50 @@ googleTransliterate = function googleTransliterate() {
     onLoad();
 }
 
+languageWarning = function languageWarning() {
+    var warningDiv = $('#languageWarning').length;
+    if (warningDiv == 0) {
+        $('#webchat').css('opacity', '0.2').hide('fast');
+        $('body').append('<div id="languageWarning" style="color:black";>' +
+            '<strong style="color:red; font-size:15px; padding-bottom: 5px;" title="Disclaimer!" > अस्वीकरण !</strong> '+
+            '<p>पाठ आपकी भाषा में अनुवादित किया जाएगा और हो सक्ता है कि पुरी तराह सटीक ना हो। अधिक स्पष्टता के लिए, कृपया हमारे फोनबैंकिंग प्रतिनिधि से संपर्क करें या अपनी निकटतम शाखा पर जाएं।</p>'+
+            '<button onClick="closeWarning(2)" class="btn btn-primary" style="width:200px; margin-bottom:10px;" title="Confirm">पुष्टि करें</button>' +
+            '<br>'+
+            '<button onClick="closeWarning(1)" class="btn btn-danger" style="width:200px" title="Cancel">रद्द करें</button>' +
+            '</div >' 
+        );
+    }
+}
 
+getSelectedLanguage = function getSelectedLanguage() {
+    var isHindiSelected = $("#Hindi").prop('checked');
+    if (isHindiSelected) {
+        return 2;
+    }
+    return 1;
+}
+
+closeWarning = function closeWarning(lang) {
+    var warningDiv = $('#languageWarning').length;
+    window.selectedBotLanguage = lang;
+    $('#webchat').css('opacity', '1')
+    if (lang == 1) {
+        $("#English").prop('checked', true);
+        window.googleTransliterationControl.disableTransliteration();
+    }
+    if (!warningDiv == 0) {
+        $('#languageWarning').css('display', 'none');
+        $('#webchat').css('display', 'block');
+    }
+}
+//close language radio pop-up if 
+$(document).mouseup(function (e) {
+    var languagesPopup = $("#languages");
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!languagesPopup.is(e.target) && languagesPopup.has(e.target).length === 0) {
+        languagesPopup.hide('fast');
+    }
+});
 $(document).ready(function () {
     //loads languages
     window.languages = [];
@@ -117,8 +164,7 @@ $(document).ready(function () {
             initializeAutoSuggest();
             displayCarousel();
             setTimeout(function () {
-                $('#webchat div.main').append('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
-                //$('#webchat form.css-16qahhi').append('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
+                $('#webchat div.main div').prepend('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
             }, 500)
 
             onboardingCompleted = true;

@@ -549,7 +549,9 @@ input[type=text]::-ms-reveal {
     border: 0px;
     outline: 0px;
     background-color: transparent;
-    margin: 2px 0px 0px 8px
+    position: absolute;
+    right: 40px;
+    height: 40px;
 }
 
 #LanguageChange > span {
@@ -569,4 +571,18 @@ input[type=text]::-ms-reveal {
     box-shadow: 0px 0px 9px #888888;
     border-radius: 7px;
     color: black;
+}
+
+/*language warning*/
+#languageWarning {
+    color: black;
+    position: absolute;
+    width: 80%;
+    background: white;
+    margin: 10%;
+    text-align: center;
+    padding: 20px 5px;
+    box-shadow: 0 0 1.5em hsla(0,0%,0%,.35);
+    font-size: 13px;
+    border-radius: 10px;
 }
