@@ -10,6 +10,7 @@ using IndianBank_ChatBOT.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
@@ -92,7 +93,7 @@ namespace IndianBank_ChatBOT.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var staticPages = _dbContext.StaticPages.OrderByDescending(f => f.CreatedOn).ToList();
+            var staticPages = _dbContext.StaticPages.Include(l => l.WebPageLanguage).OrderByDescending(f => f.CreatedOn).ToList();
             StaticPageViewModel vm = new StaticPageViewModel
             {
                 StaticPages = staticPages,
@@ -141,7 +142,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult FileUpload(IFormFile file)
+        public IActionResult FileUpload([FromForm] IFormFile file, [FromQuery]int languageId)
         {
             if (ModelState.IsValid)
             {
@@ -179,7 +180,8 @@ namespace IndianBank_ChatBOT.Controllers
                         FileType = fileExtension,
                         ScrapeStatus = ScrapeStatus.YetToScrape,
                         ErrorMessage = string.Empty,
-                        IsActive = true
+                        IsActive = true,
+                        LanguageId = languageId
                     };
 
                     using (var target = new MemoryStream())

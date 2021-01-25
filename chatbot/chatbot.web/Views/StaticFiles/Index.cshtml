@@ -64,7 +64,6 @@
     }
 
     function uploadStaticFile() {
-        debugger;
         var lang = $(".custom-select").val().trim();
         var langId = parseInt(lang);
 
@@ -78,7 +77,7 @@
             var files = $('#file')[0].files[0];
             fd.append('file', files);
             $.ajax({
-                url: '/StaticFiles/FileUpload',
+                url: '/StaticFiles/FileUpload?languageID=' + langId,
                 type: 'post',
                 data: fd,
                 contentType: false,
