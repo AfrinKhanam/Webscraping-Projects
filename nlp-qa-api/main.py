@@ -15,6 +15,7 @@ import uvicorn
 from common.utils import get_error_details
 from search.qa_pipeline import QAPipeline
 from webscraping.web_scraping_pipeline import WebScrapingPipeline
+from webscraping.scrape_menu import ScrapeMenu
 
 config_file_path = './config.ini'
 config = ConfigParser()
@@ -27,18 +28,24 @@ https_proxy = config.get("proxies", "https")
 
 proxies = { "http": http_proxy, "https": https_proxy } if (http_proxy and https_proxy) else None
 
-qa_pipeline = QAPipeline(config)
+# qa_pipeline = QAPipeline(es_index,'./config_files/english_synonyms.txt')
 
 fetch_scraping_config_url = config.get("urls", "rescrape_all_pages_url")
 scraping_status_url = config.get("urls", "rescrape_status_url")
 es_host = config.get("elastic_search_credentials", "host")
 es_port = config.getint("elastic_search_credentials", "port")
 es_index = config.get("elastic_search_credentials", "index")
+hindi_es_index = config.get("elastic_search_credentials", "hindi_index")
+
 fetch_static_scraping_config_url = config.get("urls", "static_file_url")
 static_scraping_url = config.get("urls", "static_file_status_url")
 synonyms_url = config.get("urls", "synonyms_url")
 on_scraping_completed_url = config.get("urls", "on_scraping_completed_url")
 on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scraping_completed_url")
+
+
+qa_pipeline = QAPipeline(es_index,'./config_files/english_synonyms.txt')
+
 
 app = FastAPI()
 
@@ -81,8 +88,12 @@ def __scrape_page__(json_config):
     __scraping_in_progress = True
 
     try:
-        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, es_index, proxies)
-        
+        if json_config['languageId'] == 1:
+            index = es_index
+        else:
+            index = hindi_es_index
+        print(f'database is : {index}')
+        web_scraping_pipeline = WebScrapingPipeline(fetch_scraping_config_url, scraping_status_url, es_host, es_port, index, proxies)
         web_scraping_pipeline.scrape_page(json_config)
 
         print(f"Scraping completed")
@@ -176,18 +187,26 @@ async def scrape_page(request: Request, background_tasks: BackgroundTasks):
         raise HTTPException(status_code=500, detail=get_error_details())
 
 
-def __sync_synonyms__():
+def __sync_synonyms__(lang):
     try:
         global qa_pipeline
-        response = requests.get(url=synonyms_url)
+
+        if lang == 1:
+            filename = './config_files/english_synonyms.txt'
+            index = es_index
+        else:
+            filename = './config_files/hindi_synonyms.txt'
+            index = hindi_es_index
+
+        response = requests.get(url=f'{synonyms_url}?LanguageId={lang}')
 
         data = response.json()
 
         synonyms = "\n".join([re.sub(",", "=", synonym) for synonym in data])
 
-        with open("./config_files/synonyms.txt", "w+") as f:
+        with open(filename, "w+") as f:
             f.write(synonyms)
-        qa_pipeline = QAPipeline(config)
+        qa_pipeline = QAPipeline(index,filename)
 
         print("Added synonyms successfully..!!")
 
@@ -195,9 +214,9 @@ def __sync_synonyms__():
         print(f"Synonyms Syncing error: {get_error_details()}")
 
 @app.get('/resync_synonyms')
-def resync_synonyms(background_tasks: BackgroundTasks):
+def resync_synonyms(LanguageId: int,background_tasks: BackgroundTasks):
     try:
-        background_tasks.add_task(__sync_synonyms__)
+        background_tasks.add_task(__sync_synonyms__,lang=LanguageId)
         return {
                 "status": "success",
                 "detail": "Syncing Synonyms Successfully.."
