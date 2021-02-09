@@ -326,6 +326,7 @@ class WebScrapingPipeline:
             raise Exception(msg)
 
         html = response.content
+        
 
         #scrape ib menu
         if "pageConfig" in document:
