@@ -231,7 +231,7 @@ namespace IndianBank_ChatBOT.Controllers
             return BadRequest("Invalid input!");
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult UpdatePageConfigById([FromBody] PageConfigViewModel vm)
         {
