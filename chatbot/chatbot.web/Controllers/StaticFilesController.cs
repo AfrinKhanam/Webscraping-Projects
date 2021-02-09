@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IndianBank_ChatBOT.Models;
 using IndianBank_ChatBOT.Utils;
+using IndianBank_ChatBOT.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -142,7 +143,7 @@ namespace IndianBank_ChatBOT.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult FileUpload([FromForm] IFormFile file, [FromQuery]int languageId)
+        public IActionResult FileUpload([FromForm] IFormFile file, [FromQuery] int languageId)
         {
             if (ModelState.IsValid)
             {
@@ -209,7 +210,7 @@ namespace IndianBank_ChatBOT.Controllers
                             var appBaseUrl = _appSettings.ChatBotBackEndUIEndPoint;
 
                             var staticFile = _dbContext.StaticPages.FirstOrDefault(s => s.Id == staticPage.Id);
-                            var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id;
+                            var staticFileContentUrl = appBaseUrl + "/" + "StaticFiles" + "/" + nameof(GetStaticFileContent) + "?staticFileId=" + staticPage.Id + "&languageId=" + staticPage.LanguageId;
                             staticFile.PageUrl = staticFileContentUrl;
                             _dbContext.StaticPages.Update(staticFile);
                             _dbContext.SaveChanges();
@@ -231,23 +232,23 @@ namespace IndianBank_ChatBOT.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public IActionResult UpdatePageConfigById(int id, string pageConfig)
+        [HttpPost]
+        public IActionResult UpdatePageConfigById([FromBody] PageConfigViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                if (id != 0)
+                if (vm.Id != 0)
                 {
-                    var staticPage = _dbContext.StaticPages.FirstOrDefault(s => s.Id == id);
+                    var staticPage = _dbContext.StaticPages.FirstOrDefault(s => s.Id == vm.Id);
                     if (staticPage != null)
                     {
-                        staticPage.PageConfig = pageConfig;
+                        staticPage.PageConfig = vm.PageConfig;
                         _dbContext.StaticPages.Update(staticPage);
                         _dbContext.SaveChanges();
                         return Ok();
                     }
                 }
-                return NotFound($"Static Page with the id {id} not found!");
+                return NotFound($"Static Page with the id {vm.Id } not found!");
             }
             return BadRequest("Invalid Input");
         }

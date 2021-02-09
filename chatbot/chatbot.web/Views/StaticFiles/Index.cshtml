@@ -151,9 +151,15 @@
         obj[urlPath] = pageConfig;
         var stringifiedPageConfig = JSON.stringify(obj);
 
+        var vm = {};
+        vm.id = fileId;
+        vm.pageConfig = stringifiedPageConfig;
         var request = $.ajax({
-            url: "/StaticFiles/UpdatePageConfigById?id=" + fileId + "&pageConfig=" + stringifiedPageConfig,
-            type: "GET"
+            url: "/StaticFiles/UpdatePageConfigById",
+            type: "POST",
+            data: JSON.stringify(vm),
+            contentType: "application/json",
+            dataType: "json",
         });
 
         request.done(function (response) {
