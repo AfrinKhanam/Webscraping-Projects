@@ -109,12 +109,49 @@ namespace IndianBank_ChatBOT.Dialogs.Main
             }
         }
 
+        /// <summary>
+        /// Get the Language Id from ChannelData. 
+        /// 1 - For English
+        /// 2 - For Hindi
+        /// </summary>
+        /// <param name="yourJArray"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private static int ExtractLanguageFromChannelData(JObject yourJArray, string key)
+        {
+            foreach (KeyValuePair<string, JToken> keyValuePair in yourJArray)
+            {
+                if (key == keyValuePair.Key)
+                {
+                    if (keyValuePair.Value != null)
+                    {
+                        return Convert.ToInt32(keyValuePair.Value);
+                    }
+                }
+            }
+
+            return 1;
+
+        }
+
         private static async Task<bool> SearchKnowledgeBase(DialogContext dialogContext, IEnumerable<string> searchTerms,
             MenuViewModel menuItem, string qaEndPoint, IHttpClientFactory clientFactory)
         {
+
+            int langId = 1;
+
+            if (dialogContext.Context.Activity.ChannelData != null)
+            {
+                JObject responseobj = JObject.Parse(dialogContext.Context.Activity.ChannelData.ToString());
+                if (responseobj != null)
+                {
+                    langId = ExtractLanguageFromChannelData(responseobj, "selectedBotLanguage");
+                }
+            }
+
             foreach (var searchTerm in searchTerms)
             {
-                var kbResponse = await MainDialog.GetKnowledgeBaseResults(searchTerm, qaEndPoint, clientFactory);
+                var kbResponse = await MainDialog.GetKnowledgeBaseResults(searchTerm, qaEndPoint, langId, clientFactory);
 
                 var kbResult = JsonConvert.DeserializeObject<KnowledgeBaseResult>(kbResponse);
 
