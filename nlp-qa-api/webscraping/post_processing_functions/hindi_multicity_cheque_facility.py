@@ -1,4 +1,4 @@
-def hindi_neft(document):
+def hindi_multicity_cheque_facility(document):
     record = document['subtitle']['elements']
     contents = record[0]['text'].split("\n\n\n\n")
     print(contents)
