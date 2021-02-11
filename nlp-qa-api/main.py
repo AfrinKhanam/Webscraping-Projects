@@ -102,15 +102,46 @@ def __scrape_page__(json_config):
 
     __scraping_in_progress = False
 
+def __scrape_static_page__():
+    page_configs = __get_static_scraping_configuration__()
+    if page_configs != None:
+        return page_configs
+
+def __get_static_scraping_configuration__():
+    documents = []
+    path = ""
+
+    response = requests.get(url=fetch_static_scraping_config_url)
+
+    json_configurations = (response.json())
+    if json_configurations != None:
+        for url in json_configurations:
+            document = json_configurations[url]
+            document['url'] = url
+            document['filename'] = path + \
+                url.split('/')[-2] + '/index.html'
+            documents.append(document)
+        return documents
+    return None
+
 def __scrape_all_static_pages__():
     global __scraping_in_progress
 
     __scraping_in_progress = True
 
     try:
-        web_scraping_pipeline = WebScrapingPipeline(fetch_static_scraping_config_url, static_scraping_url, es_host, es_port, es_index, proxies)
         
-        web_scraping_pipeline.scrape_static_page()
+        page_configs = __scrape_static_page__()
+
+        for page_config in page_configs:
+            if int(page_config['url'].split('&')[1].split('=')[1]) == 1:
+                index = es_index
+            else:
+                index = hindi_es_index
+
+            web_scraping_pipeline = WebScrapingPipeline(fetch_static_scraping_config_url, static_scraping_url, es_host, es_port, index, proxies)
+
+            web_scraping_pipeline.__rescrape_static_page__(page_config)
 
         requests.post(on_static_file_scraping_completed_url)
 

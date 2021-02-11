@@ -39,12 +39,6 @@ class WebScrapingPipeline:
         json_config = self.__parse_page_config__(json_config)
         self.__rescrape_page__(json_config)
 
-    def scrape_static_page(self):
-
-        page_configs = self.__get_static_scraping_configuration__()
-        if page_configs != None:
-            self.__rescrape_all_static_pages__(page_configs)
-
     def __fetch_page_from_es__(self,field,value):
         es = Elasticsearch(index=self.__es_index)
         es_result = es.search(
@@ -152,70 +146,69 @@ class WebScrapingPipeline:
             return documents
         return None
 
-    def __rescrape_all_static_pages__(self, page_configs):
-        documents = page_configs
-        for document in documents:
-            static_page_id = document['url'].split("=")[1]
-            doc_url = document['url']
-            print(f"Scraping {doc_url}...")
+    def __rescrape_static_page__(self, document):
 
-            error_message = None
-            value = 1
+        static_page_id = document['url'].split("=")[1].split('&')[0]
+        doc_url = document['url']
+        print(f"Scraping {doc_url}...")
 
-            while value <= 5:
-                static_backup_docs = []
-                try:
+        error_message = None
+        value = 1
 
-                    document = self.__generate_json_structure__(document)
+        while value <= 5:
+            static_backup_docs = []
+            try:
 
-                    document = self.__stemmer.w_stem(document)
+                document = self.__generate_json_structure__(document)
 
-                    document = self.__pre_processor.process(document)
+                document = self.__stemmer.w_stem(document)
 
-                    document = self.__elastic.generate_individual_document(document)
-                    #delete all the records by url
-                    static_backup_docs = self.__search_and_delete_page_from_es_index__(field='url',value=document['url'])
-                    time.sleep(db_sleep_time)
-                    self.__elastic.index_document(document)
+                document = self.__pre_processor.process(document)
 
-                    static_file_status = {"id": static_page_id,
-                                          "createdOn": datetime.now(), "scrapeStatus": 1}
-
-                    requests.put(self.__scraping_status_url, data=static_file_status)
-
-                    print(f"Success: {doc_url}")
-
-                    time.sleep(5)
-                    break
-                    #----------------------------------------------------------------#
-
-                except (requests.exceptions.ConnectionError, ConnectionResetError):
-                    value += 1
-                    time.sleep(5)
-                    continue
-                except ElasticsearchException as err:
-                    if static_backup_docs != None:
-                        documents = {}
-                        documents['document_list'] = static_backup_docs
-                        self.__elastic.index_document(documents)
-                    error_message = f"Scraping Error: {get_error_details()}"
-                    break
-                except Exception:
-                    error_message = f"Scraping Error: {get_error_details()}"
-                    print(err)
-
-                    break
-
-            if value > 5:
-                error_message = f"Scraping Error: Page not reachable. Max retries reached."
-
-            if error_message is not None:
-                print(f"{error_message}: {doc_url}")
+                document = self.__elastic.generate_individual_document(document)
+                #delete all the records by url
+                static_backup_docs = self.__search_and_delete_page_from_es_index__(field='url',value=document['url'])
+                time.sleep(db_sleep_time)
+                self.__elastic.index_document(document)
 
                 static_file_status = {"id": static_page_id,
-                                      "createdOn": datetime.now(), "scrapeStatus": 2}
-                requests.put(self.__scraping_status_url,
-                             data=static_file_status)
+                                        "createdOn": datetime.now(), "scrapeStatus": 1}
+
+                requests.put(self.__scraping_status_url, data=static_file_status)
+
+                print(f"Success: {doc_url}")
+
+                time.sleep(5)
+                break
+                #----------------------------------------------------------------#
+
+            except (requests.exceptions.ConnectionError, ConnectionResetError):
+                value += 1
+                time.sleep(5)
+                continue
+            except ElasticsearchException as err:
+                if static_backup_docs != None:
+                    documents = {}
+                    documents['document_list'] = static_backup_docs
+                    self.__elastic.index_document(documents)
+                error_message = f"Scraping Error: {get_error_details()}"
+                break
+            except Exception:
+                error_message = f"Scraping Error: {get_error_details()}"
+                print(err)
+
+                break
+
+        if value > 5:
+            error_message = f"Scraping Error: Page not reachable. Max retries reached."
+
+        if error_message is not None:
+            print(f"{error_message}: {doc_url}")
+
+            static_file_status = {"id": static_page_id,
+                                    "createdOn": datetime.now(), "scrapeStatus": 2}
+            requests.put(self.__scraping_status_url,
+                            data=static_file_status)
 
     def __rescrape_all_pages__(self):
         documents = self.__get_scraping_configuration__()
