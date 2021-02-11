@@ -1,6 +1,6 @@
-def hindi_neft(document):
+def hindi_premium_credit_card(document):
     record = document['subtitle']['elements']
-    contents = record[0]['text'].split("\n\n\n\n")
+    contents = record[0]['text'].split("\n\n")
     print(contents)
     contents = [e for e in contents if e != ""]
 
@@ -19,5 +19,5 @@ def hindi_neft(document):
             length = len(record[0]['content'][0]['table'])
 
             record[0]['content'][0]['table'][length-1]["value"] = [ele]
-    del record[0]['content'][0]['table'][3]
+
     return document
