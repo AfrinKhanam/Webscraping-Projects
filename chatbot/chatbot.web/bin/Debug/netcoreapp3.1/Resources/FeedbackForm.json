@@ -1,0 +1,81 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "Medium",
+              "weight": "Bolder",
+              "color": "Good",
+              "text": "Feedback Form"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Fill up the feedback form",
+              "isSubtle": true,
+              "wrap": true
+            },
+            {
+              "type": "TextBlock",
+              "text": "How was the over all experience?",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "UserExperience",
+              "placeholder": "Share your experience with us here"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Did you get what you are looking for?",
+              "wrap": true
+            },
+            {
+              "type": "Input.ChoiceSet",
+              "id": "SteakTemp",
+              "style": "expanded",
+              "choices": [
+                {
+                  "title": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "title": "No",
+                  "value": "no"
+                }
+              ]
+            },
+                {
+                  "type": "TextBlock",
+                  "text": "Comments"
+                },
+                {
+                "type": "Input.Text",
+                "id": "comments",
+                "placeholder": "Enter your comments",
+                "isMultiline": true
+               }
+              ],
+              "width": 2
+            }
+          ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Submit",
+      "data": {
+        "action": "feedback"
+      }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

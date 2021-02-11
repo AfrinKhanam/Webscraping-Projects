@@ -1,0 +1,145 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "Medium",
+              "weight": "Bolder",
+              "color": "Dark",
+              "text": "Avail loan in easy steps"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Name Of The Applicant*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "name",
+              "placeholder": "Enter the name"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Mobile Number Of The Applicant",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "mobile",
+              "placeholder": "Enter the mobile number",
+              "style": "Tel"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Email Of The Applicant"
+            },
+            {
+              "type": "Input.Text",
+              "id": "email",
+              "placeholder": "Enter the email ID",
+              "style": "Email"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Area Where Applicant Stays*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "area",
+              "placeholder": "Enter the area where applicant stays"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Address",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "address",
+              "placeholder": "Enter the address"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Type Of Loan",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "loanType",
+              "placeholder": "Enter the type of loan"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "LOAN AMOUNT (in RS)*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "loanAmount",
+              "placeholder": "Enter the loan amount"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "State*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "state",
+              "placeholder": "Enter the state"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "City*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "city",
+              "placeholder": "Enter the centre"
+            },
+            {
+              "type": "TextBlock",
+              "color": "Dark",
+              "text": "Branch*",
+              "wrap": true
+            },
+            {
+              "type": "Input.Text",
+              "id": "branch",
+              "placeholder": "Enter the branch"
+            }
+          ],
+          "width": 2
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Submit",
+      "data": {
+        "action": "VehicleLoanSubmit"
+      }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}
