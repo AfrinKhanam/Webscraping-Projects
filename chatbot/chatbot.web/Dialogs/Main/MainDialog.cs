@@ -58,9 +58,45 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// <returns></returns>
         protected override async Task OnStartAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await dc.Context.SendActivityAsync($"Hi! My name is ADYA \U0001F603. Welcome to Indian Bank. I am your virtual assistant, here to assist you with all your banking queries 24x7.");
+            //await dc.Context.SendActivityAsync($"Hi! My name is ADYA \U0001F603. Welcome to Indian Bank. I am your virtual assistant, here to assist you with all your banking queries 24x7.");
+
+            IMessageActivity message = Activity.CreateMessageActivity();
+
+            message.Text = $"Hi! My name is ADYA \U0001F603. Welcome to Indian Bank. I am your virtual assistant, here to assist you with all your banking queries 24x7.";
+            message.TextFormat = "plain";
+            message.ChannelData = new Dictionary<string, object>
+            {
+                ["Language"] = "English",
+                ["Data"] = new Dictionary<string, string> { { "AgentSkill", "ChatBot" } }
+            };
+            await dc.Context.SendActivityAsync(message, cancellationToken);
 
             await dc.BeginDialogAsync(nameof(OnBoardingFormDialog));
+        }
+
+
+        /// <summary>
+        /// Get the Language Id from ChannelData. 
+        /// 1 - For English
+        /// 2 - For Hindi
+        /// </summary>
+        /// <param name="yourJArray"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private int ExtractLanguageFromChannelData(JObject yourJArray, string key)
+        {
+            foreach (KeyValuePair<string, JToken> keyValuePair in yourJArray)
+            {
+                if (key == keyValuePair.Key)
+                {
+                    if (keyValuePair.Value != null)
+                    {
+                        return Convert.ToInt32(keyValuePair.Value);
+                    }
+                }
+            }
+
+            return 1;
         }
 
         /// <summary>
@@ -78,6 +114,17 @@ namespace IndianBank_ChatBOT.Dialogs.Main
         /// </exception>
         protected override async Task RouteAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
         {
+            int langId = 1;
+
+            if (dc.Context.Activity.ChannelData != null)
+            {
+                JObject responseobj = JObject.Parse(dc.Context.Activity.ChannelData.ToString());
+                if (responseobj != null)
+                {
+                    langId = ExtractLanguageFromChannelData(responseobj, "selectedBotLanguage");
+                }
+            }
+
             string utterance = dc.Context.Activity.Text;
             int utterance_word_count = utterance.Split(" ").Length;
 
@@ -166,28 +213,29 @@ namespace IndianBank_ChatBOT.Dialogs.Main
                     }
                     else
                     {
-                        await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
+                        await SearchKB(dc, appSettings.QAEndPoint, langId, clientFactory);
                     }
                 }
                 else
                 {
-                    await SearchKB(dc, appSettings.QAEndPoint, clientFactory);
+                    await SearchKB(dc, appSettings.QAEndPoint, langId, clientFactory);
                 }
             }
         }
 
-        public static async Task SearchKB(DialogContext dc, string qaEndPoint, IHttpClientFactory clientFactory)
+        public static async Task SearchKB(DialogContext dc, string qaEndPoint, int langId, IHttpClientFactory clientFactory)
         {
             var query = dc.Context.Activity.Text;
 
-            var data = await GetKnowledgeBaseResults(query, qaEndPoint, clientFactory);
+            var data = await GetKnowledgeBaseResults(query, qaEndPoint, langId, clientFactory);
 
             await DisplayBackendResult(dc, data);
         }
 
-        public static async Task<string> GetKnowledgeBaseResults(string query, string qaEndPoint, IHttpClientFactory clientFactory)
+        public static async Task<string> GetKnowledgeBaseResults(string query, string qaEndPoint, int langId, IHttpClientFactory clientFactory)
         {
-            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{qaEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}"))
+
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{qaEndPoint}?query={System.Net.WebUtility.UrlEncode(query)}&langId={langId}"))
             {
                 using (var client = clientFactory.CreateClient())
                 {

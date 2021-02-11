@@ -1,4 +1,4 @@
-def hindi_neft(document):
+def hindi_ind_jet_remit_rtgs(document):
     record = document['subtitle']['elements']
     contents = record[0]['text'].split("\n\n\n\n")
     print(contents)

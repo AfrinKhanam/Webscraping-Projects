@@ -41,15 +41,19 @@ class PostProcessing():
             "https://indianbank.in/HI/departments/ind-mobile-banking/": post_processing_functions.hindi_ind_mobile_banking,
             "https://indianbank.in/HI/departments/ind-netbanking/":post_processing_functions.hindi_ind_netbanking,
             "https://indianbank.in/HI/departments/xpress-money-inward-remittance-money-transfer-service-scheme/":post_processing_functions.hindi_xpress_money,
+            "https://www.indianbank.in/HI/departments/complaints-officers-list/":post_processing_functions.hindi_complaints_officers_list,
+            "https://www.indianbank.in/HI/departments/disclaimer/":post_processing_functions.hindi_disclaimer,
+            "https://www.indianbank.in/HI/departments/e-confirmation-of-bank-guarantee/":post_processing_functions.hindi_e_confirmtion_of_bank_guarantee,
+            "https://www.indianbank.in/HI/departments/nodal-officers-banking-ombudsman-scheme-2016/":post_processing_functions.hindi_nodal_officers_of_banking_ombudsman,
+            "https://www.indianbank.in/HI/departments/indian-bank-mutual-fund/":post_processing_functions.hindi_indian_bank_mutual_fund,
+            "https://www.indianbank.in/HI/departments/vision-and-mission/":post_processing_functions.hindi_vision_mission,
+            "https://www.indianbank.in/HI/departments/general-managers/":post_processing_functions.general_managers,
+            "https://www.indianbank.in/HI/departments/nodal-officers/":post_processing_functions.hindi_nodal_officers,
+
             "https://indianbank.in/HI/departments/n-e-f-t/":post_processing_functions.hindi_neft,
-            "https://www.indianbank.in/HI/departments/complaints-officers-list/#!":post_processing_functions.hindi_complaints_officers_list,
-            "https://www.indianbank.in/HI/departments/disclaimer/#!":post_processing_functions.hindi_disclaimer,
-            "https://www.indianbank.in/HI/departments/e-confirmation-of-bank-guarantee/#!":post_processing_functions.hindi_e_confirmtion_of_bank_guarantee,
-            "https://www.indianbank.in/HI/departments/nodal-officers-banking-ombudsman-scheme-2016/#!":post_processing_functions.hindi_nodal_officers_of_banking_ombudsman,
-            "file:///home/ashutosh/Downloads/K-BOT/nlp-qa-api/webscraping/mutual_fund.html#!":post_processing_functions.hindi_indian_bank_mutual_fund,
-            "file:///home/ashutosh/Downloads/K-BOT/nlp-qa-api/webscraping/vision_mission.html#!":post_processing_functions.hindi_vision_mission,
-            "file:///home/ashutosh/Downloads/K-BOT/nlp-qa-api/webscraping/general_managers.html#!":post_processing_functions.general_managers,
-            "file:///home/ashutosh/Downloads/K-BOT/nlp-qa-api/webscraping/nodal_officers.html#!":post_processing_functions.hindi_nodal_officers,
+            "https://www.indianbank.in/HI/departments/credit-cards/":post_processing_functions.hindi_premium_credit_card,
+            "https://www.indianbank.in/HI/departments/ind-jet-remit-rtgs/":post_processing_functions.hindi_ind_jet_remit_rtgs,
+            "https://www.indianbank.in/HI/departments/multicity-cheque-facility/":post_processing_functions.hindi_multicity_cheque_facility,
 
 
 

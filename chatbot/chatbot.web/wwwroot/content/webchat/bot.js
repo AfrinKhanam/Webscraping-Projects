@@ -67,7 +67,7 @@ function onLoad() {
     window.googleTransliterationControl = control;
     // Enable transliteration in the textbox with id
     var input = $(chatInputSelector);
-   
+
     control.enableTransliteration();
     control.makeTransliteratable([input[0]]);
 }
@@ -85,12 +85,12 @@ languageWarning = function languageWarning() {
     if (warningDiv == 0) {
         $('#webchat').css('opacity', '0.2').hide('fast');
         $('body').append('<div id="languageWarning" style="color:black";>' +
-            '<strong style="color:red; font-size:15px; padding-bottom: 5px;" title="Disclaimer!" > अस्वीकरण !</strong> '+
-            '<p>पाठ आपकी भाषा में अनुवादित किया जाएगा और हो सक्ता है कि पुरी तराह सटीक ना हो। अधिक स्पष्टता के लिए, कृपया हमारे फोनबैंकिंग प्रतिनिधि से संपर्क करें या अपनी निकटतम शाखा पर जाएं।</p>'+
+            '<strong style="color:red; font-size:15px; padding-bottom: 5px;" title="Disclaimer!" > अस्वीकरण !</strong> ' +
+            '<p>पाठ आपकी भाषा में अनुवादित किया जाएगा और हो सक्ता है कि पुरी तराह सटीक ना हो। अधिक स्पष्टता के लिए, कृपया हमारे फोनबैंकिंग प्रतिनिधि से संपर्क करें या अपनी निकटतम शाखा पर जाएं।</p>' +
             '<button onClick="closeWarning(2)" class="btn btn-primary" style="width:200px; margin-bottom:10px;" title="Confirm">पुष्टि करें</button>' +
             '<br>'+
             '<button onClick="closeWarning(1)" class="btn btn-danger" style="width:200px" title="Cancel">रद्द करें</button>' +
-            '</div >' 
+            '</div >'
         );
     }
 }
@@ -165,6 +165,14 @@ $(document).ready(function () {
             displayCarousel();
             setTimeout(function () {
                 $('#webchat div.main div').prepend('<button id="LanguageChange" onClick="changeLanguage()"><span>अ/A</span></button>');
+
+                var btn = $($($('#webchat div.main')[0]).find('button')[1]).clone().attr('id', 'sendMessageIcon');
+                $($($('#webchat div.main')[0]).find('button')[1]).remove();
+                $($('#webchat div.main')[0]).append(btn);
+
+                $('#sendMessageIcon').click(function () {
+                    sendUserInputMessage($(chatInputSelector).val());
+                })
             }, 500)
 
             onboardingCompleted = true;
@@ -214,9 +222,9 @@ sendUserInputMessage = function sendUserInputMessage(msg_text) {
     window.directLine.postActivity({
         text: msg_text,
         textFormat: "plain",
-        channelData: [{
-            "context": window.current_Context
-        }],
+        channelData: {
+            "selectedBotLanguage": window.selectedBotLanguage
+        },
         type: "message",
         channelId: "webchat",
         from: {
@@ -310,6 +318,11 @@ function initializeAutoSuggest() {
         //}
         //// after each key press
         //window.previousWord = event.keyCode
+
+        if (event['keyCode'] == 13) {
+            event.preventDefault();
+            sendUserInputMessage($(chatInputSelector).val());
+        }
 
         $(chatInputSelector).on('blur', function () {
             setTimeout(function () {
