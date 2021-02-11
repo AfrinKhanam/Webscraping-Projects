@@ -45,15 +45,20 @@ on_static_file_scraping_completed_url = config.get("urls", "on_static_file_scrap
 
 
 qa_pipeline = QAPipeline(es_index,'./config_files/english_synonyms.txt')
-
+hindi_qa_pipeline = QAPipeline(hindi_es_index,'./config_files/hindi_synonyms.txt')
 
 app = FastAPI()
 
 @app.get("/qa")
-def qa(query: str, context: Optional[str] = ''):
+def qa(query: str, langId: int, context: Optional[str] = ''):
 
     try:
-        return qa_pipeline.search(query, context)
+        if langId == 1:
+            return qa_pipeline.search(query, context)
+        else:
+            return hindi_qa_pipeline.search(query, context)
+            
+
     except Exception:
         raise HTTPException(status_code=500, detail=get_error_details())
 
@@ -221,13 +226,7 @@ async def scrape_page(request: Request, background_tasks: BackgroundTasks):
 def __sync_synonyms__(lang):
     try:
         global qa_pipeline
-
-        if lang == 1:
-            filename = './config_files/english_synonyms.txt'
-            index = es_index
-        else:
-            filename = './config_files/hindi_synonyms.txt'
-            index = hindi_es_index
+        global hindi_qa_pipeline
 
         response = requests.get(url=f'{synonyms_url}?LanguageId={lang}')
 
@@ -235,9 +234,17 @@ def __sync_synonyms__(lang):
 
         synonyms = "\n".join([re.sub(",", "=", synonym) for synonym in data])
 
-        with open(filename, "w+") as f:
-            f.write(synonyms)
-        qa_pipeline = QAPipeline(index,filename)
+        if lang == 1:
+            filename = './config_files/english_synonyms.txt'
+            with open(filename, "w+") as f:
+                f.write(synonyms)
+            qa_pipeline = QAPipeline(es_index,filename)
+
+        else:
+            filename = './config_files/hindi_synonyms.txt'
+            with open(filename, "w+") as f:
+                f.write(synonyms)
+            hindi_qa_pipeline = QAPipeline(hindi_es_index,filename)
 
         print("Added synonyms successfully..!!")
 
